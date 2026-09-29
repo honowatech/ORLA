@@ -152,10 +152,4 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
         });
 });
 
-Route::get('/teston', function(){
-   $user = App\Models\SuperAdmin\User::find(1);
-   $user->password = Illuminate\Support\Facades\Hash::make('12345678');
-   $user->save();
-});
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
