@@ -69,7 +69,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                         Route::resource('zone', 'App\Http\Controllers\Multi\ZoneController');
                         Route::post('/quartierLie', [App\Http\Controllers\Multi\ZoneController::class, 'quartierLie'])->name('quartierLie');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('details_zone', 'App\Http\Controllers\Multi\Details_zoneController');
+                        Route::resource('details_zone', 'App\Http\Controllers\Multi\Details_zoneController')->names('multi.details_zone');
                         Route::resource('informations_personnels', 'App\Http\Controllers\Multi\Informations_personnelsController');
                 });
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
                         Route::post('/compteLie', [App\Http\Controllers\Admin\UsersController::class, 'compteLie'])->name('compteLie');
-                        Route::resource('password', 'App\Http\Controllers\Admin\PasswordController');
+                        Route::resource('password', 'App\Http\Controllers\Admin\PasswordController')->names(['update' => 'admin.password.update']);
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('ville', 'App\Http\Controllers\Admin\VilleController');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,8 +136,6 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('Clientusers', 'App\Http\Controllers\Client\UsersController');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('Clientclients', 'App\Http\Controllers\Client\ClientsController');
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('Clientcommandes', 'App\Http\Controllers\Client\CommandesController');
                         Route::post('/boutiqueLie', [App\Http\Controllers\Client\CommandesController::class, 'boutiqueLie'])->name('ClientboutiqueLie');
                         Route::post('/commandeclients', [App\Http\Controllers\Client\CommandesController::class, 'commandeClient'])->name('ClientcommandeClient');
@@ -152,12 +150,6 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         });
-});
-
-Route::get('/teston', function(){
-   $user = App\Models\SuperAdmin\User::find(1);
-   $user->password = Illuminate\Support\Facades\Hash::make('12345678');
-   $user->save();
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
