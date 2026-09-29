@@ -219,7 +219,12 @@ class ClientsController extends Controller
 
             return redirect()->route('home.client');
         }
-    $client = Clients::findOrFail($id);
+    // Un coursier ne voit que les clients de ses propres commandes.
+    $id_coursier = Auth()->user()->id_coursier;
+    abort_if($id_coursier === null, 403);
+    $client = Clients::whereHas('commandes', function ($query) use ($id_coursier) {
+        $query->where('id_coursier', $id_coursier);
+    })->findOrFail($id);
     $quartiers = Quartier::get();
     return view('coursier.pages.clients.info',compact('client','quartiers'));
   }
@@ -336,7 +341,7 @@ class ClientsController extends Controller
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
-      $message = "<b class='text-success'>".$client->noms.' '.$client->prenoms." Activé(e) avec Succès.</b>";
+      $message = "<b class='text-success'>".e($client->noms).' '.e($client->prenoms)." Activé(e) avec Succès.</b>";
     }else{
         $client->statut = 0;
         if($client->id_utilisateur!=null){
@@ -344,7 +349,7 @@ class ClientsController extends Controller
             $utilisateur->statut = 0;
             $utilisateur->save();
         }
-        $message = "<b class='text-success'>".$client->noms.' '.$client->prenoms." Desactivé(e) avec Succès.</b>";
+        $message = "<b class='text-success'>".e($client->noms).' '.e($client->prenoms)." Desactivé(e) avec Succès.</b>";
     }
     $client->save();
     session()->flash('message',$message);

@@ -118,8 +118,10 @@ class CommandesController extends Controller
 
         }else if($type == strtoupper('client')){
         }
-      $id_client = $request->input('id_client');
-      $client = $id_client != '0' ? Clients::findOrFail($id_client) : null;
+      // Un client ne voit que ses propres boutiques.
+      $id_client = Auth()->user()->id_client;
+      abort_if($id_client === null, 403);
+      $client = Clients::findOrFail($id_client);
     if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
       $quartier = new Quartier;
       $quartier->libelle = 'Speedex';
@@ -233,23 +235,28 @@ class CommandesController extends Controller
 
         }else if($type == strtoupper('client')){
         }
-    $id_depart = $request->input('id_depart');
-    $id_arrivee = $request->input('id_arrivee');
+    return $this->tarifLivraison($request->input('id_depart'), $request->input('id_arrivee'));
+  }
+
+  /**
+   * Frais de livraison entre deux quartiers, selon leurs zones.
+   * Renvoie null si aucun tarif n'est défini entre ces zones.
+   */
+  private function tarifLivraison($id_depart, $id_arrivee)
+  {
     if($id_depart == null || $id_arrivee == null || $id_depart == $id_arrivee){
       return 1000;
     }
     $quartiers_depart = Quartier::findOrFail($id_depart);
     $quartiers_arrivee = Quartier::findOrFail($id_arrivee);
     if($quartiers_depart->zone == $quartiers_arrivee->zone || $quartiers_depart->zone == null || $quartiers_arrivee->zone == null){
-      $montant_livraison = 1000;
-    }else{
-    $montant_livraison = Montant_livraison::whereIn('id_zone_colis',[$quartiers_depart->zone->id,$quartiers_arrivee->zone->id])
+      return 1000;
+    }
+    return Montant_livraison::whereIn('id_zone_colis',[$quartiers_depart->zone->id,$quartiers_arrivee->zone->id])
                          ->whereIn('id_zone_livraison',[$quartiers_depart->zone->id,$quartiers_arrivee->zone->id])
                          ->limit(1)
                          ->get('montant')
                          ->value('montant');
-    }
-    return $montant_livraison;
   }
 
   /**
@@ -354,7 +361,9 @@ class CommandesController extends Controller
     $type_commande = $request->input('type_commande');
     session()->flash('type_commande',$type_commande);
     $telephone = $request->input('telephone');
-    $id_client = $request->input('id_client');
+    // La commande est toujours rattachée au client connecté.
+    $id_client = Auth()->user()->id_client;
+    abort_if($id_client === null, 403);
     $id_client2 = $request->input('id_client2');
     $entreprise = $request->input('entreprise');
     $nom_client = $request->input('nom_client');
@@ -412,7 +421,9 @@ class CommandesController extends Controller
       session()->flash('entreprise',$entreprise);
       $produits = Produits::whereIn('id',$table_produit)->get();
 // on déclare le nom et le numéro du client choisit depuis la bd
-      $client = Clients::findOrFail($id_client2);
+      $client = Clients::findOrFail($id_client);
+      // La boutique doit appartenir au client connecté.
+      Boutiques::where('id_client', $id_client)->findOrFail($id_boutique);
       $nom_client = $client->noms.' '.$client->Prenoms;
       $telephone = $client->telephone;
       $id_client = $client->id;
@@ -471,6 +482,13 @@ class CommandesController extends Controller
       }
         $lieu_livraison = $quartier_livraison->libelle;
         $id_quartier_livraison = $quartier_livraison->id;
+    }
+// les frais de livraison sont recalculés côté serveur, jamais repris du formulaire
+    $montant_livraison = $this->tarifLivraison($id_quartier_colis, $id_quartier_livraison);
+    if ($montant_livraison === null) {
+      throw \Illuminate\Validation\ValidationException::withMessages([
+        'montant_livraison' => "Aucun tarif de livraison n'est défini entre ces deux zones.",
+      ]);
     }
 //ici on enregistre la commande avec les infos communs (indispensables à l'enregistrement)
     $commande->id_client = $id_client;
@@ -559,7 +577,7 @@ class CommandesController extends Controller
 
         }else if($type == strtoupper('client')){
         }
-    $commande = Commandes::findOrFail($id);
+    $commande = $this->commandeDuClient($id);
     $contenu = [
       'attente' =>'primary/clock/En attente',
       'attribue' =>'info/user-check/Attribuée',
@@ -598,7 +616,7 @@ class CommandesController extends Controller
 
         }else if($type == strtoupper('client')){
         }
-    $commande = Commandes::findOrFail($id);
+    $commande = $this->commandeDuClient($id);
     $modes_de_paiement=['momo','collecte','livraison',];
     return view('client.pages.commandes.edit',compact('modes_de_paiement','commande'));
   }
@@ -644,12 +662,11 @@ class CommandesController extends Controller
       ]);
 
 //ici on passe à la modification de la commande rien de plus simple   
-    $commande = Commandes::findOrFail($id);
+    $commande = $this->commandeDuClient($id);
     $commande->id_saver = Auth::user()->id;
     $commande->date_commande = now();
     $commande->adresse_colis = $adresse_colis;
     $commande->adresse_livraison = $adresse_livraison;
-    $commande->montant_livraison = $montant_livraison;
     $commande->date_livraison = $date_livraison;
     // $commande->mode_de_paiement = $mode_de_paiement;
     $commande ->save();
@@ -686,7 +703,7 @@ class CommandesController extends Controller
     $statut = $request->input('statut');
     $id_coursier = $request->input('id_coursier');
 // on cherche la commande concernée
-    $commande = Commandes::findOrFail($id);
+    $commande = $this->commandeDuClient($id);
     $message = "<b class='text-danger text-center'>Echec ! </br> Ce statut n'est pas correct.</b>";
 // ici on vérifie si le statut existe et est bel et bien une chaine de caractère
     session()->flash('message',$message);
@@ -694,6 +711,11 @@ class CommandesController extends Controller
         'statut' => 'bail|required|alpha',
       ]);
     session()->forget('message');
+    if ($statut != 'annulee' || $id_coursier != null) {
+      $message = "<b class='text-danger text-center'>Echec ! </br> Cette opération est impossible.</b>";
+      session()->flash('message',$message);
+      return redirect()->back();
+    }
 // ici on vérifie si le coursier existe et est bel et bien un nombre positif supérieur à 0
     if ( $id_coursier != null ) {
 // on vérifie si la commande qui veut être attribuée est bel et bien en attente. si oui on insère l'id du coursier sinon on retourne un message d'erreur
