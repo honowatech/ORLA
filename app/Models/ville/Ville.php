@@ -23,7 +23,7 @@ class Ville extends Model
 
     public function vehicules()
     {
-        return $this->hasMany('App\Models\Vehicules', 'id_ville');
+        return $this->hasMany('App\Models\Vehicule', 'id_ville');
     }
     
 }

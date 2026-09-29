@@ -137,12 +137,12 @@ class Informations_personnelsController extends Controller
     session()->flash('infos_perso','1');
     $villes = Ville::orderBy('updated_at','desc')->get();
     if($table_info[1]==0){
-      $agent = Agents::findOrFail($table_info[0]);
-      return view('multi.pages.agents.edit',compact('agent'));
+      session()->flash('message', "L'authentification des agents n'est pas encore disponible.");
+      return redirect()->back();
     }
     if($table_info[1]==1){
-      $client = Clients::findOrFail($table_info[0]);
-      return view('multi.pages.clients.edit',compact('client','villes'));
+      session()->flash('message', "L'authentification des clients n'est pas encore disponible.");
+      return redirect()->back();
     }
     if($table_info[1]==2){
       $coursier = coursiers::findOrFail($table_info[0]);
