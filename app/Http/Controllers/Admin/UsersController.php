@@ -68,7 +68,9 @@ class UsersController extends Controller
 
             return redirect()->route('home.client');
         }
-    $typesUser = TypeUtilisateur::get();
+    $typesUser = TypeUtilisateur::get()->reject(function ($typeUser) {
+        return $this->estTypeSuperAdmin($typeUser->id) && ! $this->estTypeSuperAdmin(Auth()->user()->id_type_utilisateur);
+    });
     return view('admin.pages.utilisateurs.create',compact('typesUser'));
   }
 
@@ -141,9 +143,10 @@ class UsersController extends Controller
         'noms' => 'bail|required|max:255',
         'email' => 'bail|required|unique:users|max:255',
         'password' => 'bail|required|min:8',
-        'type_user' => 'bail|required',
+        'type_user' => 'bail|required|integer|exists:type_utilisateur,id',
         'telephone' => 'bail|required|unique:users|regex:/^[6,2][0-9]{8}$/',
     ]);
+    $this->protegerSuperAdmin($type_user);
     if ( $id_compte_associe == null && $type_user != 1) {
       $validated = $request->validate([
         'id_compte_associe' => 'bail|required',
@@ -285,6 +288,7 @@ class UsersController extends Controller
       ]);
     }
     $utilisateur = Users::findOrFail($id);
+    $this->protegerSuperAdmin($utilisateur->id_type_utilisateur);
     $utilisateur->noms = $noms;
     $utilisateur->email = $email;
     $utilisateur->telephone = $telephone;
@@ -333,6 +337,7 @@ class UsersController extends Controller
             return redirect()->route('home.client');
         }
     $user = Users::findOrFail($id);
+    $this->protegerSuperAdmin($user->id_type_utilisateur);
     if ($user->statut == 0) {
         $user->statut = 1;
         $message = e($user->noms)." Activé(e) avec <b class='text-success'> Succès.</b>";

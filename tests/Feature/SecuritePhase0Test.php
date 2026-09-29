@@ -71,6 +71,16 @@ class SecuritePhase0Test extends TestCase
         return User::findOrFail($idUser);
     }
 
+    private function staff(string $email, int $type): User
+    {
+        $idUser = DB::table('users')->insertGetId([
+            'noms' => $email, 'email' => $email, 'password' => Hash::make('ancien-mdp'),
+            'id_type_utilisateur' => $type, 'statut' => 1,
+        ]);
+
+        return User::findOrFail($idUser);
+    }
+
     private function commande(User $saver, ?int $idClient = null, ?int $idCoursier = null, string $statut = 'attente'): int
     {
         return DB::table('commandes')->insertGetId([
@@ -193,5 +203,47 @@ class SecuritePhase0Test extends TestCase
         ]);
 
         $this->get(route('Sc-transaction.show', $transaction))->assertForbidden();
+    }
+
+    public function test_un_agent_ne_peut_pas_creer_de_super_admin(): void
+    {
+        $agent = $this->staff('agent@example.com', 2);
+
+        $this->actingAs($agent)->post(route('users.store'), [
+            'noms' => 'Pirate', 'email' => 'pirate@example.com', 'password' => 'motdepasse',
+            'type_user' => 1, 'telephone' => '690000001',
+        ])->assertForbidden();
+
+        $this->assertFalse(DB::table('users')->where('email', 'pirate@example.com')->exists());
+    }
+
+    public function test_un_agent_ne_peut_pas_toucher_a_un_compte_super_admin(): void
+    {
+        $agent = $this->staff('agent@example.com', 2);
+        $superAdmin = $this->staff('admin@example.com', 1);
+
+        $this->actingAs($agent)->put(route('users.update', $superAdmin->id), [
+            'noms' => 'Pirate', 'email' => 'pirate@example.com', 'telephone' => '690000001',
+        ])->assertForbidden();
+        $this->actingAs($agent)->delete(route('users.destroy', $superAdmin->id))->assertForbidden();
+        $this->actingAs($agent)->delete(route('password.destroy', $superAdmin->id))->assertForbidden();
+
+        $superAdmin->refresh();
+        $this->assertSame('admin@example.com', $superAdmin->email);
+        $this->assertEquals(1, $superAdmin->statut);
+        $this->assertTrue(Hash::check('ancien-mdp', $superAdmin->password));
+    }
+
+    public function test_la_reinitialisation_genere_un_mot_de_passe_aleatoire(): void
+    {
+        $superAdmin = $this->staff('admin@example.com', 1);
+        $agent = $this->staff('agent@example.com', 2);
+
+        $this->actingAs($superAdmin)->delete(route('password.destroy', $agent->id));
+
+        $hash = $agent->fresh()->password;
+        $this->assertFalse(Hash::check('ancien-mdp', $hash));
+        $this->assertFalse(Hash::check('11111111', $hash));
+        $this->assertMatchesRegularExpression('/[A-Za-z0-9]{12}/', session('message'));
     }
 }
