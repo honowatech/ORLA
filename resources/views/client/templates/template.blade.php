@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <style>
+        .redable{
+            color: #ea5455 !important;
+        }
+        .nav-item .active{
+            box-shadow:0 0 10px 1px #00000080 !important;
+        }
+        .menu-light .navigation .active a {
+            background : #000000 !important; 
+            border-radius: 4px !important;
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title> @yield('title') </title>
+    <link rel="apple-touch-icon" href="{{asset('app-assets/images/avatars/map-pin.png')}}>">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/avatars/map-pin.png')}}">
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/apexcharts.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.min.css') }}">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+    <!-- END: Vendor CSS-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- END: Vendor CSS-->
+
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap-extended.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/colors.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/components.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/dark-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/bordered-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
+
+
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/form-validation.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-user.css')}}">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css ')}}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap-extended.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/colors.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/components.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/dark-layout.css ')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/bordered-layout.css ')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-pickadate.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+    <style type="text/css">
+        .btn span ,.main-menu.menu-light .navigation .active a,.main-menu.menu-light .navigation .active a span,.badge{
+            color: #ffffff !important;
+        }
+        .main-menu.menu-light .navigation li a{
+            color: #000000 !important;
+        }
+        label .btn{
+            margin-bottom :initial !important;
+        }
+        .btn{
+            margin-bottom :1rem !important;
+        }
+        #ouverture_modal{
+            opacity: 0;
+        }
+
+    </style>
+    @yield('css')
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col=""@if(session()->has('message')) onload="success()" @endif>
+
+<!-- BEGIN: Header-->
+<nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow">
+        <div class="navbar-container d-flex content">
+            <div class="bookmark-wrapper d-flex align-items-center">
+                <div class="nav-item">
+                    <ul class="nav navbar-nav d-xl-none">
+                        <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon" data-feather="menu"></i></a></li>
+                    </ul>
+                    {{-- <a class="ml-lg-2 navbar-brand d-xl-block d-none" href="{{route('home')}}">
+                        <span class="font-weight-bolder text-info">Speedex</span>
+                    </a> --}}
+                </div>
+            </div>
+            <ul class="nav navbar-nav align-items-center ml-auto">
+                <li class="nav-item dropdown dropdown-user">
+                    <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="user-nav d-sm-flex">
+                        <span class=" round user-name font-weight-bolder" alt="avatar" height="40" width="40"> {{ Auth::user()->client_utilisateur->noms }} {{ Auth::user()->client_utilisateur->Prenoms }} </span>
+                        <small class="text-muted">{{Auth::user()->client_utilisateur->type__client->libelle}}</small>
+                    </div>
+                         <img class="avatar" src="{{asset('app-assets/images/avatars/user1.png')}}" height="40" width="40" alt="User avatar" />
+                </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
+                        <a class="dropdown-item" href="{{route('Clientusers.show',Auth::user()->id)}}">
+                            <i class="mr-50" data-feather="user"></i> Profil
+                        </a>
+                        {{-- <a class="dropdown-item" href="{{route('Clientusers.edit',Auth::user()->id)}}">
+                            <i class="mr-50" data-feather='unlock'></i> Mon Compte
+                        </a> --}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        {{-- <a class="dropdown-item" href="{{route('home')}}"><i class="mr-50" data-feather="help-circle"></i> FAQ
+                        </a> --}}
+                        <a data-toggle="modal" data-target="#danger" class="dropdown-item text-danger" onclick="remplir('{{route('logout')}}','', 'vous déconnecter' ,'button_deconnection')">
+                        <i class="mr-50 text-danger" data-feather="log-out"></i>Déconnexion
+                        <div id="button_deconnection" hidden>
+                            <button type="button" class="btn round btn-danger col-8 col-md-4" data-dismiss="modal">
+                                <i class="mr-1" data-feather="x"></i> Annuler
+                            </button>
+                            <form method="POST" class="col-8 col-md-4 p-0 destroy_form">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="btn round btn-success col-12">
+                                    <i class="mr-1" data-feather="check"></i> Confirmer
+                                </button>
+                            </form>
+                        </div>      
+                    </a>
+        <button hidden class="" id="modal_danger" data-toggle="modal" data-target="#danger"></button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+</nav>
+<!-- END: Header-->
+
+
+<!-- Menu-->
+@include('client/menu/menu')
+<!-- END: Menu-->
+
+<!-- BEGIN: Content-->
+@yield('contenu')
+<!-- END: Content-->
+
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+<div onmo class="text-center" hidden id="speedexspinner">
+    <div class="col-12 text-center">
+        <div class="spinner-border spinner text-dark" role="status">
+            <span class="sr-only"></span>
+       </div>
+   </div>
+</div>
+<!-- modale de confirmation -->
+<div class="modal fade modal-danger text-left" id="danger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div></div>
+                <h3 class="modal-title text-dark" id="myModalLabel120">Confirmation! </h3>
+                <button type="button" class="btn-danger close m-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 id="destroy_title" class="text-bolder text-center m-1">
+                </h3>
+            </div>
+            <div class="modal-footer" id="confirm_footer" style="justify-content: space-around;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- pop-up message succes -->
+@if(session()->has('message'))
+<div class="modal fade modal-danger text-left" id="modals-success" tabindex="-1" role="dialog" aria-labelledby="modals-success" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div></div>
+                <h3 class="modal-title text-dark" id="myModalLabel120"> Information </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close" autofocus>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+            <p class="text-center">
+                {!!session()->get('message')!!}
+            </p>
+        </div>
+        <div class="modal-footer" style="justify-content: center;">
+            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">Terminer</button>
+        </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function success(){
+        button = document.getElementById('succes_button');
+        button.click();
+    }    
+</script>
+@endif
+<button type="button" class="display btn btn-info waves-effect waves-float waves-light" href="#" data-target="#modals-success" data-toggle="modal" hidden id="succes_button"></button>
+<!-- pop-up message succes fin -->
+
+<div class="modal fade modal-danger text-left" id="copy" tabindex="-1" role="dialog" aria-labelledby="modals-success" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-dark" id="myModalLabel120"> Informations... </h3>
+                <button type="button" class="btn-danger close m-0" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+            <p class="text-center">
+                Mot clé copié avec <b class="text-success">Success</b>
+            </p>
+        </div>
+        <div class="modal-footer" style="justify-content: center;">
+            <button type="button" class="btn round btn-success waves-effect waves-float waves-light" data-dismiss="modal">
+                <b>
+                    <i class="text-white" data-feather="check"></i>
+                </b>
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- BEGIN: Footer-->
+<footer class="footer footer-static footer-light">
+    <p class="clearfix mb-0">
+        <span class="float-md-left d-block d-md-inline-block mt-25">
+            <span class="d-none d-sm-inline-block">COPYRIGHT</span> &copy; 2023
+            <a class="ml-25" href="https://honowa.com" target="_blank">Honowa Technologies</a>
+            <span class="d-none d-sm-inline-block">, Tous les droits reservés</span>
+        </span>
+    </p>
+</footer>
+<button class="btn btn-info btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+<!-- END: Footer-->
+
+<!-- BEGIN: Vendor JS-->
+<script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
+<!-- BEGIN Vendor JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="{{ asset('app-assets/js/scripts/forms/form-select2.js') }}"></script>
+<!-- END: Page JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Theme JS-->
+<script src="{{ asset('app-assets/js/core/app-menu.js') }}"></script>
+<script src="{{ asset('app-assets/js/core/app.js') }}"></script>
+
+<script src="{{ asset('app-assets/vendors/js/forms/cleave/cleave.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
+
+<script src="{{ asset('app-assets/js/scripts/forms/form-input-mask.js') }}"></script>
+<!-- END: Theme JS-->
+<script>
+    cliquer = 1;
+        function remplir(lien,libelle,action,id_remplir){
+            var destroy_title = document.querySelector('#destroy_title'),
+                destroy_form = document.querySelectorAll('.destroy_form'),
+                noms = libelle == '' ? libelle : '" '+libelle+' "';
+            for (var i = 0; i < destroy_form.length; i++) {
+                destroy_form[i].action = lien;
+            }
+            destroy_title.innerHTML = 'Êtes-vous certain de vouloir '+action+' ? <br> <br> '+noms+' ';
+            if(cliquer == 1){
+                document.querySelector('#modal_danger').click();
+            }
+            document.querySelector('#confirm_footer').innerHTML = document.querySelector('#'+id_remplir).innerHTML
+            
+        }
+        function responses_ajax(id,data,lien,method,put=undefined,pass=undefined,actualiser=undefined){
+            var result = document.querySelector('#'+id),
+                spinner = document.querySelector('#speedexspinner').innerHTML;
+                if(put == undefined){
+                    result.innerHTML = spinner;
+                }else{
+                    if (document.querySelector('#tospin')) {
+                        document.querySelector('#tospin').innerHTML = spinner;
+                    }else{
+                        result.innerHTML = "<option value=''>Chargement...</option>"
+                    }
+                }
+            jQuery.ajax({
+                url: lien,
+                type : method,
+                data : { data : data , '_token' : "{{ csrf_token() }}" },
+                success: function(response)
+                {
+                    if(pass == undefined){
+                        result.innerHTML = response;
+                    }
+                    if (document.querySelector('#tospin')) {
+                        document.querySelector('#tospin').innerHTML = '';
+                    }
+                    if(put == undefined){
+                        document.location.reload();
+                    }
+                },
+                error: function(){
+                    if(put == undefined){
+                        result.innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                    }else{
+                        if (document.querySelector('#tospin')) {
+                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                        }else{
+                            result.innerHTML = "<option value=''>Erreur! Veuillez actualisez la page...</option>";
+                        }
+                    }
+                    setTimeout(function(){
+                        result.innerHTML = '';
+                    },2500)
+                }
+            });
+
+        }
+    $(window).on('load', function() {
+        if (feather) {
+            feather.replace({
+                width: 14,
+                height: 14
+            });
+        }
+        const isSmallScreen = window.matchMedia("(max-width: 1200px)").matches;
+
+    })
+    $('#select_code_boutique_new_contrat').change(function(){
+        var id_boutique = $(this).val();
+        $('#loyer_new_contrat').val(
+            $('#option-building-'+id_boutique).attr('title')
+        );
+    });
+
+    $('#new_locataire_name').keyup(function(){
+        if($(this).val() != ""){
+            $("#id_locataire").val(0);
+            $("#select2-id_locataire-container").html("choisir");
+        }
+    })
+
+    function copy(textToCopy) {
+        navigator.clipboard.writeText(textToCopy);
+        $('#copy').modal();
+    }
+    
+        function  phone(id){
+            var phone_number2 = document.querySelector('#'+id+'2')
+                phone_number = document.querySelector('#'+id).value.replaceAll(' ','');
+
+            if (isNaN(phone_number)) {
+                phone_number2.value = '';
+                document.querySelector('#'+id).value = isNaN(parseInt(phone_number)) ? '' : parseInt(phone_number);
+                phone(id);
+            }else{
+                if(parseInt(phone_number).toString().length == 9 && phone_number[0] == '6'){
+                    document.querySelector('#'+id).value = phone_number[0]+' '+phone_number[1]+''+phone_number[2]+' '+phone_number[3]+''+phone_number[4]+' '+phone_number[5]+''+phone_number[6]+' '+phone_number[7]+''+phone_number[8]
+                }else{
+                    document.querySelector('#'+id).value = phone_number.replaceAll(' ','')
+                }
+                phone_number2.value = document.querySelector('#'+id).value.replaceAll(' ','');
+            }
+        }
+</script>
+@yield('javascript')
+    <script src="{{asset('app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/pickadate/picker.time.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/pickadate/legacy.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')}}"></script>
+    <script src="{{asset('app-assets/js/scripts/forms/pickers/form-pickers.js')}}"></script>
+    <script src="{{asset('app-assets/js/scripts/forms/pickers/form-pickers.js')}}"></script>
+</body>
+<!-- END: Body-->
+
+</html>
