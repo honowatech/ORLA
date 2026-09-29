@@ -51,7 +51,7 @@
                                                         </div>
                                                         <div class="d-flex flex-wrap">
                                                             <a href="{{route('agents.edit',$agent->id)}}" class="btn btn-outline-dark ml-1">Modifier</a>
-                                                            <button class=" btn ml-1 @if($agent->statut == 1) btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$agent->id)}}','{{$agent->noms.' '.$agent->prenoms}}', @if($agent->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <button class=" btn ml-1 @if($agent->statut == 1) btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$agent->id)}}',{{ Js::from(e($agent->noms.' '.$agent->prenoms)) }}, @if($agent->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($agent->statut == 1)
                                                                     Désactiver
                                                             @else

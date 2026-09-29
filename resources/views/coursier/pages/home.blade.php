@@ -73,14 +73,14 @@
                                                         @endphp
                                                         {{name($nom_destinataire)}}
                                                     </span>
-                                                    <button class="text-center font-weight-bolder cursor-pointer btn btn-sm btn-dark mx-auto" style="width: fit-content;" onclick="copy('{{phone2(explode('*/*',$commande->adresse_colis)[0])}}')">
+                                                    <button class="text-center font-weight-bolder cursor-pointer btn btn-sm btn-dark mx-auto" style="width: fit-content;" onclick="copy({{ Js::from(e(phone2(explode('*/*',$commande->adresse_colis)[0]))) }})">
                                                         {{phone(explode('*/*',$commande->adresse_colis)[0])}}<i data-feather='copy' class="ml-50"></i>
                                                     </button>
                                                     <div class=" mx-auto">
                                                         <span class="quantity-title text-underline font-weight-bolder">Description :</span>
                                                         <br>
-                                                        <span class="text-left input-group quantity-counter-wrapper" title="{!!$commande->description!!}">
-                                                            {!!$commande->description!!}
+                                                        <span class="text-left input-group quantity-counter-wrapper" title="{!! nl2br(e($commande->description)) !!}">
+                                                            {!! nl2br(e($commande->description)) !!}
                                                         </span>
                                                     </div>
                                                     <span class="delivery-date">
@@ -209,14 +209,14 @@
                                                         @endphp
                                                         {{name($nom_destinataire)}}
                                                     </span>
-                                                    <button class="text-center font-weight-bolder cursor-pointer btn btn-sm btn-dark mx-auto" style="width: fit-content;" onclick="copy('{{phone2(explode('*/*',$commande->adresse_colis)[0])}}')">
+                                                    <button class="text-center font-weight-bolder cursor-pointer btn btn-sm btn-dark mx-auto" style="width: fit-content;" onclick="copy({{ Js::from(e(phone2(explode('*/*',$commande->adresse_colis)[0]))) }})">
                                                         {{phone(explode('*/*',$commande->adresse_colis)[0])}}<i data-feather='copy' class="ml-50"></i>
                                                     </button>
                                                     <div class=" mx-auto">
                                                         <span class="quantity-title text-underline font-weight-bolder">Description :</span>
                                                         <br>
                                                         <span class="text-left input-group quantity-counter-wrapper" title="{{str_replace('<br>','',$commande->description)}}">
-                                                            {!!$commande->description!!}
+                                                            {!! nl2br(e($commande->description)) !!}
                                                         </span>
                                                     </div>
                                                     <span class="delivery-date">

@@ -119,21 +119,21 @@
                                                             <span class="ml-1">Editer</span>
                                                         </a>
                                                         @if($vehicule->statut == 0)
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' Activer le Type de véhicule ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}',{{ Js::from(e($vehicule->libelle)) }},' Activer le Type de véhicule ','button_footer')" data-target="#danger">
                                                                 <i data-feather='check' class="text-success"></i>
                                                                 <span class="ml-1" type="button">
                                                                     Activer
                                                                 </span>
                                                             </span>
                                                         @else
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' Désactiver le Type de véhicule ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}',{{ Js::from(e($vehicule->libelle)) }},' Désactiver le Type de véhicule ','button_footer')" data-target="#danger">
                                                                 <i data-feather='x' class="text-danger"></i>
                                                                 <span class="ml-1" type="button">
                                                                     désactiver
                                                                 </span>
                                                             </span>
                                                         @endif
-                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' supprimer ','button_delete')" data-target="#danger">
+                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}',{{ Js::from(e($vehicule->libelle)) }},' supprimer ','button_delete')" data-target="#danger">
                                                             <i data-feather='trash-2' class="text-danger"></i>
                                                             <span class="ml-1" type="button">
                                                                 Supprimer

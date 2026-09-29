@@ -69,7 +69,7 @@
                                                             <i data-feather='edit-2'></i>
                                                             <span class="ml-1">Editer</span>
                                                         </a>
-                                                        <span class=" @if($abonnement->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('Sa-abonnement.destroy',$abonnement->id)}}','{{Sa_name($abonnement->titre)}}',@if($abonnement->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($abonnement->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('Sa-abonnement.destroy',$abonnement->id)}}',{{ Js::from(e(Sa_name($abonnement->titre))) }},@if($abonnement->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($abonnement->statut == 1)
                                                                 <i data-feather='x'></i>
                                                                 <span class="ml-1 text-danger" type="button">

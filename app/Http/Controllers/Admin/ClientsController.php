@@ -336,7 +336,7 @@ class ClientsController extends Controller
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
-      $message = $client->noms.' '.$client->prenoms." Activé(e) avec <b class='text-success'> Succès.</b>";
+      $message = e($client->noms).' '.e($client->prenoms)." Activé(e) avec <b class='text-success'> Succès.</b>";
     }else{
         $client->statut = 0;
         if($client->id_utilisateur!=null){
@@ -344,7 +344,7 @@ class ClientsController extends Controller
             $utilisateur->statut = 0;
             $utilisateur->save();
         }
-        $message = $client->noms.' '.$client->prenoms." Desactivé(e) avec <b class='text-success'> Succès.</b>";
+        $message = e($client->noms).' '.e($client->prenoms)." Desactivé(e) avec <b class='text-success'> Succès.</b>";
     }
     $client->save();
     session()->flash('message',$message);

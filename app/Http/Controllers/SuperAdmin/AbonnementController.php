@@ -136,7 +136,7 @@ class AbonnementController extends Controller
       $abonnement->periode_grace = $periode_grace;
       $abonnement->statut = 1;
       $abonnement->save();
-      $message = "Abonnement ".Sa_name($titre)."créée avec <b class='text-success'> Succès.</b>";
+      $message = "Abonnement ".Sa_name(e($titre))."créée avec <b class='text-success'> Succès.</b>";
       session()->flash('message',$message);
       return redirect()->route('Sa-abonnement.index');
       // return redirect()->route('Sa-abonnement.show',$abonnement->id);
@@ -255,7 +255,7 @@ class AbonnementController extends Controller
       $abonnement->periode_grace = $periode_grace;
       $abonnement->statut = 1;
       $abonnement->save();
-      $message = "Abonnement ".Sa_name($titre)." modifié avec <b class='text-success'> Succès.</b>";
+      $message = "Abonnement ".Sa_name(e($titre))." modifié avec <b class='text-success'> Succès.</b>";
       session()->flash('message',$message);
       return redirect()->route('Sa-abonnement.index');
       // return redirect()->route('Sa-abonnement.show',$abonnement->id);
@@ -277,10 +277,10 @@ class AbonnementController extends Controller
       $abonnement = Abonnement::findOrFail($id);
       if ($abonnement->statut == 0) {
         $abonnement->statut = 1;
-        $message = "Abonnement ".Sa_name($abonnement->titre)." Activé avec <b class='text-success'> Succès.</b>";
+        $message = "Abonnement ".Sa_name(e($abonnement->titre))." Activé avec <b class='text-success'> Succès.</b>";
       }else{
         $abonnement->statut = 0;
-        $message = "Abonnement ".Sa_name($abonnement->titre)." Desactivé avec <b class='text-success'> Succès.</b>";
+        $message = "Abonnement ".Sa_name(e($abonnement->titre))." Desactivé avec <b class='text-success'> Succès.</b>";
       }
       $abonnement->save();
       session()->flash('message',$message);

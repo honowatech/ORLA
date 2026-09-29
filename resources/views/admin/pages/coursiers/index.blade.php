@@ -123,7 +123,7 @@
                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                             <span class="ml-1">Editer</span>
                                                         </a>
-                                                        <span class=" @if($coursier->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}','{{$coursier->noms.' '.$coursier->prenoms}}',@if($coursier->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($coursier->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}',{{ Js::from(e($coursier->noms.' '.$coursier->prenoms)) }},@if($coursier->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($coursier->statut == 1)
                                                                 <i data-feather='user-x'></i>
                                                                 <span class="ml-1 text-danger" type="button">

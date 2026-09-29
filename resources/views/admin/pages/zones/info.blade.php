@@ -51,7 +51,7 @@
                                                         </div>
                                                         <div class="d-flex flex-wrap">
                                                             <a href="{{route('zone.edit',$zones->id)}}" class="btn round btn-dark ml-2">Modifier</a>
-                                                            <button class=" btn ml-2 @if($zones->statut == 1) round btn-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zones->id)}}','{{$zones->libelle}}', @if($zones->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <button class=" btn ml-2 @if($zones->statut == 1) round btn-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zones->id)}}',{{ Js::from(e($zones->libelle)) }}, @if($zones->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($zones->statut == 1)
                                                                     Désactiver
                                                             @else
@@ -187,7 +187,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="cursor-pointer w-25 m-auto" title="Enlever le quartier de {{$zones->libelle}}" data-toggle="modal" 
-                                                            onclick="put_quartier_id('{{$quartier->id}}'); remplir('{{route('zone.destroy',$zones->id)}}','{{$zones->libelle}}', 'Enlever {{$quartier->libelle}} de la zone','button_remove')" data-target="#danger">
+                                                            onclick="put_quartier_id('{{$quartier->id}}'); remplir('{{route('zone.destroy',$zones->id)}}',{{ Js::from(e($zones->libelle)) }}, {{ Js::from('Enlever '.e($quartier->libelle).' de la zone') }},'button_remove')" data-target="#danger">
 
                                                         <i data-feather='x-circle' class="text-danger cursor-pointer" height="24" width="24"></i>
                                                             

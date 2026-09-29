@@ -141,7 +141,7 @@ class ClientController extends Controller
       $client->cni = $cni;
       $client->statut = 1;
       $client->save();
-      $message = "Client ".$name." créé avec <b class='text-success'> Succès.</b>";
+      $message = "Client ".e($name)." créé avec <b class='text-success'> Succès.</b>";
       session()->flash('message',$message);
       return redirect()->route('Sa-client.show',$client->id);
     }
@@ -311,7 +311,7 @@ class ClientController extends Controller
       $client->adresse = $adresse;
       $client->cni = $cni;
       $client->save();
-      $message = "Client ".Sa_name($name)." modifié avec <b class='text-success'> Succès.</b>";
+      $message = "Client ".Sa_name(e($name))." modifié avec <b class='text-success'> Succès.</b>";
       session()->flash('message',$message);
       return redirect()->route('Sa-client.show',$client->id);
     }
@@ -332,10 +332,10 @@ class ClientController extends Controller
       $client = Client::findOrFail($id);
       if ($client->statut == 0) {
         $client->statut = 1;
-        $message = "Client ".Sa_name($client->name)." Activé avec <b class='text-success'> Succès.</b>";
+        $message = "Client ".Sa_name(e($client->name))." Activé avec <b class='text-success'> Succès.</b>";
       }else{
         $client->statut = 0;
-        $message = "Client ".Sa_name($client->name)." Desactivé avec <b class='text-success'> Succès.</b>";
+        $message = "Client ".Sa_name(e($client->name))." Desactivé avec <b class='text-success'> Succès.</b>";
       }
       $client->save();
       session()->flash('message',$message);

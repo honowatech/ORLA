@@ -102,7 +102,7 @@
 	                                                        <i data-feather="edit-2" class="mr-50"></i>
 	                                                        <span class="ml-1">Editer</span>
 	                                                    </a>
-                                                        <span class=" @if($zone->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',@if($zone->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($zone->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}',{{ Js::from(e($zone->libelle)) }},@if($zone->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($zone->statut == 1)
                                                                 <i data-feather='x'></i>
                                                                 <span class="ml-1 text-danger" type="button">

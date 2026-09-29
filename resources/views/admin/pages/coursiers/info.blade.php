@@ -50,7 +50,7 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                         </div>
                                                         <div class="d-flex flex-wrap">
                                                             <a href="{{route('coursiers.edit',$coursier->id)}}" class="round btn btn-outline-dark">Modifier</a>
-                                                            <button class="btn ml-md-1 ml-bg-1 @if($coursier->statut == 1) round btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}','{{$coursier->noms.' '.$coursier->prenoms}}', @if($coursier->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <button class="btn ml-md-1 ml-bg-1 @if($coursier->statut == 1) round btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}',{{ Js::from(e($coursier->noms.' '.$coursier->prenoms)) }}, @if($coursier->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($coursier->statut == 1)
                                                                     Désactiver
                                                             @else
@@ -205,7 +205,7 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                     </td>
                                                     <td>
                                                         <div class="cursor-pointer w-25 m-auto" title="Retire la zone à {{$coursier->noms}} {{$coursier->prenoms}}" data-toggle="modal" 
-                                                            onclick="put_zone_id('{{$zone->zone_affectee->id}}'); remplir('{{route('details_zone.update',$coursier->id)}}','{{$coursier->noms}} {{$coursier->prenoms}}', 'désattribuer {{$zone->zone_affectee->libelle}} à','button_remove')" data-target="#danger">
+                                                            onclick="put_zone_id({{ Js::from(e($zone->zone_affectee->id)) }}); remplir('{{route('details_zone.update',$coursier->id)}}',{{ Js::from(e($coursier->noms).' '.e($coursier->prenoms)) }}, {{ Js::from('désattribuer '.e($zone->zone_affectee->libelle).' à') }},'button_remove')" data-target="#danger">
 
                                                         <i data-feather='x-circle' class="text-danger cursor-pointer" height="24" width="24"></i>
                                                             

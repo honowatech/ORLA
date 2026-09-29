@@ -87,7 +87,7 @@
 	                                                        <i data-feather="edit-2" class="mr-50"></i>
 	                                                        <span class="ml-1">Editer</span>
 	                                                    </a>
-                                                        <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('ville.destroy',$ville->id)}}','{{$ville->libelle}}','supprimer','button_footer')" data-target="#danger">
+                                                        <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('ville.destroy',$ville->id)}}',{{ Js::from(e($ville->libelle)) }},'supprimer','button_footer')" data-target="#danger">
                                                             <i data-feather='trash-2'></i>
                                                             <span class="ml-1 text-danger" type="button">
                                                                 Supprimer

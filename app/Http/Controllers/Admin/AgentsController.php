@@ -298,7 +298,7 @@ class AgentsController extends Controller
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
-        $message = $agent->noms.' '.$agent->prenoms." <b class='text-success'> Activé avec Succès.</b>";
+        $message = e($agent->noms).' '.e($agent->prenoms)." <b class='text-success'> Activé avec Succès.</b>";
       }else{
         if($agent->id_utilisateur!=null){
             $utilisateur = Users::findOrFail($agent->id_utilisateur);
@@ -306,7 +306,7 @@ class AgentsController extends Controller
             $utilisateur->save();
         }
         $agent->statut = 0;
-        $message = $agent->noms.' '.$agent->prenoms." <b class='text-success'> Desactivé avec Succès.</b>";
+        $message = e($agent->noms).' '.e($agent->prenoms)." <b class='text-success'> Desactivé avec Succès.</b>";
       }
       $agent->save();
       session()->flash('message',$message);

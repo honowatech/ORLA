@@ -50,7 +50,7 @@
                                                         </div>
                                                         <div class="d-flex flex-wrap">
                                                             <a href="{{route('clients.edit',$client->id)}}" class="btn btn-info mr-1 round ">Modifier</a>
-                                                            <button class=" btn @if($client->statut == 1) round btn-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('clients.destroy',$client->id)}}','{{$client->noms.' '.$client->Prenoms}}', @if($client->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <button class=" btn @if($client->statut == 1) round btn-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('clients.destroy',$client->id)}}',{{ Js::from(e($client->noms.' '.$client->Prenoms)) }}, @if($client->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($client->statut == 1)
                                                                     Désactiver
                                                             @else
@@ -190,7 +190,7 @@
                                                                     <i data-feather="edit-2" class="mr-50"></i>
                                                                     <span class="ml-1">Editer</span>
                                                                 </a> --}}
-                                                                <span class=" @if($boutique->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('boutiques.destroy',$boutique->id)}}','{{$boutique->libelle}}',@if($boutique->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                                <span class=" @if($boutique->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('boutiques.destroy',$boutique->id)}}',{{ Js::from(e($boutique->libelle)) }},@if($boutique->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                                     @if($boutique->statut == 1)
                                                                         <i data-feather='user-x'></i>
                                                                         <span class="ml-1 text-danger" type="button">

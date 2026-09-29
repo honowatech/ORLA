@@ -98,7 +98,7 @@
                                                             <span class="ml-1">Modifier</span>
                                                         </a>
                                                         @if($produit->details_commande->count() == 0 && $produit->stock->count() == 0)
-                                                                <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('produits.destroy',$produit->id)}}','{{$produit->noms}}','Supprimer ce Produit' ,'button_footer')" data-target="#danger">
+                                                                <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('produits.destroy',$produit->id)}}',{{ Js::from(e($produit->noms)) }},'Supprimer ce Produit' ,'button_footer')" data-target="#danger">
                                                                 <i data-feather='trash-2'></i>
                                                                 <span class="ml-2 text-danger" type="button">
                                                                     Supprimer

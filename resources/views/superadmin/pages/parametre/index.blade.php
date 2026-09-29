@@ -49,7 +49,7 @@
                             <a class="btn btn-primary btn-gradient-primary mx-auto mb-2" href="{{route('Sa-api.edit',$api->id)}}">
                                 <i data-feather='tool' class="mr-50"></i> <span>configurer</span>
                             </a>
-                            <button class="btn mx-auto mb-2 @if($api->statut == 1) btn-danger btn-gradient-danger @else btn-success btn-gradient-success @endif " data-toggle="modal" onclick="remplir('{{route('Sa-api.destroy',$api->id)}}','{{Sa_name($api->name)}}',@if($api->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                            <button class="btn mx-auto mb-2 @if($api->statut == 1) btn-danger btn-gradient-danger @else btn-success btn-gradient-success @endif " data-toggle="modal" onclick="remplir('{{route('Sa-api.destroy',$api->id)}}',{{ Js::from(e(Sa_name($api->name))) }},@if($api->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                 @if($api->statut == 1)
                                 <i data-feather='eye-off' class="mr-50"></i>
                                 <span>
@@ -74,7 +74,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <b>
-                                                        {!!$api->key == null ? '<i data-feather="alert-triangle" class="text-danger"></i>' : $api->key!!}
+                                                        {!!$api->key == null ? '<i data-feather="alert-triangle" class="text-danger"></i>' : e($api->key)!!}
                                                     </b>
                                                 </td>
                                             </tr>
@@ -84,7 +84,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <b>
-                                                        {!!$api->secret == null ? '<i data-feather="alert-triangle" class="text-danger"></i>' : $api->secret!!}
+                                                        {!!$api->secret == null ? '<i data-feather="alert-triangle" class="text-danger"></i>' : e($api->secret)!!}
                                                     </b>
                                                 </td>
                                             </tr>
@@ -94,7 +94,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <b>
-                                                        {!!$api->user == null ? '<i data-feather="alert-triangle" class="text-danger"></i>' : $api->user!!}
+                                                        {!!$api->user == null ? '<i data-feather="alert-triangle" class="text-danger"></i>' : e($api->user)!!}
                                                     </b>
                                                 </td>
                                             </tr>
@@ -104,7 +104,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <b>
-                                                        {!!$api->password == null ? '<i data-feather="alert-triangle" class="text-danger"></i>' : Sa_password($api->password)!!}
+                                                        {!!$api->password == null ? '<i data-feather="alert-triangle" class="text-danger"></i>' : e(Sa_password($api->password))!!}
                                                     </b>
                                                 </td>
                                             </tr>
