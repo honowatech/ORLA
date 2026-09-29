@@ -76,7 +76,7 @@ class Type_vehiculeController extends Controller
     $type_vehicule->libelle = $libelle;
     $type_vehicule->description = $description;
     $type_vehicule->save(); 
-    $message = "Type de véhicule <b>".$type_vehicule->libelle."</b> enregistré avec <b class='text-success'> Succès.</b>";
+    $message = "Type de véhicule <b>".e($type_vehicule->libelle)."</b> enregistré avec <b class='text-success'> Succès.</b>";
     session()->flash('message',$message);
     return redirect()->route('type_vehicule.index');
   }
@@ -148,7 +148,7 @@ class Type_vehiculeController extends Controller
     $type_vehicule->libelle = $libelle;
     $type_vehicule->description = $description;
     $type_vehicule->save();
-    $message = "Type de véhicule <b>".$type_vehicule->libelle."</b> mis à jour avec <b class='text-success'> Succès.</b>";
+    $message = "Type de véhicule <b>".e($type_vehicule->libelle)."</b> mis à jour avec <b class='text-success'> Succès.</b>";
     session()->flash('message',$message);
     return redirect()->route('type_vehicule.index');
   }

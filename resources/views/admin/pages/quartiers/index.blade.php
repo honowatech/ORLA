@@ -90,7 +90,7 @@
 	                                                    </a>
                                                         @if($quartier->boutiques->count()>0||$quartier->point_relais->count()>0||$quartier->commandes_pointdepart->count()>0||$quartier->commandes_pointarrivee->count()>0)
                                                         @else
-                                                        <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('quartier.destroy',$quartier->id)}}','{{$quartier->libelle}}','supprimer','button_footer')" data-target="#danger">
+                                                        <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('quartier.destroy',$quartier->id)}}',{{ Js::from(e($quartier->libelle)) }},'supprimer','button_footer')" data-target="#danger">
                                                             <i data-feather='trash-2'></i>
                                                             <span class="ml-1 text-danger" type="button">
                                                                 Supprimer

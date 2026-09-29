@@ -51,7 +51,7 @@
                                                         </div>
                                                         <div class="d-flex flex-wrap">
                                                             <a href="{{route('users.edit',$user->email)}}" class="btn btn-outline-dark ml-1">Modifier</a>
-                                                            <button class=" btn ml-1 @if($user->statut == 1) btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('users.destroy',$user->id)}}','{{$user->noms}}', @if($user->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <button class=" btn ml-1 @if($user->statut == 1) btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('users.destroy',$user->id)}}',{{ Js::from(e($user->noms)) }}, @if($user->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($user->statut == 1)
                                                                     Désactiver
                                                             @else
@@ -60,7 +60,7 @@
                                                         </button>
                                                         </div>
                                                         <div>
-                                                            <button class="text-danger btn btn-danger" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}','{{$user->noms}}', ' Réinitialiser le mot de passe de ' ,'button_footer')" data-target="#danger"> Réinitialiser</button>
+                                                            <button class="text-danger btn btn-danger" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}',{{ Js::from(e($user->noms)) }}, ' Réinitialiser le mot de passe de ' ,'button_footer')" data-target="#danger"> Réinitialiser</button>
                                                         </div>
                                                     </div>
                                                 </div>

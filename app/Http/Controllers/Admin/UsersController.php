@@ -335,7 +335,7 @@ class UsersController extends Controller
     $user = Users::findOrFail($id);
     if ($user->statut == 0) {
         $user->statut = 1;
-        $message = $user->noms." Activé(e) avec <b class='text-success'> Succès.</b>";
+        $message = e($user->noms)." Activé(e) avec <b class='text-success'> Succès.</b>";
         if($user->id_agent != null){
           $agent = Agents::findOrFail($user->id_agent);
           $agent->statut = 1;
@@ -353,7 +353,7 @@ class UsersController extends Controller
         }
     }else{
       $user->statut = 0;
-      $message = $user->noms." Desactivé(e) avec <b class='text-success'>Succès.</b>";
+      $message = e($user->noms)." Desactivé(e) avec <b class='text-success'>Succès.</b>";
         if($user->id_agent != null){
           $agent = Agents::findOrFail($user->id_agent);
           $agent->statut = 0;

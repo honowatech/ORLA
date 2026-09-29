@@ -207,7 +207,7 @@
                                                 <div class="spinner-grow spinner-grow-sm" role="status">
                                                 </div>
                                             @else 
-                                                <button class="btn btn-sm btn-dark" style="margin-bottom: 0rem !important" onclick="copy('{{phone2($telephone)}}')">
+                                                <button class="btn btn-sm btn-dark" style="margin-bottom: 0rem !important" onclick="copy({{ Js::from(e(phone2($telephone))) }})">
                                                     {{phone($telephone)}} <i data-feather='copy' class="ml-1"></i>
                                                 </button>
                                             @endif
@@ -367,7 +367,7 @@
                                 <div class="card-content ">
                                     <div class="card-body">
                                         <p class="card-text">
-                                            {!!$commande->description!!}
+                                            {!! nl2br(e($commande->description)) !!}
                                         </p>
                                     </div>
                                 </div>

@@ -60,7 +60,7 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                         </div>
                                                         <div class="d-flex flex-wrap" style="gap: 0.3rem;">
                                                             <a href="{{route('coursiers.edit',$coursier->id)}}" class=" btn btn-dark">Modifier</a>
-                                                            <button class="btn @if($coursier->statut == 1)  btn-danger  @else btn-success  @endif " data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}','{{$coursier->noms.' '.$coursier->prenoms}}', @if($coursier->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <button class="btn @if($coursier->statut == 1)  btn-danger  @else btn-success  @endif " data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}',{{ Js::from(e($coursier->noms.' '.$coursier->prenoms)) }}, @if($coursier->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                                 @if($coursier->statut == 1)
                                                                     Désactiver
                                                                 @else
@@ -225,7 +225,7 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                         {{$vehicule->marque}}
                                                     </td>
                                                     <td>
-                                                        <div class="cursor-pointer w-25 m-auto" title="Retire la zone à {{$coursier->noms}} {{$coursier->prenoms}}" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','', ' désattribuer <br> {{$vehicule->type->libelle}}_{{$vehicule->immatriculation}} ({{$vehicule->type->marque}} {{$vehicule->marque}}) <br> à {{$coursier->noms}} {{$coursier->prenoms}}','button_remove2')" data-target="#danger">
+                                                        <div class="cursor-pointer w-25 m-auto" title="Retire la zone à {{$coursier->noms}} {{$coursier->prenoms}}" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','', {{ Js::from(' désattribuer <br> '.e($vehicule->type->libelle).'_'.e($vehicule->immatriculation).' ('.e($vehicule->type->marque).' '.e($vehicule->marque).') <br> à '.e($coursier->noms).' '.e($coursier->prenoms)) }},'button_remove2')" data-target="#danger">
                                                             <i data-feather='x-circle' class="text-danger cursor-pointer" height="24" width="24"></i>   
                                                         </div>
                                                     </td>
@@ -335,7 +335,7 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                     </td>
                                                     <td>
                                                         <div class="cursor-pointer w-25 m-auto" title="Retire la zone à {{$coursier->noms}} {{$coursier->prenoms}}" data-toggle="modal" 
-                                                            onclick="put_zone_id('{{$zone->zone_affectee->id}}'); remplir('{{route('details_zone.update',$coursier->id)}}','{{$coursier->noms}} {{$coursier->prenoms}}', ' désattribuer {{$zone->zone_affectee->libelle}} à ','button_remove')" data-target="#danger">
+                                                            onclick="put_zone_id({{ Js::from(e($zone->zone_affectee->id)) }}); remplir('{{route('details_zone.update',$coursier->id)}}',{{ Js::from(e($coursier->noms).' '.e($coursier->prenoms)) }}, {{ Js::from(' désattribuer '.e($zone->zone_affectee->libelle).' à ') }},'button_remove')" data-target="#danger">
 
                                                         <i data-feather='x-circle' class="text-danger cursor-pointer" height="24" width="24"></i>
                                                             

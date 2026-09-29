@@ -219,10 +219,10 @@ class BoutiquesController extends Controller
     $boutique = Boutiques::findOrFail($id);
     if ($boutique->statut == 0) {
       $boutique->statut = 1;
-      $message = 'Boutique "'.$boutique->libelle.'" Activée avec <b class="text-success"> Succès.</b>';
+      $message = 'Boutique "'.e($boutique->libelle).'" Activée avec <b class="text-success"> Succès.</b>';
     }else{
       $boutique->statut = 0;
-      $message = 'Boutique "'.$boutique->libelle.'" Desactivée avec <b class="text-success"> Succès.</b>';
+      $message = 'Boutique "'.e($boutique->libelle).'" Desactivée avec <b class="text-success"> Succès.</b>';
     }
     $boutique->save();
     session()->flash('message',$message);

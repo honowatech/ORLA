@@ -109,14 +109,14 @@
                                                             <span class="ml-1">Editer</span>
                                                         </a>
                                                         @if($zone->statut == 0)
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',' Activer ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}',{{ Js::from(e($zone->libelle)) }},' Activer ','button_footer')" data-target="#danger">
                                                                 <i data-feather='check' class="text-success"></i>
                                                                 <span class="ml-1" type="button">
                                                                     Activer
                                                                 </span>
                                                             </span>
                                                         @else
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',' Désactiver ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}',{{ Js::from(e($zone->libelle)) }},' Désactiver ','button_footer')" data-target="#danger">
                                                                 <i data-feather='x' class="text-danger"></i>
                                                                 <span class="ml-1" type="button">
                                                                     désactiver

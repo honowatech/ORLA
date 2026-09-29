@@ -438,7 +438,7 @@
                                 <div class="card-content ">
                                     <div class="card-body">
                                         <p class="card-text">
-                                            {!!$commande->description!!}
+                                            {!! nl2br(e($commande->description)) !!}
                                         </p>
                                     </div>
                                 </div>

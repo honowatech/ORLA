@@ -133,13 +133,13 @@
                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                             <span class="ml-1">Editer</span>
                                                         </a>
-                                                        <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}','{{$user->noms}}', ' Réinitialiser le mot de passe de ' ,'button_footer')" data-target="#danger">
+                                                        <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}',{{ Js::from(e($user->noms)) }}, ' Réinitialiser le mot de passe de ' ,'button_footer')" data-target="#danger">
                                                                 <i data-feather='refresh-ccw'></i>
                                                                 <span class="ml-1 text-danger" type="button">
                                                                     Réinitialiser
                                                                 </span> 
                                                         </span>
-                                                        <span class=" @if($user->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('users.destroy',$user->id)}}','{{$user->noms}}',@if($user->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($user->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('users.destroy',$user->id)}}',{{ Js::from(e($user->noms)) }},@if($user->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                             @if($user->statut == 1)
                                                                 <i data-feather='user-x'></i>
                                                                 <span class="ml-1 text-danger" type="button">

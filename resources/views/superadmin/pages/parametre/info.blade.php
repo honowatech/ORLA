@@ -73,7 +73,7 @@
                                                                 <i data-feather="edit-2" class="mr-50"></i>
                                                                 Modifier
                                                             </a>
-                                                            <button class="btn ml-1 btn-sm @if($client->statut == 1)  btn-gradient-danger btn-danger  @else btn-gradient-success btn-success @endif "  data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}',@if($client->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <button class="btn ml-1 btn-sm @if($client->statut == 1)  btn-gradient-danger btn-danger  @else btn-gradient-success btn-success @endif "  data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}',{{ Js::from(e(Sa_name($client->name))) }},@if($client->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
                                                                 @if($client->statut == 1)
                                                                     <i data-feather="x" class="mr-50"></i>
                                                                     <span>
@@ -86,7 +86,7 @@
                                                                     </span>
                                                                 @endif
                                                             </button>
-                                                            {{-- <button class="btn ml-1  btn-sm btn-outline-danger" data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}', 'supprimer' ,'button_delete_footer')" data-target="#danger">
+                                                            {{-- <button class="btn ml-1  btn-sm btn-outline-danger" data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}',{{ Js::from(e(Sa_name($client->name))) }}, 'supprimer' ,'button_delete_footer')" data-target="#danger">
                                                                     <i data-feather="trash" class="mr-50"></i>
                                                                     Supprimer
                                                             </button> --}} 

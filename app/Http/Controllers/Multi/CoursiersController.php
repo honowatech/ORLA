@@ -194,7 +194,7 @@ class CoursiersController extends Controller
         $vehicule->save();
         $noms_vehicules .= $vehicule->modele.' '.$vehicule->marque.', ';
       }
-      $message = "vehicules ".$noms_vehicules." attribués avec Succès.</b>";
+      $message = "vehicules ".e($noms_vehicules)." attribués avec Succès.</b>";
       session()->flash('message',$message);
       return redirect()->back();
     }
@@ -250,7 +250,7 @@ class CoursiersController extends Controller
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
-      $message = $coursier->noms.' '.$coursier->prenoms." Activé(e) avec <b class='text-success'> Succès.</b>";
+      $message = e($coursier->noms).' '.e($coursier->prenoms)." Activé(e) avec <b class='text-success'> Succès.</b>";
     }else{
       $coursier->statut = 0;
         if($coursier->id_utilisateur!=null){
@@ -258,7 +258,7 @@ class CoursiersController extends Controller
             $utilisateur->statut = 0;
             $utilisateur->save();
         }
-      $message = $coursier->noms.' '.$coursier->prenoms." Desactivé(e) avec <b class='text-success'> Succès.</b>";
+      $message = e($coursier->noms).' '.e($coursier->prenoms)." Desactivé(e) avec <b class='text-success'> Succès.</b>";
     }
     $coursier->save();
     session()->flash('message',$message);

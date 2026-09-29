@@ -341,10 +341,10 @@ class ZoneController extends Controller
       $zone = Zone::findOrFail($id);
       if ($zone->statut == 0) {
         $zone->statut = 1;
-        $message = $zone->libelle." Activé(e) <b class='text-success'> Succès.</b>";
+        $message = e($zone->libelle)." Activé(e) <b class='text-success'> Succès.</b>";
       }else{
         $zone->statut = 0;
-        $message = $zone->libelle." Desactivé(e) <b class='text-success'> Succès.</b>";
+        $message = e($zone->libelle)." Desactivé(e) <b class='text-success'> Succès.</b>";
       }
       $zone->save();
       session()->flash('message',$message);

@@ -163,7 +163,7 @@ class ApiController extends Controller
       $api->key = $key;
       $api->secret = $secret;
       $api->save();
-      $message = "Api ".$api->name." modifié avec <b class='text-success'> Succès.</b>";
+      $message = "Api ".e($api->name)." modifié avec <b class='text-success'> Succès.</b>";
       session()->flash('message',$message);
       return redirect()->route('Sa-parametre.index');
     }
@@ -184,10 +184,10 @@ class ApiController extends Controller
       $api = Api::findOrFail($id);
       if ($api->statut == 0) {
         $api->statut = 1;
-        $message = "Api <b>".Sa_name($api->name)."</b> <span class='text-success'> Disponible </span> chez le client";
+        $message = "Api <b>".Sa_name(e($api->name))."</b> <span class='text-success'> Disponible </span> chez le client";
       }else{
         $api->statut = 0;
-        $message = "Api <b>".Sa_name($api->name)."</b> <span class='text-danger'> Indisponible </span> chez le client";
+        $message = "Api <b>".Sa_name(e($api->name))."</b> <span class='text-danger'> Indisponible </span> chez le client";
       }
       $api->save();
       session()->flash('message',$message);

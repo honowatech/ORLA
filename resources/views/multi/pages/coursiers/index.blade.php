@@ -137,7 +137,7 @@
                                                             <i data-feather="edit-2" class="text-info mr-50"></i>
                                                             <span>Editer</span>
                                                         </a>
-                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}','{{$coursier->noms.' '.$coursier->prenoms}}',@if($coursier->statut == 1) ' Désactiver ' @else ' Activer ' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}',{{ Js::from(e($coursier->noms.' '.$coursier->prenoms)) }},@if($coursier->statut == 1) ' Désactiver ' @else ' Activer ' @endif ,'button_footer')" data-target="#danger">
                                                             @if($coursier->statut == 1)
                                                                 <i data-feather='x' class="text-danger mr-50"></i>
                                                                 <span type="button">
