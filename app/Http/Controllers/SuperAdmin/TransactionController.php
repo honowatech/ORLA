@@ -96,6 +96,8 @@ class TransactionController extends Controller
         $id_client = $request->input('id_client');
         $date_debut = $request->input('date_debut');
         $methode = $request->input('methode');
+        // L'attribution sans paiement est réservée au super admin connecté.
+        abort_if($methode == 'application' && check_superadmin() != 'true', 403);
         $abonnement = Abonnement::findOrFail($id_abonnement);
   // dd($name,$telephone,$telephone_secondaire,$salaire,$cni);
   // On enregistre le client
@@ -105,7 +107,7 @@ class TransactionController extends Controller
             $client = Client::where('statut',[1])->first();
         }
             if ($abonnement->statut != 1) {
-                $message = "<b class='text-danger'> Erreur. </b></br> L'abonnement ".$abonnement->titre." n'est plus actif";
+                $message = "<b class='text-danger'> Erreur. </b></br> L'abonnement ".e($abonnement->titre)." n'est plus actif";
                 session()->flash('message',$message);
                 return redirect()->back();
             }
@@ -136,13 +138,16 @@ class TransactionController extends Controller
             $client->id_abonnement = $transaction->abonnement->id;
             $client->date_dernier_paiement = $transaction->created_at;
             $client->save();
-            $message = "Abonnement <b>".$abonnement->titre."</b> Attribué à <b>".$client->name."</b> avec <b class='text-success'>Succès </b>";
+            $message = "Abonnement <b>".e($abonnement->titre)."</b> Attribué à <b>".e($client->name)."</b> avec <b class='text-success'>Succès </b>";
             session()->flash('message',$message);
             return redirect()->back();
         }elseif($methode == 'mobile'){
             $transaction->statut = 'waiting';
             $transaction->save();
-            Sa_pay($abonnement->montant,$transaction);
+            // Autorise ce navigateur à consulter la transaction au retour de Monetbil.
+            session()->put('Sc-transaction.'.$transaction->id, true);
+            session()->save();
+            Sa_pay($abonnement->montant,$transaction->id);
         }
         
     }
@@ -156,9 +161,16 @@ class TransactionController extends Controller
     public function checkpay($id)
     {
       $transaction = Transaction::findOrFail($id);
+      // Une transaction déjà traitée n'est jamais retraitée.
+      if ($transaction->statut != 'waiting') {
+        abort_unless($this->peutVoir($transaction), 403);
+        return redirect()->route('Sc-transaction.show',$transaction->id);
+      }
       $api = Api::where('statut',[1])->where('name','Monetbill')->first();
       $_SESSION['api'] = $api;
       $check = Sa_checkpay();
+      // Signature Monetbil invalide, ou paiement fait pour une autre transaction.
+      abort_if($check === null || $check['payment_ref'] !== Sa_payment_ref($transaction->id), 403);
       $transaction->statut = $check['statut'];
       $transaction->save();
       foreach ($check as $key => $value) {
@@ -220,6 +232,7 @@ class TransactionController extends Controller
         'waiting' => 'loader'
         ];
       $transaction = Transaction::findOrFail($id);
+      abort_unless($this->peutVoir($transaction), 403);
       return view('superadmin.pages.transaction.info',compact('transaction','statuts','statuts_valeurs','statuts_icon'));
     }
 
@@ -271,13 +284,22 @@ class TransactionController extends Controller
       $client = Client::findOrFail($id);
       if ($client->statut == 0) {
         $client->statut = 1;
-        $message = "Client ".Sa_name($client->name)." Activé avec <b class='text-success'> Succès.</b>";
+        $message = "Client ".Sa_name(e($client->name))." Activé avec <b class='text-success'> Succès.</b>";
       }else{
         $client->statut = 0;
-        $message = "Client ".Sa_name($client->name)." Desactivé avec <b class='text-success'> Succès.</b>";
+        $message = "Client ".Sa_name(e($client->name))." Desactivé avec <b class='text-success'> Succès.</b>";
       }
       $client->save();
       session()->flash('message',$message);
       return redirect()->back();
+    }
+
+    /**
+     * Le super admin voit toutes les transactions ; un visiteur seulement
+     * celle qu'il a lui-même initiée dans ce navigateur.
+     */
+    private function peutVoir(Transaction $transaction)
+    {
+        return check_superadmin() == 'true' || session()->has('Sc-transaction.'.$transaction->id);
     }
 }

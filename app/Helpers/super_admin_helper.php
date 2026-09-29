@@ -86,7 +86,7 @@ use Carbon\Carbon;
             Monetbil::setCurrency('XAF');
             Monetbil::setLocale('fr'); // Display language fr or en
             Monetbil::setCountry('CM');
-            Monetbil::setPayment_ref(md5(uniqid()));
+            Monetbil::setPayment_ref(Sa_payment_ref($id_transaction));
             Monetbil::setUser(12);
             Monetbil::setReturn_url(route('Sc-transaction.checkpay',$id_transaction));
             Monetbil::setLogo('https://focus-rent.honowa.com/public/app-assets/images/logo/fichier_2.svg');
@@ -96,6 +96,12 @@ use Carbon\Carbon;
             return Monetbil::startPayment(); 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        }
+    }
+    if (!function_exists('Sa_payment_ref')) {
+        // Référence de paiement envoyée à Monetbil : lie le paiement à la transaction locale.
+        function Sa_payment_ref($id_transaction) {
+            return 'speedex-transaction-'.$id_transaction;
         }
     }
     if (!function_exists('Sa_checkpay')) {
@@ -108,7 +114,7 @@ use Carbon\Carbon;
             $service_secret = Monetbil::getServiceSecret();
 
             if (!Monetbil::checkSign($service_secret, $params)) {
-                echo 'erreur';
+                return null;
             }
 
             $transaction_id = Monetbil::getQuery('transaction_id');
