@@ -179,7 +179,8 @@ class PasswordController extends Controller
         session()->flash('message',$message);
         return redirect()->back();
     }
-    $user = Users::findOrFail($id);
+    // Seul le mot de passe du compte connecté peut être modifié.
+    $user = Users::findOrFail(Auth()->user()->id);
     $user->password = password_hash($password_new, PASSWORD_BCRYPT);
     $user->save();
     $message = "Modifications enregistrées avec <b class='text-success'> Succès. </b>";

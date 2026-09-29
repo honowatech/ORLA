@@ -224,7 +224,7 @@ class CommandesController extends Controller
     $statut == 'annulee' ? $reponse = 'Livraison annulée':'';
     $statut == 'encours' ? $reponse = 'Livraison En cours':'';
 // on cherche la commande concernée
-    $commande = Commandes::findOrFail($id);
+    $commande = $this->commandeDuCoursier($id);
     $message = "<b class='text-danger text-center'>Echec ! </br> Ce statut n'est pas correct.</b>";
 // ici on vérifie si le statut existe et est bel et bien une chaine de caractère
     session()->flash('message',$message);

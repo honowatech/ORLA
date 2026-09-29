@@ -169,6 +169,8 @@ class UsersController extends Controller
         }else if($type == strtoupper('client')){
 
         }
+    // Seul le profil du compte connecté peut être modifié.
+    $id = Auth()->user()->id;
     $noms = $request->input('noms');
     $prenoms = $request->input('prenoms');
     $email = $request->input('email');
@@ -229,7 +231,7 @@ class UsersController extends Controller
         }else if($type == strtoupper('client')){
 
         }
-    $commande = Commandes::findOrFail($id);
+    $commande = $this->commandeDuClient($id);
     // dd($commande);
     if ($commande->disponibility == 1) {
         $commande->disponibility = 0;
