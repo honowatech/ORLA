@@ -236,8 +236,7 @@ class TransactionController extends Controller
             session()->put('dernier_url',url()->current());
             return redirect()->route($check);
         }
-      $transaction = Transaction::findOrFail($id);
-      return view('superadmin.pages.transaction.edit',compact('transaction'));
+      abort(404);
     }
 
     /**
