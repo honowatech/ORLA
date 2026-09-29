@@ -43,3 +43,8 @@ php artisan optimize:clear
 Le `composer.lock` actuel impose **PHP ≥ 8.4.1** (paquets Symfony 8.x).
 Le serveur doit donc tourner en PHP 8.4, sinon `vendor/composer/platform_check.php`
 bloquera l'application.
+
+La version utilisée par le site est fixée dans `public/.htaccess` par le
+handler cPanel (`application/x-httpd-ea-php85`). Si la version PHP est
+changée via le *MultiPHP Manager* de cPanel, mettre à jour ce bloc dans le
+dépôt, sinon le prochain `git pull` le remettra à la valeur versionnée.
