@@ -9,6 +9,7 @@ use App\Models\SuperAdmin\Contact;
 use App\Models\SuperAdmin\Info_transaction;
 use App\Models\SuperAdmin\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -150,6 +151,12 @@ class TransactionController extends Controller
      * @param  int  $id
      */
     public function checkpay($id)
+    {
+        // Transaction, détails et abonnement du client : tout ou rien.
+        return DB::transaction(fn () => $this->traiterRetourPaiement($id));
+    }
+
+    private function traiterRetourPaiement($id)
     {
         $transaction = Transaction::findOrFail($id);
         // Une transaction déjà traitée n'est jamais retraitée.

@@ -7,15 +7,16 @@ use App\Models\Clients\Clients;
 use App\Models\Commandes\Commandes;
 use App\Models\Coursiers\Coursiers;
 use App\Models\Details_commande\Details_commande;
-use App\Models\Montant_livraison\Montant_livraison;
 use App\Models\Produits\Produits;
 use App\Models\Quartier\Quartier;
 use App\Models\TypeClient\TypeClient;
 use App\Models\Ville\Ville;
 use App\Services\Commandes\ChangerStatutCommande;
+use App\Services\Commandes\TarifLivraison;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class CommandesController extends Controller
@@ -150,29 +151,7 @@ class CommandesController extends Controller
      */
     public function montant(Request $request)
     {
-        return $this->tarifLivraison($request->input('id_depart'), $request->input('id_arrivee'));
-    }
-
-    /**
-     * Frais de livraison entre deux quartiers, selon leurs zones.
-     * Renvoie null si aucun tarif n'est défini entre ces zones.
-     */
-    private function tarifLivraison($id_depart, $id_arrivee)
-    {
-        if ($id_depart == null || $id_arrivee == null || $id_depart == $id_arrivee) {
-            return 1000;
-        }
-        $quartiers_depart = Quartier::findOrFail($id_depart);
-        $quartiers_arrivee = Quartier::findOrFail($id_arrivee);
-        if ($quartiers_depart->zone == $quartiers_arrivee->zone || $quartiers_depart->zone == null || $quartiers_arrivee->zone == null) {
-            return 1000;
-        }
-
-        return Montant_livraison::whereIn('id_zone_colis', [$quartiers_depart->zone->id, $quartiers_arrivee->zone->id])
-            ->whereIn('id_zone_livraison', [$quartiers_depart->zone->id, $quartiers_arrivee->zone->id])
-            ->limit(1)
-            ->get('montant')
-            ->value('montant');
+        return app(TarifLivraison::class)->montant($request->input('id_depart'), $request->input('id_arrivee'));
     }
 
     /**
@@ -221,6 +200,12 @@ class CommandesController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
+    {
+        // Client, quartiers, commande et détails : tout ou rien.
+        return DB::transaction(fn () => $this->enregistrerCommande($request));
+    }
+
+    private function enregistrerCommande(Request $request)
     {
         // ici nous déclarons toutes les variables
         $adresse_colis = $request->input('contact_colis').'*/*'.$request->input('lieu_collecte').'*/*'.$request->input('description_collecte');
@@ -352,7 +337,7 @@ class CommandesController extends Controller
             $id_quartier_livraison = $quartier_livraison->id;
         }
         // les frais de livraison sont recalculés côté serveur, jamais repris du formulaire
-        $montant_livraison = $this->tarifLivraison($id_quartier_colis, $id_quartier_livraison);
+        $montant_livraison = app(TarifLivraison::class)->montant($id_quartier_colis, $id_quartier_livraison);
         if ($montant_livraison === null) {
             throw ValidationException::withMessages([
                 'montant_livraison' => "Aucun tarif de livraison n'est défini entre ces deux zones.",
@@ -379,19 +364,8 @@ class CommandesController extends Controller
         $full_date = $date.' '.$heure;
         $date_livraison = Carbon::createFromFormat('Y-m-d H:i:s', $full_date);
         $commande->date_livraison = $date_livraison;
-        // ici on trouve la valeur de l'id du montant en fonction des zones
-        $quartier_depart = Quartier::findOrFail($id_quartier_colis);
-        $quartier_arrivee = Quartier::findOrFail($id_quartier_livraison);
-        if ($quartier_depart->zone == $quartier_arrivee->zone || $quartier_depart->zone == null || $quartier_arrivee->zone == null) {
-            $id_montant_livraison = null;
-        } else {
-            $id_montant_livraison = Montant_livraison::whereIn('id_zone_colis', [$quartier_depart->zone->id, $quartier_arrivee->zone->id])
-                ->whereIn('id_zone_livraison', [$quartier_depart->zone->id, $quartier_arrivee->zone->id])
-                ->limit(1)
-                ->get('id')
-                ->value('id');
-        }
-        $commande->id_montant_livraison = $id_montant_livraison;
+        // grille tarifaire appliquée (null : tarif par défaut)
+        $commande->id_montant_livraison = app(TarifLivraison::class)->grille($id_quartier_colis, $id_quartier_livraison)?->id;
         $commande->description = $description;
         $commande->mode_de_paiement = $mode_de_paiement;
         $commande->statut = 'attente';
