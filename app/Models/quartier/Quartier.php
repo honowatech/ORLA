@@ -4,21 +4,24 @@ namespace App\Models\Quartier;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Quartier extends Model 
+class Quartier extends Model
 {
-
     protected $table = 'quartier';
+
     public $timestamps = true;
-    protected $visible = array('id_zone','libelle','id_ville');
+
+    protected $visible = ['id_zone', 'libelle', 'id_ville'];
 
     public function zone()
     {
         return $this->belongsTo('App\Models\zone\Zone', 'id_zone');
     }
+
     public function ville()
     {
         return $this->belongsTo('App\Models\ville\Ville', 'id_ville');
     }
+
     public function boutiques()
     {
         return $this->hasMany('App\Models\boutiques\Boutiques', 'id_quartier');
@@ -38,5 +41,4 @@ class Quartier extends Model
     {
         return $this->hasMany('App\Models\commandes\Commandes', 'id_quartier_livraison');
     }
-
 }

@@ -4,12 +4,13 @@ namespace App\Models\Details_commande;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Details_commande extends Model 
+class Details_commande extends Model
 {
-
     protected $table = 'details_commande';
+
     public $timestamps = true;
-    protected $visible = array('id_commande', 'id_produit', 'nom_produit', 'quantite', 'prix');
+
+    protected $visible = ['id_commande', 'id_produit', 'nom_produit', 'quantite', 'prix'];
 
     public function commande()
     {
@@ -20,5 +21,4 @@ class Details_commande extends Model
     {
         return $this->belongsTo('App\Models\produits\Produits', 'id_produit');
     }
-
 }

@@ -4,13 +4,15 @@ namespace App\Models\Point_relais;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Point_relais extends Model 
+class Point_relais extends Model
 {
-
     protected $table = 'point_relais';
+
     public $timestamps = true;
-    protected $fillable = array('id_quartier');
-    protected $visible = array('libelle', 'id_coursier', 'quartier', 'statut');
+
+    protected $fillable = ['id_quartier'];
+
+    protected $visible = ['libelle', 'id_coursier', 'quartier', 'statut'];
 
     public function quartier()
     {
@@ -31,5 +33,4 @@ class Point_relais extends Model
     {
         return $this->hasMany('App\Models\commandes\Commandes', 'id_point_relais');
     }
-
 }

@@ -4,13 +4,15 @@ namespace App\Models\Montant_livraison;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Montant_livraison extends Model 
+class Montant_livraison extends Model
 {
-
     protected $table = 'montant_livraison';
+
     public $timestamps = true;
-    protected $fillable = array('id_zone_colis');
-    protected $visible = array('id_zone_livraison', 'montant');
+
+    protected $fillable = ['id_zone_colis'];
+
+    protected $visible = ['id_zone_livraison', 'montant'];
 
     public function commandes()
     {
@@ -26,5 +28,4 @@ class Montant_livraison extends Model
     {
         return $this->belongsTo('App\Models\zone\Zone', 'id_zone_livraison');
     }
-
 }

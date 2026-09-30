@@ -1,8 +1,17 @@
 <?php
 
+use App\Http\Middleware\Check_Sa_Client_Error;
+use App\Http\Middleware\PreventRequestsDuringMaintenance;
+use App\Http\Middleware\TrimStrings;
+use App\Http\Middleware\TrustProxies;
+use App\Http\Middleware\VerifierRole;
+use App\Http\Middleware\VerifierSuperAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\Middleware\HandleCors;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,18 +23,18 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->prepend([
-            \App\Http\Middleware\TrustProxies::class,
-            \Illuminate\Http\Middleware\HandleCors::class,
-            \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
-            \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-            \App\Http\Middleware\TrimStrings::class,
-            \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+            TrustProxies::class,
+            HandleCors::class,
+            PreventRequestsDuringMaintenance::class,
+            ValidatePostSize::class,
+            TrimStrings::class,
+            ConvertEmptyStringsToNull::class,
         ]);
 
         $middleware->alias([
-            'role' => \App\Http\Middleware\VerifierRole::class,
-            'superadmin' => \App\Http\Middleware\VerifierSuperAdmin::class,
-            'Check_Sa_Client_Error' => \App\Http\Middleware\Check_Sa_Client_Error::class,
+            'role' => VerifierRole::class,
+            'superadmin' => VerifierSuperAdmin::class,
+            'Check_Sa_Client_Error' => Check_Sa_Client_Error::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

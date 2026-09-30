@@ -4,12 +4,13 @@ namespace App\Models\Zone;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Zone extends Model 
+class Zone extends Model
 {
-
     protected $table = 'zone';
+
     public $timestamps = true;
-    protected $visible = array('libelle', 'id_ville', 'statut');
+
+    protected $visible = ['libelle', 'id_ville', 'statut'];
 
     public function details_zone()
     {
@@ -30,9 +31,9 @@ class Zone extends Model
     {
         return $this->hasMany('App\Models\montant_livraison\Montant_livraison', 'id_zone_colis');
     }
+
     public function montantlivraisonlivraison()
     {
         return $this->hasMany('App\Models\montant_livraison\Montant_livraison', 'id_zone_livraison');
     }
-
 }

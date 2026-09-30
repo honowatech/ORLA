@@ -17,7 +17,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->string('titre')->nullable();
             $table->integer('accumulateur')->unsigned()->default('1');
-            $table->enum('type_periode', array('heure', 'jour', 'semaine', 'mois', 'annee'));
+            $table->enum('type_periode', ['heure', 'jour', 'semaine', 'mois', 'annee']);
             $table->decimal('montant', 20, 2)->nullable();
             $table->integer('periode_grace')->nullable();
             $table->boolean('statut');

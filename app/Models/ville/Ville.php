@@ -4,12 +4,13 @@ namespace App\Models\Ville;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ville extends Model 
+class Ville extends Model
 {
-
     protected $table = 'ville';
+
     public $timestamps = true;
-    protected $visible = array('libelle','code');
+
+    protected $visible = ['libelle', 'code'];
 
     public function zone()
     {
@@ -25,5 +26,4 @@ class Ville extends Model
     {
         return $this->hasMany('App\Models\Vehicule', 'id_ville');
     }
-    
 }

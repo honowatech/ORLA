@@ -4,12 +4,13 @@ namespace App\Models\Boutiques;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Boutiques extends Model 
+class Boutiques extends Model
 {
-
     protected $table = 'boutiques';
+
     public $timestamps = true;
-    protected $visible = array('libelle', 'id_client', 'quartier', 'statut');
+
+    protected $visible = ['libelle', 'id_client', 'quartier', 'statut'];
 
     public function client()
     {
@@ -30,5 +31,4 @@ class Boutiques extends Model
     {
         return $this->hasMany('App\Models\commandes\Commandes', 'id_boutique');
     }
-
 }

@@ -4,12 +4,13 @@ namespace App\Models\Produits;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Produits extends Model 
+class Produits extends Model
 {
-
     protected $table = 'produits';
+
     public $timestamps = true;
-    protected $visible = array('noms', 'libelle', 'description', 'statut');
+
+    protected $visible = ['noms', 'libelle', 'description', 'statut'];
 
     public function stock()
     {
@@ -20,5 +21,4 @@ class Produits extends Model
     {
         return $this->hasMany('App\Models\details_commande\Details_commande', 'id_produit');
     }
-
 }

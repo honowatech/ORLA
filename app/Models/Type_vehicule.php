@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Type_vehicule extends Model
 {
     use HasFactory;
-    protected $table = 'type_vehicule';
-    public $timestamps = true;
-    protected $visible = array('libelle','description','statut');
-    protected $fillable = array('libelle','description','statut');
 
+    protected $table = 'type_vehicule';
+
+    public $timestamps = true;
+
+    protected $visible = ['libelle', 'description', 'statut'];
+
+    protected $fillable = ['libelle', 'description', 'statut'];
 
     public function vehicule()
     {

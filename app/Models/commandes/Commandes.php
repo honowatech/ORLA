@@ -4,12 +4,13 @@ namespace App\Models\Commandes;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Commandes extends Model 
+class Commandes extends Model
 {
-
     protected $table = 'commandes';
+
     public $timestamps = true;
-    protected $visible = array('id_client', 'nom_client', 'telephone', 'id_boutique','id_coursier', 'id_point_relais', 'id_saver', 'date_commande', 'type_commande', 'adresse_colis', 'id_quartier_colis', 'adresse_livraison', 'id_quartier_livraison', 'montant_livraison', 'id_montant_livraison', 'date_mise_encours', 'date_livre', 'date_livraison','montant_recuperer', 'description', 'mode_de_paiement', 'statut');
+
+    protected $visible = ['id_client', 'nom_client', 'telephone', 'id_boutique', 'id_coursier', 'id_point_relais', 'id_saver', 'date_commande', 'type_commande', 'adresse_colis', 'id_quartier_colis', 'adresse_livraison', 'id_quartier_livraison', 'montant_livraison', 'id_montant_livraison', 'date_mise_encours', 'date_livre', 'date_livraison', 'montant_recuperer', 'description', 'mode_de_paiement', 'statut'];
 
     public function client()
     {
@@ -60,5 +61,4 @@ class Commandes extends Model
     {
         return $this->hasMany('App\Models\details_commande\Details_commande', 'id_commande');
     }
-
 }

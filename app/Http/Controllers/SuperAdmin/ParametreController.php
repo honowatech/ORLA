@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Models\SuperAdmin\Api;
+use Illuminate\Http\Request;
 
 class ParametreController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -17,19 +15,7 @@ class ParametreController extends Controller
     public function index(Request $request)
     {
         $apis = Api::get();
-        return view('superadmin.pages.parametre.index',compact('apis'));
+
+        return view('superadmin.pages.parametre.index', compact('apis'));
     }
-
-
-
-    
-
-
-
-
-
-
-
-
-
 }

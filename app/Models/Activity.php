@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Activity extends Model
 {
     use HasFactory;
+
     protected $table = 'activity';
+
     public $timestamps = true;
-    protected $visible = array('action', 'jour', 'heure', 'id_user','color', 'texte_lien','lien');
+
+    protected $visible = ['action', 'jour', 'heure', 'id_user', 'color', 'texte_lien', 'lien'];
 
     public function user()
     {

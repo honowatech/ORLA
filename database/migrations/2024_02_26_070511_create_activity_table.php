@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->text('message');
-            $table->string('title',255);
-            $table->string('lien',255)->nullable();
-            $table->string('texte_lien',255)->nullable();
-            $table->string('color',255);
+            $table->string('title', 255);
+            $table->string('lien', 255)->nullable();
+            $table->string('texte_lien', 255)->nullable();
+            $table->string('color', 255);
             $table->date('jour');
             $table->time('heure');
             $table->bigInteger('id_user')->constrained('users');

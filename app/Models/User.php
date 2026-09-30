@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
         'noms',
         'id_type_utilisateur',
-        'statut'
+        'statut',
     ];
 
     /**
@@ -45,7 +45,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
 
     public function type_utilisateur()
     {
@@ -76,10 +75,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\commandes\Commandes', 'id_saver');
     }
+
     public function paiements_enregistres()
     {
         return $this->hasMany('App\Models\paiement\Paiement', 'id_saver');
     }
+
     public function activities()
     {
         return $this->hasMany('App\Models\activity', 'id_user');

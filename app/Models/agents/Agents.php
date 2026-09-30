@@ -4,12 +4,13 @@ namespace App\Models\Agents;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Agents extends Model 
+class Agents extends Model
 {
-
     protected $table = 'agents';
+
     public $timestamps = true;
-    protected $visible = array('noms', 'prenoms', 'id_utilisateur', 'statut', 'telephone');
+
+    protected $visible = ['noms', 'prenoms', 'id_utilisateur', 'statut', 'telephone'];
 
     public function compte_agent()
     {

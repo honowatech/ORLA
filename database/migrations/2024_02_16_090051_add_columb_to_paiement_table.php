@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
+
         Schema::table('paiement', function (Blueprint $table) {
-            $table->string('telephone',255);
+            $table->string('telephone', 255);
         });
     }
 

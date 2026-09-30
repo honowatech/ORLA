@@ -17,12 +17,12 @@ return new class extends Migration
             $table->softDeletes();
             $table->integer('id_client')->unsigned();
             $table->integer('id_abonnement')->unsigned();
-            $table->enum('methode', array('mobile', 'bank', 'application'));
+            $table->enum('methode', ['mobile', 'bank', 'application']);
             $table->decimal('montant', 20, 2)->nullable();
             $table->integer('nbre_abonnement')->nullable();
             $table->datetime('date_debut')->nullable();
             $table->datetime('date_fin')->nullable();
-            $table->enum('statut', array('waiting', 'success', 'failed','cancelled'));
+            $table->enum('statut', ['waiting', 'success', 'failed', 'cancelled']);
         });
     }
 
