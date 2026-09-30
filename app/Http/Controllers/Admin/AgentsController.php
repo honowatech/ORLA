@@ -205,7 +205,7 @@ class AgentsController extends Controller
             $message = e($agent->noms).' '.e($agent->prenoms)." <b class='text-success'> Desactivé avec Succès.</b>";
         }
         $agent->save();
-        session()->flash('message',$message);
+        session()->flash('message', $message);
 
         return redirect()->back();
 

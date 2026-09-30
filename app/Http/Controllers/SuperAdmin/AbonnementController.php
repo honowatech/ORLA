@@ -235,7 +235,7 @@ class AbonnementController extends Controller
             $message = 'Abonnement '.Sa_name(e($abonnement->titre))." Desactivé avec <b class='text-success'> Succès.</b>";
         }
         $abonnement->save();
-        session()->flash('message',$message);
+        session()->flash('message', $message);
 
         return redirect()->back();
     }

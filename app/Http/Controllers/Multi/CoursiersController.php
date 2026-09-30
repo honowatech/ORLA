@@ -233,7 +233,7 @@ class CoursiersController extends Controller
             $message = e($coursier->noms).' '.e($coursier->prenoms)." Desactivé(e) avec <b class='text-success'> Succès.</b>";
         }
         $coursier->save();
-        session()->flash('message',$message);
+        session()->flash('message', $message);
 
         return redirect()->back();
     }

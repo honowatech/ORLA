@@ -58,6 +58,6 @@ class ErrorController extends Controller
         $phones = Contact::where('name', 'phone')->first();
         $email = Contact::where('name', 'email')->first();
 
-        return view('superadmin.errors.client_inactif', compact('phones','email'));
+        return view('superadmin.errors.client_inactif', compact('phones', 'email'));
     }
 }

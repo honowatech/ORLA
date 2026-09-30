@@ -240,7 +240,7 @@ class ZoneController extends Controller
             $message = e($zone->libelle)." Desactivé(e) <b class='text-success'> Succès.</b>";
         }
         $zone->save();
-        session()->flash('message',$message);
+        session()->flash('message', $message);
 
         return redirect()->back();
 

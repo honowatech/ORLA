@@ -244,7 +244,7 @@ class ClientsController extends Controller
             $message = e($client->noms).' '.e($client->prenoms)." Desactivé(e) avec <b class='text-success'> Succès.</b>";
         }
         $client->save();
-        session()->flash('message',$message);
+        session()->flash('message', $message);
 
         return redirect()->back();
     }

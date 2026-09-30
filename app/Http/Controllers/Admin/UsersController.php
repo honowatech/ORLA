@@ -249,7 +249,7 @@ class UsersController extends Controller
             }
         }
         $user->save();
-        session()->flash('message',$message);
+        session()->flash('message', $message);
 
         return redirect()->back();
     }
