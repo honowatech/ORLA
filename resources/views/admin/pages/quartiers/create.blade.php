@@ -107,6 +107,6 @@
 
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#quartierAjouter').classList.add('active');
+		document.querySelector('#quartierAjouter')?.classList.add('active');
 	</script>
 @endsection

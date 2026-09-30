@@ -352,7 +352,7 @@
                 status[i].value = id;
             }
         }
-		document.querySelector('#Acceuil').classList.add('active');
+		document.querySelector('#Acceuil')?.classList.add('active');
         @if($activities->count() > 0)
             function tempsEcoule(date) {
                   const dateSoumise = new Date((date * 1000));

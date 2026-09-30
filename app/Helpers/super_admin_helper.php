@@ -103,7 +103,7 @@ if (! function_exists('Sa_pay')) {
         Monetbil::setPayment_ref(Sa_payment_ref($id_transaction));
         Monetbil::setUser(12);
         Monetbil::setReturn_url(route('Sc-transaction.checkpay', $id_transaction));
-        Monetbil::setLogo('https://focus-rent.honowa.com/public/app-assets/images/logo/fichier_2.svg');
+        Monetbil::setLogo(Sa_logo());
 
         // Start a payment
         // You will be redirected to the payment page
@@ -265,7 +265,7 @@ if (! function_exists('Sa_password')) {
 if (! function_exists('Sa_logo')) {
     function Sa_logo()
     {
-        return asset('app-assets/images/logo/fichier_2.svg');
+        return asset('app-assets/images/avatars/map-pin.png');
     }
 }
 if (! function_exists('Sa_Ladate')) {

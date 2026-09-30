@@ -117,6 +117,6 @@
 @endsection
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#Notifications').classList.add('active');
+		document.querySelector('#Notifications')?.classList.add('active');
 	</script>
 @endsection

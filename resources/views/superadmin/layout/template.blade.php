@@ -64,7 +64,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/components.css ')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/dark-layout.css ')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/bordered-layout.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('print.min.css ')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')}}">
     <style type="text/css">
         .vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation li.has-sub > a:after {
@@ -222,7 +221,6 @@
 <script src="{{ asset('app-assets/js/core/app-menu.js') }}"></script>
 <script src="{{ asset('app-assets/js/core/app.js') }}"></script>
 <!-- END: Theme JS-->
-  <script src="{{ asset('print.min.js') }}"></script>
   <script src="{{asset('app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
   <script src="{{asset('app-assets/js/scripts/forms/form-number-input.js')}}"></script>
 <script>

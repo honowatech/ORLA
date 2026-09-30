@@ -126,6 +126,6 @@
 
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#ProduitsListe').classList.add('active');
+		document.querySelector('#ProduitsListe')?.classList.add('active');
 	</script>
 @endsection

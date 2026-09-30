@@ -258,6 +258,6 @@
                 quartiers[i].value = id;
             }
         }
-		document.querySelector('#zoneListe').classList.add('active');
+		document.querySelector('#zoneListe')?.classList.add('active');
 	</script>
 @endsection

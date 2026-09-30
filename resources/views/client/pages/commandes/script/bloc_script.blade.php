@@ -130,7 +130,7 @@
                 }
             });
         }
-        document.querySelector('#Commandes').classList.add('active');
+        document.querySelector('#Commandes')?.classList.add('active');
         function initialise(ids,faire){
             if(faire){
                 classes = document.querySelectorAll('.disabled');

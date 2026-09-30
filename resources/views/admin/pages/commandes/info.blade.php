@@ -622,7 +622,7 @@
 @endsection
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#CommandesListe').classList.add('active');
+		document.querySelector('#CommandesListe')?.classList.add('active');
         function  put_statut(id){
             var status = document.querySelectorAll('.statut');
             for (i = 0; i < status.length; i++) {

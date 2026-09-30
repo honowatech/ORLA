@@ -103,6 +103,6 @@
 
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#villeAjouter').classList.add('active');
+		document.querySelector('#villeAjouter')?.classList.add('active');
 	</script>
 @endsection

@@ -500,7 +500,7 @@
            document.querySelector('#page').value = number_page;
            document.querySelector('#search').submit() 
         }
-		document.querySelector('#CommandesListe').classList.add('active');
+		document.querySelector('#CommandesListe')?.classList.add('active');
         function remplir_modale(id_contenu){
             document.querySelector('#conteneur').innerHTML = document.querySelector('#'+id_contenu).innerHTML;
         }

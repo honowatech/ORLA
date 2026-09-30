@@ -275,6 +275,6 @@
 @endsection
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#VehiculeListe').classList.add('active');
+		document.querySelector('#VehiculeListe')?.classList.add('active');
 	</script>
 @endsection

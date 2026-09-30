@@ -751,6 +751,6 @@
 
     <script src="{{asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script>
     <script type="text/javascript">
-        document.querySelector('#Acceuil').classList.add('active');
+        document.querySelector('#Acceuil')?.classList.add('active');
     </script>
 @endsection

@@ -278,6 +278,6 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                 zones[i].value = id;
             }
         }
-        document.querySelector('#CoursierListe').classList.add('active');
+        document.querySelector('#CoursierListe')?.classList.add('active');
     </script>
 @endsection

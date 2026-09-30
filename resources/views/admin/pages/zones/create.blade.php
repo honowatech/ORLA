@@ -145,7 +145,7 @@
                 console.log(document.querySelector('#vrai_input').value)
             });
         }
-		document.querySelector('#zoneAjouter').classList.add('active');
+		document.querySelector('#zoneAjouter')?.classList.add('active');
         function choose(){
             var id_ville = document.querySelector('#id_ville'),
                 div_id_quartier_associe = document.querySelector('#div_id_quartier_associe'),

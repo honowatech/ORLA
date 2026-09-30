@@ -256,6 +256,6 @@
            document.querySelector('#page').value = number_page;
            document.querySelector('#search').submit() 
         }
-		document.querySelector('#Type_vehiculeListe').classList.add('active');
+		document.querySelector('#Type_vehiculeListe')?.classList.add('active');
 	</script>
 @endsection

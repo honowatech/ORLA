@@ -190,6 +190,6 @@
            document.querySelector('#page').value = number_page;
            document.querySelector('#search').submit() 
         }
-		document.querySelector('#AgentsListe').classList.add('active');
+		document.querySelector('#AgentsListe')?.classList.add('active');
 	</script>
 @endsection

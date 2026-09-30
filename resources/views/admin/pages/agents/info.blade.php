@@ -207,6 +207,6 @@
 @endsection
 @section('javascript')
     <script type="text/javascript">
-        document.querySelector('#AgentsListe').classList.add('active');
+        document.querySelector('#AgentsListe')?.classList.add('active');
     </script>
 @endsection

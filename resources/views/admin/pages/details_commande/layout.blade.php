@@ -84,7 +84,7 @@
             const year = date.getFullYear();
             return `${year}-${month}-${day}`;
         }
-		document.querySelector('#Details_commande').classList.add('active');
+		document.querySelector('#Details_commande')?.classList.add('active');
         function give_client(){
             var id_type = document.querySelector('.id_type_client').value,
             lien = '{{route('details_commande.create')}}';

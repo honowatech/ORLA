@@ -271,7 +271,7 @@
 
 @section('javascript')
     <script type="text/javascript">
-        document.querySelector('#Commandes').classList.add('active');
+        document.querySelector('#Commandes')?.classList.add('active');
         function remplir_montant(id){
             var phone_number2 = document.querySelector('#'+id+'2'),
                 phone_number = document.querySelector('#'+id).value.replaceAll(',','');

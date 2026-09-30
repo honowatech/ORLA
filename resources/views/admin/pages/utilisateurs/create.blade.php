@@ -169,7 +169,7 @@
 
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#UserAjouter').classList.add('active');
+		document.querySelector('#UserAjouter')?.classList.add('active');
 		function choose(){
 			var type_user = document.querySelector('#type_user'),
 				div_id_compte_associe = document.querySelector('#div_id_compte_associe'),

@@ -379,7 +379,7 @@
 
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#CoursierListe').classList.add('active');
+		document.querySelector('#CoursierListe')?.classList.add('active');
         function choose(){
             var id_ville = document.querySelector('#id_ville'),
                 div_id_quartier_associe = document.querySelector('#div_id_quartier_associe'),

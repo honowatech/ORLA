@@ -189,6 +189,6 @@
             document.querySelector('#new_building').click();
         @endif
     @endif
-        document.querySelector('#Acceuil').classList.add('active');
+        document.querySelector('#Acceuil')?.classList.add('active');
     </script>
 @endsection

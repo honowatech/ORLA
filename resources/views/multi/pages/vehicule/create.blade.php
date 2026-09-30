@@ -199,6 +199,6 @@
 @section('javascript')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 	<script type="text/javascript">
-		document.querySelector('#VehiculeAjouter').classList.add('active');
+		document.querySelector('#VehiculeAjouter')?.classList.add('active');
 	</script>
 @endsection

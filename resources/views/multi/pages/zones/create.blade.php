@@ -130,7 +130,7 @@
 @section('javascript')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 	<script type="text/javascript">
-		document.querySelector('#zoneAjouter').classList.add('active');
+		document.querySelector('#zoneAjouter')?.classList.add('active');
         function choose(){
             var id_ville = document.querySelector('#id_ville'),
                 div_id_quartier_associe = document.querySelector('#div_id_quartier_associe'),

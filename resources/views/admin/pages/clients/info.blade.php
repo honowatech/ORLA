@@ -329,6 +329,6 @@
             document.querySelector('#new_building').click();
         @endif
     @endif
-        document.querySelector('#ClientsListe').classList.add('active');
+        document.querySelector('#ClientsListe')?.classList.add('active');
     </script>
 @endsection

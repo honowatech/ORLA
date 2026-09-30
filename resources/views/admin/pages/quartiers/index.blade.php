@@ -160,6 +160,6 @@
            document.querySelector('#page').value = number_page;
            document.querySelector('#search').submit() 
         }
-		document.querySelector('#quartierListe').classList.add('active');
+		document.querySelector('#quartierListe')?.classList.add('active');
 	</script>
 @endsection

@@ -105,6 +105,6 @@
 
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#Type_vehiculeListe').classList.add('active');
+		document.querySelector('#Type_vehiculeListe')?.classList.add('active');
 	</script>
 @endsection

@@ -200,6 +200,6 @@
            document.querySelector('#page').value = number_page;
            document.querySelector('#search').submit() 
         }
-		document.querySelector('#montant_livraisonAjouter').classList.add('active');
+		document.querySelector('#montant_livraisonAjouter')?.classList.add('active');
 	</script>
 @endsection

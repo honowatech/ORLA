@@ -211,6 +211,6 @@
            document.querySelector('#page').value = number_page;
            document.querySelector('#search').submit() 
         }
-		document.querySelector('#ClientsListe').classList.add('active');
+		document.querySelector('#ClientsListe')?.classList.add('active');
 	</script>
 @endsection

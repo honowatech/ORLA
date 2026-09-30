@@ -177,6 +177,6 @@
 
 @section('javascript')
     <script type="text/javascript">
-        document.querySelector('#CoursierAjouter').classList.add('active');
+        document.querySelector('#CoursierAjouter')?.classList.add('active');
     </script>
 @endsection

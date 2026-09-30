@@ -193,6 +193,6 @@
                 $('.submit_button').prop("disabled", true);
             }
         }
-        document.querySelector('#password').classList.add('active');
+        document.querySelector('#password')?.classList.add('active');
     </script>
 @endsection

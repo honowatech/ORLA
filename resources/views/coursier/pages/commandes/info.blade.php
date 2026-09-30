@@ -547,6 +547,6 @@
                 status[i].value = id;
             }
         }
-        document.querySelector('#Acceuil').classList.add('active');
+        document.querySelector('#Acceuil')?.classList.add('active');
 	</script>
 @endsection

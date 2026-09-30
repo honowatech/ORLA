@@ -535,6 +535,6 @@
                 status[i].value = id;
             }
         }
-        document.querySelector('#Commandes').classList.add('active');
+        document.querySelector('#Commandes')?.classList.add('active');
 	</script>
 @endsection

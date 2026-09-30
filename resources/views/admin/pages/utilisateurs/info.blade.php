@@ -222,6 +222,6 @@
 @endsection
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#UserListe').classList.add('active');
+		document.querySelector('#UserListe')?.classList.add('active');
 	</script>
 @endsection

@@ -174,7 +174,7 @@
 
 @section('javascript')
     <script type="text/javascript">
-        document.querySelector('#ClientsAjouter').classList.add('active');
+        document.querySelector('#ClientsAjouter')?.classList.add('active');
         function createUserAccount(){
             var user_div = document.querySelectorAll('.user_div'),
                 user_input = document.querySelectorAll('.user_input'),

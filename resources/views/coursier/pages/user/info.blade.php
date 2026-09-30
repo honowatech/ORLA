@@ -160,6 +160,6 @@
 
 @section('javascript')
     <script type="text/javascript">
-        document.querySelector('#Profil').classList.add('active');
+        document.querySelector('#Profil')?.classList.add('active');
     </script>
 @endsection

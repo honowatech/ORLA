@@ -369,7 +369,7 @@
 
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#CoursierListe').classList.add('active');
+		document.querySelector('#CoursierListe')?.classList.add('active');
         phone('phone_number')
         phone('second_phone')
         function choose(){

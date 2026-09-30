@@ -656,7 +656,7 @@
 @endsection
 @section('javascript')
 	<script type="text/javascript">
-        document.querySelector('#Acceuil').classList.add('active');
+        document.querySelector('#Acceuil')?.classList.add('active');
         function tempsEcoule(date) {
             const dateSoumise = new Date((date * 1000));
             const dateActuelle = new Date();

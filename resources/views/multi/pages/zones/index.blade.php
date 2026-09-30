@@ -251,6 +251,6 @@
 @endsection
 @section('javascript')
 	<script type="text/javascript">
-		document.querySelector('#zoneListe').classList.add('active');
+		document.querySelector('#zoneListe')?.classList.add('active');
 	</script>
 @endsection

@@ -219,7 +219,7 @@
 
 @section('javascript')
     <script type="text/javascript">
-        document.querySelector('#Editer').classList.add('active');
+        document.querySelector('#Editer')?.classList.add('active');
         function  phone(){
             var phone_number2 = document.querySelector('#phone_number2')
                 phone_number = document.querySelector('#phone_number');

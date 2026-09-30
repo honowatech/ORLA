@@ -210,6 +210,6 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                 console.log(document.querySelector('#vrai_input').value)
             });
         }
-        document.querySelector('#Acceuil').classList.add('active');
+        document.querySelector('#Acceuil')?.classList.add('active');
     </script>
 @endsection
