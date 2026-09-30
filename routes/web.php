@@ -28,7 +28,7 @@ Route::group(['prefix' => 'superadmin'], function(){
         Route::post('/Sa-logout', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'disconnect'])->name('SuperAdmin.disconnect');
         Route::get('/Sa-home', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'home'])->name('SuperAdmin.home');
 
-        Route::resource('Sa-parametre', 'App\Http\Controllers\SuperAdmin\ParametreController');
+        Route::resource('Sa-parametre', 'App\Http\Controllers\SuperAdmin\ParametreController')->only(['index']);
 
         Route::resource('Sa-client', 'App\Http\Controllers\SuperAdmin\ClientController');
         Route::get('/Sa-client-ajax', [App\Http\Controllers\SuperAdmin\ClientController::class, 'index_ajax'])->name('Sa-client.index_ajax');
@@ -41,7 +41,7 @@ Route::group(['prefix' => 'superadmin'], function(){
         Route::post('/Sa-abonnement.recap_create', [App\Http\Controllers\SuperAdmin\AbonnementController::class, 'recap_create'])->name('Sa-abonnement.recap_create');
         Route::post('/Sa-abonnement_recap_edit', [App\Http\Controllers\SuperAdmin\AbonnementController::class, 'recap_edit'])->name('Sa-abonnement.recap_edit');
 
-        Route::resource('Sa-api', 'App\Http\Controllers\SuperAdmin\ApiController');
+        Route::resource('Sa-api', 'App\Http\Controllers\SuperAdmin\ApiController')->only(['edit', 'update', 'destroy']);
         Route::get('/Sa-api-ajax', [App\Http\Controllers\SuperAdmin\ApiController::class, 'index_ajax'])->name('Sa-api.index_ajax');
         Route::post('/Sa-api.recap_create', [App\Http\Controllers\SuperAdmin\ApiController::class, 'recap_create'])->name('Sa-api.recap_create');
         Route::post('/Sa-api_recap_edit', [App\Http\Controllers\SuperAdmin\ApiController::class, 'recap_edit'])->name('Sa-api.recap_edit');
@@ -69,8 +69,8 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                         Route::resource('zone', 'App\Http\Controllers\Multi\ZoneController');
                         Route::post('/quartierLie', [App\Http\Controllers\Multi\ZoneController::class, 'quartierLie'])->name('quartierLie');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('details_zone', 'App\Http\Controllers\Multi\Details_zoneController')->names('multi.details_zone');
-                        Route::resource('informations_personnels', 'App\Http\Controllers\Multi\Informations_personnelsController');
+                        Route::resource('details_zone', 'App\Http\Controllers\Multi\Details_zoneController')->names('multi.details_zone')->only(['store', 'update']);
+                        Route::resource('informations_personnels', 'App\Http\Controllers\Multi\Informations_personnelsController')->only(['store', 'edit']);
                 });
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -82,23 +82,19 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
                         Route::post('/compteLie', [App\Http\Controllers\Admin\UsersController::class, 'compteLie'])->name('compteLie');
-                        Route::resource('password', 'App\Http\Controllers\Admin\PasswordController')->names(['update' => 'admin.password.update']);
+                        Route::resource('password', 'App\Http\Controllers\Admin\PasswordController')->names(['update' => 'admin.password.update'])->only(['destroy']);
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('ville', 'App\Http\Controllers\Admin\VilleController');
+                        Route::resource('ville', 'App\Http\Controllers\Admin\VilleController')->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('clients', 'App\Http\Controllers\Admin\ClientsController');
                         Route::resource('agents', 'App\Http\Controllers\Admin\AgentsController');
-                        Route::resource('typeclient', 'App\Http\Controllers\Admin\TypeClientController');
-                        Route::resource('typeutilisateur', 'App\Http\Controllers\Admin\TypeUtilisateurController');
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('details_zone', 'App\Http\Controllers\Admin\Details_zoneController');
+                        Route::resource('details_zone', 'App\Http\Controllers\Admin\Details_zoneController')->only(['store', 'update']);
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('quartier', 'App\Http\Controllers\Admin\QuartierController');
-                        Route::resource('boutiques', 'App\Http\Controllers\Admin\BoutiquesController');
-                        Route::resource('point_relais', 'App\Http\Controllers\Admin\Point_relaisController');
+                        Route::resource('quartier', 'App\Http\Controllers\Admin\QuartierController')->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+                        Route::resource('boutiques', 'App\Http\Controllers\Admin\BoutiquesController')->only(['store', 'show', 'edit', 'destroy']);
                         Route::resource('produits', 'App\Http\Controllers\Admin\ProduitsController');
-                        Route::resource('stock', 'App\Http\Controllers\Admin\StockController');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('commandes', 'App\Http\Controllers\Admin\CommandesController');
                         Route::post('/boutiqueLie', [App\Http\Controllers\Admin\CommandesController::class, 'boutiqueLie'])->name('boutiqueLie');
@@ -107,9 +103,9 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                         Route::post('/lieu2', [App\Http\Controllers\Admin\CommandesController::class, 'lieu2'])->name('lieu2');
                         Route::post('/montant', [App\Http\Controllers\Admin\CommandesController::class, 'montant'])->name('montant');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('montant_livraison', 'App\Http\Controllers\Admin\Montant_livraisonController');
-                        Route::resource('details_commande', 'App\Http\Controllers\Admin\Details_commandeController');
-                        Route::resource('notification', 'App\Http\Controllers\Admin\NotificationController');
+                        Route::resource('montant_livraison', 'App\Http\Controllers\Admin\Montant_livraisonController')->only(['index', 'store']);
+                        Route::resource('details_commande', 'App\Http\Controllers\Admin\Details_commandeController')->only(['index', 'create', 'store', 'update']);
+                        Route::resource('notification', 'App\Http\Controllers\Admin\NotificationController')->only(['index']);
                     //--- fin -- Route liées à un admin ---//
                 });
 
@@ -124,7 +120,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                         // Le coursier consulte seulement les clients de ses commandes : les autres actions sont réservées à l'admin.
                         Route::resource('Coursierclients', 'App\Http\Controllers\Coursier\ClientsController')->only(['show']);
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('Coursiercommandes', 'App\Http\Controllers\Coursier\CommandesController');
+                        Route::resource('Coursiercommandes', 'App\Http\Controllers\Coursier\CommandesController')->only(['store', 'show', 'edit', 'update', 'destroy']);
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('Coursierpassword', 'App\Http\Controllers\Coursier\PasswordController');
                     //--- fin -- Route liées à un Coursier ---//
@@ -145,7 +141,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                         Route::post('/montant', [App\Http\Controllers\Client\CommandesController::class, 'montant'])->name('Clientmontant');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('Clientpassword', 'App\Http\Controllers\Client\PasswordController');
-                        Route::resource('Clientcoursiers', 'App\Http\Controllers\Client\CoursiersController');
+                        Route::resource('Clientcoursiers', 'App\Http\Controllers\Client\CoursiersController')->only(['show']);
                     //--- fin -- Route liées à un client ---//
                 });
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
