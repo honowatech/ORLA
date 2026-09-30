@@ -36,80 +36,7 @@ use Illuminate\Support\Facades\Auth;
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/avatars/map-pin.png')}}">
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.min.css') }}">
-
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
-    <!-- END: Vendor CSS-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet }}">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- END: Vendor CSS-->
-
-
-    <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap-extended.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/colors.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/components.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/dark-layout.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/bordered-layout.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
-
-
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/form-validation.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-user.css')}}">
-
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css ')}}">
-    <!-- END: Vendor CSS-->
-
-    <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap-extended.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/colors.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/components.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/dark-layout.css ')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/bordered-layout.css ')}}">
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-pickadate.css')}}">
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
-    <style type="text/css">
-        .btn span ,.main-menu.menu-light .navigation .active a,.main-menu.menu-light .navigation .active a span,.badge{
-            color: #ffffff !important;
-        }
-        .main-menu.menu-light .navigation li a{
-            color: #000000 !important;
-        }
-        label .btn{
-            margin-bottom :initial !important;
-        }
-        .btn{
-            margin-bottom :1rem !important;
-        }
-        #ouverture_modal{
-            opacity: 0;
-        }
-
-    </style>
-    @yield('css')
-
-</head>
-<!-- END: Head-->
-
-<!-- BEGIN: Body-->
+    @include('partials.app.styles')
 
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="" @if(session()->has('message')) onload="success()" @endif>
 
@@ -208,38 +135,7 @@ use Illuminate\Support\Facades\Auth;
         </div>
     </div>
 </div>
-<!-- pop-up message succes -->
-@if(session()->has('message'))
-<div class="modal fade modal-danger text-left" id="modals-success" tabindex="-1" role="dialog" aria-labelledby="modals-success" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120"> Information </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close" autofocus>
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <div class="modal-body">
-            <p class="text-center">
-                {!!session()->get('message')!!}
-            </p>
-        </div>
-        <div class="modal-footer" style="justify-content: center;">
-            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">Terminer</button>
-        </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript">
-                    function success(){
-
-                    button = document.getElementById('succes_button');
-                    button.click();
-
-                    }    
-</script>
-@endif
+@include('partials.app.modale-message')
 <button type="button" class="display btn btn-info waves-effect waves-float waves-light" href="#" data-target="#modals-success" data-toggle="modal" hidden id="succes_button"></button>
 <!-- pop-up message succes fin -->
 <!-- BEGIN: Footer-->
@@ -269,18 +165,7 @@ use Illuminate\Support\Facades\Auth;
 <!-- END: Page JS-->
 
 <!-- BEGIN: Page Vendor JS-->
-<script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
-<!-- END: Page Vendor JS-->
-
-<!-- BEGIN: Theme JS-->
-<script src="{{ asset('app-assets/js/core/app-menu.js') }}"></script>
-<script src="{{ asset('app-assets/js/core/app.js') }}"></script>
-
-<script src="{{ asset('app-assets/vendors/js/forms/cleave/cleave.min.js') }}"></script>
-<script src="{{ asset('app-assets/vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
-
-<script src="{{ asset('app-assets/js/scripts/forms/form-input-mask.js') }}"></script>
-<!-- END: Theme JS-->
+@include('partials.app.scripts-theme')
 <script>
         function remplir(lien,libelle,action,id_remplir,cliquer=1){
             var destroy_title = document.querySelector('#destroy_title'),

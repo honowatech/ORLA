@@ -43,5 +43,11 @@ jobs:
       - name: Analyse statique (Larastan)
         run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
 
+      - name: Compilation des vues Blade
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan view:cache
+
       - name: Tests (PHPUnit)
         run: vendor/bin/phpunit
