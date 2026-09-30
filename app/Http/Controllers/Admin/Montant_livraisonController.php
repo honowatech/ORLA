@@ -26,21 +26,6 @@ class Montant_livraisonController extends Controller
    */
   public function index(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $deux_cote = false ;
     $table=[];
     $zones_depart = Zone::get();
@@ -88,30 +73,7 @@ class Montant_livraisonController extends Controller
     return view('admin.pages.montant_livraison.index',compact('montant_livraisons'));
   }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
 
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
-    
-  }
 
   /**
    * Store a newly created resource in storage.
@@ -120,21 +82,6 @@ class Montant_livraisonController extends Controller
    */
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $id = $request->input('id_montant');
     $montant = $request->input('montant');
     $montant_livraison = Montant_livraison::findOrFail($id);
@@ -143,109 +90,13 @@ class Montant_livraisonController extends Controller
     return "Montant modifié avec Succès";
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
 
-        }else if($type == strtoupper('coursier')){
 
-            return redirect()->route('home.coursier');
 
-        }else if($type == strtoupper('client')){
 
-            return redirect()->route('home.client');
-        }
-    
-  }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
 
-        }else if($type == strtoupper('coursier')){
 
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
-    
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
-    
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
-    
-  }
   
 }
 

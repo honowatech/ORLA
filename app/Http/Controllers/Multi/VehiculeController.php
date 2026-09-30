@@ -20,10 +20,6 @@ class VehiculeController extends Controller
   public function index(Request $request)
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
     $statut = [];
     $lower_search = strtolower(trim($request->input('recherche')));
     if(str_contains('actif',$lower_search) ){
@@ -63,10 +59,6 @@ class VehiculeController extends Controller
   public function create()
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
     $villes = Ville::get();
     $types_vehicule = Type_vehicule::where('statut',[1])->get();
     return view('multi.pages.vehicule.create',compact('villes','types_vehicule'));
@@ -80,10 +72,6 @@ class VehiculeController extends Controller
   public function store(Request $request)
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
     $immatriculation = $request->input('immatriculation');
     $couleur = $request->input('couleur');
     $id_type = $request->input('id_type');
@@ -132,10 +120,6 @@ class VehiculeController extends Controller
   public function show($id)
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
     
   }
 
@@ -148,10 +132,6 @@ class VehiculeController extends Controller
   public function edit($id)
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
     $vehicule = Vehicule::findOrFail($id);
     $villes = Ville::get();
     $types_vehicule = Type_vehicule::where('statut',[1])->get();
@@ -167,10 +147,6 @@ class VehiculeController extends Controller
   public function update(Request $request,$id)
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
     $immatriculation = $request->input('immatriculation');
     $couleur = $request->input('couleur');
     $id_type = $request->input('id_type');
@@ -229,10 +205,6 @@ class VehiculeController extends Controller
   public function destroy(Request $request,$id)
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
     $vehicule = Vehicule::findOrFail($id);
     $nom_vehicule = $vehicule->modele.' '.$vehicule->marque.', ';
     $attribuate = $request->input('attribuate');
@@ -243,7 +215,6 @@ class VehiculeController extends Controller
         session()->flash('message',$message);
         return redirect()->back();
     }
-    $filter = filter(['routeur','superville'],$user);
     $type = $request->input('type');
     if ($type == 'delete') {
       $vehicule->delete();

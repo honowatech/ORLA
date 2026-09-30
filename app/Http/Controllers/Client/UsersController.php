@@ -23,21 +23,6 @@ class UsersController extends Controller
    */
   public function index()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-        }else if($type == strtoupper('client')){
-
-        }
         return view('errors.404');
   }
 
@@ -48,21 +33,6 @@ class UsersController extends Controller
    */
   public function create()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-        }else if($type == strtoupper('client')){
-
-        }
         return view('errors.404');
   }
 
@@ -73,21 +43,6 @@ class UsersController extends Controller
    */
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-        }else if($type == strtoupper('client')){
-
-        }
         return view('errors.404');
    
   }
@@ -100,21 +55,6 @@ class UsersController extends Controller
    */
   public function show(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-        }else if($type == strtoupper('client')){
-
-        }
     $user = Users::findOrFail(Auth()->user()->id);
     return view('client.pages.user.info',compact('user'));
   }
@@ -127,21 +67,6 @@ class UsersController extends Controller
    */
   public function edit($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-        }else if($type == strtoupper('client')){
-
-        }
     $user = Users::findOrFail(Auth()->user()->id);
     return view('client.pages.user.edit',compact('user'));
   }
@@ -154,21 +79,6 @@ class UsersController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-        }else if($type == strtoupper('client')){
-
-        }
     // Seul le profil du compte connecté peut être modifié.
     $id = Auth()->user()->id;
     $noms = $request->input('noms');
@@ -216,21 +126,6 @@ class UsersController extends Controller
    */
   public function destroy($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-        }else if($type == strtoupper('client')){
-
-        }
     $commande = $this->commandeDuClient($id);
     // dd($commande);
     if ($commande->disponibility == 1) {

@@ -9,63 +9,14 @@ use App\Models\SuperAdmin\Api;
 class ApiController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index(Request $request)
-    {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
-    }
+
+
 
     
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id,Request $request)
-    {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
-    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -74,11 +25,6 @@ class ApiController extends Controller
      */
     public function recap_edit(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $datas = $request->input('table_data');
         // dd($datas);
         $entree = true;
@@ -111,11 +57,6 @@ class ApiController extends Controller
      */
     public function edit($id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
       $api = Api::findOrFail($id);
       return view('superadmin.pages.api.edit',compact('api'));
     }
@@ -128,11 +69,6 @@ class ApiController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
       $user = $request->input('user');
       $password = $request->input('password');
       $key = $request->input('key');
@@ -176,11 +112,6 @@ class ApiController extends Controller
      */
     public function destroy($id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
       $api = Api::findOrFail($id);
       if ($api->statut == 0) {
         $api->statut = 1;

@@ -18,21 +18,6 @@ class QuartierController extends Controller
    */
   public function index()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     
     if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
       $quartier = new Quartier;
@@ -55,21 +40,6 @@ class QuartierController extends Controller
    */
   public function create()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
       $quartier = new Quartier;
       $quartier->libelle = 'Speedex';
@@ -87,21 +57,6 @@ class QuartierController extends Controller
    */
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
      $id_ville = $request->input('id_ville');
      $libelle = $request->input('libelle');
      $request->validate([
@@ -123,31 +78,7 @@ class QuartierController extends Controller
      return redirect()->route('quartier.index');
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
 
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
-    
-  }
 
   /**
    * Show the form for editing the specified resource.
@@ -157,21 +88,6 @@ class QuartierController extends Controller
    */
   public function edit($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $quartier = Quartier::findOrFail($id);
     return view('admin.pages.quartiers.edit',compact('quartier'));
   }
@@ -184,21 +100,6 @@ class QuartierController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $libelle = $request->input('libelle');
     $validated = $request->validate([
         'libelle' => 'bail|required|min:3',
@@ -224,21 +125,6 @@ class QuartierController extends Controller
    */
   public function destroy(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $quartier = Quartier::with(['ville','zone','boutiques','point_relais','commandes_pointdepart','commandes_pointarrivee',])->findOrFail($id);
     if($quartier->boutiques->count()>0||$quartier->point_relais->count()>0||$quartier->commandes_pointdepart->count()>0||$quartier->commandes_pointarrivee->count()>0){
         $message = "<b class='text-danger'>Echec... </b> Ce Quartier possède plusieurs connexions";

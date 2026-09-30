@@ -57,21 +57,6 @@ class HomeController extends Controller
      */
     public function admin()
     {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         $datas = [
             'coursiers' => Coursiers::where('statut',[1])->get(),
             'clients_simple' => Clients::where('type_client',[2])->where('statut',[1])->get(),
@@ -89,21 +74,6 @@ class HomeController extends Controller
      */
     public function coursier(Request $request)
     {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         $date = $request->input('date') == null ? now() : $request->input('date');
         $commandes = Commandes::where('id_coursier',[Auth()->user()->coursier_utilisateur->id])->whereDate('date_livraison', '<=',$date)->whereIn('statut',['encours','attribue'])->orderBy('id_quartier_livraison')->orderBy('statut','desc')->get();
         $commandes2 = Commandes::where('id_coursier',[Auth()->user()->coursier_utilisateur->id])->whereDate('date_livre',$date)->whereIn('statut',['livre','annulee'])->orderBy('id_quartier_livraison')->orderBy('statut','desc')->get();
@@ -118,24 +88,6 @@ class HomeController extends Controller
      */
     public function clients(Request $request)
     {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            // auth()->logout();
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-        }
-        //return view('coursier.pages.home');
         $date = $request->input('date') == null ? now() : $request->input('date');
         $commandes = Commandes::where('id_client',[Auth()->user()->client_utilisateur->id])->whereIn('statut',['encours','attribue','attente'])->orderBy('id_quartier_livraison')->orderBy('statut','desc')->orderBy('created_at','desc')->get();
         return view('client.pages.home',compact('commandes'));

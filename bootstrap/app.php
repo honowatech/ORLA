@@ -22,16 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         ]);
 
-        $middleware->append([
-            \App\Http\Middleware\Filter::class,
-            \App\Http\Middleware\Coursier_filter::class,
-            \App\Http\Middleware\Admin_filter::class,
-        ]);
-
         $middleware->alias([
-            'filter' => \App\Http\Middleware\Filter::class,
-            'coursier_filter' => \App\Http\Middleware\Coursier_filter::class,
-            'admin_filter' => \App\Http\Middleware\Admin_filter::class,
+            'role' => \App\Http\Middleware\VerifierRole::class,
+            'superadmin' => \App\Http\Middleware\VerifierSuperAdmin::class,
             'Check_Sa_Client_Error' => \App\Http\Middleware\Check_Sa_Client_Error::class,
         ]);
     })

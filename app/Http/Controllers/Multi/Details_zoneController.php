@@ -9,33 +9,9 @@ use App\Models\details_zone\Details_zone;
 class Details_zoneController extends Controller 
 {
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-    
-  }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-    
-  }
+
+
 
   /**
    * Store a newly created resource in storage.
@@ -44,10 +20,6 @@ class Details_zoneController extends Controller
    */
   public function store(Request $request)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $zones = $request->input('zones');
     $id_coursier = $request->input('id_coursier');
 
@@ -68,35 +40,9 @@ class Details_zoneController extends Controller
     return redirect()->back();
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-    
-  }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-    
-  }
+
+
 
   /**
    * Update the specified resource in storage.
@@ -106,10 +52,6 @@ class Details_zoneController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $id_zone = $request->input('id_zone');
     $id_coursier = $request->input('id_coursier');
     $validated = $request->validate([
@@ -125,20 +67,7 @@ class Details_zoneController extends Controller
     return redirect()->back();
   }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-    
-  }
+
   
 }
 

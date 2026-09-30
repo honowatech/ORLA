@@ -17,21 +17,6 @@ class VilleController extends Controller
    */
   public function index()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $request = request();
     $villes = Ville::where('libelle', 'like', '%' . $request->input('recherche') . '%')
         ->paginate(20);
@@ -46,21 +31,6 @@ class VilleController extends Controller
    */
   public function create()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     return view('admin.pages.villes.create');
   }
 
@@ -71,21 +41,6 @@ class VilleController extends Controller
    */
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $libelle = $request->input('libelle');
     $code = $request->input('code');
     $request->validate([
@@ -101,31 +56,7 @@ class VilleController extends Controller
     return redirect()->route('ville.index');
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
 
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
-    
-  }
 
   /**
    * Show the form for editing the specified resource.
@@ -135,21 +66,6 @@ class VilleController extends Controller
    */
   public function edit($libelle)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $villes = Ville::where('libelle',$libelle)->get();
     foreach ($villes as $ville) {
     }
@@ -164,21 +80,6 @@ class VilleController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $libelle = $request->input('libelle');
     $code = $request->input('code');
     $validated = $request->validate([
@@ -212,21 +113,6 @@ class VilleController extends Controller
    */
   public function destroy(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     if (Zone::where('id_ville',[$id])->count() > 0) {
     $message = "<b class='text-danger'>Echec... </b> Cette Ville est liée à ".Zone::where('id_ville',[$id])->count()." Zone";
     session()->flash('message',$message);

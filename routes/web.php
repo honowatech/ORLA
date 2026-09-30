@@ -26,6 +26,9 @@ Route::group(['prefix' => 'superadmin'], function(){
         Route::get('/Sa-login', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'login'])->name('SuperAdmin.login');
         Route::post('/Sa-connect', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'connect'])->name('SuperAdmin.connect');
         Route::post('/Sa-logout', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'disconnect'])->name('SuperAdmin.disconnect');
+
+    // Espace réservé au Super Admin connecté (session SuperAdmin_infos).
+    Route::middleware('superadmin')->group(function(){
         Route::get('/Sa-home', [App\Http\Controllers\SuperAdmin\SuperAdminController::class, 'home'])->name('SuperAdmin.home');
 
         Route::resource('Sa-parametre', 'App\Http\Controllers\SuperAdmin\ParametreController')->only(['index']);
@@ -46,8 +49,12 @@ Route::group(['prefix' => 'superadmin'], function(){
         Route::post('/Sa-api.recap_create', [App\Http\Controllers\SuperAdmin\ApiController::class, 'recap_create'])->name('Sa-api.recap_create');
         Route::post('/Sa-api_recap_edit', [App\Http\Controllers\SuperAdmin\ApiController::class, 'recap_edit'])->name('Sa-api.recap_edit');
 
-        Route::resource('Sa-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController');
         Route::get('/Sa-transaction-ajax', [App\Http\Controllers\SuperAdmin\TransactionController::class, 'index_ajax'])->name('Sa-transaction.index_ajax');
+    });
+
+        // Paiement d'abonnement : create/store/show restent accessibles au client
+        // qui paie ; le contrôleur vérifie lui-même les autres actions.
+        Route::resource('Sa-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController');
 }); 
 
 ///////////////////////////////////////////////////////////// End Super Admin
@@ -62,7 +69,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
         Route::middleware('auth')->group(function() {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-                Route::group(['prefix' => '/multi'], function(){
+                Route::group(['prefix' => '/multi', 'middleware' => 'role:admin,agent,superviseur_ville'], function(){
                         Route::resource('type_vehicule', 'App\Http\Controllers\Multi\Type_vehiculeController');
                         Route::resource('vehicule', 'App\Http\Controllers\Multi\VehiculeController');
                         Route::resource('coursiers', 'App\Http\Controllers\Multi\CoursiersController');      
@@ -74,7 +81,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 });
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                Route::group(['prefix' => '/admin'], function(){
+                Route::group(['prefix' => '/admin', 'middleware' => 'role:admin,agent'], function(){
                     //--- Route liées à un admin ---//
                         
                         Route::post('/attribuate_agent', [App\Http\Controllers\Admin\CommandesController::class, 'attribuate_agent'])->name('commande_agent');
@@ -111,7 +118,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                Route::group(['prefix' => '/coursier'], function(){
+                Route::group(['prefix' => '/coursier', 'middleware' => 'role:coursier'], function(){
                     //--- Route liées à un coursier ---//
                         Route::get('/', [App\Http\Controllers\HomeController::class, 'coursier'])->name('home.coursier');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +134,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 });
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                Route::group(['prefix' => ''], function(){
+                Route::group(['prefix' => '', 'middleware' => 'role:client'], function(){
                     //--- Route liées à un client ---//
                         Route::get('/', [App\Http\Controllers\HomeController::class, 'clients'])->name('home.client');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

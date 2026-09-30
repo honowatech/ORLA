@@ -18,11 +18,6 @@ class AbonnementController extends Controller
      */
     public function index(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         return view('superadmin.pages.abonnement.index');
     }
 
@@ -33,11 +28,6 @@ class AbonnementController extends Controller
    */
   public function index_ajax(Request $request)
   {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
   /// ici on récupère les clients en fonction de ce qui est entré dans le champ de recherche et aussi avec la pagination laravel ///
         $types_periode = [
         'jour' => 'Jour(s)', 
@@ -61,11 +51,6 @@ class AbonnementController extends Controller
      */
     public function create()
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $types_periode = [
         'jour' => 'Jour(s)', 
         'semaine' => 'Semaine(s)', 
@@ -82,11 +67,6 @@ class AbonnementController extends Controller
      */
     public function recap_create(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $datas = $request->input('table_data');
         $periode = $datas['accumulateur'] == 1 ? str_replace('(s)','',$datas['type_periode']) : $datas['accumulateur'].' '.str_replace('(s)','s',$datas['type_periode']);
         // dd($datas);
@@ -107,11 +87,6 @@ class AbonnementController extends Controller
      */
     public function store(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         // $types_periode = json_encode(['annee','semaine','mois','jour']);
       $titre = $request->input('titre');
       $montant = $request->input('montant');
@@ -150,11 +125,6 @@ class AbonnementController extends Controller
      */
     public function show($id,Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $types_periode = [
         'jour' => 'Jour(s)', 
         'semaine' => 'Semaine(s)', 
@@ -172,11 +142,6 @@ class AbonnementController extends Controller
      */
     public function recap_edit(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $datas = $request->input('table_data');
         $période = $datas['accumulateur'] == 1 ? str_replace('(s)','',$datas['type_periode']) : $datas['accumulateur'].' '.str_replace('(s)','s',$datas['type_periode']);
         // dd($datas);
@@ -198,11 +163,6 @@ class AbonnementController extends Controller
      */
     public function edit($id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $types_periode = [
         'jour' => 'Jour(s)', 
         'semaine' => 'Semaine(s)', 
@@ -221,11 +181,6 @@ class AbonnementController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         // $types_periode = json_encode(['annee','semaine','mois','jour']);
       $titre = $request->input('titre');
       $montant = $request->input('montant');
@@ -269,11 +224,6 @@ class AbonnementController extends Controller
      */
     public function destroy($id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
       $abonnement = Abonnement::findOrFail($id);
       if ($abonnement->statut == 0) {
         $abonnement->statut = 1;

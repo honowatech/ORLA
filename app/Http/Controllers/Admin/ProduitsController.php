@@ -30,21 +30,6 @@ class ProduitsController extends Controller
    */
   public function index()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
 
     $request = request();
     $produits = Produits::where('libelle', 'like', '%' . $request->input('recherche') . '%')
@@ -64,21 +49,6 @@ class ProduitsController extends Controller
    */
   public function create()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     return view('admin.pages.produits.create');
   }
 
@@ -89,21 +59,6 @@ class ProduitsController extends Controller
    */
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
      $noms = $request->input('noms');
      $libelle = $request->input('libelle');
      $description = $request->input('description');
@@ -131,21 +86,6 @@ class ProduitsController extends Controller
    */
   public function show($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $produit = Produits::findOrFail($id);
     return view('admin.pages.produits.info',compact('produit'));
 
@@ -160,21 +100,6 @@ class ProduitsController extends Controller
    */
   public function edit($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $produit = Produits::findOrFail($id);
     return view('admin.pages.produits.edit',compact('produit'));
   }
@@ -187,21 +112,6 @@ class ProduitsController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     
     $noms = $request->input('noms');
     $libelle = $request->input('libelle');
@@ -244,21 +154,6 @@ class ProduitsController extends Controller
    */
   public function destroy(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $produit = Produits::findOrFail($id);
     if($produit->details_commande->count() == 0 && $produit->stock->count() == 0){
       $produit = Produits::findOrFail($id);

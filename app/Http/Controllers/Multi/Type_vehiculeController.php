@@ -18,11 +18,6 @@ class Type_vehiculeController extends Controller
   public function index()
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
-    $filter = filter(['routeur','superville'],$user);
     $request = request();
     $types_vehicule = Type_vehicule::where('libelle', 'like', '%' . $request->input('recherche') . '%')
                     ->orderBy('updated_at','desc')
@@ -39,11 +34,6 @@ class Type_vehiculeController extends Controller
   public function create()
   {
     $user = Auth()->user();
-        $filter = filter(['admin','routeur','superviseur_ville'],$user);
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-        $filter = filter(['routeur','superville'],$user);
 
     return view('multi.pages.type_vehicule.create');
   }
@@ -56,11 +46,6 @@ class Type_vehiculeController extends Controller
   public function store(Request $request)
   {
     $user = Auth()->user();
-        $filter = filter(['admin','routeur','superviseur_ville'],$user);
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-        $filter = filter(['routeur','superville'],$user);
 
     $libelle = $request->input('libelle');
     $description = $request->input('description');
@@ -90,11 +75,6 @@ class Type_vehiculeController extends Controller
   public function show($id)
   {
     $user = Auth()->user();
-        $filter = filter(['admin','routeur','superviseur_ville'],$user);
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-        $filter = filter(['routeur','superville'],$user);
 
     
   }
@@ -108,11 +88,6 @@ class Type_vehiculeController extends Controller
   public function edit($id)
   {
     $user = Auth()->user();
-        $filter = filter(['admin','routeur','superviseur_ville'],$user);
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-        $filter = filter(['routeur','superville'],$user);
 
     $type_vehicule = Type_vehicule::findOrFail($id);
     return view('multi.pages.type_vehicule.edit',compact('type_vehicule'));
@@ -127,11 +102,6 @@ class Type_vehiculeController extends Controller
   public function update(Request $request,$id)
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-        return redirect()->route($filter);
-    }
-    $filter = filter(['routeur','superville'],$user);
     $libelle = $request->input('libelle');
     $description = $request->input('description');
     if ($description != null) {
@@ -162,11 +132,6 @@ class Type_vehiculeController extends Controller
   public function destroy(Request $request,$id)
   {
     $user = Auth()->user();
-    $filter = filter(['admin','routeur','superviseur_ville'],$user);
-    if($filter != 'true'){
-      return redirect()->route($filter);
-    }
-    $filter = filter(['routeur','superville'],$user);
     $type_vehicule = Type_vehicule::findOrFail($id);
     $type = $request->input('type');
     if ($type == 'delete') {

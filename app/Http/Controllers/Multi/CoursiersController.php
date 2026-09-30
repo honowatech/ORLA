@@ -27,10 +27,6 @@ class CoursiersController extends Controller
    */
   public function index(Request $request)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $statut = [];
     $lower_search = strtolower(trim($request->input('search')));
     if(str_contains('actif',$lower_search) ){
@@ -69,10 +65,6 @@ class CoursiersController extends Controller
    */
   public function create()
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $villes = Ville::get();
     return view('multi.pages.coursiers.create',compact('villes'));
   }
@@ -84,10 +76,6 @@ class CoursiersController extends Controller
    */
   public function store(Request $request)
   {
-      $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-      if($filter != 'true'){
-        return redirect()->route($filter);
-      }
     $noms = $request->input('noms');
     $prenoms = $request->input('prenoms');
     $add_user_account = $request->input('add_user_account');
@@ -139,10 +127,6 @@ class CoursiersController extends Controller
    */
   public function show($id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $coursier = Coursiers::findOrFail($id);
     $zones = Zone::whereIn('statut',[1])->where('id_ville',$coursier->user->id_ville)->get();
     $vehicules = Vehicule::whereIn('statut',[1])->whereNull('id_coursier')->where('id_ville',$coursier->user->id_ville)->get();
@@ -160,10 +144,6 @@ class CoursiersController extends Controller
    */
   public function edit($id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $coursier = coursiers::findOrFail($id);
     $villes = Ville::orderBy('updated_at','desc')->get();
     return view('multi.pages.coursiers.edit',compact('coursier','villes'));
@@ -177,10 +157,6 @@ class CoursiersController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $vehicules = $request->input('vehicules');
     $attribuate = $request->input('attribuate');
     $noms_vehicules = '';
@@ -238,10 +214,6 @@ class CoursiersController extends Controller
    */
   public function destroy($id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
      $coursier = Coursiers::findOrFail($id);
     if ($coursier->statut == 0) {
       $coursier->statut = 1;

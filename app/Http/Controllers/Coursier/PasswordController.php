@@ -21,21 +21,6 @@ class PasswordController extends Controller
    */
   public function index()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     return view('coursier.pages.user.password');
   }
 
@@ -46,42 +31,12 @@ class PasswordController extends Controller
    */
   public function create()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         return view('errors.404');
   }
 
   
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         return view('errors.404');
   }
 
@@ -93,21 +48,6 @@ class PasswordController extends Controller
    */
   public function show(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         return view('errors.404');
   }
 
@@ -119,21 +59,6 @@ class PasswordController extends Controller
    */
   public function edit($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         return view('errors.404');
   }
 
@@ -145,21 +70,6 @@ class PasswordController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $user = Auth::user();
     $password = $request->input('password');
     $password_new = $request->input('password_new');
@@ -196,21 +106,6 @@ class PasswordController extends Controller
    */
   public function destroy($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         return view('errors.404');
   }
 }

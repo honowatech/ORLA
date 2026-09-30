@@ -13,31 +13,9 @@ use App\Models\informations_personnels\Informations_personnels;
 class Informations_personnelsController extends Controller 
 {
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-  }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-  }
+
+
 
   /**
    * Store a newly created resource in storage.
@@ -46,10 +24,6 @@ class Informations_personnelsController extends Controller
    */
   public function store(Request $request)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $id = $request->input('id');
     $type = $request->input('type');
     $telephone2 = $request->input('telephone2');
@@ -106,20 +80,7 @@ class Informations_personnelsController extends Controller
     return redirect()->route($type.'s.show',$id);
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-    
-  }
+
 
   /**
    * Show the form for editing the specified resource.
@@ -129,10 +90,6 @@ class Informations_personnelsController extends Controller
    */
   public function edit($infos)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $table_info = explode('-', $infos);
     session()->flash('infos_perso','1');
     $villes = Ville::orderBy('updated_at','desc')->get();
@@ -150,35 +107,9 @@ class Informations_personnelsController extends Controller
     }
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-    
-  }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
-    
-  }
+
+
   
 }
 

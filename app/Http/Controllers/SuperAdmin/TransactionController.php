@@ -37,11 +37,6 @@ class TransactionController extends Controller
    */
   public function index_ajax(Request $request)
   {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
   /// ici on récupère les clients en fonction de ce qui est entré dans le champ de recherche et aussi avec la pagination laravel ///
         $types_periode = [
         'jour' => 'Jour(s)', 

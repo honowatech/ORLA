@@ -31,21 +31,6 @@ class Details_commandeController extends Controller
    */
   public function index()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         $types_client = TypeClient::get();
         $commandes = Commandes::get();
         return  view('admin.pages.details_commande.layout',compact('commandes','types_client'));
@@ -58,22 +43,7 @@ class Details_commandeController extends Controller
    * @return Response
    */
   public function create(Request $request)
-  { 
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
+  {
     $id_type_client = $request->input('table_data')[0];
     $clients = Clients::where('type_client',[$id_type_client])->get();
     // dd($clients);
@@ -87,21 +57,6 @@ class Details_commandeController extends Controller
    */
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $id_client = $request->input('table_data')[0];
     $date = $request->input('table_data')[1];
     // dd($date);
@@ -146,27 +101,9 @@ class Details_commandeController extends Controller
     return view('admin.pages.details_commande.result',compact('titre','commandes','argent_du','client','date','paiements'));
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+
+
 
   /**
    * Update the specified resource in storage.
@@ -176,21 +113,6 @@ class Details_commandeController extends Controller
    */
   public function update($id,Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $cles = ['montant','date','id_client','qui_paie','mode_paiement','telephone2'];
     $donnees = $request->input('data');
     $error = false;
@@ -235,16 +157,7 @@ class Details_commandeController extends Controller
     return $table;
   }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
+
   
 }
 

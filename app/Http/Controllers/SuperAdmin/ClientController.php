@@ -18,11 +18,6 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         return view('superadmin.pages.client.index');
     }
 
@@ -33,11 +28,6 @@ class ClientController extends Controller
    */
   public function index_ajax(Request $request)
   {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
   /// ici on récupère les clients en fonction de ce qui est entré dans le champ de recherche et aussi avec la pagination laravel ///
         $types_periode = [
         'jour' => 'Jour(s)', 
@@ -62,11 +52,6 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         return view('superadmin.pages.client.create');
     }
 
@@ -77,11 +62,6 @@ class ClientController extends Controller
      */
     public function recap_create(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $datas = $request->input('table_data');
         // dd($datas);
         $entree = true;
@@ -106,11 +86,6 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
       $name = $request->input('name');
       $telephone = $request->input('telephone');
       $telephone_secondaire = $request->input('telephone_secondaire');
@@ -154,11 +129,6 @@ class ClientController extends Controller
      */
     public function show($id,Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
 
         $types_periode = [
         'jour' => 'Jour(s)', 
@@ -178,11 +148,6 @@ class ClientController extends Controller
      */
     public function recap_edit(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $datas = $request->input('table_data');
         // dd($datas);
         $entree = true;
@@ -206,11 +171,6 @@ class ClientController extends Controller
      */
     public function recap_abonate(Request $request)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         $datas = $request->input('table_data');
         $types_periode = [
         'jour' => 'Jour(s)', 
@@ -248,11 +208,6 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
       $client = Client::findOrFail($id);
       return view('superadmin.pages.client.edit',compact('client'));
     }
@@ -265,11 +220,6 @@ class ClientController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
       $name = $request->input('name');
       $cni = $request->input('cni');
       $telephone = str_replace(' ','',$request->input('telephone'));
@@ -324,11 +274,6 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
       $client = Client::findOrFail($id);
       if ($client->statut == 0) {
         $client->statut = 1;

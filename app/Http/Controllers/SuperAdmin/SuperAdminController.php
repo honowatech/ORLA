@@ -65,11 +65,6 @@ class SuperAdminController extends Controller
     }
     public function home()
     {
-        $check = check_superadmin();
-        if($check != 'true'){
-            session()->put('dernier_url',url()->current());
-            return redirect()->route($check);
-        }
         return view('superadmin.pages.home');
     }
 }

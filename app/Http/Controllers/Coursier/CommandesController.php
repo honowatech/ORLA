@@ -25,53 +25,9 @@ use Carbon\Carbon;
 class CommandesController extends Controller 
 {
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index(Request $request)
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
 
-            return redirect()->route('home.admin');
 
-        }else if($type == strtoupper('coursier')){
 
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
-  }
 
   /**
    * Store a newly created resource in storage.
@@ -80,21 +36,7 @@ class CommandesController extends Controller
    */
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
 
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }  
         return view('errors.404');                         
   }
 
@@ -106,21 +48,6 @@ class CommandesController extends Controller
    */
   public function show($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $commande = Commandes::findOrFail($id);
     if ($commande->id_coursier != Auth::user()->coursier_utilisateur->id) {
         return view('errors.404');
@@ -148,21 +75,6 @@ class CommandesController extends Controller
    */
   public function edit($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         return view('errors.404');
   }
 
@@ -174,21 +86,6 @@ class CommandesController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
         return view('errors.404');
 
   }
@@ -201,21 +98,6 @@ class CommandesController extends Controller
    */
   public function destroy(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-            return redirect()->route('home.admin');
-
-        }else if($type == strtoupper('coursier')){
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
 // ici nous déclarons les variables communes aux deux formulaires
     $statut = $request->input('statut');
     $id_coursier = $request->input('id_coursier');

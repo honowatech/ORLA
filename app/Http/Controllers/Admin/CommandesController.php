@@ -31,22 +31,7 @@ class CommandesController extends Controller
    */
   public function index(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
         $agents = Agents::where('statut',[1])->get();
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
       $quartier = new Quartier;
       $quartier->libelle = 'Speedex';
@@ -110,21 +95,6 @@ class CommandesController extends Controller
    */ 
   public function boutiqueLie(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
       $id_client = $request->input('id_client');
       $client = $id_client != '0' ? Clients::findOrFail($id_client) : null;
     if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
@@ -158,21 +128,6 @@ class CommandesController extends Controller
    */ 
   public function commandeClient(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
       $type_client = TypeClient::where(strtoupper('libelle'),strtoupper($request->input('type_commande')))->limit(1)->get('id')->value('id');
       $clients = Clients:: where('telephone', 'like', '%' . $request->input('search') . '%')
                   ->where('statut',[1])
@@ -191,21 +146,6 @@ class CommandesController extends Controller
    */ 
   public function lieu(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $ville_collecte = $request->input('ville_collecte');
     $quartiers = Quartier:: where('libelle', 'like', '%' . $request->input('search') . '%')
                   ->where('id_ville',$ville_collecte)
@@ -225,21 +165,6 @@ class CommandesController extends Controller
    */ 
   public function montant(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $id_depart = $request->input('id_depart');
     $id_arrivee = $request->input('id_arrivee');
     if($id_depart == null || $id_arrivee == null || $id_depart == $id_arrivee){
@@ -266,21 +191,6 @@ class CommandesController extends Controller
    */ 
   public function lieu2(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $ville_livraison = $request->input('ville_livraison');
     $quartiers = Quartier:: where('libelle', 'like', '%' . $request->input('search') . '%')
                   ->where('id_ville',$ville_livraison)
@@ -300,21 +210,6 @@ class CommandesController extends Controller
    */
   public function create()
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $modes_de_paiement=['coursier','speedex'];
     $entreprises = Clients::where('statut',[1])
               ->where('type_client',[1])
@@ -339,21 +234,6 @@ class CommandesController extends Controller
    */
   public function store(Request $request)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
 // ici nous déclarons toutes les variables 
     $adresse_colis = $request->input('contact_colis').'*/*'.$request->input('lieu_collecte').'*/*'.$request->input('description_collecte');
     $adresse_livraison = $request->input('contact_livraison').'*/*'.$request->input('lieu_livraison').'*/*'.$request->input('description_livraison').'*/*'.$request->input('nom_livraison');
@@ -550,21 +430,6 @@ class CommandesController extends Controller
    */
   public function show($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $commande = Commandes::findOrFail($id);
     if( strtoupper(Auth()->user()->type_utilisateur->libelle) == strtoupper('agent') && auth()->user()->agent_utilisateur->id != $commande->id_agent ){
         $message = "<b class='text-danger'> Erreur.</b> <br> <span>Vous ne pouvez pas acceder à cette page</span>";
@@ -633,21 +498,6 @@ class CommandesController extends Controller
    */
   public function edit($id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
     $commande = Commandes::findOrFail($id);
     $modes_de_paiement=['coursier','speedex',];
     return view('admin.pages.commandes.edit',compact('modes_de_paiement','commande'));
@@ -661,21 +511,6 @@ class CommandesController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
 // ici nous déclarons les variables du formulaire d'édition de commande
     $adresse_colis = $request->input('contact_colis').'*/*'.$request->input('lieu_colis').'*/*'.$request->input('description_collecte');
     $adresse_livraison = $request->input('contact_livraison').'*/*'.$request->input('lieu_livraison').'*/*'.$request->input('description_livraison').'*/*'.$request->input('nom_livraison');
@@ -717,21 +552,6 @@ class CommandesController extends Controller
    */
   public function destroy(Request $request,$id)
   {
-        $type = strtoupper(TypeUtilisateur::findOrFail(Auth()->user()->id_type_utilisateur)->libelle);
-        $statut = Auth()->user()->statut;
-        if ($statut == 0) {
-            return redirect()->route('home.error');
-        }
-        if($type == strtoupper('Super Admin') || $type == strtoupper('agent')){
-
-        }else if($type == strtoupper('coursier')){
-
-            return redirect()->route('home.coursier');
-
-        }else if($type == strtoupper('client')){
-
-            return redirect()->route('home.client');
-        }
 // ici nous déclarons les variables communes aux deux formulaires
     $statut = $request->input('statut');
     $id_coursier = $request->input('id_coursier');

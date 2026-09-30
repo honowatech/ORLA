@@ -20,10 +20,6 @@ class ZoneController extends Controller
    */
   public function index(Request $request)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     
     $statut = [];
     $lower_search = strtolower(trim($request->input('search')));
@@ -52,10 +48,6 @@ class ZoneController extends Controller
    */
   public function create()
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $villes = Ville::orderBy('updated_at','desc')->get();
     $quartiers = Quartier::whereNull('id_zone')->orderBy('updated_at','desc')->get();
     return view('multi.pages.zones.create',compact('villes','quartiers'));
@@ -67,10 +59,6 @@ class ZoneController extends Controller
    */ 
   public function quartierLie(Request $request)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
      $id_ville = $request->input('id_ville');
      $all = $request->input('all');
      $id_ville != '0' ? $ville = Ville::findOrFail($id_ville) : $ville = null;
@@ -92,10 +80,6 @@ class ZoneController extends Controller
    */
   public function store(Request $request)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
    $id_quartiers_associe = $request->input('id_quartier_associe');
      $id_ville = $request->input('id_ville');
      $libelle = $request->input('libelle');
@@ -160,10 +144,6 @@ class ZoneController extends Controller
    */
   public function show($id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     
     
     $zones = Zone::with(['details_zone','ville','quartiers','montantlivraisoncolis','montantlivraisonlivraison'])->findOrFail($id);
@@ -179,10 +159,6 @@ class ZoneController extends Controller
    */
   public function edit($id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $zone = Zone::findOrFail($id);
     return view('multi.pages.zones.edit',compact('zone'));
   }
@@ -195,10 +171,6 @@ class ZoneController extends Controller
    */
   public function update(Request $request,$id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
     $libelle = $request->input('libelle');
     $validated = $request->validate([
         'libelle' => 'bail|required|min:4',
@@ -224,10 +196,6 @@ class ZoneController extends Controller
    */
   public function destroy(Request $request,$id)
   {
-        $filter = filter(['routeur','admin','superviseur_ville'],Auth()->user());
-        if($filter != 'true'){
-            return redirect()->route($filter);
-        }
       if ($request->input('remove') != null){
           if ( Quartier::where('id_zone',[$id])->count()>1) {
               $quartier = Quartier::findOrFail($request->input('id_quartier'));
