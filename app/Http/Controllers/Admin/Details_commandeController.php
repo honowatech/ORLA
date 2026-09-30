@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\paiement\Paiement;
-use App\Models\typeClient\TypeClient;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Paiement\Paiement;
+use App\Models\TypeClient\TypeClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

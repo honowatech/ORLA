@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\coursiers\Coursiers;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Coursiers\Coursiers;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;

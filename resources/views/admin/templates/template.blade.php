@@ -1,5 +1,5 @@
 @php
-use App\Models\users\Users;
+use App\Models\Users\Users;
 use Illuminate\Support\Facades\Auth;
 @endphp
 <!DOCTYPE html>

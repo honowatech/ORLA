@@ -21,16 +21,16 @@ class Transaction extends Model
 
     public function client()
     {
-        return $this->belongsTo('App\Models\SuperAdmin\Client', 'id_client');
+        return $this->belongsTo(Client::class, 'id_client');
     }
 
     public function abonnement()
     {
-        return $this->belongsTo('App\Models\SuperAdmin\Abonnement', 'id_abonnement');
+        return $this->belongsTo(Abonnement::class, 'id_abonnement');
     }
 
     public function infos()
     {
-        return $this->hasMany('App\Models\SuperAdmin\Info_transaction', 'id_transaction');
+        return $this->hasMany(Info_transaction::class, 'id_transaction');
     }
 }

@@ -21,11 +21,11 @@ class Client extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\Models\SuperAdmin\Transaction', 'id_client');
+        return $this->hasMany(Transaction::class, 'id_client');
     }
 
     public function abonnement()
     {
-        return $this->belongsTo('App\Models\SuperAdmin\Abonnement', 'id_abonnement');
+        return $this->belongsTo(Abonnement::class, 'id_abonnement');
     }
 }

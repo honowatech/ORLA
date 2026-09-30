@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\ville\Ville;
-use App\Models\zone\Zone;
+use App\Models\Ville\Ville;
+use App\Models\Zone\Zone;
 use Illuminate\Http\Request;
 
 class VilleController extends Controller

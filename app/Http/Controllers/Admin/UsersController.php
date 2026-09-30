@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\agents\Agents;
-use App\Models\clients\Clients;
-use App\Models\coursiers\Coursiers;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\users\Users;
+use App\Models\Agents\Agents;
+use App\Models\Clients\Clients;
+use App\Models\Coursiers\Coursiers;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Users\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

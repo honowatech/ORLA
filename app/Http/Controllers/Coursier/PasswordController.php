@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Coursier;
 
-use App\Models\users\Users;
+use App\Models\Users\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

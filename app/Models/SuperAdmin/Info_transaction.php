@@ -18,6 +18,6 @@ class Info_transaction extends Model
 
     public function transaction()
     {
-        return $this->belongsTo('App\Models\SuperAdmin\Transaction', 'id_transaction');
+        return $this->belongsTo(Transaction::class, 'id_transaction');
     }
 }

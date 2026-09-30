@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\users\Users;
+use App\Models\Users\Users;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller

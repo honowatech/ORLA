@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\quartier\Quartier;
-use App\Models\ville\Ville;
+use App\Models\Quartier\Quartier;
+use App\Models\Ville\Ville;
 use Illuminate\Http\Request;
 
 class QuartierController extends Controller

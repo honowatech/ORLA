@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Multi;
 
-use App\Models\coursiers\Coursiers;
-use App\Models\informations_personnels\Informations_personnels;
-use App\Models\users\Users;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Informations_personnels\Informations_personnels;
+use App\Models\Users\Users;
 use App\Models\Vehicule;
-use App\Models\ville\Ville;
-use App\Models\zone\Zone;
+use App\Models\Ville\Ville;
+use App\Models\Zone\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\commandes\Commandes;
+use App\Models\Commandes\Commandes;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;

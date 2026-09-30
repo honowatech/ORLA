@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\agents\Agents;
-use App\Models\commandes\Commandes;
-use App\Models\informations_personnels\Informations_personnels;
-use App\Models\users\Users;
-use App\Models\ville\Ville;
+use App\Models\Agents\Agents;
+use App\Models\Commandes\Commandes;
+use App\Models\Informations_personnels\Informations_personnels;
+use App\Models\Users\Users;
+use App\Models\Ville\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

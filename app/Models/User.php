@@ -3,6 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Agents\Agents;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Paiement\Paiement;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Ville\Ville;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,41 +55,41 @@ class User extends Authenticatable
 
     public function type_utilisateur()
     {
-        return $this->belongsTo('App\Models\typeUtilisateur\TypeUtilisateur', 'id_type_utilisateur');
+        return $this->belongsTo(TypeUtilisateur::class, 'id_type_utilisateur');
     }
 
     public function ville()
     {
-        return $this->belongsTo('App\Models\ville\Ville', 'id_ville');
+        return $this->belongsTo(Ville::class, 'id_ville');
     }
 
     public function client_utilisateur()
     {
-        return $this->belongsTo('App\Models\clients\Clients', 'id_client');
+        return $this->belongsTo(Clients::class, 'id_client');
     }
 
     public function coursier_utilisateur()
     {
-        return $this->belongsTo('App\Models\coursiers\Coursiers', 'id_coursier');
+        return $this->belongsTo(Coursiers::class, 'id_coursier');
     }
 
     public function agent_utilisateur()
     {
-        return $this->belongsTo('App\Models\agents\Agents', 'id_agent');
+        return $this->belongsTo(Agents::class, 'id_agent');
     }
 
     public function commandes_enregistrees()
     {
-        return $this->hasMany('App\Models\commandes\Commandes', 'id_saver');
+        return $this->hasMany(Commandes::class, 'id_saver');
     }
 
     public function paiements_enregistres()
     {
-        return $this->hasMany('App\Models\paiement\Paiement', 'id_saver');
+        return $this->hasMany(Paiement::class, 'id_saver');
     }
 
     public function activities()
     {
-        return $this->hasMany('App\Models\activity', 'id_user');
+        return $this->hasMany(Activity::class, 'id_user');
     }
 }

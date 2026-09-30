@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Coursier;
 
 use App\Models\Activity;
-use App\Models\coursiers\Coursiers;
-use App\Models\users\Users;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Users\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

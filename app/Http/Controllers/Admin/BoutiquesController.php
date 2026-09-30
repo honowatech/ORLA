@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\boutiques\Boutiques;
+use App\Models\Boutiques\Boutiques;
 use Illuminate\Http\Request;
 
 class BoutiquesController extends Controller

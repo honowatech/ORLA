@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Multi;
 
-use App\Models\coursiers\Coursiers;
-use App\Models\informations_personnels\Informations_personnels;
-use App\Models\ville\Ville;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Informations_personnels\Informations_personnels;
+use App\Models\Ville\Ville;
 use Illuminate\Http\Request;
 
 class Informations_personnelsController extends Controller

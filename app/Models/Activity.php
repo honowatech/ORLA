@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Users\Users;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,6 @@ class Activity extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\users\Users', 'id_user');
+        return $this->belongsTo(Users::class, 'id_user');
     }
 }

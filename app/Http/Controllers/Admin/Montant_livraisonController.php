@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\montant_livraison\Montant_livraison;
-use App\Models\zone\Zone;
+use App\Models\Montant_livraison\Montant_livraison;
+use App\Models\Zone\Zone;
 use Illuminate\Http\Request;
 
 class Montant_livraisonController extends Controller

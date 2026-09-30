@@ -21,11 +21,11 @@ class Abonnement extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\Models\SuperAdmin\Transaction', 'id_abonnement');
+        return $this->hasMany(Transaction::class, 'id_abonnement');
     }
 
     public function client()
     {
-        return $this->hasMany('App\Models\SuperAdmin\Client', 'id_abonnement');
+        return $this->hasMany(Client::class, 'id_abonnement');
     }
 }

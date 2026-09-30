@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\coursiers\Coursiers;
-use App\Models\details_zone\Details_zone;
-use App\Models\zone\Zone;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Details_zone\Details_zone;
+use App\Models\Zone\Zone;
 
 class CoursiersController extends Controller
 {

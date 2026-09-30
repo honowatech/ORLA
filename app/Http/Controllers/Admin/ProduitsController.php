@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\produits\Produits;
+use App\Models\Produits\Produits;
 use Illuminate\Http\Request;
 
 class ProduitsController extends Controller

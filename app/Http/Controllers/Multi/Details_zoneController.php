@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Multi;
 
-use App\Models\details_zone\Details_zone;
+use App\Models\Details_zone\Details_zone;
 use Illuminate\Http\Request;
 
 class Details_zoneController extends Controller

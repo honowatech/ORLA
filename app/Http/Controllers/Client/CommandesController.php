@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\boutiques\Boutiques;
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\coursiers\Coursiers;
-use App\Models\details_commande\Details_commande;
-use App\Models\montant_livraison\Montant_livraison;
-use App\Models\produits\Produits;
-use App\Models\quartier\Quartier;
-use App\Models\typeClient\TypeClient;
-use App\Models\ville\Ville;
+use App\Models\Boutiques\Boutiques;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Details_commande\Details_commande;
+use App\Models\Montant_livraison\Montant_livraison;
+use App\Models\Produits\Produits;
+use App\Models\Quartier\Quartier;
+use App\Models\TypeClient\TypeClient;
+use App\Models\Ville\Ville;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

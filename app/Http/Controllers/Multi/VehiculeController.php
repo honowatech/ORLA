@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Multi;
 
-use App\Models\coursiers\Coursiers;
+use App\Models\Coursiers\Coursiers;
 use App\Models\Type_vehicule;
 use App\Models\Vehicule;
-use App\Models\ville\Ville;
+use App\Models\Ville\Ville;
 use Illuminate\Http\Request;
 
 class VehiculeController extends Controller

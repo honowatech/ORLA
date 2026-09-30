@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Multi;
 
-use App\Models\montant_livraison\Montant_livraison;
-use App\Models\quartier\Quartier;
-use App\Models\ville\Ville;
-use App\Models\zone\Zone;
+use App\Models\Montant_livraison\Montant_livraison;
+use App\Models\Quartier\Quartier;
+use App\Models\Ville\Ville;
+use App\Models\Zone\Zone;
 use Illuminate\Http\Request;
 
 class ZoneController extends Controller

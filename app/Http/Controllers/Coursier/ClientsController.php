@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Coursier;
 
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\quartier\Quartier;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Quartier\Quartier;
 
 class ClientsController extends Controller
 {
