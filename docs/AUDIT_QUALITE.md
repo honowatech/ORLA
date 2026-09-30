@@ -223,16 +223,33 @@ L'application fonctionne, mais elle a été construite par copier-coller entre l
 
 | Élément | État |
 |---|---|
-| Tests | Seuls `ExampleTest` (Unit et Feature) existent, avec 0 test métier |
-| Style (Pint) | **128 fichiers PHP sur 171** non conformes |
-| Analyse statique | Aucune (ni PHPStan ni Larastan) |
-| CI | Aucune, en dehors du build `preprod` (PR #1) |
-| `.env.example` | Absent |
-| README | Correct fonctionnellement, sans procédure d'installation |
+| Tests | Seuls `ExampleTest` (Unit et Feature) existent, avec 0 test métier *(corrigé en phase 1 : 28 tests)* |
+| Style (Pint) | **128 fichiers PHP sur 171** non conformes *(corrigé : tout le code est formaté, vérifié en CI)* |
+| Analyse statique | Aucune (ni PHPStan ni Larastan) *(corrigé : Larastan niveau 1 avec baseline)* |
+| CI | Aucune, en dehors du build `preprod` (PR #1) *(corrigé : Pint, Larastan et PHPUnit sur chaque push)* |
+| `.env.example` | Absent *(corrigé)* |
+| README | Correct fonctionnellement, sans procédure d'installation *(corrigé)* |
 
 ---
 
 ## 7. Plan de remédiation
+
+### Suivi (au 30/09/2026)
+
+| Phase | État | Branche |
+|---|---|---|
+| Phase 0 : sécurité | ✅ Faite, plus 2 failles supplémentaires (agent vers Super Admin, mot de passe fixe) ; 12 tests de non-régression | `claude/security-phase0` |
+| Phase 1 : socle | ✅ Faite : middleware de rôle, code mort supprimé, seeder et `.env.example`, Pint, Larastan (niveau 1 + baseline), CI ; 28 tests | `claude/phase1-socle` |
+| Phase 2 : structure | À faire. Priorité : la casse des namespaces de modèles (environ 420 des 465 erreurs de la baseline Larastan) | |
+| Phase 3 : présentation | À faire | |
+
+Écarts par rapport au plan initial :
+- En phase 1, l'appartenance des ressources est vérifiée par des helpers (`commandeDuClient`, `commandeDuCoursier`, `protegerSuperAdmin`) et non par des Policies. Le passage aux Policies se fera avec la fusion des contrôleurs (phase 2).
+- Bugs existants repérés par Larastan et laissés dans la baseline, pour la phase 2 :
+  - `SuperAdmin\TransactionController@update` utilise `$client`, jamais défini ;
+  - `Client\UsersController@update` appelle une classe `Client` inexistante ;
+  - plusieurs variables ne sont définies que dans certaines branches (`$depart`, `$produits`, `$reponse`).
+
 
 ### Phase 0 : sécurité immédiate (1 à 2 jours)
 1. `PasswordController` Client et Coursier : n'agir que sur `Auth::user()` et ignorer l'`$id` de l'URL.
