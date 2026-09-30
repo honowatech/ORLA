@@ -56,35 +56,50 @@ The platform runs as a **SaaS**: a Super Admin onboards client companies, sells 
 
 ## Prerequisites
 
-- PHP `>= 8.1` with the required extensions (see Laravel 10 requirements)
+- PHP `>= 8.4` (the locked dependencies require it) with the usual Laravel extensions
 - Composer
 - Node.js and npm
-- A relational database (MySQL/MariaDB, PostgreSQL, SQLite, or SQL Server)
+- SQLite for local development, MySQL/MariaDB in production
 
-## Installation
+## Installation (development)
 
 ```bash
 # 1. Install PHP dependencies
 composer install
 
-# 2. Create the environment file and set your database credentials
+# 2. Create the environment file (SQLite by default)
 cp .env.example .env
 php artisan key:generate
+touch database/database.sqlite
 
 # 3. Install and build frontend assets
 npm install
 npm run build
 
-# 4. Run migrations and seeders
-php artisan migrate --seed
+# 4. Create the schema and a development dataset
+php artisan migrate:fresh --seed
 
 # 5. Serve the application
 php artisan serve
 ```
 
-Seeders create the base user types, a default city (Douala), an admin user
-(`test@example.com` / `11111111`) and a Super Admin account
-(`superadmin@example.com` / `11111111`).
+The development seeder (refused in production) creates the reference data, an
+active subscription and one account per role: `admin@example.com`,
+`agent@example.com`, `coursier@example.com`, `client@example.com`, plus
+`superadmin@example.com` for `/superadmin`. They share the password set in
+`SEED_PASSWORD`, or a generated one printed by the seeder.
+
+## Quality checks
+
+```bash
+./vendor/bin/phpunit          # tests
+./vendor/bin/pint --test      # code style
+./vendor/bin/phpstan analyse  # static analysis
+```
+
+## Deployment
+
+See `docs/DEPLOIEMENT_PREPROD.md` (shared hosting, `preprod` branch).
 
 ## Notes
 
