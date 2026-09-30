@@ -1,0 +1,74 @@
+name: Build preprod
+
+# Reconstruit la branche `preprod` à partir de `main` en y incluant les
+# dépendances (vendor/) et les assets compilés (public/build/), pour pouvoir
+# déployer sur un hébergement mutualisé avec un simple `git pull`, sans
+# `composer install` ni `npm run build` côté serveur.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preprod
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install PHP dependencies (production)
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Build front-end assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit build to preprod
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # vendor/ et public/build/ doivent être versionnés sur preprod.
+          sed -i -e '/^\/vendor$/d' -e '/^\/public\/build$/d' .gitignore
+          # Supprime les .git imbriqués éventuels (paquets installés depuis la source).
+          find vendor -mindepth 2 -name .git -prune -exec rm -rf {} +
+
+          git add -A
+          git add -f vendor public/build
+
+          # Rattache le commit à l'historique existant de preprod pour que
+          # `git pull` sur le serveur reste un simple fast-forward.
+          if git ls-remote --exit-code --heads origin preprod >/dev/null; then
+            git fetch origin preprod
+            git reset --soft origin/preprod
+          else
+            git checkout --orphan preprod-tmp
+          fi
+
+          if git diff --cached --quiet; then
+            echo "Aucun changement à publier sur preprod."
+            exit 0
+          fi
+
+          git commit -m "Build preprod depuis ${GITHUB_SHA::7}"
+          git push origin HEAD:refs/heads/preprod
