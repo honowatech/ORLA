@@ -1,0 +1,895 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Access to constant STATUS_CANCELLED on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Access to constant STATUS_SUCCESS on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method checkPayment\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method checkSign\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method getQuery\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 9
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method getQueryParams\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method getServiceSecret\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method setAmount\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method setCountry\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method setCurrency\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method setLocale\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method setLogo\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method setPayment_ref\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method setReturn_url\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method setUser\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Call to static method startPayment\(\) on an unknown class Monetbil\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Variable \$prochaine_date might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Helpers/super_admin_helper.php
+
+		-
+			message: '#^Class App\\Models\\Agents\\Agents referenced with incorrect case\: App\\Models\\agents\\Agents\.$#'
+			identifier: class.nameCase
+			count: 10
+			path: app/Http/Controllers/Admin/AgentsController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/AgentsController.php
+
+		-
+			message: '#^Class App\\Models\\Informations_personnels\\Informations_personnels referenced with incorrect case\: App\\Models\\informations_personnels\\Informations_personnels\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/AgentsController.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 5
+			path: app/Http/Controllers/Admin/AgentsController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/AgentsController.php
+
+		-
+			message: '#^Class App\\Models\\Boutiques\\Boutiques referenced with incorrect case\: App\\Models\\boutiques\\Boutiques\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/BoutiquesController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Admin\\BoutiquesController\:\:edit\(\) should return App\\Http\\Controllers\\Admin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/Admin/BoutiquesController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Admin\\BoutiquesController\:\:show\(\) should return App\\Http\\Controllers\\Admin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/Admin/BoutiquesController.php
+
+		-
+			message: '#^Class App\\Models\\Boutiques\\Boutiques referenced with incorrect case\: App\\Models\\boutiques\\Boutiques\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Clients\\Clients referenced with incorrect case\: App\\Models\\clients\\Clients\.$#'
+			identifier: class.nameCase
+			count: 9
+			path: app/Http/Controllers/Admin/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Informations_personnels\\Informations_personnels referenced with incorrect case\: App\\Models\\informations_personnels\\Informations_personnels\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Quartier\\Quartier referenced with incorrect case\: App\\Models\\quartier\\Quartier\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Admin/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\TypeClient\\TypeClient referenced with incorrect case\: App\\Models\\typeClient\\TypeClient\.$#'
+			identifier: class.nameCase
+			count: 5
+			path: app/Http/Controllers/Admin/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 5
+			path: app/Http/Controllers/Admin/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Agents\\Agents referenced with incorrect case\: App\\Models\\agents\\Agents\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Boutiques\\Boutiques referenced with incorrect case\: App\\Models\\boutiques\\Boutiques\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Clients\\Clients referenced with incorrect case\: App\\Models\\clients\\Clients\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 11
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Details_commande\\Details_commande referenced with incorrect case\: App\\Models\\details_commande\\Details_commande\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Montant_livraison\\Montant_livraison referenced with incorrect case\: App\\Models\\montant_livraison\\Montant_livraison\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Produits\\Produits referenced with incorrect case\: App\\Models\\produits\\Produits\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Quartier\\Quartier referenced with incorrect case\: App\\Models\\quartier\\Quartier\.$#'
+			identifier: class.nameCase
+			count: 23
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\TypeClient\\TypeClient referenced with incorrect case\: App\\Models\\typeClient\\TypeClient\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\TypeUtilisateur\\TypeUtilisateur referenced with incorrect case\: App\\Models\\typeUtilisateur\\TypeUtilisateur\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Variable \$depart might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Variable \$produits might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Admin/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\TypeUtilisateur\\TypeUtilisateur referenced with incorrect case\: App\\Models\\typeUtilisateur\\TypeUtilisateur\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/Controller.php
+
+		-
+			message: '#^Class App\\Models\\Clients\\Clients referenced with incorrect case\: App\\Models\\clients\\Clients\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: app/Http/Controllers/Admin/Details_commandeController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/Details_commandeController.php
+
+		-
+			message: '#^Class App\\Models\\Paiement\\Paiement referenced with incorrect case\: App\\Models\\paiement\\Paiement\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/Details_commandeController.php
+
+		-
+			message: '#^Class App\\Models\\TypeClient\\TypeClient referenced with incorrect case\: App\\Models\\typeClient\\TypeClient\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/Details_commandeController.php
+
+		-
+			message: '#^Class App\\Models\\Details_zone\\Details_zone referenced with incorrect case\: App\\Models\\details_zone\\Details_zone\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/Details_zoneController.php
+
+		-
+			message: '#^Class App\\Models\\Montant_livraison\\Montant_livraison referenced with incorrect case\: App\\Models\\montant_livraison\\Montant_livraison\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Admin/Montant_livraisonController.php
+
+		-
+			message: '#^Class App\\Models\\Zone\\Zone referenced with incorrect case\: App\\Models\\zone\\Zone\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: app/Http/Controllers/Admin/Montant_livraisonController.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/PasswordController.php
+
+		-
+			message: '#^File ends with a trailing whitespace\. This may cause problems when running the code in the web browser\. Remove the closing \?\> mark or remove the whitespace\.$#'
+			identifier: whitespace.fileEnd
+			count: 1
+			path: app/Http/Controllers/Admin/PasswordController.php
+
+		-
+			message: '#^Class App\\Models\\Produits\\Produits referenced with incorrect case\: App\\Models\\produits\\Produits\.$#'
+			identifier: class.nameCase
+			count: 10
+			path: app/Http/Controllers/Admin/ProduitsController.php
+
+		-
+			message: '#^Class App\\Models\\Quartier\\Quartier referenced with incorrect case\: App\\Models\\quartier\\Quartier\.$#'
+			identifier: class.nameCase
+			count: 13
+			path: app/Http/Controllers/Admin/QuartierController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Admin/QuartierController.php
+
+		-
+			message: '#^Relation ''boutiques'' is not found in App\\Models\\Quartier\\Quartier model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/QuartierController.php
+
+		-
+			message: '#^Relation ''commandes_pointarrivee'' is not found in App\\Models\\Quartier\\Quartier model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/QuartierController.php
+
+		-
+			message: '#^Relation ''commandes_pointdepart'' is not found in App\\Models\\Quartier\\Quartier model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/QuartierController.php
+
+		-
+			message: '#^Relation ''point_relais'' is not found in App\\Models\\Quartier\\Quartier model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/QuartierController.php
+
+		-
+			message: '#^Relation ''ville'' is not found in App\\Models\\Quartier\\Quartier model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/QuartierController.php
+
+		-
+			message: '#^Relation ''zone'' is not found in App\\Models\\Quartier\\Quartier model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/QuartierController.php
+
+		-
+			message: '#^Call to function compact\(\) contains possibly undefined variable \$user\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\Agents\\Agents referenced with incorrect case\: App\\Models\\agents\\Agents\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\Clients\\Clients referenced with incorrect case\: App\\Models\\clients\\Clients\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\TypeUtilisateur\\TypeUtilisateur referenced with incorrect case\: App\\Models\\typeUtilisateur\\TypeUtilisateur\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 9
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Relation ''agent_utilisateur'' is not found in App\\Models\\Users\\Users model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Relation ''client_utilisateur'' is not found in App\\Models\\Users\\Users model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Relation ''commandes_enregistrees'' is not found in App\\Models\\Users\\Users model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Relation ''coursier_utilisateur'' is not found in App\\Models\\Users\\Users model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Relation ''type_utilisateur'' is not found in App\\Models\\Users\\Users model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Http/Controllers/Admin/UsersController.php
+
+		-
+			message: '#^Call to function compact\(\) contains possibly undefined variable \$ville\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Admin/VilleController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 8
+			path: app/Http/Controllers/Admin/VilleController.php
+
+		-
+			message: '#^Class App\\Models\\Zone\\Zone referenced with incorrect case\: App\\Models\\zone\\Zone\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Admin/VilleController.php
+
+		-
+			message: '#^Class App\\Models\\Boutiques\\Boutiques referenced with incorrect case\: App\\Models\\boutiques\\Boutiques\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Clients\\Clients referenced with incorrect case\: App\\Models\\clients\\Clients\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 5
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Details_commande\\Details_commande referenced with incorrect case\: App\\Models\\details_commande\\Details_commande\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Montant_livraison\\Montant_livraison referenced with incorrect case\: App\\Models\\montant_livraison\\Montant_livraison\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Produits\\Produits referenced with incorrect case\: App\\Models\\produits\\Produits\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Quartier\\Quartier referenced with incorrect case\: App\\Models\\quartier\\Quartier\.$#'
+			identifier: class.nameCase
+			count: 23
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\TypeClient\\TypeClient referenced with incorrect case\: App\\Models\\typeClient\\TypeClient\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Variable \$depart might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Variable \$produits might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Client/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Client/Controller.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Client/CoursiersController.php
+
+		-
+			message: '#^Class App\\Models\\Details_zone\\Details_zone referenced with incorrect case\: App\\Models\\details_zone\\Details_zone\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Client/CoursiersController.php
+
+		-
+			message: '#^Class App\\Models\\Zone\\Zone referenced with incorrect case\: App\\Models\\zone\\Zone\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Client/CoursiersController.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Client/PasswordController.php
+
+		-
+			message: '#^Call to static method findOrFail\(\) on an unknown class App\\Http\\Controllers\\Client\\Client\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Http/Controllers/Client/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Client/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\Clients\\Clients referenced with incorrect case\: App\\Models\\clients\\Clients\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Coursier/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 1
+			path: app/Http/Controllers/Coursier/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Quartier\\Quartier referenced with incorrect case\: App\\Models\\quartier\\Quartier\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Coursier/ClientsController.php
+
+		-
+			message: '#^Relation ''commandes'' is not found in App\\Models\\Clients\\Clients model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Coursier/ClientsController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Coursier/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Coursier/CommandesController.php
+
+		-
+			message: '#^Variable \$depart might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Coursier/CommandesController.php
+
+		-
+			message: '#^Variable \$reponse might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Http/Controllers/Coursier/CommandesController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Coursier/Controller.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Coursier/PasswordController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Coursier/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Coursier/UsersController.php
+
+		-
+			message: '#^Class App\\Models\\Clients\\Clients referenced with incorrect case\: App\\Models\\clients\\Clients\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: '#^Class App\\Models\\Commandes\\Commandes referenced with incorrect case\: App\\Models\\commandes\\Commandes\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: '#^Class App\\Models\\TypeUtilisateur\\TypeUtilisateur referenced with incorrect case\: App\\Models\\typeUtilisateur\\TypeUtilisateur\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 8
+			path: app/Http/Controllers/Multi/CoursiersController.php
+
+		-
+			message: '#^Class App\\Models\\Informations_personnels\\Informations_personnels referenced with incorrect case\: App\\Models\\informations_personnels\\Informations_personnels\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: app/Http/Controllers/Multi/CoursiersController.php
+
+		-
+			message: '#^Class App\\Models\\Users\\Users referenced with incorrect case\: App\\Models\\users\\Users\.$#'
+			identifier: class.nameCase
+			count: 6
+			path: app/Http/Controllers/Multi/CoursiersController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: app/Http/Controllers/Multi/CoursiersController.php
+
+		-
+			message: '#^Class App\\Models\\Zone\\Zone referenced with incorrect case\: App\\Models\\zone\\Zone\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Multi/CoursiersController.php
+
+		-
+			message: '#^Class App\\Models\\Details_zone\\Details_zone referenced with incorrect case\: App\\Models\\details_zone\\Details_zone\.$#'
+			identifier: class.nameCase
+			count: 3
+			path: app/Http/Controllers/Multi/Details_zoneController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Multi/Informations_personnelsController.php
+
+		-
+			message: '#^Class App\\Models\\Informations_personnels\\Informations_personnels referenced with incorrect case\: App\\Models\\informations_personnels\\Informations_personnels\.$#'
+			identifier: class.nameCase
+			count: 5
+			path: app/Http/Controllers/Multi/Informations_personnelsController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Multi/Informations_personnelsController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Multi\\Informations_personnelsController\:\:edit\(\) should return App\\Http\\Controllers\\Multi\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/Multi/Informations_personnelsController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Multi\\Type_vehiculeController\:\:show\(\) should return App\\Http\\Controllers\\Multi\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/Multi/Type_vehiculeController.php
+
+		-
+			message: '#^Class App\\Models\\Coursiers\\Coursiers referenced with incorrect case\: App\\Models\\coursiers\\Coursiers\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/Multi/VehiculeController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: app/Http/Controllers/Multi/VehiculeController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Multi\\VehiculeController\:\:show\(\) should return App\\Http\\Controllers\\Multi\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/Multi/VehiculeController.php
+
+		-
+			message: '#^Class App\\Models\\Montant_livraison\\Montant_livraison referenced with incorrect case\: App\\Models\\montant_livraison\\Montant_livraison\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Class App\\Models\\Quartier\\Quartier referenced with incorrect case\: App\\Models\\quartier\\Quartier\.$#'
+			identifier: class.nameCase
+			count: 10
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Class App\\Models\\Ville\\Ville referenced with incorrect case\: App\\Models\\ville\\Ville\.$#'
+			identifier: class.nameCase
+			count: 4
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Class App\\Models\\Zone\\Zone referenced with incorrect case\: App\\Models\\zone\\Zone\.$#'
+			identifier: class.nameCase
+			count: 10
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Relation ''details_zone'' is not found in App\\Models\\Zone\\Zone model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Relation ''montantlivraisoncolis'' is not found in App\\Models\\Zone\\Zone model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Relation ''montantlivraisonlivraison'' is not found in App\\Models\\Zone\\Zone model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Relation ''quartiers'' is not found in App\\Models\\Zone\\Zone model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Relation ''ville'' is not found in App\\Models\\Zone\\Zone model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Http/Controllers/Multi/ZoneController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\SuperAdmin\\AbonnementController\:\:recap_create\(\) should return App\\Http\\Controllers\\SuperAdmin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/SuperAdmin/AbonnementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\SuperAdmin\\AbonnementController\:\:recap_edit\(\) should return App\\Http\\Controllers\\SuperAdmin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/SuperAdmin/AbonnementController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\SuperAdmin\\ApiController\:\:recap_edit\(\) should return App\\Http\\Controllers\\SuperAdmin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/SuperAdmin/ApiController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\SuperAdmin\\ClientController\:\:recap_abonate\(\) should return App\\Http\\Controllers\\SuperAdmin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/SuperAdmin/ClientController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\SuperAdmin\\ClientController\:\:recap_create\(\) should return App\\Http\\Controllers\\SuperAdmin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/SuperAdmin/ClientController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\SuperAdmin\\ClientController\:\:recap_edit\(\) should return App\\Http\\Controllers\\SuperAdmin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/SuperAdmin/ClientController.php
+
+		-
+			message: '#^Variable \$message might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/SuperAdmin/SuperAdminController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\SuperAdmin\\TransactionController\:\:store\(\) should return App\\Http\\Controllers\\SuperAdmin\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 2
+			path: app/Http/Controllers/SuperAdmin/TransactionController.php
+
+		-
+			message: '#^Undefined variable\: \$client$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/SuperAdmin/TransactionController.php
+
+		-
+			message: '#^Variable \$client might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Http/Controllers/SuperAdmin/TransactionController.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 1
+			path: database/seeders/DatabaseSeeder.php

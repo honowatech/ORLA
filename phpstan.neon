@@ -1,0 +1,15 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    paths:
+        - app
+        - routes
+        - database
+    excludePaths:
+        - app/Http/Controllers/SuperAdmin/monetbil
+    # Niveau 1 pour commencer. Les erreurs existantes sont recensées dans
+    # phpstan-baseline.neon : toute nouvelle erreur fait échouer l'analyse.
+    # Objectif : vider la baseline puis monter de niveau.
+    level: 1
