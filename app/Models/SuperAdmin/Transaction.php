@@ -3,6 +3,8 @@
 namespace App\Models\SuperAdmin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
@@ -19,17 +21,17 @@ class Transaction extends Model
 
     protected $visible = ['id_client', 'id_abonnement', 'methode', 'montant', 'nbre_abonnement', 'date_debut', 'date_fin'];
 
-    public function client()
+    public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class, 'id_client');
     }
 
-    public function abonnement()
+    public function abonnement(): BelongsTo
     {
         return $this->belongsTo(Abonnement::class, 'id_abonnement');
     }
 
-    public function infos()
+    public function infos(): HasMany
     {
         return $this->hasMany(Info_transaction::class, 'id_transaction');
     }

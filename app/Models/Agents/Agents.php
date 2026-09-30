@@ -6,6 +6,9 @@ use App\Models\Commandes\Commandes;
 use App\Models\Informations_personnels\Informations_personnels;
 use App\Models\Users\Users;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Agents extends Model
 {
@@ -15,17 +18,17 @@ class Agents extends Model
 
     protected $visible = ['noms', 'prenoms', 'id_utilisateur', 'statut', 'telephone'];
 
-    public function compte_agent()
+    public function compte_agent(): BelongsTo
     {
         return $this->belongsTo(Users::class, 'id_utilisateur');
     }
 
-    public function info_perso()
+    public function info_perso(): HasOne
     {
         return $this->hasOne(Informations_personnels::class, 'id_agent');
     }
 
-    public function commandes()
+    public function commandes(): HasMany
     {
         return $this->hasMany(Commandes::class, 'id_agent');
     }

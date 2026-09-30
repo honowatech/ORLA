@@ -3,6 +3,7 @@
 namespace App\Models\SuperAdmin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Info_transaction extends Model
 {
@@ -16,7 +17,7 @@ class Info_transaction extends Model
 
     protected $visible = ['id_transaction', 'name', 'value'];
 
-    public function transaction()
+    public function transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class, 'id_transaction');
     }

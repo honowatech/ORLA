@@ -22,8 +22,6 @@ class CommandesController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index(Request $request)
     {
@@ -88,8 +86,6 @@ class CommandesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function boutiqueLie(Request $request)
     {
@@ -122,8 +118,6 @@ class CommandesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function commandeClient(Request $request)
     {
@@ -141,8 +135,6 @@ class CommandesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function lieu(Request $request)
     {
@@ -161,8 +153,6 @@ class CommandesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function montant(Request $request)
     {
@@ -188,8 +178,6 @@ class CommandesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function lieu2(Request $request)
     {
@@ -208,8 +196,6 @@ class CommandesController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function create()
     {
@@ -233,8 +219,6 @@ class CommandesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -286,6 +270,7 @@ class CommandesController extends Controller
         }
         // ici on déclare et fait les vérifications concernants spécialement la commande de type entreprise
         $commande = new Commandes;
+        $produits = collect();
         if ($type_commande == 'entreprise') {
             // ici on fait les vérifications spécifiques à la commande de type entreprise
             if ($id_client2 == null) {
@@ -432,7 +417,6 @@ class CommandesController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function show($id)
     {
@@ -464,7 +448,6 @@ class CommandesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function attribuate_agent(Request $request)
     {
@@ -502,7 +485,6 @@ class CommandesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function edit($id)
     {
@@ -516,7 +498,6 @@ class CommandesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -558,7 +539,6 @@ class CommandesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function destroy(Request $request, $id)
     {

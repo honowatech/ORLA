@@ -62,7 +62,9 @@ if (! function_exists('Sa_prochaine_date_paie')) {
 
         $dt = Carbon::parse($ancienne_date);
 
-        if ($type_periode == 'jour') {
+        if ($type_periode == 'heure') {
+            $prochaine_date = $dt->addHours($accumulateur * $nombre_fois);
+        } elseif ($type_periode == 'jour') {
             $prochaine_date = $dt->addDays($accumulateur * $nombre_fois);
         } elseif ($type_periode == 'semaine') {
             $prochaine_date = $dt->addWeeks($accumulateur * $nombre_fois);
@@ -70,6 +72,8 @@ if (! function_exists('Sa_prochaine_date_paie')) {
             $prochaine_date = $dt->addMonths($accumulateur * $nombre_fois);
         } elseif ($type_periode == 'annee') {
             $prochaine_date = $dt->addYears($accumulateur * $nombre_fois);
+        } else {
+            throw new InvalidArgumentException("Type de période d'abonnement inconnu : $type_periode");
         }
 
         // //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -11,8 +11,6 @@ class Informations_personnelsController extends Controller
 {
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -77,7 +75,6 @@ class Informations_personnelsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function edit($infos)
     {

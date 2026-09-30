@@ -25,7 +25,9 @@ class DatabaseSeeder extends Seeder
             return;
         }
 
-        $motDePasse = env('SEED_PASSWORD') ?: Str::password(12, symbols: false);
+        // Seeder de développement, jamais exécuté avec la configuration en cache.
+        $motDePasse = env('SEED_PASSWORD'); // @phpstan-ignore larastan.noEnvCallsOutsideOfConfig
+        $motDePasse = $motDePasse ?: Str::password(12, symbols: false);
         $hash = Hash::make($motDePasse);
         $now = now();
 

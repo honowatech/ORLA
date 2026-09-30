@@ -66,7 +66,7 @@ Route::group(['prefix' => 'superadmin'], function () {
 
     // Paiement d'abonnement : create/store/show restent accessibles au client
     // qui paie ; le contrôleur vérifie lui-même les autres actions.
-    Route::resource('Sa-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController');
+    Route::resource('Sa-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController')->except(['edit', 'update']);
 });
 
 // /////////////////////////////////////////////////////////// End Super Admin

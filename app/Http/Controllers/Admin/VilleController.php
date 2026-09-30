@@ -10,8 +10,6 @@ class VilleController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index()
     {
@@ -25,8 +23,6 @@ class VilleController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function create()
     {
@@ -35,8 +31,6 @@ class VilleController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -60,13 +54,10 @@ class VilleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function edit($libelle)
     {
-        $villes = Ville::where('libelle', $libelle)->get();
-        foreach ($villes as $ville) {
-        }
+        $ville = Ville::where('libelle', $libelle)->latest('id')->firstOrFail();
 
         return view('admin.pages.villes.edit', compact('ville'));
     }
@@ -75,7 +66,6 @@ class VilleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -109,7 +99,6 @@ class VilleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function destroy(Request $request, $id)
     {

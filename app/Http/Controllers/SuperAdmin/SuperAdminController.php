@@ -29,6 +29,7 @@ class SuperAdminController extends Controller
         $password = $request->input('password');
         $user = User::where('email', $email)->first();
         $back = false;
+        $message = '';
         $check_password = false;
         $dernier_url = session()->has('dernier_url') ? session()->get('dernier_url') : route('SuperAdmin.home');
         if ($user == null) {

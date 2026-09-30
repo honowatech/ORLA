@@ -6,6 +6,7 @@ use App\Models\Coursiers\Coursiers;
 use App\Models\Ville\Ville;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Vehicule extends Model
 {
@@ -19,17 +20,17 @@ class Vehicule extends Model
 
     protected $fillable = ['immatriculation', 'couleur', 'id_type', 'id_coursier', 'marque', 'modele', 'description', 'statut', 'id_ville'];
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(Type_vehicule::class, 'id_type');
     }
 
-    public function coursier()
+    public function coursier(): BelongsTo
     {
         return $this->belongsTo(Coursiers::class, 'id_coursier');
     }
 
-    public function ville()
+    public function ville(): BelongsTo
     {
         return $this->belongsTo(Ville::class, 'id_ville');
     }

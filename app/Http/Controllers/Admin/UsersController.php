@@ -14,8 +14,6 @@ class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index()
     {
@@ -32,8 +30,6 @@ class UsersController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function create()
     {
@@ -46,8 +42,6 @@ class UsersController extends Controller
 
     /**
      * montrer la selection qui va choisir le compte lié au user
-     *
-     * @return Response
      */
     public function compteLie(Request $request)
     {
@@ -67,8 +61,6 @@ class UsersController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -128,13 +120,10 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function show(Request $request, $email)
     {
-        $users = Users::with(['type_utilisateur', 'client_utilisateur', 'coursier_utilisateur', 'agent_utilisateur', 'commandes_enregistrees'])->where('email', $email)->get();
-        foreach ($users as $user) {
-        }
+        $user = Users::with(['type_utilisateur', 'client_utilisateur', 'coursier_utilisateur', 'agent_utilisateur', 'commandes_enregistrees'])->where('email', $email)->latest('id')->firstOrFail();
 
         return view('admin.pages.utilisateurs.info', compact('user'));
     }
@@ -143,13 +132,10 @@ class UsersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function edit($email)
     {
-        $users = Users::where('email', $email)->get();
-        foreach ($users as $user) {
-        }
+        $user = Users::where('email', $email)->latest('id')->firstOrFail();
 
         return view('admin.pages.utilisateurs.edit', compact('user'));
     }
@@ -158,7 +144,6 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -209,7 +194,6 @@ class UsersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function destroy($id)
     {

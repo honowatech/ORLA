@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Agents\Agents;
 use App\Models\Clients\Clients;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Commandes\Commandes;
 use App\Models\Coursiers\Coursiers;
 use App\Models\Paiement\Paiement;
 use App\Models\TypeUtilisateur\TypeUtilisateur;
 use App\Models\Ville\Ville;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -53,42 +55,42 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function type_utilisateur()
+    public function type_utilisateur(): BelongsTo
     {
         return $this->belongsTo(TypeUtilisateur::class, 'id_type_utilisateur');
     }
 
-    public function ville()
+    public function ville(): BelongsTo
     {
         return $this->belongsTo(Ville::class, 'id_ville');
     }
 
-    public function client_utilisateur()
+    public function client_utilisateur(): BelongsTo
     {
         return $this->belongsTo(Clients::class, 'id_client');
     }
 
-    public function coursier_utilisateur()
+    public function coursier_utilisateur(): BelongsTo
     {
         return $this->belongsTo(Coursiers::class, 'id_coursier');
     }
 
-    public function agent_utilisateur()
+    public function agent_utilisateur(): BelongsTo
     {
         return $this->belongsTo(Agents::class, 'id_agent');
     }
 
-    public function commandes_enregistrees()
+    public function commandes_enregistrees(): HasMany
     {
         return $this->hasMany(Commandes::class, 'id_saver');
     }
 
-    public function paiements_enregistres()
+    public function paiements_enregistres(): HasMany
     {
         return $this->hasMany(Paiement::class, 'id_saver');
     }
 
-    public function activities()
+    public function activities(): HasMany
     {
         return $this->hasMany(Activity::class, 'id_user');
     }

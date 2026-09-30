@@ -7,6 +7,8 @@ use App\Models\Coursiers\Coursiers;
 use App\Models\Quartier\Quartier;
 use App\Models\Stock\Stock;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Point_relais extends Model
 {
@@ -18,22 +20,22 @@ class Point_relais extends Model
 
     protected $visible = ['libelle', 'id_coursier', 'quartier', 'statut'];
 
-    public function quartier()
+    public function quartier(): BelongsTo
     {
         return $this->belongsTo(Quartier::class, 'id_quartier');
     }
 
-    public function coursier()
+    public function coursier(): BelongsTo
     {
         return $this->belongsTo(Coursiers::class, 'id_coursier');
     }
 
-    public function stock()
+    public function stock(): HasMany
     {
         return $this->hasMany(Stock::class, 'id_point_relais');
     }
 
-    public function commandes()
+    public function commandes(): HasMany
     {
         return $this->hasMany(Commandes::class, 'id_point_relais');
     }

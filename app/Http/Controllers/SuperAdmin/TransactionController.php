@@ -14,8 +14,6 @@ class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index(Request $request)
     {
@@ -31,8 +29,6 @@ class TransactionController extends Controller
 
     /**
      * Ajax de la liste
-     *
-     * @return Response
      */
     public function index_ajax(Request $request)
     {
@@ -56,8 +52,6 @@ class TransactionController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function create()
     {
@@ -82,8 +76,6 @@ class TransactionController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -96,6 +88,7 @@ class TransactionController extends Controller
         $abonnement = Abonnement::findOrFail($id_abonnement);
         // dd($name,$telephone,$telephone_secondaire,$salaire,$cni);
         // On enregistre le client
+        $client = null;
         if ($methode == 'application') {
             $client = Client::findOrFail($id_client);
         } elseif ($methode == 'mobile') {
@@ -107,7 +100,8 @@ class TransactionController extends Controller
 
             return redirect()->back();
         }
-        if (! in_array($methode, ['mobile', 'bank', 'application'])) {
+        // Seuls le paiement mobile et l'attribution manuelle existent ('bank' n'est pas implémenté).
+        if (! in_array($methode, ['mobile', 'application']) || $client === null) {
             $message = "<b class='text-danger'> Erreur. </b></br> Echec du lancement du paiement";
             session()->flash('message', $message);
 
@@ -154,7 +148,6 @@ class TransactionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function checkpay($id)
     {
@@ -211,7 +204,6 @@ class TransactionController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function show($id, Request $request)
     {
@@ -240,45 +232,9 @@ class TransactionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $check = check_superadmin();
-        if ($check != 'true') {
-            session()->put('dernier_url', url()->current());
-
-            return redirect()->route($check);
-        }
-        abort(404);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        $check = check_superadmin();
-        if ($check != 'true') {
-            session()->put('dernier_url', url()->current());
-
-            return redirect()->route($check);
-        }
-
-        return redirect()->route('Sa-client.show', $client->id);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function destroy($id)
     {

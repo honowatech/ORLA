@@ -13,8 +13,6 @@ class Details_commandeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index()
     {
@@ -27,8 +25,6 @@ class Details_commandeController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function create(Request $request)
     {
@@ -41,8 +37,6 @@ class Details_commandeController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -97,7 +91,6 @@ class Details_commandeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function update($id, Request $request)
     {

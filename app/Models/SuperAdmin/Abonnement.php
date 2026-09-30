@@ -3,6 +3,7 @@
 namespace App\Models\SuperAdmin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Abonnement extends Model
@@ -19,12 +20,12 @@ class Abonnement extends Model
 
     protected $visible = ['titre', 'accumulateur', 'type_periode', 'salaire', 'date_modif'];
 
-    public function transactions()
+    public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class, 'id_abonnement');
     }
 
-    public function client()
+    public function client(): HasMany
     {
         return $this->hasMany(Client::class, 'id_abonnement');
     }

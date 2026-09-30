@@ -7,6 +7,8 @@ use App\Models\Commandes\Commandes;
 use App\Models\Quartier\Quartier;
 use App\Models\Stock\Stock;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Boutiques extends Model
 {
@@ -16,22 +18,22 @@ class Boutiques extends Model
 
     protected $visible = ['libelle', 'id_client', 'quartier', 'statut'];
 
-    public function client()
+    public function client(): BelongsTo
     {
         return $this->belongsTo(Clients::class, 'id_client');
     }
 
-    public function quartier_boutique()
+    public function quartier_boutique(): BelongsTo
     {
         return $this->belongsTo(Quartier::class, 'id_quartier');
     }
 
-    public function stock()
+    public function stock(): HasMany
     {
         return $this->hasMany(Stock::class, 'id_boutique');
     }
 
-    public function commandes()
+    public function commandes(): HasMany
     {
         return $this->hasMany(Commandes::class, 'id_boutique');
     }

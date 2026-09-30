@@ -9,8 +9,6 @@ class Details_zoneController extends Controller
 {
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -39,7 +37,6 @@ class Details_zoneController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function update(Request $request, $id)
     {

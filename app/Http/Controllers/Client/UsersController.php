@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Clients\Clients;
 use App\Models\Users\Users;
 use Illuminate\Http\Request;
 
@@ -9,8 +10,6 @@ class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index()
     {
@@ -19,8 +18,6 @@ class UsersController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function create()
     {
@@ -29,8 +26,6 @@ class UsersController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -42,7 +37,6 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function show(Request $request, $id)
     {
@@ -55,7 +49,6 @@ class UsersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function edit($id)
     {
@@ -68,7 +61,6 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -98,25 +90,25 @@ class UsersController extends Controller
         $utilisateur->noms = $noms.' '.$prenoms;
         $utilisateur->email = $email;
         $utilisateur->telephone = $telephone;
-        if ($utilisateur->id_coursier != null) {
-            $coursier = Client::findOrFail($utilisateur->id_coursier);
-            $coursier->noms = $noms;
-            $coursier->Prenoms = $prenoms;
-            $coursier->telephone = $telephone;
-            $coursier->save();
+        // La fiche client liée suit les informations du compte.
+        if ($utilisateur->id_client != null) {
+            $client = Clients::findOrFail($utilisateur->id_client);
+            $client->noms = $noms;
+            $client->Prenoms = $prenoms;
+            $client->telephone = $telephone;
+            $client->save();
         }
         $utilisateur->save();
         $message = "Informations Enregistrées avec <b class='text-success'> Succès. </b>";
         session()->flash('message', $message);
 
-        return redirect()->route('Coursierusers.show', $utilisateur->id);
+        return redirect()->route('Clientusers.show', $utilisateur->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function destroy($id)
     {

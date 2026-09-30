@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Users\Users;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Activity extends Model
 {
@@ -16,7 +17,7 @@ class Activity extends Model
 
     protected $visible = ['action', 'jour', 'heure', 'id_user', 'color', 'texte_lien', 'lien'];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(Users::class, 'id_user');
     }

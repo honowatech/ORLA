@@ -12,7 +12,6 @@ class PasswordController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function destroy($id)
     {
@@ -30,5 +29,3 @@ class PasswordController extends Controller
         return redirect()->back();
     }
 }
-
-?> 

@@ -10,8 +10,6 @@ class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index(Request $request)
     {
@@ -20,8 +18,6 @@ class ClientController extends Controller
 
     /**
      * Ajax de la liste
-     *
-     * @return Response
      */
     public function index_ajax(Request $request)
     {
@@ -45,8 +41,6 @@ class ClientController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function create()
     {
@@ -55,8 +49,6 @@ class ClientController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function recap_create(Request $request)
     {
@@ -78,8 +70,6 @@ class ClientController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -123,7 +113,6 @@ class ClientController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function show($id, Request $request)
     {
@@ -142,8 +131,6 @@ class ClientController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function recap_edit(Request $request)
     {
@@ -165,8 +152,6 @@ class ClientController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function recap_abonate(Request $request)
     {
@@ -203,7 +188,6 @@ class ClientController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
      */
     public function edit($id)
     {
@@ -216,7 +200,6 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -271,7 +254,6 @@ class ClientController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
      */
     public function destroy($id)
     {
