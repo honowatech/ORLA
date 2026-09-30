@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Coursier;
 use App\Models\Activity;
 use App\Models\Commandes\Commandes;
 use App\Models\Coursiers\Coursiers;
+use App\Services\Commandes\ChangerStatutCommande;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,15 +73,20 @@ class CommandesController extends Controller
      *
      * @param  int  $id
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id, ChangerStatutCommande $changerStatut)
     {
         // ici nous déclarons les variables communes aux deux formulaires
         $statut = $request->input('statut');
         $id_coursier = $request->input('id_coursier');
 
-        $statut == 'livre' ? $reponse = 'Livraison terminée' : '';
-        $statut == 'annulee' ? $reponse = 'Livraison annulée' : '';
-        $statut == 'encours' ? $reponse = 'Livraison En cours' : '';
+        $reponses = [
+            'encours' => 'Livraison En cours',
+            'livre' => 'Livraison terminée',
+            'annulee' => 'Livraison annulée',
+            'echoue' => 'Livraison échouée',
+        ];
+        $reponse = $reponses[$statut] ?? 'Changement de statut';
+
         // on cherche la commande concernée
         $commande = $this->commandeDuCoursier($id);
         $message = "<b class='text-danger text-center'>Echec ! </br> Ce statut n'est pas correct.</b>";
@@ -106,50 +112,25 @@ class CommandesController extends Controller
                 return redirect()->back();
             }
         }
-        // ici on fait un algorithme qui va nous donner le tableau possibility qui va contenir les possibilité de changement de statut pour la dernière action
-        $statuts_norm = ['attente', 'attribue', 'encours', 'livre', 'annulee', 'echoue'];
-        $commande->statut == 'attente' ? $depart = 1 : $statuts_norm;
-        $commande->statut == 'attribue' ? $depart = 2 : $statuts_norm;
-        $commande->statut == 'encours' ? $depart = 3 : $statuts_norm;
-        $possibility = [];
-        for ($i = $depart; $i < count($statuts_norm); $i++) {
-            if ($commande->statut == 'attente' && $i == 2) {
-                continue;
-            }
-            if ($commande->statut == 'attente' && $i == 3) {
-                continue;
-            }
-            array_push($possibility, $statuts_norm[$i]);
-        }
         $activity = new Activity;
         $activity->lien = route('Coursiercommandes.show', $id);
         $activity->texte_lien = 'Voir la commande';
         $activity->jour = now();
         $activity->heure = now();
         $activity->id_user = Auth::user()->id;
-        if (in_array($statut, $possibility)) {
-            $commande->statut = $statut;
-            if (in_array($statut, ['livre', 'echoue', 'annulee'])) {
-                if ($commande->date_mise_encours == null) {
-                    $commande->date_mise_encours = now();
-                }
-                $commande->date_livre = now();
-            }
+        if ($changerStatut($commande, (string) $statut)) {
             if ($statut == 'encours') {
                 $activity->color = 'dark';
                 $activity->message = 'Livraison mise en cours avec <b class="text-success">succès</b>';
-                $commande->date_mise_encours = now();
-            }
-            if (in_array($statut, ['livre'])) {
+            } elseif ($statut == 'livre') {
                 $activity->message = $reponse.' avec <b class="text-success">succès</b>';
                 $activity->color = 'success';
-            } elseif (in_array($statut, ['echoue', 'annulee'])) {
+            } else {
                 $activity->message = $reponse.' avec <b class="text-success">succès</b>';
                 $activity->color = 'danger';
             }
 
             $activity->title = $reponse;
-            $commande->save();
             $message = "<b class='text-success text-center'>Statut de la commande modifié avec succès.</b>";
             session()->flash('message', $message);
             $activity->save();

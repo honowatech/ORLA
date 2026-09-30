@@ -95,27 +95,3 @@ parameters:
 			identifier: class.notFound
 			count: 1
 			path: app/Helpers/super_admin_helper.php
-
-		-
-			message: '#^Variable \$depart might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/Http/Controllers/Admin/CommandesController.php
-
-		-
-			message: '#^Variable \$depart might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/Http/Controllers/Client/CommandesController.php
-
-		-
-			message: '#^Variable \$depart might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/Http/Controllers/Coursier/CommandesController.php
-
-		-
-			message: '#^Variable \$reponse might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: app/Http/Controllers/Coursier/CommandesController.php

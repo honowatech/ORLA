@@ -14,6 +14,7 @@ use App\Models\Quartier\Quartier;
 use App\Models\TypeClient\TypeClient;
 use App\Models\TypeUtilisateur\TypeUtilisateur;
 use App\Models\Ville\Ville;
+use App\Services\Commandes\ChangerStatutCommande;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -540,7 +541,7 @@ class CommandesController extends Controller
      *
      * @param  int  $id
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id, ChangerStatutCommande $changerStatut)
     {
         // ici nous déclarons les variables communes aux deux formulaires
         $statut = $request->input('statut');
@@ -570,43 +571,14 @@ class CommandesController extends Controller
                 return redirect()->back();
             }
         }
-        // ici on fait un algorithme qui va nous donner le tableau possibility qui va contenir les possibilité de changement de statut pour la dernière action
-        $statuts_norm = ['attente', 'attribue', 'encours', 'livre', 'annulee', 'echoue'];
-        $commande->statut == 'attente' ? $depart = 1 : $statuts_norm;
-        $commande->statut == 'attribue' ? $depart = 2 : $statuts_norm;
-        $commande->statut == 'encours' ? $depart = 3 : $statuts_norm;
-        $possibility = [];
-        for ($i = $depart; $i < count($statuts_norm); $i++) {
-            if ($commande->statut == 'attente' && $i == 2) {
-                continue;
-            }
-            if ($commande->statut == 'attente' && $i == 3) {
-                continue;
-            }
-            array_push($possibility, $statuts_norm[$i]);
-        }
-        if (in_array($statut, $possibility)) {
-            $commande->statut = $statut;
-            if (in_array($statut, ['livre', 'echoue', 'annulee'])) {
-                if ($commande->date_mise_encours == null) {
-                    $commande->date_mise_encours = now();
-                }
-                $commande->date_livre = now();
-            }
-            if ($statut == 'encours') {
-                $commande->date_mise_encours = now();
-            }
-            $commande->save();
+        if ($changerStatut($commande, (string) $statut)) {
             $message = "Statut de la commande modifié avec <b class='text-success text-center'> succès.</b>";
-            session()->flash('message', $message);
-
-            return redirect()->back();
         } else {
             $message = "<b class='text-danger text-center'>Echec ! </br> Cette opération est impossible.</b>";
-            session()->flash('message', $message);
-
-            return redirect()->back();
         }
+        session()->flash('message', $message);
+
+        return redirect()->back();
 
     }
 }
