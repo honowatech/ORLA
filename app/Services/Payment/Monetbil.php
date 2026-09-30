@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Services\Payment;
+
 /*
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -12,42 +14,69 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('__MONETBIL__', true);
-
+/**
+ * Librairie PHP officielle Monetbil (GPL), intégrée comme service de l'application.
+ * Modifications : namespace, vérification TLS activée, signature comparée en
+ * temps constant, configuration fournie par Sa_monetbil_configurer().
+ */
 abstract class Monetbil
 {
-
     const WIDGET_URL = 'https://www.monetbil.com/widget/';
+
     const CHECK_PAYMENT_URL = 'https://api.monetbil.com/payment/v1/checkPayment';
+
     // Monetbil Widget version
     const MONETBIL_WIDGET_VERSION_V1 = 'v1';
+
     const MONETBIL_WIDGET_VERSION_V2 = 'v2.1';
+
     // Live mode
     const STATUS_SUCCESS = 1;
+
     const STATUS_FAILED = 0;
+
     const STATUS_CANCELLED = -1;
+
     // Test mode
     const STATUS_SUCCESS_TESTMODE = 7;
+
     const STATUS_FAILED_TESTMODE = 8;
+
     const STATUS_CANCELLED_TESTMODE = 9;
 
     public static $serviceKey;
+
     public static $serviceSecret;
+
     public static $widgetVersion = 'v2.1';
+
     // Setup Monetbil arguments
     public static $amount;
+
     public static $currency;
+
     public static $phone;
+
     public static $country;
+
     public static $item_ref;
+
     public static $payment_ref;
+
     public static $user;
+
     public static $first_name;
+
     public static $last_name;
+
     public static $email;
+
     public static $locale;
+
     public static $return_url;
+
     public static $notify_url;
+
     public static $logo;
 
     /**
@@ -63,8 +92,8 @@ abstract class Monetbil
     /**
      * setServiceKey
      *
-     * @param string $serviceKey
-     * @return string
+     * @param  string  $serviceKey
+     * @return void
      */
     public static function setServiceKey($serviceKey)
     {
@@ -84,8 +113,8 @@ abstract class Monetbil
     /**
      * setServiceSecret
      *
-     * @param string $serviceSecret
-     * @return string
+     * @param  string  $serviceSecret
+     * @return void
      */
     public static function setServiceSecret($serviceSecret)
     {
@@ -105,8 +134,8 @@ abstract class Monetbil
     /**
      * getWidgetVersion
      *
-     * @param string $widgetVersion
-     * @return string
+     * @param  string  $widgetVersion
+     * @return void
      */
     public static function setWidgetVersion($widgetVersion)
     {
@@ -126,8 +155,8 @@ abstract class Monetbil
     /**
      * setAmount
      *
-     * @param string $amount
-     * @return string
+     * @param  string  $amount
+     * @return void
      */
     public static function setAmount($amount)
     {
@@ -147,8 +176,8 @@ abstract class Monetbil
     /**
      * setCurrency
      *
-     * @param string $currency
-     * @return string
+     * @param  string  $currency
+     * @return void
      */
     public static function setCurrency($currency)
     {
@@ -168,8 +197,8 @@ abstract class Monetbil
     /**
      * setPhone
      *
-     * @param string $phone
-     * @return string
+     * @param  string  $phone
+     * @return void
      */
     public static function setPhone($phone)
     {
@@ -189,8 +218,8 @@ abstract class Monetbil
     /**
      * setCountry
      *
-     * @param string $country
-     * @return string
+     * @param  string  $country
+     * @return void
      */
     public static function setCountry($country)
     {
@@ -210,8 +239,8 @@ abstract class Monetbil
     /**
      * setItem_ref
      *
-     * @param string $item_ref
-     * @return string
+     * @param  string  $item_ref
+     * @return void
      */
     public static function setItem_ref($item_ref)
     {
@@ -231,8 +260,8 @@ abstract class Monetbil
     /**
      * setPayment_ref
      *
-     * @param string $payment_ref
-     * @return string
+     * @param  string  $payment_ref
+     * @return void
      */
     public static function setPayment_ref($payment_ref)
     {
@@ -252,8 +281,8 @@ abstract class Monetbil
     /**
      * setUser
      *
-     * @param string $user
-     * @return string
+     * @param  string  $user
+     * @return void
      */
     public static function setUser($user)
     {
@@ -273,8 +302,8 @@ abstract class Monetbil
     /**
      * setFirst_name
      *
-     * @param string $first_name
-     * @return string
+     * @param  string  $first_name
+     * @return void
      */
     public static function setFirst_name($first_name)
     {
@@ -294,8 +323,8 @@ abstract class Monetbil
     /**
      * setLast_name
      *
-     * @param string $last_name
-     * @return string
+     * @param  string  $last_name
+     * @return void
      */
     public static function setLast_name($last_name)
     {
@@ -315,8 +344,8 @@ abstract class Monetbil
     /**
      * setEmail
      *
-     * @param string $email
-     * @return string
+     * @param  string  $email
+     * @return void
      */
     public static function setEmail($email)
     {
@@ -336,8 +365,8 @@ abstract class Monetbil
     /**
      * setLocale
      *
-     * @param string $locale
-     * @return string
+     * @param  string  $locale
+     * @return void
      */
     public static function setLocale($locale)
     {
@@ -357,8 +386,8 @@ abstract class Monetbil
     /**
      * setReturn_url
      *
-     * @param string $return_url
-     * @return string
+     * @param  string  $return_url
+     * @return void
      */
     public static function setReturn_url($return_url)
     {
@@ -378,8 +407,8 @@ abstract class Monetbil
     /**
      * setNotify_url
      *
-     * @param string $notify_url
-     * @return string
+     * @param  string  $notify_url
+     * @return void
      */
     public static function setNotify_url($notify_url)
     {
@@ -399,8 +428,8 @@ abstract class Monetbil
     /**
      * setLogo
      *
-     * @param string $logo
-     * @return string
+     * @param  string  $logo
+     * @return void
      */
     public static function setLogo($logo)
     {
@@ -410,27 +439,28 @@ abstract class Monetbil
     /**
      * sign
      *
-     * @param string $service_secret
-     * @param array $params
+     * @param  string  $service_secret
+     * @param  array  $params
      * @return string
      */
     public static function sign($service_secret, $params)
     {
         ksort($params);
-        $signature = md5($service_secret . implode('', $params));
+        $signature = md5($service_secret.implode('', $params));
+
         return $signature;
     }
 
     /**
      * checkSign
      *
-     * @param string $service_secret
-     * @param array $params
-     * @return boolean
+     * @param  string  $service_secret
+     * @param  array  $params
+     * @return bool
      */
     public static function checkSign($service_secret, $params)
     {
-        if (!array_key_exists('sign', $params)) {
+        if (! array_key_exists('sign', $params)) {
             return false;
         }
 
@@ -439,26 +469,26 @@ abstract class Monetbil
 
         $signature = Monetbil::sign($service_secret, $params);
 
-        return ($sign == $signature);
+        return is_string($sign) && hash_equals($signature, $sign);
     }
 
     /**
      * checkPayment
      *
-     * @param string $paymentId
+     * @param  string  $paymentId
      * @return array ($payment_status, $testmode)
      */
     public static function checkPayment($paymentId)
     {
-        $postData = array(
-            'paymentId' => $paymentId
-        );
+        $postData = [
+            'paymentId' => $paymentId,
+        ];
 
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, Monetbil::CHECK_PAYMENT_URL);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -477,14 +507,14 @@ abstract class Monetbil
             $testmode = $transaction['testmode'];
         }
 
-        return array($payment_status, $testmode);
+        return [$payment_status, $testmode];
     }
 
     /**
      * getPost
      *
-     * @param string $key
-     * @param string $default
+     * @param  string  $key
+     * @param  string  $default
      * @return string | null
      */
     public static function getPost($key = null, $default = null)
@@ -495,8 +525,8 @@ abstract class Monetbil
     /**
      * getQuery
      *
-     * @param string $key
-     * @param string $default
+     * @param  string  $key
+     * @param  string  $default
      * @return string | null
      */
     public static function getQuery($key = null, $default = null)
@@ -511,7 +541,7 @@ abstract class Monetbil
      */
     public static function getQueryParams()
     {
-        $queryParams = array();
+        $queryParams = [];
         $parts = explode('?', Monetbil::getUrl());
 
         if (isset($parts[1])) {
@@ -524,14 +554,14 @@ abstract class Monetbil
     /**
      * mergeArguments
      *
-     * @param array $monetbil_args
+     * @param  array  $monetbil_args
      * @return array
      */
     public static function mergeArguments($monetbil_args)
     {
         $sign = Monetbil::sign(Monetbil::getServiceSecret(), $monetbil_args);
 
-        return array_merge(array(
+        return array_merge([
             'amount' => Monetbil::getAmount(),
             'phone' => Monetbil::getPhone(),
             'country' => Monetbil::getCountry(),
@@ -545,8 +575,8 @@ abstract class Monetbil
             'return_url' => Monetbil::getReturn_url(),
             'notify_url' => Monetbil::getNotify_url(),
             'logo' => Monetbil::getLogo(),
-            'sign' => $sign
-                ), $monetbil_args);
+            'sign' => $sign,
+        ], $monetbil_args);
     }
 
     /**
@@ -560,11 +590,12 @@ abstract class Monetbil
         $port = $_SERVER['SERVER_PORT'];
         $scheme = 'http';
 
-        if ('443' === $port) {
+        if ($port === '443') {
             $scheme = 'https';
         }
 
-        $url = $scheme . '://' . $server_name;
+        $url = $scheme.'://'.$server_name;
+
         return $url;
     }
 
@@ -575,21 +606,22 @@ abstract class Monetbil
      */
     public static function getUrl()
     {
-        $url = Monetbil::getServerUrl() . Monetbil::getUri(true);
+        $url = Monetbil::getServerUrl().Monetbil::getUri(true);
+
         return $url;
     }
 
     /**
      * getUri
      *
-     * @param boolean $full
+     * @param  bool  $full
      * @return string | null
      */
     public static function getUri($full = false)
     {
         $requestUri = $_SERVER['REQUEST_URI'];
         $scriptFilename = $_SERVER['SCRIPT_FILENAME'];
-        $uri1 = '/' . ltrim($requestUri, '/');
+        $uri1 = '/'.ltrim($requestUri, '/');
 
         if ($full) {
             return $uri1;
@@ -600,7 +632,8 @@ abstract class Monetbil
             $filename = basename($scriptFilename);
         }
 
-        $uri = str_replace('/' . $filename, '', $uri1);
+        $uri = str_replace('/'.$filename, '', $uri1);
+
         return $uri;
     }
 
@@ -615,6 +648,7 @@ abstract class Monetbil
         $current_dir = str_replace('\\', '/', __DIR__);
 
         $path = str_replace($documentRoot, '', $current_dir);
+
         return $path;
     }
 
@@ -653,7 +687,8 @@ abstract class Monetbil
     {
         $version = Monetbil::getWidgetVersion();
         $service_key = Monetbil::getServiceKey();
-        $widget_url = Monetbil::WIDGET_URL . $version . '/' . $service_key;
+        $widget_url = Monetbil::WIDGET_URL.$version.'/'.$service_key;
+
         return $widget_url;
     }
 
@@ -662,31 +697,32 @@ abstract class Monetbil
      *
      * @return string
      */
-    public static function getWidgetV1Url($monetbil_args = array())
+    public static function getWidgetV1Url($monetbil_args = [])
     {
         $query_data = Monetbil::mergeArguments($monetbil_args);
-        $monetbil_v1_redirect = Monetbil::getWidgetUrl() . '?' . http_build_query($query_data, '', '&');
+        $monetbil_v1_redirect = Monetbil::getWidgetUrl().'?'.http_build_query($query_data, '', '&');
+
         return $monetbil_v1_redirect;
     }
 
     /**
      * url
      *
-     * @param array $monetbil_args
+     * @param  array  $monetbil_args
      * @return string
      */
-    public static function url($monetbil_args = array())
+    public static function url($monetbil_args = [])
     {
         $query_data = Monetbil::mergeArguments($monetbil_args);
         $payment_url = '';
 
-        if (self::MONETBIL_WIDGET_VERSION_V2 == self::getWidgetVersion()) {
+        if (self::getWidgetVersion() == self::MONETBIL_WIDGET_VERSION_V2) {
 
             $ch = curl_init();
 
             curl_setopt($ch, CURLOPT_URL, self::getWidgetUrl());
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -709,10 +745,10 @@ abstract class Monetbil
     /**
      * redirect
      *
-     * @param array $monetbil_args
-     * @return string
+     * @param  array  $monetbil_args
+     * @return never
      */
-    public static function redirect($monetbil_args = array())
+    public static function redirect($monetbil_args = [])
     {
         $query_data = Monetbil::mergeArguments($monetbil_args);
         $url = Monetbil::url($query_data);
@@ -723,32 +759,30 @@ abstract class Monetbil
     /**
      * js
      *
-     * @param bool $autoopen
+     * @param  bool  $autoopen
      * @return string
      */
     public static function js($autoopen = false)
     {
         $auto = $autoopen ? '-auto' : '';
 
-        if (self::MONETBIL_WIDGET_VERSION_V2 == self::getWidgetVersion()) {
-            $js = '<script type="text/javascript" src="' . Monetbil::getServerUrl() . Monetbil::getPath() . '/assets/js/monetbil' . $auto . '.min.js?t=' . time() . '"></script>';
+        if (self::getWidgetVersion() == self::MONETBIL_WIDGET_VERSION_V2) {
+            $js = '<script type="text/javascript" src="'.Monetbil::getServerUrl().Monetbil::getPath().'/assets/js/monetbil'.$auto.'.min.js?t='.time().'"></script>';
         } else {
-            $js = '<script type="text/javascript" src="' . Monetbil::getServerUrl() . Monetbil::getPath() . '/assets/js/monetbil-mobile-payments' . $auto . '.js?t=' . time() . '"></script>';
+            $js = '<script type="text/javascript" src="'.Monetbil::getServerUrl().Monetbil::getPath().'/assets/js/monetbil-mobile-payments'.$auto.'.js?t='.time().'"></script>';
         }
+
         return $js;
     }
 
     /**
      * startPayment
      *
-     * @param array $monetbil_args
-     * @return string
+     * @param  array  $monetbil_args
+     * @return never
      */
-    public static function startPayment($monetbil_args = array())
+    public static function startPayment($monetbil_args = [])
     {
         Monetbil::redirect($monetbil_args);
     }
-
 }
-
-require_once 'config.php';

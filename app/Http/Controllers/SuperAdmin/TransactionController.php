@@ -112,8 +112,6 @@ class TransactionController extends Controller
             $date_debut = $client->date_fin == null ? now() : $client->date_fin;
         }
         $date_fin = Sa_prochaine_date_paie($abonnement->type_periode, $abonnement->accumulateur, $date_debut, 1);
-        $api = Api::where('statut', [1])->where('name', 'Monetbill')->first();
-        $_SESSION['api'] = $api;
         $transaction = new Transaction;
         $transaction->id_abonnement = $id_abonnement;
         $transaction->id_client = $client->id;
@@ -165,8 +163,6 @@ class TransactionController extends Controller
 
             return redirect()->route('Sc-transaction.show', $transaction->id);
         }
-        $api = Api::where('statut', [1])->where('name', 'Monetbill')->first();
-        $_SESSION['api'] = $api;
         $check = Sa_checkpay();
         // Signature Monetbil invalide, ou paiement fait pour une autre transaction.
         abort_if($check === null || $check['payment_ref'] !== Sa_payment_ref($transaction->id), 403);

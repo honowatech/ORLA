@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\SuperAdmin\Api;
+use App\Services\Payment\Monetbil;
 use Carbon\Carbon;
 
 if (! function_exists('check_superadmin')) {
@@ -92,7 +94,7 @@ if (! function_exists('Sa_pay')) {
     function Sa_pay($montant, $id_transaction)
     {
         // //////////////////////////////////////////////////////////////////////////////////////////////////////////
-        require_once __DIR__.'/../Http/Controllers/SuperAdmin/monetbil/monetbil.php';
+        Sa_monetbil_configurer();
         // Setup Monetbil arguments
         Monetbil::setAmount($montant);
         Monetbil::setCurrency('XAF');
@@ -110,6 +112,18 @@ if (! function_exists('Sa_pay')) {
 
     }
 }
+if (! function_exists('Sa_monetbil_configurer')) {
+    // Clé et secret Monetbil lus en base (API « Monetbill » active).
+    function Sa_monetbil_configurer()
+    {
+        $api = Api::where('statut', 1)->where('name', 'Monetbill')->whereNotNull('key')->whereNotNull('secret')->first();
+        abort_if($api === null, 503, 'Paiement Monetbil non configuré.');
+
+        Monetbil::setServiceKey($api->key);
+        Monetbil::setServiceSecret($api->secret);
+        Monetbil::setWidgetVersion(Monetbil::MONETBIL_WIDGET_VERSION_V2);
+    }
+}
 if (! function_exists('Sa_payment_ref')) {
     // Référence de paiement envoyée à Monetbil : lie le paiement à la transaction locale.
     function Sa_payment_ref($id_transaction)
@@ -121,7 +135,7 @@ if (! function_exists('Sa_checkpay')) {
     function Sa_checkpay()
     {
         // //////////////////////////////////////////////////////////////////////////////////////////////////////////
-        require_once __DIR__.'/../Http/Controllers/SuperAdmin/monetbil/monetbil.php';
+        Sa_monetbil_configurer();
         // Setup Monetbil arguments
 
         $params = Monetbil::getQueryParams();
