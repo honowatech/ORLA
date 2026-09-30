@@ -133,14 +133,14 @@ Route::middleware('Check_Sa_Client_Error')->group(function () {// //////////////
             // --- Route liées à un coursier ---//
             Route::get('/', [HomeController::class, 'coursier'])->name('home.coursier');
             // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            Route::resource('Coursierusers', 'App\Http\Controllers\Coursier\UsersController');
+            Route::resource('Coursierusers', 'App\Http\Controllers\Coursier\UsersController')->only(['show', 'edit', 'update', 'destroy']);
             // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Le coursier consulte seulement les clients de ses commandes : les autres actions sont réservées à l'admin.
             Route::resource('Coursierclients', 'App\Http\Controllers\Coursier\ClientsController')->only(['show']);
             // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             Route::resource('Coursiercommandes', 'App\Http\Controllers\Coursier\CommandesController')->only(['store', 'show', 'edit', 'update', 'destroy']);
             // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            Route::resource('Coursierpassword', 'App\Http\Controllers\Coursier\PasswordController');
+            Route::resource('Coursierpassword', 'App\Http\Controllers\Coursier\PasswordController')->only(['index', 'update']);
             // --- fin -- Route liées à un Coursier ---//
         });
 
@@ -149,7 +149,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function () {// //////////////
             // --- Route liées à un client ---//
             Route::get('/', [HomeController::class, 'clients'])->name('home.client');
             // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            Route::resource('Clientusers', 'App\Http\Controllers\Client\UsersController');
+            Route::resource('Clientusers', 'App\Http\Controllers\Client\UsersController')->only(['show', 'edit', 'update', 'destroy']);
             // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             Route::resource('Clientcommandes', 'App\Http\Controllers\Client\CommandesController');
             Route::post('/boutiqueLie', [App\Http\Controllers\Client\CommandesController::class, 'boutiqueLie'])->name('ClientboutiqueLie');
@@ -158,7 +158,7 @@ Route::middleware('Check_Sa_Client_Error')->group(function () {// //////////////
             Route::post('/lieu2', [App\Http\Controllers\Client\CommandesController::class, 'lieu2'])->name('Clientlieu2');
             Route::post('/montant', [App\Http\Controllers\Client\CommandesController::class, 'montant'])->name('Clientmontant');
             // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            Route::resource('Clientpassword', 'App\Http\Controllers\Client\PasswordController');
+            Route::resource('Clientpassword', 'App\Http\Controllers\Client\PasswordController')->only(['index', 'update']);
             Route::resource('Clientcoursiers', 'App\Http\Controllers\Client\CoursiersController')->only(['show']);
             // --- fin -- Route liées à un client ---//
         });
