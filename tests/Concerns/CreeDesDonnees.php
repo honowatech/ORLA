@@ -38,6 +38,7 @@ trait CreeDesDonnees
             'id' => 1, 'name' => 'Speedex', 'id_abonnement' => 1, 'date_fin' => now()->addMonth(), 'statut' => 1,
         ]);
         DB::table('type_client')->insert(['id' => 2, 'libelle' => 'Simple']);
+        DB::table('ville')->insert(['id' => 1, 'libelle' => 'Douala', 'code' => 'Dla']);
     }
 
     protected function client(string $email): User

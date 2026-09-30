@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\Concerns\CreeDesDonnees;
 use Tests\TestCase;
 
@@ -42,6 +43,19 @@ class AccesParRoleTest extends TestCase
     {
         $this->actingAs($this->staff('agent@example.com', 2))->get('/admin/users')->assertOk();
         $this->actingAs($this->staff('admin@example.com', 1))->get('/multi/type_vehicule')->assertOk();
+    }
+
+    public function test_admin_et_agent_affichent_la_liste_des_commandes(): void
+    {
+        $this->actingAs($this->staff('admin@example.com', 1))->get(route('commandes.index'))->assertOk();
+
+        $idAgent = DB::table('agents')->insertGetId([
+            'noms' => 'Agent', 'prenoms' => 'Test', 'telephone' => '690000009', 'statut' => 1,
+        ]);
+        $agent = $this->staff('agent@example.com', 2);
+        $agent->forceFill(['id_agent' => $idAgent])->save();
+
+        $this->actingAs($agent)->get(route('commandes.index'))->assertOk();
     }
 
     public function test_un_compte_desactive_est_renvoye_vers_la_page_d_erreur(): void

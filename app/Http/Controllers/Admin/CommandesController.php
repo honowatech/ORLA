@@ -68,7 +68,8 @@ class CommandesController extends Controller
                 }
             }
         }
-        if ($type == strtoupper('agent')) {
+        // Un agent ne voit que les commandes qui lui sont attribuées.
+        if (strtoupper(auth()->user()->type_utilisateur->libelle) == strtoupper('agent')) {
             $commandes = Commandes::whereIn('id', $ids)
                 ->whereIn('id_agent', [auth()->user()->agent_utilisateur->id])
                 ->orderBy('updated_at', 'desc')
@@ -617,12 +618,12 @@ class CommandesController extends Controller
             }
             $commande->save();
             $message = "Statut de la commande modifié avec <b class='text-success text-center'> succès.</b>";
-            session()->flash('message',$message);
+            session()->flash('message', $message);
 
             return redirect()->back();
         } else {
             $message = "<b class='text-danger text-center'>Echec ! </br> Cette opération est impossible.</b>";
-            session()->flash('message',$message);
+            session()->flash('message', $message);
 
             return redirect()->back();
         }
