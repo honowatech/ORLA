@@ -9,6 +9,4 @@ class TypeClient extends Model
     protected $table = 'type_client';
 
     public $timestamps = true;
-
-    protected $visible = ['libelle'];
 }

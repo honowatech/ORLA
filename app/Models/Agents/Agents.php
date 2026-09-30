@@ -16,8 +16,6 @@ class Agents extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['noms', 'prenoms', 'id_utilisateur', 'statut', 'telephone'];
-
     public function compte_agent(): BelongsTo
     {
         return $this->belongsTo(Users::class, 'id_utilisateur');

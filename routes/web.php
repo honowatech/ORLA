@@ -28,7 +28,7 @@ Route::get('/Sc-no_abonnement', [ErrorController::class, 'no_abonnement'])->name
 Route::get('/Sc-empty_abonnement', [ErrorController::class, 'empty_abonnement'])->name('SuperAdmin.empty_abonnement');
 Route::get('/Sc-full_error', [ErrorController::class, 'full_error'])->name('SuperAdmin.empty_client');
 Route::get('/Sc-site_inactif', [ErrorController::class, 'site_inactif'])->name('SuperAdmin.site_inactif');
-Route::resource('Sc-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController');
+Route::resource('Sc-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController')->except(['edit', 'update']);
 Route::get('/Sc-transaction.checkpay/{id_transaction}', [TransactionController::class, 'checkpay'])->name('Sc-transaction.checkpay');
 
 Route::get('/superadmin', function () {
@@ -57,8 +57,6 @@ Route::group(['prefix' => 'superadmin'], function () {
         Route::post('/Sa-abonnement_recap_edit', [AbonnementController::class, 'recap_edit'])->name('Sa-abonnement.recap_edit');
 
         Route::resource('Sa-api', 'App\Http\Controllers\SuperAdmin\ApiController')->only(['edit', 'update', 'destroy']);
-        Route::get('/Sa-api-ajax', [ApiController::class, 'index_ajax'])->name('Sa-api.index_ajax');
-        Route::post('/Sa-api.recap_create', [ApiController::class, 'recap_create'])->name('Sa-api.recap_create');
         Route::post('/Sa-api_recap_edit', [ApiController::class, 'recap_edit'])->name('Sa-api.recap_edit');
 
         Route::get('/Sa-transaction-ajax', [TransactionController::class, 'index_ajax'])->name('Sa-transaction.index_ajax');
@@ -71,7 +69,8 @@ Route::group(['prefix' => 'superadmin'], function () {
 
 // /////////////////////////////////////////////////////////// End Super Admin
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Auth::routes();
+// Pas d'inscription publique : les comptes sont créés par l'administration.
+Auth::routes(['register' => false]);
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::middleware('Check_Sa_Client_Error')->group(function () {// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

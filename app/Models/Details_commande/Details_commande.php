@@ -13,8 +13,6 @@ class Details_commande extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['id_commande', 'id_produit', 'nom_produit', 'quantite', 'prix'];
-
     public function commande(): BelongsTo
     {
         return $this->belongsTo(Commandes::class, 'id_commande');

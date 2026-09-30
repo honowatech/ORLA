@@ -13,8 +13,6 @@ class Produits extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['noms', 'libelle', 'description', 'statut'];
-
     public function stock(): HasMany
     {
         return $this->hasMany(Stock::class, 'id_produit');

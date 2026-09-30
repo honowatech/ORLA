@@ -13,8 +13,6 @@ class Paiement extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['montant', 'mode_paiement', 'id_saver', 'id_client', 'date_paiement', 'date_commandes'];
-
     public function client(): BelongsTo
     {
         return $this->belongsTo(Clients::class, 'id_client');

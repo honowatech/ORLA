@@ -19,9 +19,14 @@ class Commandes extends Model
 {
     protected $table = 'commandes';
 
-    public $timestamps = true;
+    protected $casts = [
+        'date_commande' => 'datetime',
+        'date_livraison' => 'datetime',
+        'date_mise_encours' => 'datetime',
+        'date_livre' => 'datetime',
+    ];
 
-    protected $visible = ['id_client', 'nom_client', 'telephone', 'id_boutique', 'id_coursier', 'id_point_relais', 'id_saver', 'date_commande', 'type_commande', 'adresse_colis', 'id_quartier_colis', 'adresse_livraison', 'id_quartier_livraison', 'montant_livraison', 'id_montant_livraison', 'date_mise_encours', 'date_livre', 'date_livraison', 'montant_recuperer', 'description', 'mode_de_paiement', 'statut'];
+    public $timestamps = true;
 
     public function client(): BelongsTo
     {

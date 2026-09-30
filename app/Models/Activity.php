@@ -15,8 +15,6 @@ class Activity extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['action', 'jour', 'heure', 'id_user', 'color', 'texte_lien', 'lien'];
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(Users::class, 'id_user');

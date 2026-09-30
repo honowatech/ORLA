@@ -11,15 +11,19 @@ class Client extends Model
 {
     protected $table = 'super_admin_client';
 
+    protected $casts = [
+        'date_fin' => 'datetime',
+        'date_dernier_paiement' => 'datetime',
+        'statut' => 'boolean',
+    ];
+
     public $timestamps = true;
 
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['nom', 'adresse', 'telephone', 'id_abonnement', 'telephone_secondaire', 'date_debut_contrat', 'date_dernier_paiement', 'statut'];
-
-    protected $visible = ['nom', 'adresse', 'telephone', 'id_abonnement', 'telephone_secondaire', 'date_debut_contrat', 'date_dernier_paiement', 'statut'];
+    protected $fillable = ['name', 'adresse', 'telephone', 'cni', 'telephone_secondaire', 'id_abonnement', 'date_fin', 'date_dernier_paiement', 'statut'];
 
     public function transactions(): HasMany
     {

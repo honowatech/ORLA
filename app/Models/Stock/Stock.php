@@ -14,8 +14,6 @@ class Stock extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['id_produit', 'id_boutique', 'id_point_relais', 'statut', 'libelle', 'Quantite_en_stock', 'type_gestion', 'qute_changement'];
-
     public function produit(): BelongsTo
     {
         return $this->belongsTo(Produits::class, 'id_produit');

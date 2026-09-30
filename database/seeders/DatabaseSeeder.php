@@ -103,6 +103,25 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+        // Quelques commandes du client de test, à différentes étapes.
+        $akwa = DB::table('quartier')->where('libelle', 'Akwa')->value('id');
+        $idSaver = DB::table('users')->where('email', 'admin@example.com')->value('id');
+        foreach (['attente' => null, 'attribue' => $idCoursier, 'encours' => $idCoursier, 'livre' => $idCoursier] as $statut => $coursier) {
+            DB::table('commandes')->insert([
+                'id_client' => $idClient, 'nom_client' => 'Client Test', 'telephone' => '690000004',
+                'id_coursier' => $coursier, 'id_saver' => $idSaver, 'type_commande' => 'simple',
+                'date_commande' => $now, 'date_livraison' => $now,
+                'date_mise_encours' => in_array($statut, ['encours', 'livre']) ? $now : null,
+                'date_livre' => $statut === 'livre' ? $now : null,
+                'adresse_colis' => '690000004*/*Akwa*/*Devant la pharmacie',
+                'adresse_livraison' => '690000005*/*Akwa*/*Immeuble bleu*/*Destinataire Test',
+                'id_quartier_colis' => $akwa, 'id_quartier_livraison' => $akwa,
+                'montant_livraison' => 1000, 'description' => 'Commande de démonstration ('.$statut.')',
+                'mode_de_paiement' => 'coursier', 'statut' => $statut,
+                'created_at' => $now, 'updated_at' => $now,
+            ]);
+        }
+
         $this->command->info('Comptes créés : admin@, agent@, coursier@, client@example.com (application)');
         $this->command->info('               superadmin@example.com (espace /superadmin)');
         $this->command->warn('Mot de passe : '.$motDePasse);

@@ -18,9 +18,9 @@ class Users extends Model
 {
     protected $table = 'users';
 
-    public $timestamps = true;
+    protected $hidden = ['password', 'remember_token'];
 
-    protected $visible = ['noms', 'email', 'password', 'id_type_utilisateur', 'statut'];
+    public $timestamps = true;
 
     public function type_utilisateur(): BelongsTo
     {

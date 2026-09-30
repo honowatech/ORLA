@@ -11,15 +11,18 @@ class Transaction extends Model
 {
     protected $table = 'super_admin_transaction';
 
+    protected $casts = [
+        'date_debut' => 'datetime',
+        'date_fin' => 'datetime',
+    ];
+
     public $timestamps = true;
 
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['id_client', 'id_abonnement', 'methode', 'montant', 'nbre_abonnement', 'date_debut', 'date_fin'];
-
-    protected $visible = ['id_client', 'id_abonnement', 'methode', 'montant', 'nbre_abonnement', 'date_debut', 'date_fin'];
+    protected $fillable = ['id_client', 'id_abonnement', 'methode', 'montant', 'nbre_abonnement', 'date_debut', 'date_fin', 'statut'];
 
     public function client(): BelongsTo
     {

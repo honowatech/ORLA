@@ -9,6 +9,8 @@ class Api extends Model
 {
     protected $table = 'super_admin_api';
 
+    protected $hidden = ['key', 'secret', 'password'];
+
     public $timestamps = true;
 
     use SoftDeletes;
@@ -16,6 +18,4 @@ class Api extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['name', 'key', 'user', 'password', 'secret', 'statut'];
-
-    protected $visible = ['name', 'key', 'user', 'password', 'secret', 'statut'];
 }

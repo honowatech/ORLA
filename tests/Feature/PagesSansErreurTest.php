@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -61,6 +62,42 @@ class PagesSansErreurTest extends TestCase
         foreach ($pages as $page) {
             $status = $this->actingAs($user)->get($page)->getStatusCode();
             $this->assertLessThan(500, $status, "$page renvoie $status pour $email");
+        }
+    }
+
+    public function test_les_pages_de_detail_des_commandes_s_affichent(): void
+    {
+        $commandes = DB::table('commandes')->pluck('id');
+        $this->assertCount(4, $commandes);
+        $coursierCommandes = DB::table('commandes')->whereNotNull('id_coursier')->pluck('id');
+
+        $pages = [
+            'admin@example.com' => $commandes->map(fn ($id) => route('commandes.show', $id)),
+            'client@example.com' => $commandes->map(fn ($id) => route('Clientcommandes.show', $id)),
+            'coursier@example.com' => $coursierCommandes->map(fn ($id) => route('Coursiercommandes.show', $id)),
+        ];
+        foreach ($pages as $email => $urls) {
+            $user = User::where('email', $email)->firstOrFail();
+            foreach ($urls as $url) {
+                $this->actingAs($user)->get($url)->assertOk();
+            }
+        }
+    }
+
+    public function test_les_pages_super_admin_s_affichent(): void
+    {
+        $this->post(route('SuperAdmin.connect'), ['email' => 'superadmin@example.com', 'password' => 'motdepasse-dev']);
+
+        $pages = collect(Route::getRoutes()->getRoutes())
+            ->filter(fn ($route) => in_array('GET', $route->methods())
+                && in_array('superadmin', $route->gatherMiddleware())
+                && ! str_contains($route->uri(), '{'))
+            ->map(fn ($route) => '/'.ltrim($route->uri(), '/'));
+
+        $this->assertNotEmpty($pages);
+        foreach ($pages as $page) {
+            $status = $this->get($page)->getStatusCode();
+            $this->assertLessThan(500, $status, "$page renvoie $status pour le Super Admin");
         }
     }
 }

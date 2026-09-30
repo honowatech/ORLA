@@ -17,8 +17,6 @@ class Quartier extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['id_zone', 'libelle', 'id_ville'];
-
     public function zone(): BelongsTo
     {
         return $this->belongsTo(Zone::class, 'id_zone');

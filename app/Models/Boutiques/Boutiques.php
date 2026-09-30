@@ -16,8 +16,6 @@ class Boutiques extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['libelle', 'id_client', 'quartier', 'statut'];
-
     public function client(): BelongsTo
     {
         return $this->belongsTo(Clients::class, 'id_client');

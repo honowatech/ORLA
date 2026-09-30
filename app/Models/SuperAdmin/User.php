@@ -13,9 +13,9 @@ class User extends Authenticatable
 
     protected $table = 'super_admin';
 
+    protected $hidden = ['password'];
+
     public $timestamps = true;
 
     protected $fillable = ['name', 'email', 'password'];
-
-    protected $visible = ['name', 'email', 'password'];
 }

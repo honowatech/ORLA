@@ -19,8 +19,6 @@ class Clients extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['noms', 'Prenoms', 'type_client', 'id_utilisateur', 'statut', 'telephone'];
-
     public function type__client(): BelongsTo
     {
         return $this->belongsTo(TypeClient::class, 'type_client');

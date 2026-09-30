@@ -15,8 +15,6 @@ class Info_transaction extends Model
 
     protected $fillable = ['id_transaction', 'name', 'value'];
 
-    protected $visible = ['id_transaction', 'name', 'value'];
-
     public function transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class, 'id_transaction');

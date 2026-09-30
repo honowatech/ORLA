@@ -9,6 +9,4 @@ class TypeUtilisateur extends Model
     protected $table = 'type_utilisateur';
 
     public $timestamps = true;
-
-    protected $visible = ['libelle'];
 }

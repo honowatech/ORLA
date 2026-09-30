@@ -13,8 +13,6 @@ class Type_vehicule extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['libelle', 'description', 'statut'];
-
     protected $fillable = ['libelle', 'description', 'statut'];
 
     public function vehicule()

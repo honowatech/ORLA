@@ -13,8 +13,6 @@ class Details_zone extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['id_coursier', 'id_zone'];
-
     public function livreur(): BelongsTo
     {
         return $this->belongsTo(Coursiers::class, 'id_coursier');

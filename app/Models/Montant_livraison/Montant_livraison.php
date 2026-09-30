@@ -14,9 +14,7 @@ class Montant_livraison extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['id_zone_colis'];
-
-    protected $visible = ['id_zone_livraison', 'montant'];
+    protected $fillable = ['id_zone_colis', 'id_zone_livraison', 'montant'];
 
     public function commandes(): HasMany
     {

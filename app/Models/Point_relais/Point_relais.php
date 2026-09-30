@@ -16,9 +16,7 @@ class Point_relais extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['id_quartier'];
-
-    protected $visible = ['libelle', 'id_coursier', 'quartier', 'statut'];
+    protected $fillable = ['libelle', 'id_coursier', 'quartier', 'id_quartier', 'statut'];
 
     public function quartier(): BelongsTo
     {

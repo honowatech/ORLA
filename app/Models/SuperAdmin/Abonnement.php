@@ -16,9 +16,7 @@ class Abonnement extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['titre', 'accumulateur', 'type_periode', 'salaire', 'date_modif'];
-
-    protected $visible = ['titre', 'accumulateur', 'type_periode', 'salaire', 'date_modif'];
+    protected $fillable = ['titre', 'accumulateur', 'type_periode', 'montant', 'periode_grace', 'statut'];
 
     public function transactions(): HasMany
     {

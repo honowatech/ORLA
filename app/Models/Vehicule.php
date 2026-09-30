@@ -16,8 +16,6 @@ class Vehicule extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['immatriculation', 'couleur', 'id_type', 'id_coursier', 'marque', 'modele', 'description', 'statut', 'id_ville'];
-
     protected $fillable = ['immatriculation', 'couleur', 'id_type', 'id_coursier', 'marque', 'modele', 'description', 'statut', 'id_ville'];
 
     public function type(): BelongsTo

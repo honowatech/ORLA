@@ -14,8 +14,6 @@ class Ville extends Model
 
     public $timestamps = true;
 
-    protected $visible = ['libelle', 'code'];
-
     public function zone(): HasMany
     {
         return $this->hasMany(Zone::class, 'id_ville');
