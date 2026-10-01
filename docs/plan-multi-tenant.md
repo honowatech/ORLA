@@ -161,12 +161,13 @@ Objectif : rendre le projet installable, testable et sain avant toute refonte.
 - `2025_10_01_000002_add_email_verified_at_and_doit_changer_mdp_to_users.php`.
 - `.env.example` complet (`APP_NAME=ORLA`, `APP_URL`, `DB_*`, `SESSION_DRIVER=file`, `CACHE_STORE=file`, `QUEUE_CONNECTION=sync`, `MAIL_*`, `SAAS_ESSAI_JOURS=14`, `SAAS_TENANCY_STRICT=true`, `SAAS_ENTREPRISE_LEGACY_NOM=Speedex`, `SITE_CONTACT_EMAIL`, `SITE_CONTACT_TEL`, `APP_DEPLOY_TOKEN=`).
 - `config/saas.php` : `essai_jours`, `tenancy_strict`, `entreprise_legacy` (nom, slug), `tarif_defaut` (1000), `devise` (XAF), `pays` (CM), `prefixe_telephone` (+237), `telephone_regex` par pays. `config/site.php` : nom commercial, baseline, contacts, réseaux sociaux, URL canonique, image OG par défaut.
-- `database/seeders/DatabaseSeeder.php` : ajouter `namespace Database\Seeders;` ; appeler `ReferentielSeeder` (type_utilisateur 1–4 avec `1 = Administrateur`, type_client 1 Entreprise / 2 Simple, villes de base validées : Douala, Yaoundé, Bafoussam, Garoua, Bamenda, Maroua, Ngaoundéré, Bertoua, Buéa, Kribi, Limbé, Ebolowa), `SuperAdminSeeder` (renommage de `SuperAdmin.php`), `DemoSeeder` (local uniquement : deux entreprises de démonstration).
+- `database/seeders/DatabaseSeeder.php` : ajouter `namespace Database\Seeders;` ; appeler `ReferentielSeeder` (type_utilisateur 1–4 — le libellé `Super Admin` de l'id 1 est **conservé en phase 0** car ~250 comparaisons de chaînes en dépendent ; il devient `Administrateur` en phase 1 — type_client 1 Entreprise / 2 Simple, villes de base Douala et Yaoundé ; la liste complète du référentiel arrive en phase 4), `SuperAdminSeeder` (renommage de `SuperAdmin.php`), `DemoSeeder` (local uniquement : admin, agent, coursier, client de démonstration ; deux entreprises à partir de la phase 5).
+- Corrections de bogues évidentes et sans risque dans `app/Helpers/system_helper.php` : `Dossier()` mappe `AGENT` vers `admin` (le dossier `routeur/templates` n'existe pas, un agent qui ouvre une page `multi/*` obtient une erreur) ; `filter()` redirige `routeur`/`superviseur_ville` vers `home.admin` (routes `home.routeur`/`home.superviseur_ville` inexistantes). Ces helpers disparaissent en phase 2.
 - `resources/lang/fr/` : publier les traductions françaises de validation/auth (`validation.php`, `auth.php`, `passwords.php`) car `locale=fr` sans fichiers affiche des clés brutes.
 
 ### 4.5 Socle de tests
 - `tests/TestCase.php` : `RefreshDatabase`, helpers `creerEntreprise()`, `actingAsAdmin(Entreprise)`, `actingAsAgent`, `actingAsCoursier`, `actingAsClient`, `runAs(Entreprise, Closure)` ; `setUp()` réinitialise `CurrentEntreprise`.
-- Corriger `tests/Feature/ExampleTest.php` (`/` renvoie désormais la page d'accueil publique, 200).
+- Remplacer `tests/Feature/ExampleTest.php` par des tests de fumée (voir §20.7) : en phase 0, `/` reste derrière `Check_Sa_Client_Error` et `auth` (redirection) ; la page d'accueil publique n'arrive qu'en phase 8.
 - Vérifier que toute la chaîne de migrations passe sur sqlite `:memory:` (les `Schema::table()->foreign()` y sont ignorés ; les `dropForeign` doivent être protégés par `DB::getDriverName() !== 'sqlite'`).
 
 **Critère de sortie R0 :** `composer install`, `php artisan migrate:fresh --seed`, `php artisan test` verts ; `php artisan route:list` sans erreur ; l'application fonctionne comme avant pour l'entreprise existante.
@@ -394,7 +395,7 @@ Factories : `EntrepriseFactory`, `UserFactory` réécrite (`noms`, `id_type_util
 6. **`findOrFail` cross-tenant = 404** (souhaité) : tests en 404, vues avec `?->` sur relations potentiellement nulles.
 7. **Types de clés** : `entreprises.id` BIGINT UNSIGNED, PK legacy INT UNSIGNED ; `entreprise_id` = `unsignedBigInteger`, `id_quartier_siege`/`id_ville` = `unsignedInteger` ; MySQL refuse une FK entre types différents.
 8. **ENUM MySQL vs sqlite** : conversion en `string` + enum PHP ; `change()` efface les modificateurs non ré-énoncés.
-9. **sqlite en tests** : FK ignorées, `dropForeign` lève, `after()` ignoré, `json` = `text` ; l'isolation est garantie par scope + policies, pas par la base.
+9. **sqlite en tests** : constaté en phase 0, sqlite **applique** les clés étrangères déclarées par `Schema::table()->foreign()` (une factory `User` sans ligne `type_utilisateur` échoue) ; `dropForeign` lève, `after()` est ignoré, `json` = `text`. Les factories doivent donc créer leurs parents ; l'isolation reste garantie par scope + policies.
 10. **`super_admin_api` chiffré** : migration idempotente, `APP_KEY` figé.
 11. **Signature Monetbil** calculée sur tous les paramètres de l'URL de retour → référence en segment de chemin, journaliser les échecs.
 12. **Contexte console/seeders/tinker** : `runAs`/`runWithoutTenancy` obligatoires ; migrations en `DB::table` uniquement.
@@ -430,3 +431,62 @@ Réutilisation de l'existant : `Sa_prochaine_date_paie` → `App\Support\Periode
 4. **Super Admin** : `/superadmin/login` avec le guard ; CRUD d'un forfait (apparition sur `/tarifs` et `/abonnement`) ; validation d'une ville proposée par A et fusion avec un doublon ; activation manuelle d'un abonnement ; audit tenancy vide.
 5. **Migration de la production (copie)** : restaurer un dump de prod en local, dérouler R0→R4, vérifier compteurs (`commandes`, `clients`, `coursiers` identiques), connexion des utilisateurs existants, quartier « Siège Speedex », boutiques `est_siege`, paiements `qui_paie = entreprise`, `tenancy:audit` vide.
 6. **Sécurité** : `/teston` → 404 ; `POST /superadmin/Sa-transaction` sans guard → 302 login ; signature Monetbil altérée → 403 ; `robots.txt` interdit les espaces privés ; secrets Monetbil chiffrés en base.
+
+---
+
+## 20. Exécution de la phase 0 — déroulé détaillé (demande : « commence la phase 0 puis arrête-toi »)
+
+Périmètre strict : stabilisation sans changement fonctionnel visible. Rien de la phase 1 (pas de colonne `entreprise_id`, pas de renommage de `Super Admin`). Branche : `claude/vigilant-knuth-5xhg8j`. Environnement local vérifié : PHP 8.4, Composer, Node 22, Packagist joignable (`composer install` possible), `vendor/` absent.
+
+### 20.1 Installation locale et état de référence
+1. `composer install` (plugins désactivés dans cette session : sans incidence), `cp .env.example .env` une fois le fichier créé (§20.5), `php artisan key:generate`, `.env` local sur sqlite (`DB_CONNECTION=sqlite`, `database/database.sqlite`).
+2. Relevé de l'état initial : `php artisan route:list` (échec attendu : contrôleur `Client\ClientsController` absent), `php artisan test` (échec attendu), `composer dump-autoload -o` (avertissements PSR-4 attendus sur les 19 dossiers de modèles).
+
+### 20.2 Autoload et modèles (commit « refactor: aligne les namespaces des modèles »)
+1. Renommer en deux temps (`git mv x tmp && git mv tmp X`) : `agents→Agents`, `boutiques→Boutiques`, `clients→Clients`, `commandes→Commandes`, `coursiers→Coursiers`, `details_commande→Details_commande`, `details_zone→Details_zone`, `informations_personnels→Informations_personnels`, `montant_livraison→Montant_livraison`, `paiement→Paiement`, `point_relais→Point_relais`, `produits→Produits`, `quartier→Quartier`, `stock→Stock`, `typeClient→TypeClient`, `typeUtilisateur→TypeUtilisateur`, `ville→Ville`, `zone→Zone`.
+2. Script de remplacement (sed, sur `app/`, `database/`, `resources/`, `routes/`, `tests/`) de chaque `App\Models\<minuscule>\X` vers la casse déclarée, **y compris dans les chaînes de relations** (sinon PSR-4 ne trouve plus le fichier sur Linux). Volumes : 42 `TypeUtilisateur`, 30 `Coursiers`, 29 `Commandes`, 28 `Ville`, 28 `Clients`, 25 `Agents`, 20 `Informations_personnels`, 19 `Quartier`, 13 `Zone`, 13 `Boutiques`, 10 `TypeClient`, 9 `Montant_livraison`, 8 `Produits`, 8 `Details_zone`, 8 `Details_commande`, 6 `Stock`, 5 `Paiement`, 4 `Point_relais`.
+3. Supprimer `app/Models/users/Users.php` : dans les 30 fichiers qui l'importent (29 `use`, 38 `Users::`, plus `resources/views/admin/templates/template.blade.php:2` et `database/seeders/DatabaseSeeder.php:34`), `use App\Models\users\Users;` → `use App\Models\User;` et `\bUsers\b` → `User` (vérifié : aucun de ces fichiers n'importe aussi `App\Models\SuperAdmin\User`, pas de conflit d'alias).
+4. `app/Models/User.php` : `$fillable` = `noms, email, password, telephone, id_type_utilisateur, id_agent, id_coursier, id_client, id_ville, statut` ; relation `activities()` → `Activity::class`. Corriger `Activity::user()` → `User::class`, `Ville::vehicules()` → `\App\Models\Vehicule::class`, `Stock::point_relai()` → clé `id_point_relais`, `SuperAdmin\User` (retirer `use App\Models\TypesUser;`), `SuperAdmin\Client::$fillable` (`name`, `date_fin`), `SuperAdmin\Abonnement::$fillable` (`montant`, `periode_grace`, `statut`).
+5. Supprimer `resources/views/admin/pages/paiement/Paiement.php` et les fichiers vides `id_ville`, `libelle`, `save()`.
+6. Contrôle : `composer dump-autoload -o` sans avertissement ; `grep -rn "Models\\\\[a-z]" app resources database routes` vide (hors `App\Models\SuperAdmin`).
+
+### 20.3 Bootstrap et middlewares (commit « chore: nettoie la pile de middlewares »)
+1. `bootstrap/app.php` : supprimer le bloc `prepend([...])` (doublon de la pile globale par défaut de Laravel 12 : `TrustProxies` sans proxy, `TrimStrings` avec les mêmes exceptions, `PreventRequestsDuringMaintenance` sans exception) et le bloc `append([Filter, Coursier_filter, Admin_filter])` (no-op) ; conserver uniquement l'alias `Check_Sa_Client_Error`.
+2. `config/sanctum.php:63-64` → `Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class` et `Illuminate\Cookie\Middleware\EncryptCookies::class`.
+3. Supprimer `app/Http/Middleware/{Filter,Coursier_filter,Admin_filter,Authenticate,RedirectIfAuthenticated,TrustHosts,ValidateSignature,EncryptCookies,VerifyCsrfToken,TrustProxies,TrimStrings,PreventRequestsDuringMaintenance}.php` (plus aucune référence après 1 et 2 ; `grep` de contrôle avant suppression).
+4. `bootstrap/providers.php` : **non créé** en phase 0 (les providers sont déjà chargés via `config/app.php` ; le double enregistrement serait un risque sans bénéfice).
+
+### 20.4 Routes, contrôleurs morts, fichiers dangereux (commit « fix: retire les routes cassées et dangereuses »)
+1. `routes/web.php` : supprimer `/teston` (l. 157-161) ; `Auth::routes(['register' => false])` ; supprimer `Route::resource('Clientclients', …)` (contrôleur absent), `Sa-api-ajax` et `Sa-api.recap_create` (méthodes absentes), `Route::resource('details_zone', Admin\Details_zoneController)` du groupe `admin` (doublon de nom ; la version `multi` reste, utilisée par `multi/pages/coursiers/info.blade.php`), `typeclient` et `typeutilisateur` (stubs, aucune vue ne les référence).
+2. Supprimer : `app/Http/Controllers/Auth/{RegisterController,VerificationController}.php`, `resources/views/auth/{register,verify}.blade.php`, `resources/views/{welcome,home}.blade.php` (démo, jamais rendus) ; contrôleurs sans route `app/Http/Controllers/Admin/{CoursiersController,ZoneController,Informations_personnelsController,PaiementController,Details_zoneController,TypeClientController,TypeUtilisateurController}.php` et leurs vues `resources/views/admin/pages/{coursiers,zones}/*` (vérifié : référencées uniquement par ces contrôleurs). `layouts/app.blade.php` garde son `@if (Route::has('register'))`, donc reste valide.
+3. `app/Helpers/system_helper.php` : `Dossier()` → `'AGENT' => 'admin'` ; `filter()` → `'routeur' => 'home.admin'`, `'superviseur_ville' => 'home.admin'`.
+4. `public/` : supprimer `app-assets/images/logo/FacebookToolkit-master.zip`, `app-assets/data/ajax.php`, `app-assets/data/fullcalendar/php/*.php`, les 14 `.DS_Store`, `public/error_log` ; `git rm --cached .ftpquota` ; `.gitignore` += `public/error_log`, `.ftpquota`, `.DS_Store`, `/database/database.sqlite`.
+5. `public/index.php` et `artisan` : passage au squelette Laravel 12 (`$app->handleRequest(Request::capture())`, `$app->handleCommand(new ArgvInput)`) — équivalent fonctionnel, supprime la dépendance au Kernel HTTP legacy.
+
+### 20.5 Migrations framework, configuration, traductions (commit « feat: migrations framework, configuration et traductions fr »)
+1. `database/migrations/2025_10_01_000001_create_framework_tables.php` : `password_reset_tokens`, `sessions`, `cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`, `personal_access_tokens`, chacune sous `if (! Schema::hasTable(...))` (idempotent sur une prod partielle).
+2. `2025_10_01_000002_add_email_verified_at_and_doit_changer_mdp_to_users_table.php` : `email_verified_at timestamp nullable`, `doit_changer_mdp boolean default false`, `down()` réel.
+3. `.env.example` : `APP_NAME=ORLA`, `APP_ENV`, `APP_KEY`, `APP_DEBUG`, `APP_URL`, `APP_TIMEZONE=Africa/Douala` (lu par `config/app.php` à la place du `UTC` figé : échéances d'abonnement en heure locale), `APP_LOCALE=fr`, `LOG_*`, `DB_*` (mysql par défaut, bloc sqlite commenté), `SESSION_DRIVER=file`, `CACHE_STORE=file`, `QUEUE_CONNECTION=sync`, `MAIL_*`, `SAAS_ESSAI_JOURS=14`, `SAAS_TENANCY_STRICT=true`, `SAAS_ENTREPRISE_LEGACY_NOM=Speedex`, `SAAS_TARIF_DEFAUT=1000`, `SITE_CONTACT_EMAIL`, `SITE_CONTACT_TEL`, `APP_DEPLOY_TOKEN=`.
+4. `config/saas.php` (`essai_jours`, `tenancy_strict`, `entreprise_legacy` nom/slug, `tarif_defaut`, `devise`, `pays`, `prefixe_telephone`, `telephone_regex` par pays) et `config/site.php` (nom, baseline, contacts, réseaux, url canonique, image OG). Lus dès la phase 0 par rien d'autre que les tests de configuration ; ils fixent le contrat des phases suivantes.
+5. `lang/fr/{auth,pagination,passwords,validation}.php` (traductions françaises complètes ; sans elles, `locale=fr` affiche des clés brutes comme `validation.required`).
+6. Vérification sqlite : `php artisan migrate:fresh` sur sqlite doit passer de bout en bout (FK ignorées, `after()` ignoré) ; toute migration legacy qui casse est corrigée a minima (jamais en changeant le schéma MySQL résultant).
+
+### 20.6 Seeders et factories (commit « feat: seeders idempotents et factories »)
+1. `database/seeders/DatabaseSeeder.php` (namespace `Database\Seeders`) → `ReferentielSeeder`, `SuperAdminSeeder`, puis `DemoSeeder` seulement si `app()->environment('local', 'testing')`.
+2. `ReferentielSeeder` (`firstOrCreate`) : type_utilisateur `1 Super Admin, 2 Agent, 3 Coursier, 4 Client` (libellés inchangés), type_client `1 Entreprise, 2 Simple`, villes `Douala/Dla`, `Yaoundé/Yde`.
+3. `SuperAdminSeeder` (renommage de `SuperAdmin.php`, idempotent) : opérateur `superadmin@example.com`, ligne `super_admin_api` Monetbill, contacts.
+4. `DemoSeeder` : admin `test@example.com / 11111111` (déplacé depuis l'ancien `DatabaseSeeder`), un agent, un coursier, un client « Simple » avec leurs utilisateurs liés, et une licence `super_admin_client` active avec abonnement valide (sans elle `Check_Sa_Client_Error` bloque tout en local).
+5. `database/factories/UserFactory.php` réécrite (`noms`, `email`, `telephone`, `password`, `id_type_utilisateur = 1`, `statut = 1` ; états `agent()`, `coursier()`, `client()`), plus `Database\Factories\SuperAdmin\{ClientFactory,AbonnementFactory}` pour les tests de licence.
+
+### 20.7 Socle de tests (commit « test: socle de tests de fumée »)
+1. `tests/TestCase.php` façon Laravel 12 (`abstract class TestCase extends BaseTestCase {}`) ; supprimer `tests/CreatesApplication.php` ; `tests/Unit/ExampleTest.php` conservé.
+2. `tests/Feature/BootTest.php` : `GET /login` → 200 ; `GET /superadmin/Sa-login` → 200 ; `GET /teston` → 404 ; `GET /register` → 404 ; `GET /` sans licence → redirection vers `SuperAdmin.empty_client`.
+3. `tests/Feature/SchemaTest.php` (`RefreshDatabase`) : tables `users`, `password_reset_tokens`, `sessions`, `cache`, `jobs`, colonne `users.email_verified_at`.
+4. `tests/Feature/SeedersTest.php` : `$this->seed()` → 4 types utilisateur, 2 types client, opérateur super admin, admin de démo.
+5. `tests/Feature/AdminSmokeTest.php` : licence active (factories) + admin connecté → `GET /home` redirige vers `/admin` ; `GET` 200 sur `admin`, `admin/users`, `admin/clients`, `admin/agents`, `admin/commandes`, `admin/commandes/create`, `admin/produits`, `admin/quartier`, `admin/ville`, `multi/coursiers`, `multi/zone`, `multi/vehicule`, `multi/type_vehicule`. Ce test exerce les namespaces corrigés et les relations des modèles sur toute la couche admin ; un échec dû à un bogue préexistant est corrigé s'il est trivial, sinon consigné dans le rapport final.
+6. `tests/Feature/CoursierClientSmokeTest.php` : coursier et client de démo connectés → tableaux de bord 200.
+
+### 20.8 Documentation et livraison
+1. `README.md` : stack `Laravel 12 / PHP 8.2`, étapes d'installation (`.env.example` réel, `--seed` → `DemoSeeder` en local), identifiants de démonstration ; `docs/plan-multi-tenant.md` synchronisé avec cette section.
+2. Vérifications finales : `composer dump-autoload -o` silencieux, `php artisan route:list` OK, `php artisan migrate:fresh --seed` OK (sqlite), `php artisan test` vert, `php artisan config:clear` ; `vendor/bin/pint --test` uniquement sur les fichiers créés ou modifiés (pas de reformatage global).
+3. Commits par lot (§20.2 → §20.7), `git push -u origin claude/vigilant-knuth-5xhg8j`, pas de pull request (non demandée). Rapport final : ce qui a été fait, résultats des tests avec leur sortie, écarts éventuels. **Arrêt après la phase 0** : aucune tâche de la phase 1 n'est entamée.

@@ -50,13 +50,13 @@ The platform runs as a **SaaS**: a Super Admin onboards client companies, sells 
 
 ## Tech stack
 
-- **Backend:** PHP `^8.1`, Laravel `^10.10`, Laravel Sanctum, Laravel UI
+- **Backend:** PHP `^8.2`, Laravel `^12`, Laravel Sanctum, Laravel UI
 - **Frontend:** Vue 3, Bootstrap 5, Vite, Sass
 - **Payments:** Monetbil (Mobile Money / Orange Money, XAF)
 
 ## Prerequisites
 
-- PHP `>= 8.1` with the required extensions (see Laravel 10 requirements)
+- PHP `>= 8.2` with the required extensions (see Laravel 12 requirements)
 - Composer
 - Node.js and npm
 - A relational database (MySQL/MariaDB, PostgreSQL, SQLite, or SQL Server)
@@ -82,9 +82,21 @@ php artisan migrate --seed
 php artisan serve
 ```
 
-Seeders create the base user types, a default city (Douala), an admin user
-(`test@example.com` / `11111111`) and a Super Admin account
-(`superadmin@example.com` / `11111111`).
+Seeders are idempotent. `ReferentielSeeder` creates the user types, the client
+types and the base cities (Douala, Yaoundé); `SuperAdminSeeder` creates the
+platform operator account (`superadmin@example.com` / `11111111`), the Monetbil
+API row and the contact details. In `local` and `testing` environments only,
+`DemoSeeder` adds an active licence and demo accounts, all with the password
+`11111111`: `test@example.com` (admin), `agent@example.com`,
+`coursier@example.com` and `client@example.com`.
+
+Run the test suite with `php artisan test` (sqlite in memory, no setup needed).
+
+## Multi-tenant roadmap
+
+The platform is being transformed into a true multi-tenant SaaS where several
+delivery companies sign up on their own. The detailed plan, phase by phase, is
+in [`docs/plan-multi-tenant.md`](docs/plan-multi-tenant.md).
 
 ## Notes
 
