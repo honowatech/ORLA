@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Multi;
 
 use Illuminate\Http\Request;
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\informations_personnels\Informations_personnels;
-use App\Models\coursiers\Coursiers;
-use App\Models\ville\Ville;
-use App\Models\details_zone\Details_zone;
-use App\Models\zone\Zone;
-use App\Models\clients\Clients;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Informations_personnels\Informations_personnels;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Ville\Ville;
+use App\Models\Details_zone\Details_zone;
+use App\Models\Zone\Zone;
+use App\Models\Clients\Clients;
 use App\Models\Vehicule;
-use App\Models\commandes\Commandes;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\Commandes\Commandes;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,7 +40,7 @@ class CoursiersController extends Controller
       array_push($statut, 0);
     }
     $villes = Ville::where('libelle', 'like', '%' . $request->input('search') . '%')->get();
-    $users = Users::WhereIn('id_ville', $villes->pluck('id'))->whereNotNull('id_coursier')->get();
+    $users = User::WhereIn('id_ville', $villes->pluck('id'))->whereNotNull('id_coursier')->get();
     $coursiers = Coursiers::where('noms', 'like', '%' . $request->input('search') . '%')
         ->orWhere('prenoms', 'like', '%' . $request->input('search') . '%')
         ->orWhereIn('id_utilisateur', $users->pluck('id'))
@@ -104,7 +104,7 @@ class CoursiersController extends Controller
         'password' => 'bail|required|min:8',
     ]);
 
-      $utilisateur = new Users;
+      $utilisateur = new User;
       $utilisateur->noms = $noms.' '.$prenoms;
       $utilisateur->email = $email;
       $utilisateur->password = Hash::make($password);
@@ -220,7 +220,7 @@ class CoursiersController extends Controller
       $coursier->telephone = $telephone;
       $coursier->save();
     if($coursier->id_utilisateur!=null){
-        $utilisateur = Users::findOrFail($coursier->id_utilisateur);
+        $utilisateur = User::findOrFail($coursier->id_utilisateur);
           $utilisateur->noms = $noms.' '.$prenoms;
           $utilisateur->telephone = $telephone;
           $utilisateur->save();
@@ -246,7 +246,7 @@ class CoursiersController extends Controller
     if ($coursier->statut == 0) {
       $coursier->statut = 1;
         if($coursier->id_utilisateur!=null){
-            $utilisateur = Users::findOrFail($coursier->id_utilisateur);
+            $utilisateur = User::findOrFail($coursier->id_utilisateur);
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
@@ -254,7 +254,7 @@ class CoursiersController extends Controller
     }else{
       $coursier->statut = 0;
         if($coursier->id_utilisateur!=null){
-            $utilisateur = Users::findOrFail($coursier->id_utilisateur);
+            $utilisateur = User::findOrFail($coursier->id_utilisateur);
             $utilisateur->statut = 0;
             $utilisateur->save();
         }

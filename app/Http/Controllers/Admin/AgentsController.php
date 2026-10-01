@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\coursiers\Coursiers;
-use App\Models\ville\Ville;
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\informations_personnels\Informations_personnels;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Ville\Ville;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Informations_personnels\Informations_personnels;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -132,7 +132,7 @@ class AgentsController extends Controller
       $agent->telephone = $telephone;
       $agent->statut = 1;
       $agent->save();
-      $utilisateur = new Users;
+      $utilisateur = new User;
       $utilisateur->noms = $noms.' '.$prenoms;
       $utilisateur->email = $email;
       $utilisateur->password = Hash::make($password);
@@ -257,7 +257,7 @@ class AgentsController extends Controller
       $agent->telephone = $telephone;
       $agent->save();
     if($agent->id_utilisateur!=null){
-        $utilisateur = Users::findOrFail($agent->id_utilisateur);
+        $utilisateur = User::findOrFail($agent->id_utilisateur);
           $utilisateur->noms = $noms.' '.$prenoms;
           $utilisateur->telephone = $telephone;
           $utilisateur->save();
@@ -294,14 +294,14 @@ class AgentsController extends Controller
       if ($agent->statut == 0) {
         $agent->statut = 1;
         if($agent->id_utilisateur!=null){
-            $utilisateur = Users::findOrFail($agent->id_utilisateur);
+            $utilisateur = User::findOrFail($agent->id_utilisateur);
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
         $message = $agent->noms.' '.$agent->prenoms." <b class='text-success'> Activé avec Succès.</b>";
       }else{
         if($agent->id_utilisateur!=null){
-            $utilisateur = Users::findOrFail($agent->id_utilisateur);
+            $utilisateur = User::findOrFail($agent->id_utilisateur);
             $utilisateur->statut = 0;
             $utilisateur->save();
         }

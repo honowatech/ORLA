@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\coursiers\Coursiers;
-use App\Models\ville\Ville;
-use App\Models\zone\Zone;
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\montant_livraison\Montant_livraison;
-use App\Models\informations_personnels\Informations_personnels;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Ville\Ville;
+use App\Models\Zone\Zone;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Montant_livraison\Montant_livraison;
+use App\Models\Informations_personnels\Informations_personnels;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 

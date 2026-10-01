@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Multi;
 
-use App\Models\zone\Zone;
-use App\Models\ville\Ville;
-use App\Models\montant_livraison\Montant_livraison;
-use App\Models\quartier\Quartier;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\details_zone\Details_zone;
+use App\Models\Zone\Zone;
+use App\Models\Ville\Ville;
+use App\Models\Montant_livraison\Montant_livraison;
+use App\Models\Quartier\Quartier;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Details_zone\Details_zone;
 use Illuminate\Http\Request;
 
 class ZoneController extends Controller 

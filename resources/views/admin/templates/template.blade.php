@@ -1,5 +1,5 @@
 @php
-use App\Models\users\Users;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 @endphp
 <!DOCTYPE html>
@@ -122,7 +122,7 @@ use Illuminate\Support\Facades\Auth;
                     <div class="user-nav d-sm-flex d-none">
                         <span class="user-name font-weight-bolder"> {{ Auth::user()->noms }} </span>
                         @php
-                            $utilisteur = Users::with('type_utilisateur')
+                            $utilisteur = User::with('type_utilisateur')
                             ->findOrFail(Auth::user()->id);
                         @endphp
                         <span class="user-status">{{$utilisteur->type_utilisateur->libelle}}</span>

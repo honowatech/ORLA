@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\coursiers\Coursiers;
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\boutiques\Boutiques;
-use App\Models\quartier\Quartier;
-use App\Models\ville\Ville;
-use App\Models\typeClient\TypeClient;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\informations_personnels\Informations_personnels;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Boutiques\Boutiques;
+use App\Models\Quartier\Quartier;
+use App\Models\Ville\Ville;
+use App\Models\TypeClient\TypeClient;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Informations_personnels\Informations_personnels;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 class BoutiquesController extends Controller 

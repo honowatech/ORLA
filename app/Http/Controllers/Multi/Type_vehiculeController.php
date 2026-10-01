@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Multi;
 
 use Illuminate\Http\Request;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use App\Models\Vehicule;
 use App\Models\Type_vehicule;
 

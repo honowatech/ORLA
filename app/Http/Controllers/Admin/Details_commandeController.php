@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\coursiers\Coursiers;
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\details_commande\Details_commande;
-use App\Models\boutiques\Boutiques;
-use App\Models\produits\Produits;
-use App\Models\quartier\Quartier;
-use App\Models\paiement\Paiement;
-use App\Models\ville\Ville;
-use App\Models\stock\Stock;
-use App\Models\typeClient\TypeClient;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\informations_personnels\Informations_personnels;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Details_commande\Details_commande;
+use App\Models\Boutiques\Boutiques;
+use App\Models\Produits\Produits;
+use App\Models\Quartier\Quartier;
+use App\Models\Paiement\Paiement;
+use App\Models\Ville\Ville;
+use App\Models\Stock\Stock;
+use App\Models\TypeClient\TypeClient;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Informations_personnels\Informations_personnels;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 

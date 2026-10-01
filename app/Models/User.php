@@ -18,12 +18,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'noms',
         'email',
         'password',
-        'noms',
+        'telephone',
         'id_type_utilisateur',
-        'statut'
+        'id_agent',
+        'id_coursier',
+        'id_client',
+        'id_ville',
+        'statut',
     ];
 
     /**
@@ -46,42 +50,43 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-
     public function type_utilisateur()
     {
-        return $this->belongsTo('App\Models\typeUtilisateur\TypeUtilisateur', 'id_type_utilisateur');
+        return $this->belongsTo('App\Models\TypeUtilisateur\TypeUtilisateur', 'id_type_utilisateur');
     }
 
     public function ville()
     {
-        return $this->belongsTo('App\Models\ville\Ville', 'id_ville');
+        return $this->belongsTo('App\Models\Ville\Ville', 'id_ville');
     }
 
     public function client_utilisateur()
     {
-        return $this->belongsTo('App\Models\clients\Clients', 'id_client');
+        return $this->belongsTo('App\Models\Clients\Clients', 'id_client');
     }
 
     public function coursier_utilisateur()
     {
-        return $this->belongsTo('App\Models\coursiers\Coursiers', 'id_coursier');
+        return $this->belongsTo('App\Models\Coursiers\Coursiers', 'id_coursier');
     }
 
     public function agent_utilisateur()
     {
-        return $this->belongsTo('App\Models\agents\Agents', 'id_agent');
+        return $this->belongsTo('App\Models\Agents\Agents', 'id_agent');
     }
 
     public function commandes_enregistrees()
     {
-        return $this->hasMany('App\Models\commandes\Commandes', 'id_saver');
+        return $this->hasMany('App\Models\Commandes\Commandes', 'id_saver');
     }
+
     public function paiements_enregistres()
     {
-        return $this->hasMany('App\Models\paiement\Paiement', 'id_saver');
+        return $this->hasMany('App\Models\Paiement\Paiement', 'id_saver');
     }
+
     public function activities()
     {
-        return $this->hasMany('App\Models\activity', 'id_user');
+        return $this->hasMany(Activity::class, 'id_user');
     }
 }

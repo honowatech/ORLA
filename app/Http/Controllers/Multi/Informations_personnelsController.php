@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Multi;
 
 use Illuminate\Http\Request;
-use App\Models\ville\Ville;
-use App\Models\clients\Clients;
-use App\Models\agents\Agents;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\coursiers\Coursiers;
-use App\Models\informations_personnels\Informations_personnels;
+use App\Models\Ville\Ville;
+use App\Models\Clients\Clients;
+use App\Models\Agents\Agents;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Informations_personnels\Informations_personnels;
 
 class Informations_personnelsController extends Controller 
 {

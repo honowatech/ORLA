@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\coursiers\Coursiers;
-use App\Models\clients\Clients;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Clients\Clients;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class UsersController extends Controller
             return redirect()->route('home.client');
         }
     $request = request();
-    $users = Users::with(['type_utilisateur'])
+    $users = User::with(['type_utilisateur'])
     ->where('noms', 'like', '%' . $request->input('recherche') . '%')
         ->orWhere('telephone', 'like', '%' . $request->input('recherche') . '%')
         ->orderBy('updated_at','desc')
@@ -149,7 +149,7 @@ class UsersController extends Controller
         'id_compte_associe' => 'bail|required',
       ]);
     }
-    $utilisateur = new Users;
+    $utilisateur = new User;
     $utilisateur->noms = $noms;
     $utilisateur->email = $email;
     $utilisateur->password = Hash::make($password);
@@ -208,7 +208,7 @@ class UsersController extends Controller
 
             return redirect()->route('home.client');
         }
-    $users = Users::with(['type_utilisateur','client_utilisateur','coursier_utilisateur','agent_utilisateur','commandes_enregistrees'])->where('email',$email)->get();
+    $users = User::with(['type_utilisateur','client_utilisateur','coursier_utilisateur','agent_utilisateur','commandes_enregistrees'])->where('email',$email)->get();
     foreach ($users as $user) {
     }
     return view('admin.pages.utilisateurs.info',compact('user'));
@@ -237,7 +237,7 @@ class UsersController extends Controller
 
             return redirect()->route('home.client');
         }
-    $users = Users::where('email',$email)->get();
+    $users = User::where('email',$email)->get();
     foreach ($users as $user) {
     }
     return view('admin.pages.utilisateurs.edit',compact('user'));
@@ -274,17 +274,17 @@ class UsersController extends Controller
         'email' => 'bail|required|max:255',
         'telephone' => 'bail|required|regex:/^[6,2][0-9]{8}$/',
     ]);
-    if ( Users::where('email',$email)->whereNotIn('id',[$id])->count() > 0) {
+    if ( User::where('email',$email)->whereNotIn('id',[$id])->count() > 0) {
       $validated = $request->validate([
         'email' => 'unique:users',
       ]);
     }
-    if ( Users::where('telephone',$telephone)->whereNotIn('id',[$id])->count() > 0) {
+    if ( User::where('telephone',$telephone)->whereNotIn('id',[$id])->count() > 0) {
       $validated = $request->validate([
         'telephone' => 'unique:users',
       ]);
     }
-    $utilisateur = Users::findOrFail($id);
+    $utilisateur = User::findOrFail($id);
     $utilisateur->noms = $noms;
     $utilisateur->email = $email;
     $utilisateur->telephone = $telephone;
@@ -332,7 +332,7 @@ class UsersController extends Controller
 
             return redirect()->route('home.client');
         }
-    $user = Users::findOrFail($id);
+    $user = User::findOrFail($id);
     if ($user->statut == 0) {
         $user->statut = 1;
         $message = $user->noms." Activé(e) avec <b class='text-success'> Succès.</b>";

@@ -20,10 +20,10 @@ class Vehicule extends Model
     }
     public function coursier()
     {
-        return $this->belongsTo('App\Models\coursiers\Coursiers', 'id_coursier');
+        return $this->belongsTo('App\Models\Coursiers\Coursiers', 'id_coursier');
     }
     public function ville()
     {
-        return $this->belongsTo('App\Models\ville\Ville', 'id_ville');
+        return $this->belongsTo('App\Models\Ville\Ville', 'id_ville');
     }
 }

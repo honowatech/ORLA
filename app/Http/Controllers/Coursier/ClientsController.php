@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Coursier;
 
 use Illuminate\Http\Request;
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\boutiques\Boutiques;
-use App\Models\coursiers\Coursiers;
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\quartier\Quartier;
-use App\Models\ville\Ville;
-use App\Models\typeClient\TypeClient;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\informations_personnels\Informations_personnels;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Boutiques\Boutiques;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\Quartier\Quartier;
+use App\Models\Ville\Ville;
+use App\Models\TypeClient\TypeClient;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Informations_personnels\Informations_personnels;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -158,7 +158,7 @@ class ClientsController extends Controller
       $client->type_client = $typeClient;
       $client->statut = 1;
       $client->save();
-      $utilisateur = new Users;
+      $utilisateur = new User;
       $utilisateur->noms = $noms.' '.$prenoms;
       $utilisateur->email = $email;
       $utilisateur->password = Hash::make($password);
@@ -295,7 +295,7 @@ class ClientsController extends Controller
       $client->telephone = $telephone;
       $client->save();
     if($client->id_utilisateur!=null){
-        $utilisateur = Users::findOrFail($client->id_utilisateur);
+        $utilisateur = User::findOrFail($client->id_utilisateur);
           $utilisateur->noms = $noms.' '.$prenoms;
           $utilisateur->telephone = $telephone;
           $utilisateur->save();
@@ -332,7 +332,7 @@ class ClientsController extends Controller
     if ($client->statut == 0) {
         $client->statut = 1;
         if($client->id_utilisateur!=null){
-            $utilisateur = Users::findOrFail($client->id_utilisateur);
+            $utilisateur = User::findOrFail($client->id_utilisateur);
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
@@ -340,7 +340,7 @@ class ClientsController extends Controller
     }else{
         $client->statut = 0;
         if($client->id_utilisateur!=null){
-            $utilisateur = Users::findOrFail($client->id_utilisateur);
+            $utilisateur = User::findOrFail($client->id_utilisateur);
             $utilisateur->statut = 0;
             $utilisateur->save();
         }

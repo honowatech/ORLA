@@ -11,10 +11,10 @@ class Abonnement extends Model
     protected $table = 'super_admin_abonnement';
     public $timestamps = true;
 
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
-    protected $fillable = array('titre','accumulateur','type_periode','salaire','date_modif');
-    protected $visible = array('titre','accumulateur','type_periode','salaire','date_modif');
+    protected $fillable = array('titre','accumulateur','type_periode','montant','periode_grace','statut');
+    protected $visible = array('titre','accumulateur','type_periode','montant','periode_grace','statut');
 
     public function transactions()
     {

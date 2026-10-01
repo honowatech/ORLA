@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\zone\Zone;
-use App\Models\ville\Ville;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\Zone\Zone;
+use App\Models\Ville\Ville;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Illuminate\Http\Request;
 
 class VilleController extends Controller 

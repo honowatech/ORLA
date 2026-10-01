@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\coursiers\Coursiers;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Coursiers\Coursiers;
 use App\Models\Activity;
-use App\Models\clients\Clients;
-use App\Models\commandes\Commandes;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\Clients\Clients;
+use App\Models\Commandes\Commandes;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -115,7 +115,7 @@ class UsersController extends Controller
         }else if($type == strtoupper('client')){
 
         }
-    $user = Users::findOrFail(Auth()->user()->id);
+    $user = User::findOrFail(Auth()->user()->id);
     return view('client.pages.user.info',compact('user'));
   }
 
@@ -142,7 +142,7 @@ class UsersController extends Controller
         }else if($type == strtoupper('client')){
 
         }
-    $user = Users::findOrFail(Auth()->user()->id);
+    $user = User::findOrFail(Auth()->user()->id);
     return view('client.pages.user.edit',compact('user'));
   }
 
@@ -179,17 +179,17 @@ class UsersController extends Controller
         'email' => 'bail|required|max:255',
         'telephone' => 'bail|required|regex:/^[6,2][0-9]{8}$/',
     ]);
-    if ( Users::where('email',$email)->whereNotIn('id',[$id])->count() > 0) {
+    if ( User::where('email',$email)->whereNotIn('id',[$id])->count() > 0) {
       $validated = $request->validate([
         'email' => 'unique:users',
       ]);
     }
-    if ( Users::where('telephone',$telephone)->whereNotIn('id',[$id])->count() > 0) {
+    if ( User::where('telephone',$telephone)->whereNotIn('id',[$id])->count() > 0) {
       $validated = $request->validate([
         'telephone' => 'unique:users',
       ]);
     }
-    $utilisateur = Users::findOrFail($id);
+    $utilisateur = User::findOrFail($id);
     $utilisateur->noms = $noms.' '.$prenoms;
     $utilisateur->email = $email;
     $utilisateur->telephone = $telephone;

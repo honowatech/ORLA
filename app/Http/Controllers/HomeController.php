@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\commandes\Commandes;
-use App\Models\users\Users;
-use App\Models\coursiers\Coursiers;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Commandes\Commandes;
+use App\Models\User;
+use App\Models\Coursiers\Coursiers;
 use Carbon\Carbon;
-use App\Models\clients\Clients;
+use App\Models\Clients\Clients;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 

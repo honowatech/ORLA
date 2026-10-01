@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\users\Users;
-use App\Models\agents\Agents;
-use App\Models\coursiers\Coursiers;
-use App\Models\clients\Clients;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\User;
+use App\Models\Agents\Agents;
+use App\Models\Coursiers\Coursiers;
+use App\Models\Clients\Clients;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -179,7 +179,7 @@ class PasswordController extends Controller
         session()->flash('message',$message);
         return redirect()->back();
     }
-    $user = Users::findOrFail($id);
+    $user = User::findOrFail($id);
     $user->password = password_hash($password_new, PASSWORD_BCRYPT);
     $user->save();
     $message = "Modifications enregistrées avec <b class='text-success'> Succès. </b>";

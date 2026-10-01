@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Multi;
 
 use Illuminate\Http\Request;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\details_zone\Details_zone;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Details_zone\Details_zone;
 
 class Details_zoneController extends Controller 
 {

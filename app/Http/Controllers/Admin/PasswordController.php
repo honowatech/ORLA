@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\users\Users;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 use Illuminate\Http\Request;
 
 class PasswordController extends Controller 
@@ -181,7 +181,7 @@ class PasswordController extends Controller
 
             return redirect()->route('home.client');
         }
-    $utilisateur = Users::findOrFail($id);
+    $utilisateur = User::findOrFail($id);
     $utilisateur->password = Hash::make('11111111');
     $utilisateur->save();
     $message = "Mot de passe réinitialisé avec <b class='text-success'> Succès.</b>";

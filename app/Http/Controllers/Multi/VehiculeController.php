@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Multi;
 
 use Illuminate\Http\Request;
-use App\Models\typeUtilisateur\TypeUtilisateur;
-use App\Models\ville\Ville;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
+use App\Models\Ville\Ville;
 use App\Models\Type_vehicule;
-use App\Models\coursiers\Coursiers;
+use App\Models\Coursiers\Coursiers;
 use App\Models\Vehicule;
 
 class VehiculeController extends Controller 

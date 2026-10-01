@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\typeUtilisateur\TypeUtilisateur;
+use App\Models\TypeUtilisateur\TypeUtilisateur;
 
 class StockController extends Controller 
 {
