@@ -42,8 +42,6 @@ Route::group(['prefix' => 'superadmin'], function(){
         Route::post('/Sa-abonnement_recap_edit', [App\Http\Controllers\SuperAdmin\AbonnementController::class, 'recap_edit'])->name('Sa-abonnement.recap_edit');
 
         Route::resource('Sa-api', 'App\Http\Controllers\SuperAdmin\ApiController');
-        Route::get('/Sa-api-ajax', [App\Http\Controllers\SuperAdmin\ApiController::class, 'index_ajax'])->name('Sa-api.index_ajax');
-        Route::post('/Sa-api.recap_create', [App\Http\Controllers\SuperAdmin\ApiController::class, 'recap_create'])->name('Sa-api.recap_create');
         Route::post('/Sa-api_recap_edit', [App\Http\Controllers\SuperAdmin\ApiController::class, 'recap_edit'])->name('Sa-api.recap_edit');
 
         Route::resource('Sa-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController');
@@ -52,7 +50,9 @@ Route::group(['prefix' => 'superadmin'], function(){
 
 ///////////////////////////////////////////////////////////// End Super Admin
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Auth::routes();
+// L'inscription publique Laravel UI est désactivée : la création d'un espace
+// d'entreprise passera par /inscription (phase 5 du plan multi-entreprises).
+Auth::routes(['register' => false]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::middleware('Check_Sa_Client_Error')->group(function() {////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,11 +88,6 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('clients', 'App\Http\Controllers\Admin\ClientsController');
                         Route::resource('agents', 'App\Http\Controllers\Admin\AgentsController');
-                        Route::resource('typeclient', 'App\Http\Controllers\Admin\TypeClientController');
-                        Route::resource('typeutilisateur', 'App\Http\Controllers\Admin\TypeUtilisateurController');
-                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('details_zone', 'App\Http\Controllers\Admin\Details_zoneController');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('quartier', 'App\Http\Controllers\Admin\QuartierController');
                         Route::resource('boutiques', 'App\Http\Controllers\Admin\BoutiquesController');
@@ -136,8 +131,6 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('Clientusers', 'App\Http\Controllers\Client\UsersController');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('Clientclients', 'App\Http\Controllers\Client\ClientsController');
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('Clientcommandes', 'App\Http\Controllers\Client\CommandesController');
                         Route::post('/boutiqueLie', [App\Http\Controllers\Client\CommandesController::class, 'boutiqueLie'])->name('ClientboutiqueLie');
                         Route::post('/commandeclients', [App\Http\Controllers\Client\CommandesController::class, 'commandeClient'])->name('ClientcommandeClient');
@@ -152,12 +145,6 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         });
-});
-
-Route::get('/teston', function(){
-   $user = App\Models\SuperAdmin\User::find(1);
-   $user->password = Illuminate\Support\Facades\Hash::make('12345678');
-   $user->save();
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

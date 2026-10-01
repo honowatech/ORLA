@@ -17,3 +17,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Fichiers de serveur / système
+/public/error_log
+.ftpquota
+.DS_Store
+/database/database.sqlite
