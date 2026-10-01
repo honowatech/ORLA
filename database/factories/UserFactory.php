@@ -2,37 +2,52 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = User::class;
+
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'noms' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'telephone' => '6'.fake()->unique()->numerify('########'),
+            'password' => 'password',
             'remember_token' => Str::random(10),
+            'id_type_utilisateur' => 1,
+            'statut' => 1,
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    public function admin(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(fn () => ['id_type_utilisateur' => 1]);
+    }
+
+    public function agent(): static
+    {
+        return $this->state(fn () => ['id_type_utilisateur' => 2]);
+    }
+
+    public function coursier(): static
+    {
+        return $this->state(fn () => ['id_type_utilisateur' => 3]);
+    }
+
+    public function client(): static
+    {
+        return $this->state(fn () => ['id_type_utilisateur' => 4]);
+    }
+
+    public function desactive(): static
+    {
+        return $this->state(fn () => ['statut' => 0]);
     }
 }
