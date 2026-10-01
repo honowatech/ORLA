@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Check_Sa_Client_Error;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,26 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->prepend([
-            \App\Http\Middleware\TrustProxies::class,
-            \Illuminate\Http\Middleware\HandleCors::class,
-            \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
-            \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-            \App\Http\Middleware\TrimStrings::class,
-            \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        ]);
-
-        $middleware->append([
-            \App\Http\Middleware\Filter::class,
-            \App\Http\Middleware\Coursier_filter::class,
-            \App\Http\Middleware\Admin_filter::class,
-        ]);
-
+        // La pile globale par défaut de Laravel 12 (TrustProxies, HandleCors,
+        // PreventRequestsDuringMaintenance, ValidatePostSize, TrimStrings,
+        // ConvertEmptyStringsToNull) couvre déjà les besoins de l'application.
         $middleware->alias([
-            'filter' => \App\Http\Middleware\Filter::class,
-            'coursier_filter' => \App\Http\Middleware\Coursier_filter::class,
-            'admin_filter' => \App\Http\Middleware\Admin_filter::class,
-            'Check_Sa_Client_Error' => \App\Http\Middleware\Check_Sa_Client_Error::class,
+            'Check_Sa_Client_Error' => Check_Sa_Client_Error::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
