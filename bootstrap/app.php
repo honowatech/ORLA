@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Middleware\Check_Sa_Client_Error;
+use App\Http\Middleware\BypassTenancy;
+use App\Http\Middleware\EnsureEntrepriseActive;
+use App\Http\Middleware\EnsureUserIsActive;
+use App\Http\Middleware\SetCurrentEntreprise;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,7 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
         // PreventRequestsDuringMaintenance, ValidatePostSize, TrimStrings,
         // ConvertEmptyStringsToNull) couvre déjà les besoins de l'application.
         $middleware->alias([
-            'Check_Sa_Client_Error' => Check_Sa_Client_Error::class,
+            'entreprise' => SetCurrentEntreprise::class,
+            'actif' => EnsureUserIsActive::class,
+            'entreprise.active' => EnsureEntrepriseActive::class,
+            'tenancy.bypass' => BypassTenancy::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

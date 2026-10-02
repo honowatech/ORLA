@@ -1,9 +1,8 @@
 @extends('superadmin/layout/template_error')
 @section('menu')
-    @include('superadmin/menu/menu')
 @endsection
 @section('title')
-{{'Compte Désactivé'}}
+{{ 'Espace suspendu' }}
 @endsection
 
 @section('css')
@@ -25,39 +24,40 @@
                                 <div class="card col-md-10 col-12 py-2 m-auto">
                                     <div class="my-1">
                                         <h4 class="text-center">
-                                            Votre compte a été <span class="text-danger">désactivé</span>...
+                                            L'espace de <b>{{ $entreprise->name }}</b> a été <span class="text-danger">suspendu</span>
                                         </h4>
                                     </div>
                                     <div class="content-body text-center">
                                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
                                             <p>
-                                                Pour réactiver votre compte veuiller contacter <a href="https://honowa.com/contact">Honowa Technologies </a> via :
+                                                Pour réactiver votre espace, veuillez contacter <a href="{{ config('site.editeur.url') }}/contact">{{ config('site.editeur.nom') }}</a> via :
                                             </p>
                                             <div class="text-center my-2 row col-md-10 mx-auto">
+                                                @if(count($telephones))
                                                 <p>
-                                                    <i data-feather="phone" class="mr-50"></i> Téléphones : {{Sa_phone(explode('/',$phones->value)[0])}} / {{Sa_phone(explode('/',$phones->value)[1])}}.
+                                                    <i data-feather="phone" class="mr-50"></i> Téléphones : {{ implode(' / ', array_map('Sa_phone', $telephones)) }}.
                                                 </p>
-
+                                                @endif
+                                                @if($email)
                                                 <p>
-                                                    <i data-feather="mail" class="mr-50"></i> Email : {{$email->value}}.
+                                                    <i data-feather="mail" class="mr-50"></i> Email : {{ $email }}.
                                                 </p>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row col-md-8 col-lg-6 mb-3 mx-auto" style="gap: 2rem;">
-                                            <a class="btn btn-primary btn-gradient-primary mx-auto" href="{{url()->current()}}">
+                                            <a class="btn btn-primary btn-gradient-primary mx-auto" href="{{ url()->current() }}">
                                                 <i data-feather="loader" class="mr-50"></i>Actualiser
                                             </a>
                                         </div>
-                                        @if(check_superadmin() != 'true') 
                                         <hr>
                                         <div class="row col-md-8 col-lg-6 mx-auto" style="gap: 2rem;">
                                             <div class="mx-auto">
-                                                <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{route('logout')}}','', 'vous déconnecter' ,'button_deconnection')">
-                                                    <i data-feather="power" class="mr-50"></i>Se Déconnecter
+                                                <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{ route('logout') }}','', 'vous déconnecter' ,'button_deconnection')">
+                                                    <i data-feather="power" class="mr-50"></i>Se déconnecter
                                                 </button>
                                             </div>
                                         </div>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -72,9 +72,4 @@
 @endsection
 
 @section('javascript')
-
-    <!-- BEGIN: Page JS-->
-    <script type="text/javascript">
-    </script>
-    <!-- END: Page JS-->
 @endsection

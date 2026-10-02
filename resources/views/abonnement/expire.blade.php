@@ -1,9 +1,8 @@
 @extends('superadmin/layout/template_error')
 @section('menu')
-    @include('superadmin/menu/menu')
 @endsection
 @section('title')
-{{"Abonnement expiré"}}
+{{ 'Abonnement expiré' }}
 @endsection
 
 @section('css')
@@ -25,42 +24,50 @@
                                 <div class="card col-md-10 col-12 py-2 m-auto">
                                     <div class="my-1">
                                         <h4 class="text-center">
-                                            Votre abonnement a <span class="text-danger">Expiré </span>
+                                            L'abonnement de <b>{{ $entreprise->name }}</b> a <span class="text-danger">expiré</span>
                                         </h4>
                                     </div>
                                     <div class="content-body text-center">
                                         <div class="col-lg-7 col-md-9 col-sm-10 mx-auto">
                                             <p>
-                                                Abonnez vous pour continuer à accéder à l'application. Vous pouvez aussi contacter <a href="https://honowa.com/contact">Honowa Technologies </a> via :
+                                                @if($peutSouscrire)
+                                                    Renouvelez l'abonnement pour rétablir l'accès à votre espace.
+                                                @else
+                                                    L'accès sera rétabli dès que l'administrateur de votre entreprise aura renouvelé l'abonnement.
+                                                @endif
+                                                Vous pouvez aussi contacter <a href="{{ config('site.editeur.url') }}/contact">{{ config('site.editeur.nom') }}</a> via :
                                             </p>
                                             <div class="text-center my-2 row col-md-8 mx-auto">
+                                                @if(count($telephones))
                                                 <p>
-                                                    <i data-feather="phone" class="mr-50"></i> Téléphones : {{Sa_phone(explode('/',$phones->value)[0])}} / {{Sa_phone(explode('/',$phones->value)[1])}}.
+                                                    <i data-feather="phone" class="mr-50"></i> Téléphones : {{ implode(' / ', array_map('Sa_phone', $telephones)) }}.
                                                 </p>
-
+                                                @endif
+                                                @if($email)
                                                 <p>
-                                                    <i data-feather="mail" class="mr-50"></i> Email : {{$email->value}}.
+                                                    <i data-feather="mail" class="mr-50"></i> Email : {{ $email }}.
                                                 </p>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row col-md-8 mb-3 col-lg-6 mx-auto" style="gap: 2rem;">
-                                            <a class="btn btn-primary btn-gradient-primary mx-auto" href="{{url()->current()}}">
+                                            <a class="btn btn-primary btn-gradient-primary mx-auto" href="{{ url()->current() }}">
                                                 <i data-feather="loader" class="mr-50"></i>Actualiser
                                             </a>
-                                            <a class="btn btn-success btn-gradient-success mx-auto" href="{{route('Sc-transaction.create')}}">
-                                                <i data-feather="shopping-cart" class="mr-50"></i>S'Abonner
+                                            @if($peutSouscrire)
+                                            <a class="btn btn-success btn-gradient-success mx-auto" href="{{ route('Sc-transaction.create') }}">
+                                                <i data-feather="shopping-cart" class="mr-50"></i>S'abonner
                                             </a>
+                                            @endif
                                         </div>
-                                        @if(check_superadmin() != 'true') 
                                         <hr>
                                         <div class="row col-md-8 col-lg-6 mx-auto" style="gap: 2rem;">
                                             <div class="mx-auto">
-                                                <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{route('logout')}}','', 'vous déconnecter' ,'button_deconnection')">
-                                                    <i data-feather="power" class="mr-50"></i>Se Déconnecter
+                                                <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{ route('logout') }}','', 'vous déconnecter' ,'button_deconnection')">
+                                                    <i data-feather="power" class="mr-50"></i>Se déconnecter
                                                 </button>
                                             </div>
                                         </div>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -75,9 +82,4 @@
 @endsection
 
 @section('javascript')
-
-    <!-- BEGIN: Page JS-->
-    <script type="text/javascript">
-    </script>
-    <!-- END: Page JS-->
 @endsection

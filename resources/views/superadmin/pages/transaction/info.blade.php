@@ -62,7 +62,7 @@
                                         </div>
                                     @endforeach
                                         <div class="text-center">
-                                            <a class="btn btn-primary btn-gradient-primary" href="{{Sa_site_login()}}">
+                                            <a class="btn btn-primary btn-gradient-primary" href="{{ route('login') }}">
                                                 <i data-feather='home' class="mr-50"></i>
                                                 @if(check_superadmin() != 'true') 
                                                 Accéder au site

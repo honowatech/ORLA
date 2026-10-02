@@ -5,10 +5,10 @@ namespace App\Http\Controllers\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\SuperAdmin\User;
-use App\Models\SuperAdmin\Client;
+use App\Models\Entreprise;
 use App\Models\SuperAdmin\Abonnement;
 use App\Models\SuperAdmin\Contact;
-use App\Models\SuperAdmin\Transaction;
+use App\Models\AbonnementTransaction;
 use App\Models\SuperAdmin\Info_transaction;
 use App\Models\SuperAdmin\Api;
 
@@ -49,7 +49,7 @@ class TransactionController extends Controller
         'mois' => 'Mois', 
         'annee' => 'Année(s)'
         ];
-        $clients = Client::where('name', 'like', '%' . $request->input('recherche') . '%')
+        $clients = Entreprise::where('name', 'like', '%' . $request->input('recherche') . '%')
             ->orWhere('adresse', 'like', '%' . $request->input('recherche') . '%')
             ->orWhere('telephone', 'like', '%' . $request->input('recherche') . '%')
             ->orWhere('telephone_secondaire', 'like', '%' . $request->input('recherche') . '%')
@@ -72,7 +72,8 @@ class TransactionController extends Controller
         'mois' => 'Mois', 
         'annee' => 'An(s)'
         ];
-        $client = Client::where('statut',[1])->first();
+        // Souscription par l'administrateur de l'entreprise courante (route sous « entreprise »).
+        $client = entreprise();
         $api = Api::where('statut',[1])->where('name','Monetbill')->whereNotNull('key')->whereNotNull('secret')->first();
         if($client == null ){
             $abonnements = Abonnement::where('statut',[2])->orderBy('montant')->get();
@@ -100,9 +101,15 @@ class TransactionController extends Controller
   // dd($name,$telephone,$telephone_secondaire,$salaire,$cni);
   // On enregistre le client
         if ($methode == 'application') {
-            $client = Client::findOrFail($id_client);
+            // Activation manuelle : réservée à la console Super Admin.
+            abort_unless(check_superadmin() == 'true', 403);
+            $client = Entreprise::findOrFail($id_client);
         }elseif($methode == 'mobile'){
-            $client = Client::where('statut',[1])->first();
+            // Paiement Mobile Money : toujours pour l'entreprise de l'utilisateur connecté.
+            $client = entreprise();
+            abort_if($client === null, 403);
+        }else{
+            abort(422, 'Méthode de paiement inconnue.');
         }
             if ($abonnement->statut != 1) {
                 $message = "<b class='text-danger'> Erreur. </b></br> L'abonnement ".$abonnement->titre." n'est plus actif";
@@ -120,9 +127,10 @@ class TransactionController extends Controller
             $date_fin = Sa_prochaine_date_paie($abonnement->type_periode, $abonnement->accumulateur, $date_debut, 1);
             $api = Api::where('statut',[1])->where('name','Monetbill')->first();
             $_SESSION['api'] = $api;
-            $transaction = new Transaction;
+            $transaction = new AbonnementTransaction;
             $transaction->id_abonnement = $id_abonnement;
             $transaction->id_client = $client->id;
+            $transaction->entreprise_id = $client->id;
             $transaction->methode = $methode;
             $transaction->montant = $abonnement->montant;
             $transaction->nbre_abonnement = 1;
@@ -131,7 +139,7 @@ class TransactionController extends Controller
         if ($methode == 'application') {
             $transaction->statut = 'success';
             $transaction->save();
-            $client = Client::findOrFail($transaction->id_client);
+            $client = Entreprise::findOrFail($transaction->entreprise_id);
             $client->date_fin = $transaction->date_fin;
             $client->id_abonnement = $transaction->abonnement->id;
             $client->date_dernier_paiement = $transaction->created_at;
@@ -155,7 +163,7 @@ class TransactionController extends Controller
      */
     public function checkpay($id)
     {
-      $transaction = Transaction::findOrFail($id);
+      $transaction = AbonnementTransaction::findOrFail($id);
       $api = Api::where('statut',[1])->where('name','Monetbill')->first();
       $_SESSION['api'] = $api;
       $check = Sa_checkpay();
@@ -177,7 +185,7 @@ class TransactionController extends Controller
         }
       }
       if($check['statut'] == 'success'){
-        $client = Client::findOrFail($transaction->id_client);
+        $client = Entreprise::findOrFail($transaction->entreprise_id);
         $client->date_fin = $transaction->date_fin;
         $client->id_abonnement = $transaction->abonnement->id;
         $client->date_dernier_paiement = $transaction->created_at;
@@ -219,7 +227,7 @@ class TransactionController extends Controller
         'failed' => 'x',
         'waiting' => 'loader'
         ];
-      $transaction = Transaction::findOrFail($id);
+      $transaction = AbonnementTransaction::findOrFail($id);
       return view('superadmin.pages.transaction.info',compact('transaction','statuts','statuts_valeurs','statuts_icon'));
     }
 
@@ -236,7 +244,7 @@ class TransactionController extends Controller
             session()->put('dernier_url',url()->current());
             return redirect()->route($check);
         }
-      $transaction = Transaction::findOrFail($id);
+      $transaction = AbonnementTransaction::findOrFail($id);
       return view('superadmin.pages.transaction.edit',compact('transaction'));
     }
 
@@ -269,7 +277,7 @@ class TransactionController extends Controller
             session()->put('dernier_url',url()->current());
             return redirect()->route($check);
         }
-      $client = Client::findOrFail($id);
+      $client = Entreprise::findOrFail($id);
       if ($client->statut == 0) {
         $client->statut = 1;
         $message = "Client ".Sa_name($client->name)." Activé avec <b class='text-success'> Succès.</b>";

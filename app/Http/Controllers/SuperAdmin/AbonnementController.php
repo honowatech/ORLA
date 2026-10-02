@@ -5,7 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\SuperAdmin\User;
-use App\Models\SuperAdmin\Client;
+use App\Models\Entreprise;
 use App\Models\SuperAdmin\Abonnement;
 
 class AbonnementController extends Controller

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\SuperAdmin\User;
-use App\Models\SuperAdmin\Client;
+use App\Models\Entreprise;
 use App\Models\SuperAdmin\Abonnement;
 
 class ClientController extends Controller
@@ -45,7 +45,7 @@ class ClientController extends Controller
         'mois' => 'Mois', 
         'annee' => 'Année(s)'
         ];
-        $clients = Client::where('name', 'like', '%' . $request->input('recherche') . '%')
+        $clients = Entreprise::where('name', 'like', '%' . $request->input('recherche') . '%')
             ->orWhere('adresse', 'like', '%' . $request->input('recherche') . '%')
             ->orWhere('telephone', 'like', '%' . $request->input('recherche') . '%')
             ->orWhere('telephone_secondaire', 'like', '%' . $request->input('recherche') . '%')
@@ -118,12 +118,12 @@ class ClientController extends Controller
       $cni = $request->input('cni');
       $validated = $request->validate([
           'name' => 'bail|required|max:255',
-          'telephone' => 'bail|required|unique:super_admin_client|regex:/^[6,2][0-9]{8}$/',
+          'telephone' => 'bail|required|unique:entreprises|regex:/^[6,2][0-9]{8}$/',
           'cni' => 'bail|required|min:9',
       ]);
       if ($telephone_secondaire != null) {
         $validated = $request->validate([
-            'telephone_secondaire' => 'bail|unique:super_admin_client|regex:/^[6,2][0-9]{8}$/',
+            'telephone_secondaire' => 'bail|unique:entreprises|regex:/^[6,2][0-9]{8}$/',
         ]);
       }
       if ($adresse != null) {
@@ -133,7 +133,7 @@ class ClientController extends Controller
       }
   // dd($name,$telephone,$telephone_secondaire,$salaire,$cni);
   // On enregistre le client
-      $client = new Client;
+      $client = new Entreprise;
       $client->name = $name;
       $client->telephone_secondaire = $telephone_secondaire;
       $client->telephone = $telephone;
@@ -167,7 +167,7 @@ class ClientController extends Controller
         'annee' => 'An(s)'
         ];
       $abonnements = Abonnement::where('statut',[1])->orderBy('montant')->get();
-      $client = Client::findOrFail($id);
+      $client = Entreprise::findOrFail($id);
       return view('superadmin.pages.client.info',compact('abonnements','types_periode','client'));
     }
 
@@ -219,7 +219,7 @@ class ClientController extends Controller
         'annee' => 'Année(s)'
         ];
         $abonnement = Abonnement::findOrFail($datas['id_abonnement']);
-        $client = Client::findOrFail($datas['id_client']);
+        $client = Entreprise::findOrFail($datas['id_client']);
         $periode = $abonnement->accumulateur == 1 ? '1 '.str_replace('(s)','',$types_periode[$abonnement->type_periode]) : $abonnement->accumulateur.' '.str_replace('(s)','s',$types_periode[$abonnement->type_periode]);
         // dd($datas);
         $entree = true;
@@ -253,7 +253,7 @@ class ClientController extends Controller
             session()->put('dernier_url',url()->current());
             return redirect()->route($check);
         }
-      $client = Client::findOrFail($id);
+      $client = Entreprise::findOrFail($id);
       return view('superadmin.pages.client.edit',compact('client'));
     }
 
@@ -289,22 +289,22 @@ class ClientController extends Controller
           'adresse' => 'bail|min:4',
         ]);
       }
-        if (Client::where('telephone_secondaire',$telephone_secondaire)->whereNotIn('id',[$id])->exists()) {
+        if (Entreprise::where('telephone_secondaire',$telephone_secondaire)->whereNotIn('id',[$id])->exists()) {
           $validated = $request->validate([
-              'telephone_secondaire' => 'unique:super_admin_client',
+              'telephone_secondaire' => 'unique:entreprises',
           ]);
         }
       }else{
         $telephone_secondaire = NULL;
       }
-    if ( Client::where('telephone',$telephone)->whereNotIn('id',[$id])->exists()) {
+    if ( Entreprise::where('telephone',$telephone)->whereNotIn('id',[$id])->exists()) {
       $validated = $request->validate([
-        'telephone' => 'unique:super_admin_client',
+        'telephone' => 'unique:entreprises',
       ]);
     }
   // dd($name,$telephone,$telephone_secondaire,$cni,$adresse);
   // On enregistre le Client
-      $client = Client::findOrFail($id);
+      $client = Entreprise::findOrFail($id);
       $client->name = $name;
       $client->telephone_secondaire = $telephone_secondaire;
       $client->telephone = $telephone;
@@ -329,7 +329,7 @@ class ClientController extends Controller
             session()->put('dernier_url',url()->current());
             return redirect()->route($check);
         }
-      $client = Client::findOrFail($id);
+      $client = Entreprise::findOrFail($id);
       if ($client->statut == 0) {
         $client->statut = 1;
         $message = "Client ".Sa_name($client->name)." Activé avec <b class='text-success'> Succès.</b>";
