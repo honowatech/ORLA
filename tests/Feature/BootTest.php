@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
-use Database\Seeders\ReferentielSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -33,17 +31,14 @@ class BootTest extends TestCase
 
     public function test_un_visiteur_non_connecte_est_renvoye_vers_la_connexion(): void
     {
-        // Le middleware « auth » a une priorité framework supérieure au contrôle
-        // de licence : il s'exécute en premier.
         $this->get('/')->assertRedirect(route('login'));
+        $this->get('/home')->assertRedirect(route('login'));
+        $this->get('/admin')->assertRedirect(route('login'));
     }
 
-    public function test_sans_licence_un_utilisateur_connecte_est_renvoye_vers_la_page_d_erreur(): void
+    public function test_les_anciennes_pages_d_erreur_de_licence_ont_disparu(): void
     {
-        // Référentiels seuls (types d'utilisateur), sans licence ni comptes de démonstration.
-        $this->seed(ReferentielSeeder::class);
-        $utilisateur = User::factory()->admin()->create();
-
-        $this->actingAs($utilisateur)->get('/')->assertRedirect(route('SuperAdmin.empty_client'));
+        $this->get('/Sc-full_error')->assertNotFound();
+        $this->get('/Sc-no_abonnement')->assertNotFound();
     }
 }

@@ -23,7 +23,7 @@ class CoursierClientSmokeTest extends TestCase
         $client = $this->utilisateurDemo(DemoSeeder::CLIENT_EMAIL);
 
         $this->actingAs($client)->get('/home')->assertRedirect(route('home.client'));
-        $this->actingAs($client)->get('/')->assertOk();
+        $this->actingAs($client)->get('/client')->assertOk();
     }
 
     public function test_un_coursier_ne_peut_pas_ouvrir_l_espace_admin(): void

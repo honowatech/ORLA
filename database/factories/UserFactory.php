@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Entreprise;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -16,6 +17,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'entreprise_id' => Entreprise::factory(),
             'noms' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'telephone' => '6'.fake()->unique()->numerify('########'),
