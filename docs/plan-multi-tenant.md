@@ -209,6 +209,19 @@ Objectif : rendre le projet installable, testable et sain avant toute refonte.
 
 **Critère de sortie R1 :** `SELECT COUNT(*) … WHERE entreprise_id IS NULL` = 0 sur 19 tables ; l'entreprise 1 a `slug`, `id_quartier_siege`, `statut active` ; connexion et création de commande inchangées ; tests d'isolation de base verts (deux entreprises en sqlite).
 
+### 5.7 Bilan d'exécution (phase 1 réalisée)
+
+Réalisé conformément aux §5.1–5.6, avec les écarts suivants, choisis pour ne rien casser avant le refactor des contrôleurs :
+
+- **`entreprises.statut` reste booléen** (1 actif / 0 suspendu, cast `boolean`) au lieu d'une chaîne : c'est la seule décision du Super Admin, les états essai/actif/grâce/expiré sont calculés par `AbonnementService` ; les vues et contrôleurs Super Admin qui comparent `statut == 1` restent valides.
+- **Libellé `type_utilisateur` id 1 non renommé** (toujours « Super Admin ») : ~250 comparaisons de chaînes en dépendent jusqu'au refactor (phases 2–3).
+- **Valeurs `speedex` non remappées** dans `commandes.mode_de_paiement` et `paiement.qui_paie` : seules les colonnes passent d'ENUM à `string(20)` (migration 000006) ; le remplacement par `entreprise` accompagne la suppression des hardcodes (phase 3). Le quartier « Speedex » garde aussi son libellé (les contrôleurs le recherchent ainsi) ; il est simplement référencé par `entreprises.id_quartier_siege`.
+- **Modèles Super Admin** : seuls `SuperAdmin\Client` → `App\Models\Entreprise` et `SuperAdmin\Transaction` → `App\Models\AbonnementTransaction` sont remplacés ; `Abonnement`, `Api` (casts `encrypted`), `Contact`, `Info_transaction`, `SuperAdmin\User` gardent leur nom jusqu'à la réécriture de la console (phase 7).
+- **Flux de paiement legacy conservé et sécurisé** : `Sc-transaction.create/store` passent sous `auth` + `entreprise` (souscription pour l'entreprise courante uniquement), `methode=application` exige la session Super Admin, `show`/`checkpay` restent publics (retour Monetbil) avec `tenancy.bypass`. Le remplacement complet arrive en phase 6.
+- **Pages de blocage** : `abonnement.expire` et `abonnement.suspendue` (contrôleur `Facturation\AbonnementStatutController`) remplacent les quatre pages d'erreur de licence ; l'administrateur d'une entreprise expirée est redirigé vers `Sc-transaction.create`.
+- **Routes** : le groupe client passe de `/` à `/client` ; `/` redirige vers la connexion ou le tableau de bord (le site vitrine prendra la racine en phase 8). Les middlewares `role:` arrivent en phase 2 ; les contrôles de rôle restent dans les contrôleurs.
+- **Tests** : 64 tests verts (scope, isolation entre deux entreprises à travers les contrôleurs existants, connexion/déconnexion, gating par état, audit, seeders, fumée). sqlite applique les clés étrangères : les factories créent leurs parents.
+
 ## 6. Phase 2 — Rôles et guard Super Admin (R1)
 
 - `app/Enums/Role.php`, méthodes sur `User` (`role()`, `hasRole()`, `isAdmin()`, `isAgent()`, `isCoursier()`, `isClient()`, `dashboardRoute()`).
