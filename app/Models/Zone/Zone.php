@@ -2,10 +2,13 @@
 
 namespace App\Models\Zone;
 
+use App\Models\Concerns\BelongsToEntreprise;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Zone extends Model 
 {
+    use BelongsToEntreprise, HasFactory;
 
     protected $table = 'zone';
     public $timestamps = true;

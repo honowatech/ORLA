@@ -2,10 +2,15 @@
 
 namespace App\Models\Ville;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ville extends Model 
+/**
+ * Référentiel de villes partagé par toutes les entreprises (pas de cloisonnement).
+ */
+class Ville extends Model
 {
+    use HasFactory;
 
     protected $table = 'ville';
     public $timestamps = true;

@@ -2,10 +2,13 @@
 
 namespace App\Models\Boutiques;
 
+use App\Models\Concerns\BelongsToEntreprise;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Boutiques extends Model 
 {
+    use BelongsToEntreprise, HasFactory;
 
     protected $table = 'boutiques';
     public $timestamps = true;

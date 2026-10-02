@@ -2,10 +2,13 @@
 
 namespace App\Models\Quartier;
 
+use App\Models\Concerns\BelongsToEntreprise;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Quartier extends Model 
 {
+    use BelongsToEntreprise, HasFactory;
 
     protected $table = 'quartier';
     public $timestamps = true;

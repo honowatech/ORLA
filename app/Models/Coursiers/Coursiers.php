@@ -2,10 +2,13 @@
 
 namespace App\Models\Coursiers;
 
+use App\Models\Concerns\BelongsToEntreprise;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Coursiers extends Model 
 {
+    use BelongsToEntreprise, HasFactory;
 
     protected $table = 'coursiers';
     public $timestamps = true;

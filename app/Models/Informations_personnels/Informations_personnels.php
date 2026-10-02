@@ -2,10 +2,13 @@
 
 namespace App\Models\Informations_personnels;
 
+use App\Models\Concerns\BelongsToEntreprise;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Informations_personnels extends Model 
 {
+    use BelongsToEntreprise, HasFactory;
 
     protected $table = 'informations_personnels';
     public $timestamps = true;

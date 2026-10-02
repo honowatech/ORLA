@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToEntreprise;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Type_vehicule extends Model
 {
-    use HasFactory;
+    use BelongsToEntreprise, HasFactory;
     protected $table = 'type_vehicule';
     public $timestamps = true;
     protected $visible = array('libelle','description','statut');

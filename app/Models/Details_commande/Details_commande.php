@@ -2,10 +2,13 @@
 
 namespace App\Models\Details_commande;
 
+use App\Models\Concerns\BelongsToEntreprise;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Details_commande extends Model 
 {
+    use BelongsToEntreprise, HasFactory;
 
     protected $table = 'details_commande';
     public $timestamps = true;

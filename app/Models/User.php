@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Concerns\BelongsToEntreprise;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,24 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use BelongsToEntreprise, HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * Identifiant du type « administrateur de l'espace » dans type_utilisateur.
+     */
+    public const TYPE_ADMINISTRATEUR = 1;
+
+    /**
+     * Lecture tolérée sans entreprise courante : le fournisseur d'authentification
+     * charge l'utilisateur (connexion, cookie « se souvenir de moi », réinitialisation
+     * de mot de passe) avant que le middleware « entreprise » ait résolu le tenant.
+     */
+    protected static bool $tenancyStrict = false;
+
+    public function estAdministrateur(): bool
+    {
+        return (int) $this->id_type_utilisateur === self::TYPE_ADMINISTRATEUR;
+    }
 
     /**
      * The attributes that are mass assignable.
