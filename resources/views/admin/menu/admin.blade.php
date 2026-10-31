@@ -51,6 +51,24 @@
                 </li>
                 <li class=" navigation-header">Matériel<i data-feather="more-horizontal"></i>
                 </li>
+                <li class=" nav-item"><a class="d-flex align-items-center"><i data-feather='bar-chart-2'></i><span class="menu-title text-truncate" data-i18n="user">Parc automobile</span></a>
+                    <ul class="menu-content">
+                        <li id="ParcTableau"><a class="d-flex align-items-center" href="{{route('parc.index')}}"><i data-feather="circle"></i><span class="menu-item">Tableau de bord</span></a>
+                        </li>
+                        <li id="ParcAlertes"><a class="d-flex align-items-center" href="{{route('parc.alertes')}}"><i data-feather="circle"></i><span class="menu-item">Alertes</span></a>
+                        </li>
+                        <li id="ParcDocuments"><a class="d-flex align-items-center" href="{{route('vehicule_document.index')}}"><i data-feather="circle"></i><span class="menu-item">Documents</span></a>
+                        </li>
+                        <li id="ParcEntretiens"><a class="d-flex align-items-center" href="{{route('vehicule_maintenance.index')}}"><i data-feather="circle"></i><span class="menu-item">Entretiens</span></a>
+                        </li>
+                        <li id="ParcCarburant"><a class="d-flex align-items-center" href="{{route('vehicule_carburant.index')}}"><i data-feather="circle"></i><span class="menu-item">Carburant</span></a>
+                        </li>
+                        <li id="ParcIncidents"><a class="d-flex align-items-center" href="{{route('vehicule_incident.index')}}"><i data-feather="circle"></i><span class="menu-item">Incidents</span></a>
+                        </li>
+                        <li id="ParcCouts"><a class="d-flex align-items-center" href="{{route('parc.couts')}}"><i data-feather="circle"></i><span class="menu-item">Coûts</span></a>
+                        </li>
+                    </ul>
+                </li>
                 <li class=" nav-item"><a class="d-flex align-items-center"><i data-feather='truck'></i><span class="menu-title text-truncate" data-i18n="user">Vecteurs</span></a>
                     <ul class="menu-content">
                         <li class=" nav-item"><a class="d-flex align-items-center"><i data-feather='share-2'></i><span class="menu-title text-truncate" data-i18n="user">Type vecteurs</span></a>

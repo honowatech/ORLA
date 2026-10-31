@@ -79,7 +79,14 @@ class HomeController extends Controller
             'commandes_reussies' => Commandes::where('statut','livre')->get(),
             'commandes_reussies_du_mois' => Commandes::whereMonth('date_livre', Carbon::now()->month)->where('statut','livre')->get(),
         ];
-        return view('admin.pages.home',compact('datas'));
+        $vehicules = \App\Models\Vehicule::where('statut', 1)->with(['type', 'coursier'])->get();
+        $parc = [
+            'actifs' => $vehicules->count(),
+            'disponibles' => $vehicules->where('etat', 'disponible')->count(),
+            'indisponibles' => $vehicules->whereIn('etat', ['en_maintenance', 'immobilise', 'hors_service'])->count(),
+            'alertes' => app(\App\Services\ParcService::class)->alertes($vehicules),
+        ];
+        return view('admin.pages.home',compact('datas', 'parc'));
     }
 
     /**

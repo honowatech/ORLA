@@ -28,10 +28,21 @@
     <div class="card pl-1 pr-1">
             <div class="content-body"> 
                 <div class="row justify-content-between bg-light-secondary" >
-                    <a class="btn btn-primary m-1" href="{{route('vehicule.create')}}"><i data-feather="plus"></i></a>
-                        <form action="{{ route('vehicule.index') }}" class="col-lg-3 mt-1" id="search" method="GET">
+                    <div class="m-1">
+                        <a class="btn btn-primary" href="{{route('vehicule.create')}}" title="Ajouter un véhicule"><i data-feather="plus"></i></a>
+                        <a class="btn btn-outline-primary" href="{{route('parc.index')}}"><i data-feather="bar-chart-2"></i> <span class="d-none d-md-inline">Tableau de bord du parc</span></a>
+                    </div>
+                        <form action="{{ route('vehicule.index') }}" class="col-lg-5 mt-1 form-inline justify-content-end" id="search" method="GET">
                             @csrf
-                            <div class="form-group">
+                            <div class="form-group mr-50 mb-1">
+                                <select name="etat" class="form-control" onchange="this.form.submit()">
+                                    <option value="">Tous les états</option>
+                                    @foreach(\App\Models\Vehicule::ETATS as $cle => $libelle)
+                                        <option value="{{$cle}}" {{ request('etat') == $cle ? 'selected' : '' }}>{{$libelle}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mb-1">
                                 <div class="input-group input-group-merge">
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
@@ -54,6 +65,9 @@
                                         <th>Type</th>
                                         <th>Marque</th>
                                         <th>Modèle</th>
+                                        <th>Coursier</th>
+                                        <th>Kilométrage</th>
+                                        <th>État</th>
                                         {{-- <th>Date création</th> --}}
                                         @if(filter(['routeur','superviseur_ville'],auth()->user()) != 'true')
                                         <th>Ville</th>
@@ -76,7 +90,7 @@
 	                                        	@php $count++ @endphp
 	                                        </td>
                                             <td>
-                                                <span class="font-weight-bolder">{{$vehicule->immatriculation}}</span>
+                                                <a class="font-weight-bolder" href="{{route('vehicule.show',$vehicule->id)}}">{{$vehicule->immatriculation}}</a>
                                             </td>
                                             <td>
                                                 <span class="font-weight-bolder">{{$vehicule->type->libelle}}</span>
@@ -86,6 +100,19 @@
                                             </td>
                                             <td>
                                                 <span>{{$vehicule->modele}}</span>
+                                            </td>
+                                            <td>
+                                                @if($vehicule->coursier)
+                                                    <a href="{{route('coursiers.show',$vehicule->coursier->id)}}">{{$vehicule->coursier->noms}} {{$vehicule->coursier->prenoms}}</a>
+                                                @else
+                                                    <span class="text-muted">-</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span>{{formatMontant($vehicule->kilometrage)}} km</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-glow {{$vehicule->etat_badge}}">{{$vehicule->etat_libelle}}</span>
                                             </td>
 	                                        {{-- <td>
                                                 <span class="badge badge-glow badge-light-dark">Le {{Ladate($vehicule->updated_at)}} à {{Heure($vehicule->updated_at)}}</span>
@@ -110,30 +137,30 @@
                                                         <i data-feather="more-vertical"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        {{-- <a class="dropdown-item " href="{{route('vehicule.show',$vehicule)}}">
+                                                        <a class="dropdown-item " href="{{route('vehicule.show',$vehicule->id)}}">
                                                             <i data-feather="eye" class="mr-50 text-dark"></i>
-                                                            <span class="ml-1">Détails</span>
-                                                        </a> --}}
+                                                            <span class="ml-1">Fiche véhicule</span>
+                                                        </a>
                                                         <a class="dropdown-item " href="{{route('vehicule.edit',$vehicule)}}">
                                                             <i data-feather="edit-2" class="mr-50 text-info"></i>
                                                             <span class="ml-1">Editer</span>
                                                         </a>
                                                         @if($vehicule->statut == 0)
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' Activer le Type de véhicule ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->immatriculation}}',' Activer le véhicule ','button_footer')" data-target="#danger">
                                                                 <i data-feather='check' class="text-success"></i>
                                                                 <span class="ml-1" type="button">
                                                                     Activer
                                                                 </span>
                                                             </span>
                                                         @else
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' Désactiver le Type de véhicule ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->immatriculation}}',' Désactiver le véhicule ','button_footer')" data-target="#danger">
                                                                 <i data-feather='x' class="text-danger"></i>
                                                                 <span class="ml-1" type="button">
                                                                     désactiver
                                                                 </span>
                                                             </span>
                                                         @endif
-                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' supprimer ','button_delete')" data-target="#danger">
+                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->immatriculation}}',' supprimer ','button_delete')" data-target="#danger">
                                                             <i data-feather='trash-2' class="text-danger"></i>
                                                             <span class="ml-1" type="button">
                                                                 Supprimer
@@ -235,7 +262,7 @@
                                     {{-- Next Page Link --}}
                                     @if ($vehicules->hasMorePages())
                                         <li class="page-item">
-                                            <a class="page-link" onclick="mettre({{ $vehicules->currentPage()-1 }})" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                                            <a class="page-link" onclick="mettre({{ $vehicules->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
                                         </li>
                                     @else
                                         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
@@ -275,6 +302,10 @@
 @endsection
 @section('javascript')
 	<script type="text/javascript">
+        function mettre(number_page){
+           document.querySelector('#page').value = number_page;
+           document.querySelector('#search').submit()
+        }
 		document.querySelector('#VehiculeListe').classList.add('active');
 	</script>
 @endsection

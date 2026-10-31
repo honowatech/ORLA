@@ -153,6 +153,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @include('multi.pages.vehicule._champs_parc')
                                             <div class="col-md-8 col-12 mx-auto">
                                                 <div class="form-group">
                                                     <label for="description">description</label>

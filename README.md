@@ -39,6 +39,29 @@ The platform runs as a **SaaS**: a Super Admin onboards client companies, sells 
 - Manage vehicle types and vehicles (registration, model, city, courier assignment).
 - Manage couriers and delivery zones centrally.
 
+### Fleet management (`/multi/parc`)
+
+A complete fleet-management module so delivery companies do not need a separate tool:
+
+- **Vehicle sheet** (`vehicule.show`): identity (VIN, year, fuel, tank, acquisition date/price), operational
+  state (`disponible`, `en_service`, `en_maintenance`, `immobilise`, `hors_service`), odometer, current courier,
+  KPIs (total cost, monthly cost, average consumption L/100 km, cost per km) and per-vehicle alerts.
+- **Regulatory documents**: insurance, technical inspection, registration, tax… with expiry dates, optional
+  scanned file (PDF/image) and automatic *expired* / *to renew within 30 days* alerts.
+- **Maintenance**: planned / in-progress / done / cancelled interventions with cost, provider, mileage, next due
+  date or mileage, automatic planning of the next intervention, and automatic *en_maintenance* state.
+- **Fuel log**: fill-ups with litres, amount, mileage, station and courier; average consumption and price per litre.
+- **Incidents**: accidents, breakdowns, theft, fines… with cost, status and immobilisation (the vehicle is
+  automatically set to *immobilise* until the incident is resolved).
+- **Mileage**: odometer history fed by fuel, maintenance, assignments and manual readings.
+- **Assignment history**: every courier assignment / return is logged with start/end date and mileage.
+- **Fleet dashboard**: fleet state, monthly costs by category vs previous month, alert list, upcoming
+  maintenance, most expensive vehicles, latest incidents.
+- **Cost analysis** per vehicle over a period and **CSV export** (Excel compatible).
+- City supervisors and dispatchers (`routeur`) only see vehicles of their own city.
+
+Uploaded documents are stored in `public/uploads/parc/documents` (ignored by git).
+
 ## Roles
 
 | Role            | Dashboard route   | Purpose                                   |

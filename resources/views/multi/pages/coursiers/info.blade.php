@@ -219,10 +219,12 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                         {{$vehicule->type->libelle}}
                                                     </td>
                                                     <td>
-                                                        {{$vehicule->immatriculation}}
+                                                        <a href="{{route('vehicule.show',$vehicule->id)}}" class="font-weight-bolder">{{$vehicule->immatriculation}}</a>
+                                                        <br><span class="badge badge-glow {{$vehicule->etat_badge}}">{{$vehicule->etat_libelle}}</span>
                                                     </td>
                                                     <td>
-                                                        {{$vehicule->marque}}
+                                                        {{$vehicule->marque}} {{$vehicule->modele}}
+                                                        <br><small class="text-muted">{{formatMontant($vehicule->kilometrage)}} km</small>
                                                     </td>
                                                     <td>
                                                         <div class="cursor-pointer w-25 m-auto" title="Retire la zone à {{$coursier->noms}} {{$coursier->prenoms}}" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','', ' désattribuer <br> {{$vehicule->type->libelle}}_{{$vehicule->immatriculation}} ({{$vehicule->type->marque}} {{$vehicule->marque}}) <br> à {{$coursier->noms}} {{$coursier->prenoms}}','button_remove2')" data-target="#danger">

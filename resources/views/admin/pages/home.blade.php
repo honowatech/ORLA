@@ -105,6 +105,44 @@
                                 <!--/ Line Chart - Profit -->
                             </div>
                         </div>
+                        @if(isset($parc))
+                        <!-- Parc automobile -->
+                        <div class="col-lg-7 col-12">
+                            <div class="card">
+                                <div class="card-header pb-50">
+                                    <h4 class="card-title"><i data-feather="truck" class="text-info mr-50"></i> Parc automobile</h4>
+                                    <a href="{{route('parc.index')}}" class="font-small-3">Tableau de bord</a>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row text-center mb-1">
+                                        <div class="col-4"><h3 class="font-weight-bolder mb-0">{{$parc['actifs']}}</h3><small class="text-muted">Véhicules actifs</small></div>
+                                        <div class="col-4"><h3 class="font-weight-bolder mb-0 {{$parc['disponibles'] > 0 ? 'text-success' : ''}}">{{$parc['disponibles']}}</h3><small class="text-muted">Disponibles</small></div>
+                                        <div class="col-4"><h3 class="font-weight-bolder mb-0 {{$parc['indisponibles'] > 0 ? 'text-danger' : ''}}">{{$parc['indisponibles']}}</h3><small class="text-muted">Immobilisés / en maintenance</small></div>
+                                    </div>
+                                    @if($parc['alertes']->count() > 0)
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach($parc['alertes']->take(4) as $alerte)
+                                            <li class="d-flex align-items-center py-50 border-top">
+                                                <span class="badge badge-light-{{$alerte['niveau']}} mr-1 p-50"><i data-feather="{{$alerte['icone']}}"></i></span>
+                                                <div class="flex-grow-1">
+                                                    <a href="{{route('vehicule.show',[$alerte['vehicule']->id,'onglet'=>$alerte['onglet']])}}" class="font-weight-bolder text-body">{{$alerte['vehicule']->immatriculation}}</a>
+                                                    <span class="text-muted"> · {{$alerte['titre']}}</span>
+                                                    <small class="d-block text-muted">{{$alerte['message']}}</small>
+                                                </div>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                        @if($parc['alertes']->count() > 4)
+                                            <a href="{{route('parc.alertes')}}" class="font-small-3">Voir les {{$parc['alertes']->count()}} alertes</a>
+                                        @endif
+                                    @else
+                                        <p class="text-success mb-0 border-top pt-50"><i data-feather="check-circle"></i> Aucune alerte sur le parc.</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Parc automobile -->
+                        @endif
                     </div>
                     {{-- <div class="row match-height">
                         <!-- Company Table Card -->

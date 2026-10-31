@@ -65,6 +65,20 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 Route::group(['prefix' => '/multi'], function(){
                         Route::resource('type_vehicule', 'App\Http\Controllers\Multi\Type_vehiculeController');
                         Route::resource('vehicule', 'App\Http\Controllers\Multi\VehiculeController');
+                        //--- Gestion de parc automobile ---//
+                        Route::post('/vehicule/{vehicule}/attribuer', [App\Http\Controllers\Multi\VehiculeController::class, 'attribuer'])->name('vehicule.attribuer');
+                        Route::patch('/vehicule/{vehicule}/etat', [App\Http\Controllers\Multi\VehiculeController::class, 'etat'])->name('vehicule.etat');
+                        Route::get('/parc', [App\Http\Controllers\Multi\ParcController::class, 'index'])->name('parc.index');
+                        Route::get('/parc/alertes', [App\Http\Controllers\Multi\ParcController::class, 'alertes'])->name('parc.alertes');
+                        Route::get('/parc/couts', [App\Http\Controllers\Multi\ParcController::class, 'couts'])->name('parc.couts');
+                        Route::get('/parc/export', [App\Http\Controllers\Multi\ParcController::class, 'export'])->name('parc.export');
+                        Route::resource('vehicule_document', 'App\Http\Controllers\Multi\Vehicule_documentController')->only(['index','store','update','destroy']);
+                        Route::get('/vehicule_document/{vehicule_document}/telecharger', [App\Http\Controllers\Multi\Vehicule_documentController::class, 'telecharger'])->name('vehicule_document.telecharger');
+                        Route::resource('vehicule_maintenance', 'App\Http\Controllers\Multi\Vehicule_maintenanceController')->only(['index','store','update','destroy']);
+                        Route::resource('vehicule_carburant', 'App\Http\Controllers\Multi\Vehicule_carburantController')->only(['index','store','update','destroy']);
+                        Route::resource('vehicule_incident', 'App\Http\Controllers\Multi\Vehicule_incidentController')->only(['index','store','update','destroy']);
+                        Route::resource('vehicule_kilometrage', 'App\Http\Controllers\Multi\Vehicule_kilometrageController')->only(['store','destroy']);
+                        //--- fin -- Gestion de parc automobile ---//
                         Route::resource('coursiers', 'App\Http\Controllers\Multi\CoursiersController');      
                         Route::resource('zone', 'App\Http\Controllers\Multi\ZoneController');
                         Route::post('/quartierLie', [App\Http\Controllers\Multi\ZoneController::class, 'quartierLie'])->name('quartierLie');

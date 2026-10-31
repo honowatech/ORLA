@@ -188,10 +188,10 @@ class CoursiersController extends Controller
       $validated = $request->validate([
           'vehicules' => 'bail|required|array',
       ]);
+      $parc = app(\App\Services\ParcService::class);
       foreach($vehicules as $id_vehicule){
         $vehicule = Vehicule::findOrFail($id_vehicule);
-        $vehicule->id_coursier = $id;
-        $vehicule->save();
+        $parc->attribuer($vehicule, $id, null, auth()->id());
         $noms_vehicules .= $vehicule->modele.' '.$vehicule->marque.', ';
       }
       $message = "vehicules ".$noms_vehicules." attribués avec Succès.</b>";
