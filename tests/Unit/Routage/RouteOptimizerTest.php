@@ -51,8 +51,10 @@ class RouteOptimizerTest extends TestCase
     {
         $opt = $this->optimiseur();
         $moto = new ContraintesVehicule(idType: 1);
-        $chemin = $opt->plusCourtChemin(1, 6, strtotime('2026-11-02 08:30'), $moto);
-        $this->assertSame([1, 2, 3, 4, 5, 6], $chemin['chemin']);
+        $camion = new ContraintesVehicule(idType: self::TYPE_CAMION);
+        // la moto contourne par le raccourci 2-5, le camion (interdit sur 2-5) suit toute la ligne
+        $this->assertSame([1, 2, 5, 6], $opt->plusCourtChemin(1, 6, strtotime('2026-11-02 08:30'), $moto)['chemin']);
+        $this->assertSame([1, 2, 3, 4, 5, 6], $opt->plusCourtChemin(1, 6, strtotime('2026-11-02 08:30'), $camion)['chemin']);
     }
 
     public function test_tronçon_interdit_au_type_de_véhicule_est_contourné(): void
