@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ville extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntrepriseOuPartage;
+
 
     protected $table = 'ville';
     public $timestamps = true;

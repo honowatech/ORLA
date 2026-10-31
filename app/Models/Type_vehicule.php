@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type_vehicule extends Model
 {
+    use \App\Models\Concerns\AppartientAEntrepriseOuPartage;
+
     use HasFactory;
     protected $table = 'type_vehicule';
     public $timestamps = true;

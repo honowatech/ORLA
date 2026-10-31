@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paiement extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
 
     protected $table = 'paiement';
     public $timestamps = true;

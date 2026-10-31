@@ -10,46 +10,6 @@ use Carbon\Carbon;
             }
         }
     }
-    if (! function_exists('Sa_check_abonnement')) {
-        function Sa_check_abonnement($clients)
-        {
-            $result = true;
-            $today = Carbon::now();
-            foreach($clients as $client){
-                if ($client->date_fin == null) {
-                    $result = true;
-                    continue;
-                }
-                $date = Carbon::parse($client->date_fin);
-                if (isset($client->abonnement->periode_grace)) {
-                    $date->addDays($client->abonnement->periode_grace);
-                }
-                if (!$date->lt($today)) {
-                    $result = false;
-                    break;
-                }
-            }
-            if($result)
-                return 'true';
-            else
-                return 'login';
-            
-        }
-    }
-    if (! function_exists('Sa_statut')) {
-        function Sa_statut($clients)
-        {
-            $result = true;
-            foreach($clients as $client){
-                if ($client->statut == 1) {
-                    $result = false;
-                    break;
-                }
-            }
-            return $result;
-            
-        }
-    }
     if (!function_exists('Sa_prochaine_date_paie')) {
         function Sa_prochaine_date_paie($type_periode, $accumulateur, $ancienne_date, $nombre_fois) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,7 +68,7 @@ use Carbon\Carbon;
             $service_secret = Monetbil::getServiceSecret();
 
             if (!Monetbil::checkSign($service_secret, $params)) {
-                echo 'erreur';
+                return ['statut' => 'failed'];
             }
 
             $transaction_id = Monetbil::getQuery('transaction_id');

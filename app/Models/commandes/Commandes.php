@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commandes extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
 
     protected $table = 'commandes';
     public $timestamps = true;

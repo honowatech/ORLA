@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\SuperAdmin\User;
 use App\Models\SuperAdmin\Client;
+use App\Tenancy\EntrepriseCourante;
 use App\Models\SuperAdmin\Abonnement;
 use App\Models\SuperAdmin\Contact;
 use App\Models\SuperAdmin\Transaction;
@@ -72,7 +73,8 @@ class TransactionController extends Controller
         'mois' => 'Mois', 
         'annee' => 'An(s)'
         ];
-        $client = Client::where('statut',[1])->first();
+        // L'entreprise qui paie est toujours celle de l'utilisateur connecté
+        $client = Client::where('statut',[1])->find(app(EntrepriseCourante::class)->id());
         $api = Api::where('statut',[1])->where('name','Monetbill')->whereNotNull('key')->whereNotNull('secret')->first();
         if($client == null ){
             $abonnements = Abonnement::where('statut',[2])->orderBy('montant')->get();
@@ -99,10 +101,24 @@ class TransactionController extends Controller
         $abonnement = Abonnement::findOrFail($id_abonnement);
   // dd($name,$telephone,$telephone_secondaire,$salaire,$cni);
   // On enregistre le client
+        // « application » : abonnement attribué manuellement, réservé au Super Admin.
+        // « mobile » : paiement par l'entreprise de l'utilisateur connecté, jamais une autre.
         if ($methode == 'application') {
+            $check = check_superadmin();
+            if($check != 'true'){
+                return redirect()->route($check);
+            }
             $client = Client::findOrFail($id_client);
         }elseif($methode == 'mobile'){
-            $client = Client::where('statut',[1])->first();
+            if (auth()->user() == null) {
+                return redirect()->route('login');
+            }
+            $client = Client::where('statut',[1])->findOrFail(auth()->user()->entreprise_id);
+            $date_debut = null;
+        }else{
+            $message = "<b class='text-danger'> Erreur. </b></br> Echec du lancement du paiement";
+            session()->flash('message',$message);
+            return redirect()->back();
         }
             if ($abonnement->statut != 1) {
                 $message = "<b class='text-danger'> Erreur. </b></br> L'abonnement ".$abonnement->titre." n'est plus actif";
@@ -220,6 +236,9 @@ class TransactionController extends Controller
         'waiting' => 'loader'
         ];
       $transaction = Transaction::findOrFail($id);
+      if (check_superadmin() != 'true' && $transaction->id_client != app(EntrepriseCourante::class)->id()) {
+          abort(404);
+      }
       return view('superadmin.pages.transaction.info',compact('transaction','statuts','statuts_valeurs','statuts_icon'));
     }
 

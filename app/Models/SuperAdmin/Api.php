@@ -15,4 +15,9 @@ class Api extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = array('name','key','user','password','secret','statut');
     protected $visible = array('name','key','user','password','secret','statut');
+    protected $casts = [
+        'key' => 'encrypted',
+        'secret' => 'encrypted',
+        'password' => 'encrypted',
+    ];
 }

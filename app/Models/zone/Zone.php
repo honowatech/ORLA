@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Zone extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
 
     protected $table = 'zone';
     public $timestamps = true;

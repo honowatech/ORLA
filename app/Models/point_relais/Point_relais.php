@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Point_relais extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
 
     protected $table = 'point_relais';
     public $timestamps = true;

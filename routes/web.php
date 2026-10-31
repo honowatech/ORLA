@@ -14,11 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 ///////////////////////////////////////////////////////////// Super Admin
-Route::get('/Sc-no_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'no_abonnement'])->name('SuperAdmin.no_abonnement');
-Route::get('/Sc-empty_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'empty_abonnement'])->name('SuperAdmin.empty_abonnement');
+// Pages d'abonnement et paiement : toujours pour l'entreprise de l'utilisateur connecté
+Route::middleware(['auth', 'entreprise'])->group(function() {
+        Route::get('/Sc-no_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'no_abonnement'])->name('SuperAdmin.no_abonnement');
+        Route::get('/Sc-empty_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'empty_abonnement'])->name('SuperAdmin.empty_abonnement');
+        Route::get('/Sc-site_inactif', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'site_inactif'])->name('SuperAdmin.site_inactif');
+        Route::resource('Sc-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController')->only(['create', 'show']);
+});
 Route::get('/Sc-full_error', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'full_error'])->name('SuperAdmin.empty_client');
-Route::get('/Sc-site_inactif', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'site_inactif'])->name('SuperAdmin.site_inactif');
-Route::resource('Sc-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController');
 Route::get('/Sc-transaction.checkpay/{id_transaction}', [App\Http\Controllers\SuperAdmin\TransactionController::class, 'checkpay'])->name('Sc-transaction.checkpay');
 
 Route::get('/superadmin',function () {return redirect()->route('SuperAdmin.home');});
@@ -52,14 +55,14 @@ Route::group(['prefix' => 'superadmin'], function(){
 
 ///////////////////////////////////////////////////////////// End Super Admin
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Auth::routes();
+Auth::routes(['register' => false]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::middleware('Check_Sa_Client_Error')->group(function() {////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Route::middleware(['auth', 'entreprise'])->group(function() {////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Route::get('/NonAutorisé', [App\Http\Controllers\HomeController::class, 'error'])->name('home.error');
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Route::middleware('auth')->group(function() {
+        Route::middleware('abonnement')->group(function() {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
                 Route::group(['prefix' => '/multi'], function(){
@@ -153,11 +156,3 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
 
         });
 });
-
-Route::get('/teston', function(){
-   $user = App\Models\SuperAdmin\User::find(1);
-   $user->password = Illuminate\Support\Facades\Hash::make('12345678');
-   $user->save();
-});
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

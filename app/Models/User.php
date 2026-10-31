@@ -10,6 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -46,6 +48,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+    /**
+     * Le guard « web » charge l'utilisateur connecté avant que l'entreprise
+     * courante soit connue : ce modèle ne doit donc pas être fermé par défaut.
+     * La connexion se fait par email, unique sur toute la plateforme.
+     */
+    public function filtreStrictSansEntreprise(): bool
+    {
+        return false;
+    }
 
     public function type_utilisateur()
     {
