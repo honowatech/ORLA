@@ -58,6 +58,10 @@ Route::group(['prefix' => 'superadmin'], function(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Auth::routes(['register' => false, 'verify' => true]);
 
+// Pages publiques : suivi d'une livraison par le destinataire, logo des entreprises
+Route::get('/suivi/{jeton}', [App\Http\Controllers\SuiviController::class, 'show'])->middleware('throttle:60,1')->name('suivi');
+Route::get('/entreprises/{slug}/logo', [App\Http\Controllers\Admin\ParametresController::class, 'logo'])->name('entreprise.logo');
+
 // Inscription en libre-service d'une entreprise
 Route::get('/inscription', [App\Http\Controllers\Auth\InscriptionController::class, 'create'])->name('inscription');
 Route::post('/inscription', [App\Http\Controllers\Auth\InscriptionController::class, 'store'])->middleware('throttle:5,10')->name('inscription.store');
@@ -89,6 +93,10 @@ Route::middleware(['auth', 'entreprise'])->group(function() {///////////////////
                         Route::get('/', [App\Http\Controllers\HomeController::class, 'admin'])->name('home.admin');
                         Route::get('/demarrage', [App\Http\Controllers\Admin\DemarrageController::class, 'index'])->name('demarrage');
                         Route::get('/mon-abonnement', [App\Http\Controllers\Admin\MonAbonnementController::class, 'index'])->name('mon_abonnement');
+                        Route::get('/parametres', [App\Http\Controllers\Admin\ParametresController::class, 'edit'])->name('parametres.edit');
+                        Route::put('/parametres', [App\Http\Controllers\Admin\ParametresController::class, 'update'])->name('parametres.update');
+                        Route::get('/journal', [App\Http\Controllers\Admin\JournalController::class, 'index'])->name('journal');
+                        Route::get('/export', [App\Http\Controllers\Admin\ExportController::class, 'telecharger'])->name('export');
                         Route::post('/invitation/{id}', [App\Http\Controllers\Admin\InvitationController::class, 'envoyer'])->name('invitation.envoyer');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');

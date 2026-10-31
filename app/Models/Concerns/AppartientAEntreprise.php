@@ -17,6 +17,7 @@ use Illuminate\Validation\ValidationException;
  * - Sans entreprise courante, une requête HTTP ne renvoie rien (fermé par
  *   défaut) ; seuls la console et EntrepriseCourante::sansFiltre() voient tout.
  * - entreprise_id est rempli automatiquement à la création.
+ * - chaque création, modification et suppression est inscrite au journal d'audit.
  * - les liens vers d'autres données (config tenancy.liens) doivent viser la
  *   même entreprise : sinon l'enregistrement est refusé comme une erreur de saisie.
  */
@@ -51,6 +52,10 @@ trait AppartientAEntreprise
 
             app(\App\Billing\Limites::class)->verifierCreation($model);
         });
+
+        static::created(fn (Model $model) => \App\Models\Journal::enregistrer($model, 'creation'));
+        static::updated(fn (Model $model) => \App\Models\Journal::enregistrer($model, 'modification'));
+        static::deleted(fn (Model $model) => \App\Models\Journal::enregistrer($model, 'suppression'));
     }
 
     public function verifierLiensEntreprise(): void

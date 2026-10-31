@@ -39,7 +39,7 @@ return [
         'zone', 'quartier', 'details_zone', 'montant_livraison',
         'vehicule',
         'boutiques', 'point_relais', 'produits', 'stock',
-        'commandes', 'details_commande', 'paiement', 'activity',
+        'commandes', 'details_commande', 'paiement', 'activity', 'journal',
     ],
 
     'tables_partagees' => ['ville', 'type_vehicule'],
@@ -83,6 +83,7 @@ return [
         'details_commande' => ['id_commande' => 'commandes', 'id_produit' => 'produits'],
         'paiement' => ['id_saver' => 'users', 'id_client' => 'clients'],
         'activity' => ['id_user' => 'users'],
+        'journal' => ['id_user' => 'users'],
     ],
 
 ];

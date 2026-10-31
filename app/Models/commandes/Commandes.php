@@ -8,6 +8,19 @@ class Commandes extends Model
 {
     use \App\Models\Concerns\AppartientAEntreprise;
 
+    protected static function booted(): void
+    {
+        static::creating(function (Commandes $commande) {
+            $commande->jeton_suivi ??= \Illuminate\Support\Str::random(32);
+        });
+    }
+
+    /** Lien public à envoyer au destinataire pour suivre sa livraison. */
+    public function lienSuivi(): string
+    {
+        return route('suivi', $this->jeton_suivi);
+    }
+
 
     protected $table = 'commandes';
     public $timestamps = true;

@@ -42,6 +42,13 @@
                             <div class="col-md-8 card mx-auto">
                                 <div class="card-header">
                                     <h4 class="card-title">Détails sur la commande <small class="text-muted ml-md-1">( {{ucfirst($commande->type_commande)}} )</small></h4>
+                                    @if($commande->jeton_suivi)
+                                    <div class="input-group input-group-sm mt-50" style="max-width: 28rem" title="À envoyer au destinataire : il suit sa livraison sans compte">
+                                        <div class="input-group-prepend"><span class="input-group-text">Lien de suivi</span></div>
+                                        <input type="text" class="form-control" value="{{$commande->lienSuivi()}}" readonly onclick="this.select()">
+                                        <div class="input-group-append"><button type="button" class="btn btn-outline-info" onclick="navigator.clipboard.writeText('{{$commande->lienSuivi()}}'); this.innerText='Copié'">Copier</button></div>
+                                    </div>
+                                    @endif
                                 </div>
                                 <div class="card user-card">
                                     <div class="card-body px-0">
