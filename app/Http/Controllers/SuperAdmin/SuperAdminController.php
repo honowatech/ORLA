@@ -70,6 +70,34 @@ class SuperAdminController extends Controller
             session()->put('dernier_url',url()->current());
             return redirect()->route($check);
         }
-        return view('superadmin.pages.home');
+        $today = \Carbon\Carbon::now();
+        $debut_mois = $today->copy()->startOfMonth();
+        $debut_prec = $today->copy()->subMonth()->startOfMonth();
+        $fin_prec = $today->copy()->subMonth()->endOfMonth();
+        $clients = \App\Models\SuperAdmin\Client::with('abonnement')->orderBy('created_at', 'desc')->get();
+        $transactions_mois = \App\Models\SuperAdmin\Transaction::where('statut', 'success')->where('created_at', '>=', $debut_mois)->get();
+        $transactions_prec = \App\Models\SuperAdmin\Transaction::where('statut', 'success')->whereBetween('created_at', [$debut_prec, $fin_prec])->get();
+        $stats = [
+            'clients' => $clients->count(),
+            'clients_actifs' => $clients->where('statut', 1)->count(),
+            'clients_abonnes' => $clients->where('statut', 1)->filter(function ($c) use ($today) { return $c->date_fin != null && \Carbon\Carbon::parse($c->date_fin)->gte($today); })->count(),
+            'clients_expires' => $clients->where('statut', 1)->filter(function ($c) use ($today) { return $c->date_fin != null && \Carbon\Carbon::parse($c->date_fin)->lt($today); })->count(),
+            'clients_sans_abonnement' => $clients->where('statut', 1)->whereNull('id_abonnement')->count(),
+            'abonnements' => \App\Models\SuperAdmin\Abonnement::where('statut', 1)->count(),
+            'revenu_mois' => (float) $transactions_mois->sum('montant'),
+            'revenu_prec' => (float) $transactions_prec->sum('montant'),
+            'paiements_mois' => $transactions_mois->count(),
+            'paiements_attente' => \App\Models\SuperAdmin\Transaction::where('statut', 'waiting')->count(),
+            'paiements_echoues_mois' => \App\Models\SuperAdmin\Transaction::whereIn('statut', ['failed', 'cancelled'])->where('created_at', '>=', $debut_mois)->count(),
+            'revenu_total' => (float) \App\Models\SuperAdmin\Transaction::where('statut', 'success')->sum('montant'),
+        ];
+        $echeances = $clients->where('statut', 1)->filter(function ($c) use ($today) {
+            return $c->date_fin != null && \Carbon\Carbon::parse($c->date_fin)->lte($today->copy()->addDays(30));
+        })->sortBy('date_fin')->values();
+        $dernieres_transactions = \App\Models\SuperAdmin\Transaction::with(['client', 'abonnement'])->orderBy('created_at', 'desc')->take(8)->get();
+        $repartition_abonnements = $clients->where('statut', 1)->whereNotNull('id_abonnement')
+            ->groupBy(function ($c) { return $c->abonnement ? $c->abonnement->titre : 'Inconnu'; })
+            ->map->count()->sortDesc();
+        return view('superadmin.pages.home', compact('stats', 'echeances', 'dernieres_transactions', 'repartition_abonnements'));
     }
 }

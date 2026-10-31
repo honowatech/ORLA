@@ -5,11 +5,9 @@
 @endsection
 @section('css')
 <style>
-    .parc-kpi .card-body { padding: 1rem; }
-    .parc-kpi h3 { margin-bottom: 0; }
-    .nav-tabs .nav-link .badge { margin-left: .35rem; }
     .parc-fiche dt { font-weight: 500; color: #6e6b7b; }
     .parc-fiche dd { font-weight: 600; }
+    .nav-tabs .nav-link .badge { margin-left: .35rem; }
 </style>
 @endsection
 @section('contenu')
@@ -44,14 +42,14 @@
             <div class="row">
                 {{-- Identité du véhicule --}}
                 <div class="col-xl-4 col-lg-5 col-md-12">
-                    <div class="card">
+                    <div class="card panel-card panel-primary">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start flex-wrap">
                                 <div>
                                     <h3 class="font-weight-bolder mb-25">{{$vehicule->immatriculation}}</h3>
                                     <p class="mb-50 text-muted">{{$vehicule->marque}} {{$vehicule->modele}} @if($vehicule->annee) ({{$vehicule->annee}}) @endif</p>
                                 </div>
-                                <div class="avatar bg-light-primary p-50 m-0"><div class="avatar-content"><i data-feather="truck" class="font-medium-5"></i></div></div>
+                                <span class="stat-icon stat-primary" style="--sx-color: var(--sx-primary); width:46px;height:46px;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;color:var(--sx-color);background:rgba(115,103,240,.14)"><i data-feather="truck"></i></span>
                             </div>
                             <div class="mb-1">
                                 <span class="badge badge-glow {{$vehicule->etat_badge}}">{{$vehicule->etat_libelle}}</span>
@@ -99,79 +97,37 @@
 
                 {{-- Indicateurs --}}
                 <div class="col-xl-8 col-lg-7 col-md-12">
-                    <div class="row match-height parc-kpi">
+                    <div class="row">
                         <div class="col-md-4 col-sm-6">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <div class="avatar bg-light-primary p-50 mb-50"><div class="avatar-content"><i data-feather="dollar-sign" class="font-medium-4"></i></div></div>
-                                    <h3 class="font-weight-bolder">{{formatMontant($indicateurs['cout_total'])}}</h3>
-                                    <p class="card-text mb-0">Coût total (FCFA)</p>
-                                    <small class="text-muted">Ce mois : {{formatMontant($indicateurs['cout_mois'])}}</small>
-                                </div>
-                            </div>
+                            @include('partials.stat_card', ['petite' => true, 'couleur' => 'primary', 'icone' => 'dollar-sign', 'valeur' => formatMontant($indicateurs['cout_total']), 'unite' => 'FCFA', 'libelle' => 'Coût total', 'note' => 'Ce mois : '.formatMontant($indicateurs['cout_mois']).' FCFA'])
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <div class="avatar bg-light-warning p-50 mb-50"><div class="avatar-content"><i data-feather="droplet" class="font-medium-4"></i></div></div>
-                                    <h3 class="font-weight-bolder">{{$indicateurs['consommation'] !== null ? $indicateurs['consommation'].' L' : '-'}}</h3>
-                                    <p class="card-text mb-0">Consommation /100 km</p>
-                                    <small class="text-muted">{{formatMontant($indicateurs['litres_total'])}} L · {{formatMontant($indicateurs['cout_carburant'])}} FCFA</small>
-                                </div>
-                            </div>
+                            @include('partials.stat_card', ['petite' => true, 'couleur' => 'warning', 'icone' => 'droplet', 'valeur' => $indicateurs['consommation'] !== null ? $indicateurs['consommation'] : '-', 'unite' => $indicateurs['consommation'] !== null ? 'L/100 km' : '', 'libelle' => 'Consommation moyenne', 'note' => formatMontant($indicateurs['litres_total']).' L · '.formatMontant($indicateurs['cout_carburant']).' FCFA'])
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <div class="avatar bg-light-info p-50 mb-50"><div class="avatar-content"><i data-feather="trending-up" class="font-medium-4"></i></div></div>
-                                    <h3 class="font-weight-bolder">{{$indicateurs['cout_km'] !== null ? $indicateurs['cout_km'] : '-'}}</h3>
-                                    <p class="card-text mb-0">Coût au km (FCFA)</p>
-                                    <small class="text-muted">Entretien : {{formatMontant($indicateurs['cout_maintenance'])}} FCFA</small>
-                                </div>
-                            </div>
+                            @include('partials.stat_card', ['petite' => true, 'couleur' => 'info', 'icone' => 'trending-up', 'valeur' => $indicateurs['cout_km'] !== null ? $indicateurs['cout_km'] : '-', 'unite' => $indicateurs['cout_km'] !== null ? 'FCFA/km' : '', 'libelle' => 'Coût au kilomètre', 'note' => 'Entretien : '.formatMontant($indicateurs['cout_maintenance']).' FCFA'])
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <div class="avatar {{$indicateurs['documents_echeance'] > 0 ? 'bg-light-danger' : 'bg-light-success'}} p-50 mb-50"><div class="avatar-content"><i data-feather="file-text" class="font-medium-4"></i></div></div>
-                                    <h3 class="font-weight-bolder">{{$indicateurs['documents_echeance']}}</h3>
-                                    <p class="card-text mb-0">Document(s) à renouveler</p>
-                                    <small class="text-muted">{{$documents->count()}} document(s) au total</small>
-                                </div>
-                            </div>
+                            @include('partials.stat_card', ['petite' => true, 'couleur' => $indicateurs['documents_echeance'] > 0 ? 'danger' : 'success', 'icone' => 'file-text', 'valeur' => $indicateurs['documents_echeance'], 'libelle' => 'Document(s) à renouveler', 'note' => $documents->count().' document(s) au total'])
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <div class="avatar {{$indicateurs['maintenances_dues'] > 0 ? 'bg-light-warning' : 'bg-light-success'}} p-50 mb-50"><div class="avatar-content"><i data-feather="tool" class="font-medium-4"></i></div></div>
-                                    <h3 class="font-weight-bolder">{{$indicateurs['maintenances_dues']}}</h3>
-                                    <p class="card-text mb-0">Entretien(s) à faire</p>
-                                    <small class="text-muted">{{$maintenances->where('statut','realise')->count()}} réalisé(s)</small>
-                                </div>
-                            </div>
+                            @include('partials.stat_card', ['petite' => true, 'couleur' => $indicateurs['maintenances_dues'] > 0 ? 'warning' : 'success', 'icone' => 'tool', 'valeur' => $indicateurs['maintenances_dues'], 'libelle' => 'Entretien(s) à faire', 'note' => $maintenances->where('statut','realise')->count().' réalisé(s)'])
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <div class="avatar {{$indicateurs['incidents_ouverts'] > 0 ? 'bg-light-danger' : 'bg-light-success'}} p-50 mb-50"><div class="avatar-content"><i data-feather="alert-triangle" class="font-medium-4"></i></div></div>
-                                    <h3 class="font-weight-bolder">{{$indicateurs['incidents_ouverts']}}</h3>
-                                    <p class="card-text mb-0">Incident(s) ouvert(s)</p>
-                                    <small class="text-muted">{{$incidents->count()}} au total · {{formatMontant($indicateurs['cout_incidents'])}} FCFA</small>
-                                </div>
-                            </div>
+                            @include('partials.stat_card', ['petite' => true, 'couleur' => $indicateurs['incidents_ouverts'] > 0 ? 'danger' : 'success', 'icone' => 'alert-triangle', 'valeur' => $indicateurs['incidents_ouverts'], 'libelle' => 'Incident(s) ouvert(s)', 'note' => $incidents->count().' au total · '.formatMontant($indicateurs['cout_incidents']).' FCFA'])
                         </div>
                     </div>
                     @if($alertes->count() > 0)
-                    <div class="card">
-                        <div class="card-header pb-50"><h4 class="card-title"><i data-feather="bell" class="text-warning mr-50"></i> Alertes ({{$alertes->count()}})</h4></div>
-                        <div class="card-body pt-0">
-                            <ul class="list-unstyled mb-0">
+                    <div class="card panel-card panel-warning">
+                        <div class="card-header"><h4 class="card-title"><span class="panel-icon"><i data-feather="bell"></i></span> Alertes <span class="badge badge-light-warning sx-badge-soft">{{$alertes->count()}}</span></h4></div>
+                        <div class="card-body">
+                            <ul class="sx-list">
                                 @foreach($alertes as $alerte)
-                                <li class="d-flex align-items-center py-50 border-bottom">
-                                    <span class="badge badge-light-{{$alerte['niveau']}} mr-1"><i data-feather="{{$alerte['icone']}}"></i></span>
-                                    <div class="flex-grow-1">
-                                        <a href="{{route('vehicule.show',[$vehicule->id,'onglet'=>$alerte['onglet']])}}" class="font-weight-bolder text-body">{{$alerte['titre']}}</a>
-                                        <small class="d-block text-muted">{{$alerte['message']}}</small>
+                                <li class="is-{{$alerte['niveau']}}">
+                                    <span class="sx-list-icon"><i data-feather="{{$alerte['icone']}}"></i></span>
+                                    <div class="sx-list-body">
+                                        <span class="sx-list-title"><a href="{{route('vehicule.show',[$vehicule->id,'onglet'=>$alerte['onglet']])}}">{{$alerte['titre']}}</a></span>
+                                        <small class="sx-list-sub">{{$alerte['message']}}</small>
                                     </div>
                                 </li>
                                 @endforeach
@@ -183,7 +139,7 @@
             </div>
 
             {{-- Onglets --}}
-            <div class="card">
+            <div class="card panel-card panel-secondary">
                 <div class="card-body">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item"><a class="nav-link {{$onglet=='documents'?'active':''}}" data-toggle="tab" href="#onglet_documents" role="tab"><i data-feather="file-text"></i> Documents <span class="badge badge-pill badge-light-primary">{{$documents->count()}}</span></a></li>
@@ -215,7 +171,7 @@
                                             </td>
                                             <td>{{$doc->montant ? formatMontant($doc->montant).' FCFA' : '-'}}</td>
                                             <td>
-                                                <span class="badge badge-glow {{$doc->etat_badge}}">{{$doc->etat_libelle}}</span>
+                                                <span class="badge sx-badge-soft {{str_replace('badge-','badge-light-',$doc->etat_badge)}}">{{$doc->etat_libelle}}</span>
                                                 @if($doc->jours_restants !== null)<br><small class="text-muted">{{$doc->jours_restants < 0 ? 'depuis '.abs($doc->jours_restants).' j' : 'dans '.$doc->jours_restants.' j'}}</small>@endif
                                             </td>
                                             <td class="text-center text-nowrap">
@@ -243,7 +199,7 @@
                                     <thead><tr><th>Entretien</th><th>Prévu</th><th>Réalisé</th><th>Km</th><th>Coût</th><th>Prestataire</th><th>Prochaine échéance</th><th>Statut</th><th class="text-center">Actions</th></tr></thead>
                                     <tbody>
                                     @forelse($maintenances as $m)
-                                        <tr class="{{$m->en_retard ? 'table-danger' : ''}}">
+                                        <tr class="{{$m->en_retard ? 'sx-row-danger' : ''}}">
                                             <td><span class="font-weight-bolder">{{$m->libelle}}</span><br><small class="text-muted">{{$m->type_libelle}}</small></td>
                                             <td>{{$m->date_prevue ? Ladate($m->date_prevue) : '-'}}</td>
                                             <td>{{$m->date_realisation ? Ladate($m->date_realisation) : '-'}}</td>
@@ -251,7 +207,7 @@
                                             <td>{{$m->cout ? formatMontant($m->cout).' FCFA' : '-'}}</td>
                                             <td>{{$m->prestataire ?: '-'}}</td>
                                             <td><small>@if($m->prochaine_date){{Ladate($m->prochaine_date)}}@endif @if($m->prochain_kilometrage)<br>{{formatMontant($m->prochain_kilometrage)}} km @endif @if(!$m->prochaine_date && !$m->prochain_kilometrage)-@endif</small></td>
-                                            <td><span class="badge badge-glow {{$m->statut_badge}}">{{$m->statut_libelle}}</span>@if($m->en_retard)<br><small class="text-danger">en retard</small>@endif</td>
+                                            <td><span class="badge sx-badge-soft {{str_replace('badge-','badge-light-',$m->statut_badge)}}">{{$m->statut_libelle}}</span>@if($m->en_retard)<br><small class="text-danger">en retard</small>@endif</td>
                                             <td class="text-center text-nowrap">
                                                 @if(in_array($m->statut,['planifie','en_cours']))
                                                 <button type="button" class="btn btn-sm btn-icon btn-flat-success" title="Marquer réalisé" data-modal="#modal_maintenance" data-action="{{route('vehicule_maintenance.update',$m->id)}}" data-method="PUT" data-titre="Clôturer l'entretien" data-json='{{ json_encode(array_merge($m->only(['type','libelle','description','date_prevue','kilometrage','cout','prestataire','prochaine_date','prochain_kilometrage']), ['statut' => 'realise', 'date_realisation' => date('Y-m-d'), 'kilometrage' => $m->kilometrage ?: $vehicule->kilometrage, 'planifier_suivant' => 1])) }}' onclick="parcOuvrir(this)"><i data-feather="check-circle"></i></button>
@@ -319,7 +275,7 @@
                                             <td>{{$inc->lieu ?: '-'}}</td>
                                             <td>{{$inc->coursier ? $inc->coursier->noms.' '.$inc->coursier->prenoms : '-'}}</td>
                                             <td>{{$inc->cout ? formatMontant($inc->cout).' FCFA' : '-'}}</td>
-                                            <td><span class="badge badge-glow {{$inc->statut_badge}}">{{$inc->statut_libelle}}</span>@if($inc->date_resolution)<br><small class="text-muted">le {{Ladate($inc->date_resolution)}}</small>@endif</td>
+                                            <td><span class="badge sx-badge-soft {{str_replace('badge-','badge-light-',$inc->statut_badge)}}">{{$inc->statut_libelle}}</span>@if($inc->date_resolution)<br><small class="text-muted">le {{Ladate($inc->date_resolution)}}</small>@endif</td>
                                             <td class="text-center text-nowrap">
                                                 <button type="button" class="btn btn-sm btn-icon btn-flat-info" title="Modifier" data-modal="#modal_incident" data-action="{{route('vehicule_incident.update',$inc->id)}}" data-method="PUT" data-titre="Modifier l'incident" data-json='{{ json_encode(array_merge($inc->only(['id_coursier','type','lieu','description','cout','statut','date_resolution','immobilise']), ['date' => \Carbon\Carbon::parse($inc->date)->format('Y-m-d\TH:i')])) }}' onclick="parcOuvrir(this)"><i data-feather="edit-2"></i></button>
                                                 <button type="button" class="btn btn-sm btn-icon btn-flat-danger" title="Supprimer" onclick="remplir('{{route('vehicule_incident.destroy',$inc->id)}}','{{$inc->type_libelle}} du {{Ladate($inc->date)}}',' supprimer cet incident ','button_delete_parc')"><i data-feather="trash-2"></i></button>
@@ -373,7 +329,7 @@
                                     <thead><tr><th>Coursier</th><th>Début</th><th>Fin</th><th>Durée</th><th>Km début</th><th>Km fin</th><th>Distance</th></tr></thead>
                                     <tbody>
                                     @forelse($attributions as $a)
-                                        <tr class="{{$a->date_fin == null ? 'table-success' : ''}}">
+                                        <tr class="{{$a->date_fin == null ? 'sx-row-success' : ''}}">
                                             <td class="font-weight-bolder">@if($a->coursier)<a href="{{route('coursiers.show',$a->coursier->id)}}">{{$a->coursier->noms}} {{$a->coursier->prenoms}}</a>@else -@endif</td>
                                             <td>{{Ladate($a->date_debut)}} <small class="text-muted">{{Heure($a->date_debut)}}</small></td>
                                             <td>@if($a->date_fin){{Ladate($a->date_fin)}} <small class="text-muted">{{Heure($a->date_fin)}}</small>@else<span class="badge badge-light-success">En cours</span>@endif</td>

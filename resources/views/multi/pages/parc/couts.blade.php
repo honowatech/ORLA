@@ -10,8 +10,8 @@
     <div class="content-wrapper">
         @include('multi.pages.parc._entete', ['titre' => 'Analyse des coûts', 'sous_menu' => 'couts'])
         <div class="content-body">
-            <div class="card">
-                <div class="card-header flex-wrap pb-50">
+            <div class="card panel-card panel-primary sx-table-card">
+                <div class="card-header flex-wrap">
                     <form method="GET" action="{{route('parc.couts')}}" class="form-inline">
                         <label class="mr-50">Du</label>
                         <input type="date" name="debut" class="form-control form-control-sm mr-1" value="{{$debut}}">

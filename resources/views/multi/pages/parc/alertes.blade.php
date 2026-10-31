@@ -10,8 +10,8 @@
     <div class="content-wrapper">
         @include('multi.pages.parc._entete', ['titre' => 'Alertes du parc', 'sous_menu' => 'alertes'])
         <div class="content-body">
-            <div class="card">
-                <div class="card-header pb-50 flex-wrap">
+            <div class="card panel-card panel-warning sx-table-card">
+                <div class="card-header flex-wrap">
                     <h4 class="card-title">{{$alertes->count()}} alerte(s)</h4>
                     <div class="btn-group btn-group-sm flex-wrap">
                         <a href="{{route('parc.alertes')}}" class="btn {{!$type ? 'btn-primary' : 'btn-outline-primary'}}">Toutes</a>

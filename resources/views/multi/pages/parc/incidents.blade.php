@@ -10,13 +10,19 @@
     <div class="content-wrapper">
         @include('multi.pages.parc._entete', ['titre' => 'Incidents et sinistres', 'sous_menu' => 'incidents'])
         <div class="content-body">
-            <div class="row match-height">
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-danger mr-2 p-50"><div class="avatar-content"><i data-feather="alert-triangle" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$compteurs['ouverts']}}</h3><p class="card-text mb-0">Incidents ouverts</p></div></div></div></div>
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-warning mr-2 p-50"><div class="avatar-content"><i data-feather="slash" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$compteurs['immobilises']}}</h3><p class="card-text mb-0">Véhicules immobilisés</p></div></div></div></div>
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-primary mr-2 p-50"><div class="avatar-content"><i data-feather="dollar-sign" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{formatMontant($compteurs['cout_total'])}}</h3><p class="card-text mb-0">FCFA de coûts cumulés</p></div></div></div></div>
+            <div class="row">
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => $compteurs['ouverts'] > 0 ? 'danger' : 'success', 'icone' => 'alert-triangle', 'valeur' => $compteurs['ouverts'], 'libelle' => 'Incidents ouverts'])
+                </div>
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => $compteurs['immobilises'] > 0 ? 'warning' : 'secondary', 'icone' => 'slash', 'valeur' => $compteurs['immobilises'], 'libelle' => 'Véhicules immobilisés'])
+                </div>
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => 'primary', 'icone' => 'dollar-sign', 'valeur' => formatMontant($compteurs['cout_total']), 'libelle' => 'Coûts cumulés', 'note' => 'FCFA'])
+                </div>
             </div>
-            <div class="card">
-                <div class="card-header flex-wrap pb-50">
+            <div class="card panel-card panel-secondary sx-table-card">
+                <div class="card-header flex-wrap">
                     <form method="GET" action="{{route('vehicule_incident.index')}}" class="form-inline" style="gap:.5rem">
                         <select name="statut" class="form-control form-control-sm" onchange="this.form.submit()">
                             <option value="">Tous les statuts</option>
@@ -51,7 +57,7 @@
                                 <td>{{$inc->lieu ?: '-'}}</td>
                                 <td>{{$inc->coursier ? $inc->coursier->noms.' '.$inc->coursier->prenoms : '-'}}</td>
                                 <td>{{$inc->cout ? formatMontant($inc->cout).' FCFA' : '-'}}</td>
-                                <td><span class="badge badge-glow {{$inc->statut_badge}}">{{$inc->statut_libelle}}</span></td>
+                                <td><span class="badge sx-badge-soft {{str_replace('badge-','badge-light-',$inc->statut_badge)}}">{{$inc->statut_libelle}}</span></td>
                                 <td class="text-center text-nowrap">
                                     <button type="button" class="btn btn-sm btn-icon btn-flat-info" title="Modifier" data-modal="#modal_incident" data-action="{{route('vehicule_incident.update',$inc->id)}}" data-method="PUT" data-titre="Modifier l'incident" data-json='{{ json_encode(array_merge($inc->only(['id_coursier','type','lieu','description','cout','statut','date_resolution','immobilise']), ['id_vehicule' => $inc->id_vehicule, 'date' => \Carbon\Carbon::parse($inc->date)->format('Y-m-d\TH:i')])) }}' onclick="parcOuvrir(this)"><i data-feather="edit-2"></i></button>
                                     <button type="button" class="btn btn-sm btn-icon btn-flat-danger" title="Supprimer" onclick="remplir('{{route('vehicule_incident.destroy',$inc->id)}}','{{$inc->type_libelle}} du {{Ladate($inc->date)}}',' supprimer cet incident ','button_delete_parc')"><i data-feather="trash-2"></i></button>

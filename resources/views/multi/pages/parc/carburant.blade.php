@@ -10,14 +10,22 @@
     <div class="content-wrapper">
         @include('multi.pages.parc._entete', ['titre' => 'Journal de carburant', 'sous_menu' => 'carburant'])
         <div class="content-body">
-            <div class="row match-height">
-                <div class="col-md-3 col-sm-6"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-warning mr-2 p-50"><div class="avatar-content"><i data-feather="dollar-sign" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{formatMontant($totaux['montant'])}}</h3><p class="card-text mb-0">FCFA sur la période</p></div></div></div></div>
-                <div class="col-md-3 col-sm-6"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-info mr-2 p-50"><div class="avatar-content"><i data-feather="droplet" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{formatMontant($totaux['litres'])}}</h3><p class="card-text mb-0">Litres</p></div></div></div></div>
-                <div class="col-md-3 col-sm-6"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-primary mr-2 p-50"><div class="avatar-content"><i data-feather="tag" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$totaux['prix_litre'] ?: '-'}}</h3><p class="card-text mb-0">Prix moyen / litre</p></div></div></div></div>
-                <div class="col-md-3 col-sm-6"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-secondary mr-2 p-50"><div class="avatar-content"><i data-feather="list" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$totaux['pleins']}}</h3><p class="card-text mb-0">Pleins</p></div></div></div></div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    @include('partials.stat_card', ['couleur' => 'warning', 'icone' => 'dollar-sign', 'valeur' => formatMontant($totaux['montant']), 'libelle' => 'Montant sur la période', 'note' => 'FCFA'])
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    @include('partials.stat_card', ['couleur' => 'info', 'icone' => 'droplet', 'valeur' => formatMontant($totaux['litres']), 'libelle' => 'Litres'])
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    @include('partials.stat_card', ['couleur' => 'primary', 'icone' => 'tag', 'valeur' => $totaux['prix_litre'] ?: '-', 'libelle' => 'Prix moyen / litre'])
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    @include('partials.stat_card', ['couleur' => 'secondary', 'icone' => 'list', 'valeur' => $totaux['pleins'], 'libelle' => 'Pleins'])
+                </div>
             </div>
-            <div class="card">
-                <div class="card-header flex-wrap pb-50">
+            <div class="card panel-card panel-secondary sx-table-card">
+                <div class="card-header flex-wrap">
                     <form method="GET" action="{{route('vehicule_carburant.index')}}" class="form-inline" style="gap:.5rem">
                         <label>Du</label><input type="date" name="debut" class="form-control form-control-sm" value="{{$debut}}">
                         <label>au</label><input type="date" name="fin" class="form-control form-control-sm" value="{{$fin}}">

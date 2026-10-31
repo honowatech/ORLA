@@ -10,13 +10,19 @@
     <div class="content-wrapper">
         @include('multi.pages.parc._entete', ['titre' => 'Documents réglementaires', 'sous_menu' => 'documents'])
         <div class="content-body">
-            <div class="row match-height">
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-danger mr-2 p-50"><div class="avatar-content"><i data-feather="x-octagon" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$compteurs['expire']}}</h3><p class="card-text mb-0">Expiré(s)</p></div></div></div></div>
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-warning mr-2 p-50"><div class="avatar-content"><i data-feather="clock" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$compteurs['bientot']}}</h3><p class="card-text mb-0">À renouveler sous 30 jours</p></div></div></div></div>
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-primary mr-2 p-50"><div class="avatar-content"><i data-feather="file-text" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$compteurs['total']}}</h3><p class="card-text mb-0">Documents enregistrés</p></div></div></div></div>
+            <div class="row">
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => 'danger', 'icone' => 'x-octagon', 'valeur' => $compteurs['expire'], 'libelle' => 'Expirés'])
+                </div>
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => 'warning', 'icone' => 'clock', 'valeur' => $compteurs['bientot'], 'libelle' => 'À renouveler sous 30 jours'])
+                </div>
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => 'primary', 'icone' => 'file-text', 'valeur' => $compteurs['total'], 'libelle' => 'Documents enregistrés'])
+                </div>
             </div>
-            <div class="card">
-                <div class="card-header flex-wrap pb-50">
+            <div class="card panel-card panel-secondary sx-table-card">
+                <div class="card-header flex-wrap">
                     <form method="GET" action="{{route('vehicule_document.index')}}" class="form-inline" style="gap:.5rem">
                         <select name="etat" class="form-control form-control-sm" onchange="this.form.submit()">
                             <option value="">Tous les états</option>
@@ -49,7 +55,7 @@
                                 <td>{{$doc->fournisseur ?: '-'}}</td>
                                 <td class="text-nowrap">{{$doc->date_expiration ? Ladate($doc->date_expiration) : 'sans échéance'}}</td>
                                 <td>{{$doc->montant ? formatMontant($doc->montant).' FCFA' : '-'}}</td>
-                                <td><span class="badge badge-glow {{$doc->etat_badge}}">{{$doc->etat_libelle}}</span>@if($doc->jours_restants !== null)<br><small class="text-muted">{{$doc->jours_restants < 0 ? 'depuis '.abs($doc->jours_restants).' j' : 'dans '.$doc->jours_restants.' j'}}</small>@endif</td>
+                                <td><span class="badge sx-badge-soft {{str_replace('badge-','badge-light-',$doc->etat_badge)}}">{{$doc->etat_libelle}}</span>@if($doc->jours_restants !== null)<br><small class="text-muted">{{$doc->jours_restants < 0 ? 'depuis '.abs($doc->jours_restants).' j' : 'dans '.$doc->jours_restants.' j'}}</small>@endif</td>
                                 <td class="text-center text-nowrap">
                                     @if($doc->fichier)<a href="{{route('vehicule_document.telecharger',$doc->id)}}" class="btn btn-sm btn-icon btn-flat-dark" title="Télécharger"><i data-feather="download"></i></a>@endif
                                     <a href="{{route('vehicule.show',[$doc->id_vehicule,'onglet'=>'documents'])}}" class="btn btn-sm btn-icon btn-flat-primary" title="Fiche véhicule"><i data-feather="arrow-right-circle"></i></a>

@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="col-12 mb-2">
-        <ul class="nav nav-pills flex-wrap" style="gap:.25rem">
+        <ul class="nav nav-pills flex-wrap sx-subnav" style="gap:.25rem">
             <li class="nav-item"><a class="nav-link {{ $sous_menu == 'tableau' ? 'active' : '' }}" href="{{route('parc.index')}}"><i data-feather="bar-chart-2"></i> Tableau de bord</a></li>
             <li class="nav-item"><a class="nav-link {{ $sous_menu == 'vehicules' ? 'active' : '' }}" href="{{route('vehicule.index')}}"><i data-feather="truck"></i> Véhicules</a></li>
             <li class="nav-item"><a class="nav-link {{ $sous_menu == 'alertes' ? 'active' : '' }}" href="{{route('parc.alertes')}}"><i data-feather="bell"></i> Alertes</a></li>

@@ -71,6 +71,7 @@
             margin-right: 1rem;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/speedex-dashboard.css') }}">
     @yield('css')
 
 </head>

@@ -5,688 +5,208 @@
     {{'Speedex Home'}}
 @endsection
 @section('contenu')
+@php
+    $statuts = [
+        'attente' => ['primary', 'clock', 'En attente'],
+        'attribue' => ['info', 'user-check', 'Attribuée'],
+        'encours' => ['dark', 'loader', 'En cours'],
+        'livre' => ['success', 'check', 'Livrée'],
+        'annulee' => ['danger', 'alert-triangle', 'Annulée'],
+        'echoue' => ['warning', 'slash', 'Échouée'],
+        'supprime' => ['secondary', 'trash-2', 'Supprimée'],
+    ];
+    $livrees_mois = $datas['commandes_reussies_du_mois']->count();
+    $livrees_prec = $datas['commandes_reussies_mois_precedent']->count();
+    $ca_mois = $datas['commandes_reussies_du_mois']->sum('montant_livraison');
+    $ca_prec = $datas['commandes_reussies_mois_precedent']->sum('montant_livraison');
+    $variation_ca = $ca_prec > 0 ? round((($ca_mois - $ca_prec) / $ca_prec) * 100) : null;
+    $variation_livrees = $livrees_prec > 0 ? round((($livrees_mois - $livrees_prec) / $livrees_prec) * 100) : null;
+    $taux_reussite = $datas['commandes_mois'] > 0 ? round(($livrees_mois / $datas['commandes_mois']) * 100) : null;
+    $en_cours_total = $datas['commandes_attente'] + $datas['commandes_attribuees'] + $datas['commandes_encours'];
+    $max_pipeline = max(1, $datas['commandes_attente'], $datas['commandes_attribuees'], $datas['commandes_encours']);
+@endphp
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
             <div class="content-header row">
-            </div>
-            <div class="content-body">
-                <!-- Dashboard Ecommerce Starts -->
-                <section id="dashboard-ecommerce">
-                    <div class="row match-height">
-
-                        <!-- Statistics Card -->
+                <div class="content-header-left col-md-12 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <div class="card card-statistics">
-                                <div class="card-header">
-                                    <h4 class="card-title">Statistiques</h4>
-                                    <div class="d-flex align-items-center">
-                                        <p class="card-text font-small-2 mr-25 mb-0">mis à jour <span class="temps"></span></p>
-                                    </div>
-                                </div>
-                                <div class="card-body statistics-body">
-                                    <div class="row">
-                                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
-                                            <div class="media">
-                                                <div class="avatar bg-light-secondary mr-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="truck" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="media-body my-auto">
-                                                    <h4 class="font-weight-bolder px-2 mb-0">{{$datas['coursiers']->count()}}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Coursiers</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
-                                            <div class="media">
-                                                <div class="avatar bg-light-success mr-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="layers" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="media-body my-auto">
-                                                    <h4 class="font-weight-bolder px-2 mb-0">{{$datas['clients_entreprise']->count()}}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Clients Entreprise</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
-                                            <div class="media">
-                                                <div class="avatar bg-light-dark mr-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="users" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="media-body my-auto">
-                                                    <h4 class="font-weight-bolder px-2 mb-0">{{$datas['clients_simple']->count()}}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Clients Simple</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-sm-6 col-12">
-                                            <div class="media">
-                                                <div class="avatar bg-light-info mr-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="shopping-cart" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="media-body my-auto">
-                                                    <h4 class="font-weight-bolder px-2 mb-0">{{$datas['commandes_reussies']->count()}}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Commandes Réussies</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <h2 class="content-header-title float-left mb-0">Tableau de bord</h2>
+                            <div class="breadcrumb-wrapper">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item active">{{ Ladate(now()) }} · mis à jour <span class="temps"></span></li>
+                                </ol>
                             </div>
                         </div>
-                        <!--/ Statistics Card -->
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <section id="dashboard-admin">
+
+                    {{-- Indicateurs principaux --}}
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            @include('partials.stat_card', ['couleur' => 'primary', 'icone' => 'zap', 'valeur' => $datas['coursiers']->count(), 'libelle' => 'Coursiers actifs', 'note' => $datas['commandes_encours'].' livraison(s) en cours', 'lien' => route('coursiers.index')])
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            @include('partials.stat_card', ['couleur' => 'info', 'icone' => 'users', 'valeur' => $datas['clients_entreprise']->count() + $datas['clients_simple']->count(), 'libelle' => 'Clients', 'note' => $datas['clients_entreprise']->count().' entreprise(s) · '.$datas['clients_simple']->count().' particulier(s)', 'lien' => route('clients.index')])
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            @include('partials.stat_card', ['couleur' => 'success', 'icone' => 'check-circle', 'valeur' => $livrees_mois, 'libelle' => 'Livrées ce mois', 'note' => ($variation_livrees !== null ? '<span class="stat-trend text-'.($variation_livrees >= 0 ? 'success' : 'danger').'">'.($variation_livrees >= 0 ? '+' : '').$variation_livrees.' %</span> vs mois précédent' : $datas['commandes_reussies']->count().' livrées au total'), 'lien' => route('commandes.index')])
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            @include('partials.stat_card', ['couleur' => 'warning', 'icone' => 'dollar-sign', 'valeur' => formatMontant($ca_mois), 'unite' => 'XAF', 'libelle' => "Chiffre d'affaires du mois", 'note' => ($variation_ca !== null ? '<span class="stat-trend text-'.($variation_ca >= 0 ? 'success' : 'danger').'">'.($variation_ca >= 0 ? '+' : '').$variation_ca.' %</span> vs '.formatMontant($ca_prec).' XAF' : 'Frais de livraison encaissés')])
+                        </div>
                     </div>
 
                     <div class="row match-height">
-                        <div class="col-lg-5 col-12 mx-auto">
-                            <div class="row match-height">
-
-                                <!-- Line Chart - Profit -->
-                                <div class="col-lg-6 col-md-4 col-8 mx-auto">
-                                    <div class="card card-tiny-line-stats">
-                                        <div class="card-header text">
-                                            <h6 >Chiffre d'Affaire du mois</h6>
+                        {{-- Flux des commandes --}}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card panel-card panel-primary">
+                                <div class="card-header">
+                                    <h4 class="card-title"><span class="panel-icon"><i data-feather="shopping-cart"></i></span> Commandes à traiter</h4>
+                                    <a href="{{route('commandes.index')}}" class="panel-link">Voir tout</a>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-end justify-content-between mb-1">
+                                        <div>
+                                            <h2 class="font-weight-bolder mb-0">{{ $en_cours_total }}</h2>
+                                            <small class="text-muted">commande(s) non livrée(s)</small>
                                         </div>
-                                        <div class="card-body pb-50">
-                                            <h2 class="font-weight-bolder text-center mb-1">{{$datas['commandes_reussies_du_mois']->sum('montant_livraison')}} XAF</h2>
+                                        <span class="badge badge-light-{{ $datas['commandes_du_jour'] > 0 ? 'warning' : 'success' }} sx-badge-soft">{{ $datas['commandes_du_jour'] }} prévue(s) aujourd'hui</span>
+                                    </div>
+                                    @foreach([['attente', $datas['commandes_attente']], ['attribue', $datas['commandes_attribuees']], ['encours', $datas['commandes_encours']]] as [$cle, $nombre])
+                                    <div class="sx-bar-row">
+                                        <div class="sx-bar-meta">
+                                            <span><span class="sx-dot bg-{{ $statuts[$cle][0] }}"></span>{{ $statuts[$cle][2] }}</span>
+                                            <span class="font-weight-bolder">{{ $nombre }}</span>
                                         </div>
+                                        <div class="sx-bar"><span class="bg-{{ $statuts[$cle][0] }}" style="width: {{ round($nombre / $max_pipeline * 100) }}%"></span></div>
+                                    </div>
+                                    @endforeach
+                                    <hr class="my-1">
+                                    <div class="d-flex justify-content-between font-small-3">
+                                        <span class="text-muted">Taux de réussite du mois</span>
+                                        <span class="font-weight-bolder {{ $taux_reussite !== null && $taux_reussite < 80 ? 'text-warning' : 'text-success' }}">{{ $taux_reussite !== null ? $taux_reussite.' %' : '-' }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between font-small-3">
+                                        <span class="text-muted">Annulées / échouées ce mois</span>
+                                        <span class="font-weight-bolder {{ $datas['commandes_echouees_mois'] > 0 ? 'text-danger' : '' }}">{{ $datas['commandes_echouees_mois'] }}</span>
                                     </div>
                                 </div>
-                                <!--/ Line Chart - Profit -->
                             </div>
                         </div>
+
+                        {{-- Top coursiers --}}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card panel-card panel-success">
+                                <div class="card-header">
+                                    <h4 class="card-title"><span class="panel-icon"><i data-feather="award"></i></span> Coursiers du mois</h4>
+                                    <a href="{{route('coursiers.index')}}" class="panel-link">Équipe</a>
+                                </div>
+                                <div class="card-body">
+                                    @php $max_top = max(1, $datas['top_coursiers']->max('total') ?? 0); @endphp
+                                    @forelse($datas['top_coursiers'] as $ligne)
+                                    <div class="sx-bar-row">
+                                        <div class="sx-bar-meta">
+                                            <span class="text-truncate">
+                                                @if($ligne->coursier)
+                                                    <a href="{{route('coursiers.show',$ligne->coursier->id)}}" class="text-body">{{ $ligne->coursier->noms }} {{ $ligne->coursier->prenoms }}</a>
+                                                @else
+                                                    Coursier supprimé
+                                                @endif
+                                            </span>
+                                            <span class="font-weight-bolder">{{ $ligne->total }} <small class="text-muted">livr.</small></span>
+                                        </div>
+                                        <div class="sx-bar"><span class="bg-success" style="width: {{ round($ligne->total / $max_top * 100) }}%"></span></div>
+                                    </div>
+                                    @empty
+                                    <div class="sx-empty"><i data-feather="award"></i> Aucune livraison effectuée ce mois-ci.</div>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Parc automobile --}}
                         @if(isset($parc))
-                        <!-- Parc automobile -->
-                        <div class="col-lg-7 col-12">
-                            <div class="card">
-                                <div class="card-header pb-50">
-                                    <h4 class="card-title"><i data-feather="truck" class="text-info mr-50"></i> Parc automobile</h4>
-                                    <a href="{{route('parc.index')}}" class="font-small-3">Tableau de bord</a>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="card panel-card panel-info">
+                                <div class="card-header">
+                                    <h4 class="card-title"><span class="panel-icon"><i data-feather="truck"></i></span> Parc automobile</h4>
+                                    <a href="{{route('parc.index')}}" class="panel-link">Tableau de bord</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="row text-center mb-1">
-                                        <div class="col-4"><h3 class="font-weight-bolder mb-0">{{$parc['actifs']}}</h3><small class="text-muted">Véhicules actifs</small></div>
-                                        <div class="col-4"><h3 class="font-weight-bolder mb-0 {{$parc['disponibles'] > 0 ? 'text-success' : ''}}">{{$parc['disponibles']}}</h3><small class="text-muted">Disponibles</small></div>
-                                        <div class="col-4"><h3 class="font-weight-bolder mb-0 {{$parc['indisponibles'] > 0 ? 'text-danger' : ''}}">{{$parc['indisponibles']}}</h3><small class="text-muted">Immobilisés / en maintenance</small></div>
+                                        <div class="col-4"><h3 class="font-weight-bolder mb-0">{{$parc['actifs']}}</h3><small class="text-muted">Actifs</small></div>
+                                        <div class="col-4"><h3 class="font-weight-bolder mb-0 text-success">{{$parc['disponibles']}}</h3><small class="text-muted">Disponibles</small></div>
+                                        <div class="col-4"><h3 class="font-weight-bolder mb-0 {{$parc['indisponibles'] > 0 ? 'text-danger' : ''}}">{{$parc['indisponibles']}}</h3><small class="text-muted">Indisponibles</small></div>
                                     </div>
                                     @if($parc['alertes']->count() > 0)
-                                        <ul class="list-unstyled mb-0">
+                                        <ul class="sx-list">
                                             @foreach($parc['alertes']->take(4) as $alerte)
-                                            <li class="d-flex align-items-center py-50 border-top">
-                                                <span class="badge badge-light-{{$alerte['niveau']}} mr-1 p-50"><i data-feather="{{$alerte['icone']}}"></i></span>
-                                                <div class="flex-grow-1">
-                                                    <a href="{{route('vehicule.show',[$alerte['vehicule']->id,'onglet'=>$alerte['onglet']])}}" class="font-weight-bolder text-body">{{$alerte['vehicule']->immatriculation}}</a>
-                                                    <span class="text-muted"> · {{$alerte['titre']}}</span>
-                                                    <small class="d-block text-muted">{{$alerte['message']}}</small>
+                                            <li class="is-{{$alerte['niveau']}}">
+                                                <span class="sx-list-icon"><i data-feather="{{$alerte['icone']}}"></i></span>
+                                                <div class="sx-list-body">
+                                                    <span class="sx-list-title"><a href="{{route('vehicule.show',[$alerte['vehicule']->id,'onglet'=>$alerte['onglet']])}}">{{$alerte['vehicule']->immatriculation}}</a> · {{$alerte['titre']}}</span>
+                                                    <small class="sx-list-sub">{{$alerte['message']}}</small>
                                                 </div>
                                             </li>
                                             @endforeach
                                         </ul>
                                         @if($parc['alertes']->count() > 4)
-                                            <a href="{{route('parc.alertes')}}" class="font-small-3">Voir les {{$parc['alertes']->count()}} alertes</a>
+                                            <a href="{{route('parc.alertes')}}" class="d-block mt-75 font-small-3 font-weight-bolder">Voir les {{$parc['alertes']->count()}} alertes</a>
                                         @endif
                                     @else
-                                        <p class="text-success mb-0 border-top pt-50"><i data-feather="check-circle"></i> Aucune alerte sur le parc.</p>
+                                        <div class="sx-empty text-success"><i data-feather="check-circle"></i> Aucune alerte sur le parc.</div>
                                     @endif
                                 </div>
                             </div>
                         </div>
-                        <!--/ Parc automobile -->
                         @endif
                     </div>
-                    {{-- <div class="row match-height">
-                        <!-- Company Table Card -->
-                        <div class="col-lg-8 col-12">
-                            <div class="card card-company-table">
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Company</th>
-                                                    <th>Category</th>
-                                                    <th>Views</th>
-                                                    <th>Revenue</th>
-                                                    <th>Sales</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar rounded">
-                                                                <div class="avatar-content">
-                                                                    <img src="{{asset('app-assets/images/icons/toolbox.svg')}}" alt="Toolbar svg" />
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="font-weight-bolder">Dixons</div>
-                                                                <div class="font-small-2 text-muted">meguc@ruj.io</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-light-primary mr-1">
-                                                                <div class="avatar-content">
-                                                                    <i data-feather="monitor" class="font-medium-3"></i>
-                                                                </div>
-                                                            </div>
-                                                            <span>Technology</span>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-nowrap">
-                                                        <div class="d-flex flex-column">
-                                                            <span class="font-weight-bolder mb-25">23.4k</span>
-                                                            <span class="font-small-2 text-muted">in 24 hours</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$891.2</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="font-weight-bolder mr-1">68%</span>
-                                                            <i data-feather="trending-down" class="text-danger font-medium-1"></i>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar rounded">
-                                                                <div class="avatar-content">
-                                                                    <img src="{{asset('app-assets/images/icons/parachute.svg')}}" alt="Parachute svg" />
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="font-weight-bolder">Motels</div>
-                                                                <div class="font-small-2 text-muted">vecav@hodzi.co.uk</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-light-success mr-1">
-                                                                <div class="avatar-content">
-                                                                    <i data-feather="coffee" class="font-medium-3"></i>
-                                                                </div>
-                                                            </div>
-                                                            <span>Grocery</span>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-nowrap">
-                                                        <div class="d-flex flex-column">
-                                                            <span class="font-weight-bolder mb-25">78k</span>
-                                                            <span class="font-small-2 text-muted">in 2 days</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$668.51</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="font-weight-bolder mr-1">97%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar rounded">
-                                                                <div class="avatar-content">
-                                                                    <img src="{{asset('app-assets/images/icons/brush.svg')}}" alt="Brush svg" />
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="font-weight-bolder">Zipcar</div>
-                                                                <div class="font-small-2 text-muted">davcilse@is.gov</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-light-warning mr-1">
-                                                                <div class="avatar-content">
-                                                                    <i data-feather="watch" class="font-medium-3"></i>
-                                                                </div>
-                                                            </div>
-                                                            <span>Fashion</span>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-nowrap">
-                                                        <div class="d-flex flex-column">
-                                                            <span class="font-weight-bolder mb-25">162</span>
-                                                            <span class="font-small-2 text-muted">in 5 days</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$522.29</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="font-weight-bolder mr-1">62%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar rounded">
-                                                                <div class="avatar-content">
-                                                                    <img src="{{asset('app-assets/images/icons/star.svg')}}" alt="Star svg" />
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="font-weight-bolder">Owning</div>
-                                                                <div class="font-small-2 text-muted">us@cuhil.gov</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-light-primary mr-1">
-                                                                <div class="avatar-content">
-                                                                    <i data-feather="monitor" class="font-medium-3"></i>
-                                                                </div>
-                                                            </div>
-                                                            <span>Technology</span>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-nowrap">
-                                                        <div class="d-flex flex-column">
-                                                            <span class="font-weight-bolder mb-25">214</span>
-                                                            <span class="font-small-2 text-muted">in 24 hours</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$291.01</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="font-weight-bolder mr-1">88%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar rounded">
-                                                                <div class="avatar-content">
-                                                                    <img src="{{asset('app-assets/images/icons/book.svg')}}" alt="Book svg" />
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="font-weight-bolder">Cafés</div>
-                                                                <div class="font-small-2 text-muted">pudais@jife.com</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-light-success mr-1">
-                                                                <div class="avatar-content">
-                                                                    <i data-feather="coffee" class="font-medium-3"></i>
-                                                                </div>
-                                                            </div>
-                                                            <span>Grocery</span>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-nowrap">
-                                                        <div class="d-flex flex-column">
-                                                            <span class="font-weight-bolder mb-25">208</span>
-                                                            <span class="font-small-2 text-muted">in 1 week</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$783.93</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="font-weight-bolder mr-1">16%</span>
-                                                            <i data-feather="trending-down" class="text-danger font-medium-1"></i>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar rounded">
-                                                                <div class="avatar-content">
-                                                                    <img src="{{asset('app-assets/images/icons/rocket.svg')}}" alt="Rocket svg" />
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="font-weight-bolder">Kmart</div>
-                                                                <div class="font-small-2 text-muted">bipri@cawiw.com</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-light-warning mr-1">
-                                                                <div class="avatar-content">
-                                                                    <i data-feather="watch" class="font-medium-3"></i>
-                                                                </div>
-                                                            </div>
-                                                            <span>Fashion</span>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-nowrap">
-                                                        <div class="d-flex flex-column">
-                                                            <span class="font-weight-bolder mb-25">990</span>
-                                                            <span class="font-small-2 text-muted">in 1 month</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$780.05</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="font-weight-bolder mr-1">78%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar rounded">
-                                                                <div class="avatar-content">
-                                                                    <img src="{{asset('app-assets/images/icons/speaker.svg')}}" alt="Speaker svg" />
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="font-weight-bolder">Payers</div>
-                                                                <div class="font-small-2 text-muted">luk@izug.io</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-light-warning mr-1">
-                                                                <div class="avatar-content">
-                                                                    <i data-feather="watch" class="font-medium-3"></i>
-                                                                </div>
-                                                            </div>
-                                                            <span>Fashion</span>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-nowrap">
-                                                        <div class="d-flex flex-column">
-                                                            <span class="font-weight-bolder mb-25">12.9k</span>
-                                                            <span class="font-small-2 text-muted">in 12 hours</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>$531.49</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="font-weight-bolder mr-1">42%</span>
-                                                            <i data-feather="trending-up" class="text-success font-medium-1"></i>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/ Company Table Card -->
 
-                        <!-- Developer Meetup Card -->
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="card card-developer-meetup">
-                                <div class="meetup-img-wrapper rounded-top text-center">
-                                    <img src="{{asset('app-assets/images/illustration/email.svg')}}" alt="Meeting Pic" height="170" />
-                                </div>
-                                <div class="card-body">
-                                    <div class="meetup-header d-flex align-items-center">
-                                        <div class="meetup-day">
-                                            <h6 class="mb-0">THU</h6>
-                                            <h3 class="mb-0">24</h3>
-                                        </div>
-                                        <div class="my-auto">
-                                            <h4 class="card-title mb-25">Developer Meetup</h4>
-                                            <p class="card-text mb-0">Meet world popular developers</p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="avatar bg-light-primary rounded mr-1">
-                                            <div class="avatar-content">
-                                                <i data-feather="calendar" class="avatar-icon font-medium-3"></i>
-                                            </div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="mb-0">Sat, May 25, 2020</h6>
-                                            <small>10:AM to 6:PM</small>
-                                        </div>
-                                    </div>
-                                    <div class="media mt-2">
-                                        <div class="avatar bg-light-primary rounded mr-1">
-                                            <div class="avatar-content">
-                                                <i data-feather="map-pin" class="avatar-icon font-medium-3"></i>
-                                            </div>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="mb-0">Central Park</h6>
-                                            <small>Manhattan, New york City</small>
-                                        </div>
-                                    </div>
-                                    <div class="avatar-group">
-                                        <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Billy Hopkins" class="avatar pull-up">
-                                            <img src="{{asset('app-assets/images/portrait/small/avatar-s-9.jpg')}}" alt="Avatar" width="33" height="33" />
-                                        </div>
-                                        <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Amy Carson" class="avatar pull-up">
-                                            <img src="{{asset('app-assets/images/portrait/small/avatar-s-6.jpg')}}" alt="Avatar" width="33" height="33" />
-                                        </div>
-                                        <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Brandon Miles" class="avatar pull-up">
-                                            <img src="{{asset('app-assets/images/portrait/small/avatar-s-8.jpg')}}" alt="Avatar" width="33" height="33" />
-                                        </div>
-                                        <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Daisy Weber" class="avatar pull-up">
-                                            <img src="{{asset('app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="Avatar" width="33" height="33" />
-                                        </div>
-                                        <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Jenny Looper" class="avatar pull-up">
-                                            <img src="{{asset('app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="Avatar" width="33" height="33" />
-                                        </div>
-                                        <h6 class="align-self-center cursor-pointer ml-50 mb-0">+42</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/ Developer Meetup Card -->
-
-                        <!-- Browser States Card -->
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="card card-browser-states">
+                    {{-- Dernières commandes --}}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card panel-card panel-secondary sx-table-card">
                                 <div class="card-header">
-                                    <div>
-                                        <h4 class="card-title">Browser States</h4>
-                                        <p class="card-text font-small-2">Counter August 2020</p>
-                                    </div>
-                                    <div class="dropdown chart-dropdown">
-                                        <i data-feather="more-vertical" class="font-medium-3 cursor-pointer" data-toggle="dropdown"></i>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-                                        </div>
-                                    </div>
+                                    <h4 class="card-title"><span class="panel-icon"><i data-feather="activity"></i></span> Dernières commandes</h4>
+                                    <a href="{{route('commandes.create')}}" class="btn btn-sm btn-primary"><i data-feather="plus"></i> Nouvelle commande</a>
                                 </div>
-                                <div class="card-body">
-                                    <div class="browser-states">
-                                        <div class="media">
-                                            <img src="{{asset('app-assets/images/icons/google-chrome.png')}}" class="rounded mr-1" height="30" alt="Google Chrome" />
-                                            <h6 class="align-self-center mb-0">Google Chrome</h6>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="font-weight-bold text-body-heading mr-1">54.4%</div>
-                                            <div id="browser-state-chart-primary"></div>
-                                        </div>
-                                    </div>
-                                    <div class="browser-states">
-                                        <div class="media">
-                                            <img src="{{asset('app-assets/images/icons/mozila-firefox.png')}}" class="rounded mr-1" height="30" alt="Mozila Firefox" />
-                                            <h6 class="align-self-center mb-0">Mozila Firefox</h6>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="font-weight-bold text-body-heading mr-1">6.1%</div>
-                                            <div id="browser-state-chart-warning"></div>
-                                        </div>
-                                    </div>
-                                    <div class="browser-states">
-                                        <div class="media">
-                                            <img src="{{asset('app-assets/images/icons/apple-safari.png')}}" class="rounded mr-1" height="30" alt="Apple Safari" />
-                                            <h6 class="align-self-center mb-0">Apple Safari</h6>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="font-weight-bold text-body-heading mr-1">14.6%</div>
-                                            <div id="browser-state-chart-secondary"></div>
-                                        </div>
-                                    </div>
-                                    <div class="browser-states">
-                                        <div class="media">
-                                            <img src="{{asset('app-assets/images/icons/internet-explorer.png')}}" class="rounded mr-1" height="30" alt="Internet Explorer" />
-                                            <h6 class="align-self-center mb-0">Internet Explorer</h6>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="font-weight-bold text-body-heading mr-1">4.2%</div>
-                                            <div id="browser-state-chart-info"></div>
-                                        </div>
-                                    </div>
-                                    <div class="browser-states">
-                                        <div class="media">
-                                            <img src="{{asset('app-assets/images/icons/opera.png')}}" class="rounded mr-1" height="30" alt="Opera Mini" />
-                                            <h6 class="align-self-center mb-0">Opera Mini</h6>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="font-weight-bold text-body-heading mr-1">8.4%</div>
-                                            <div id="browser-state-chart-danger"></div>
-                                        </div>
-                                    </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr><th>Client</th><th>Livraison</th><th>Coursier</th><th class="text-right">Frais</th><th>Date prévue</th><th>Statut</th><th></th></tr>
+                                        </thead>
+                                        <tbody>
+                                        @forelse($datas['dernieres_commandes'] as $commande)
+                                            @php $st = $statuts[$commande->statut] ?? ['secondary', 'help-circle', $commande->statut]; @endphp
+                                            <tr>
+                                                <td>
+                                                    <span class="font-weight-bolder text-uppercase">{{ $commande->id_client == null ? cutText((string) $commande->nom_client, 22) : cutText($commande->client->noms.' '.$commande->client->Prenoms, 22) }}</span>
+                                                    <br><small class="text-muted">{{ $commande->type_commande == 'entreprise' ? 'Entreprise' : 'Particulier' }}</small>
+                                                </td>
+                                                <td>{{ $commande->quartier_livraison ? $commande->quartier_livraison->libelle : cutText((string) $commande->adresse_livraison, 25) }}</td>
+                                                <td>{{ $commande->coursier ? $commande->coursier->noms.' '.$commande->coursier->prenoms : '-' }}</td>
+                                                <td class="text-right">{{ formatMontant($commande->montant_livraison) }} XAF</td>
+                                                <td class="text-nowrap">{{ $commande->date_livraison ? Ladate($commande->date_livraison) : '-' }}</td>
+                                                <td><span class="badge badge-light-{{ $st[0] }} sx-badge-soft"><i data-feather="{{ $st[1] }}" style="width:12px;height:12px"></i> {{ $st[2] }}</span></td>
+                                                <td class="text-right"><a href="{{route('commandes.show',$commande->id)}}" class="btn btn-sm btn-icon btn-flat-primary"><i data-feather="arrow-right-circle"></i></a></td>
+                                            </tr>
+                                        @empty
+                                            <tr><td colspan="7"><div class="sx-empty"><i data-feather="inbox"></i> Aucune commande enregistrée pour le moment.</div></td></tr>
+                                        @endforelse
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                        <!--/ Browser States Card -->
-
-                        <!-- Goal Overview Card -->
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Goal Overview</h4>
-                                    <i data-feather="help-circle" class="font-medium-3 text-muted cursor-pointer"></i>
-                                </div>
-                                <div class="card-body p-0">
-                                    <div id="goal-overview-radial-bar-chart" class="my-2"></div>
-                                    <div class="row border-top text-center mx-0">
-                                        <div class="col-6 border-right py-1">
-                                            <p class="card-text text-muted mb-0">Completed</p>
-                                            <h3 class="font-weight-bolder mb-0">786,617</h3>
-                                        </div>
-                                        <div class="col-6 py-1">
-                                            <p class="card-text text-muted mb-0">In Progress</p>
-                                            <h3 class="font-weight-bolder mb-0">13,561</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/ Goal Overview Card -->
-
-                        <!-- Transaction Card -->
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="card card-transaction">
-                                <div class="card-header">
-                                    <h4 class="card-title">Transactions</h4>
-                                    <div class="dropdown chart-dropdown">
-                                        <i data-feather="more-vertical" class="font-medium-3 cursor-pointer" data-toggle="dropdown"></i>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="transaction-item">
-                                        <div class="media">
-                                            <div class="avatar bg-light-primary rounded">
-                                                <div class="avatar-content">
-                                                    <i data-feather="pocket" class="avatar-icon font-medium-3"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="transaction-title">Wallet</h6>
-                                                <small>Starbucks</small>
-                                            </div>
-                                        </div>
-                                        <div class="font-weight-bolder text-danger">- $74</div>
-                                    </div>
-                                    <div class="transaction-item">
-                                        <div class="media">
-                                            <div class="avatar bg-light-success rounded">
-                                                <div class="avatar-content">
-                                                    <i data-feather="check" class="avatar-icon font-medium-3"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="transaction-title">Bank Transfer</h6>
-                                                <small>Add Money</small>
-                                            </div>
-                                        </div>
-                                        <div class="font-weight-bolder text-success">+ $480</div>
-                                    </div>
-                                    <div class="transaction-item">
-                                        <div class="media">
-                                            <div class="avatar bg-light-danger rounded">
-                                                <div class="avatar-content">
-                                                    <i data-feather="dollar-sign" class="avatar-icon font-medium-3"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="transaction-title">Paypal</h6>
-                                                <small>Add Money</small>
-                                            </div>
-                                        </div>
-                                        <div class="font-weight-bolder text-success">+ $590</div>
-                                    </div>
-                                    <div class="transaction-item">
-                                        <div class="media">
-                                            <div class="avatar bg-light-warning rounded">
-                                                <div class="avatar-content">
-                                                    <i data-feather="credit-card" class="avatar-icon font-medium-3"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="transaction-title">Mastercard</h6>
-                                                <small>Ordered Food</small>
-                                            </div>
-                                        </div>
-                                        <div class="font-weight-bolder text-danger">- $23</div>
-                                    </div>
-                                    <div class="transaction-item">
-                                        <div class="media">
-                                            <div class="avatar bg-light-info rounded">
-                                                <div class="avatar-content">
-                                                    <i data-feather="trending-up" class="avatar-icon font-medium-3"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="transaction-title">Transfer</h6>
-                                                <small>Refund</small>
-                                            </div>
-                                        </div>
-                                        <div class="font-weight-bolder text-success">+ $98</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/ Transaction Card -->
-                    </div> --}}
+                    </div>
                 </section>
-                <!-- Dashboard Ecommerce ends -->
-
             </div>
         </div>
     </div>
@@ -705,10 +225,8 @@
             const heures = Math.floor((intervalle % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
             const minutes = Math.floor((intervalle % (60 * 60 * 1000)) / (60 * 1000));
             const secondes = Math.floor((intervalle % (60 * 1000)) / 1000);
-                  // console.log(dateActuelle)
-                  // console.log(dateSoumise)
             if (secondes != 0 && minutes == 0 && heures == 0 && jours == 0 && mois == 0 && annees == 0) {
-                return `Maintenant`;
+                return `à l'instant`;
             } else if (minutes != 0 && heures == 0 && jours == 0 && mois == 0 && annees == 0) {
                 return `il y a ${minutes} minutes`;
             } else if (heures != 0 && jours == 0 && mois == 0 && annees == 0) {
@@ -724,7 +242,7 @@
         setInterval(function(){
             var options = document.querySelectorAll('.temps');
             options.forEach((option) => {
-                temps = tempsEcoule('{{strtotime(now())}}'); 
+                temps = tempsEcoule('{{strtotime(now())}}');
                 if (temps != option.innerHTML) {
                     option.innerHTML = temps;
                 }

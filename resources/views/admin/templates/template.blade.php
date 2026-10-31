@@ -104,6 +104,7 @@ use Illuminate\Support\Facades\Auth;
         }
 
     </style>
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/speedex-dashboard.css') }}">
     @yield('css')
 
 </head>

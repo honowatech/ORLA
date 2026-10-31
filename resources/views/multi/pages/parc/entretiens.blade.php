@@ -10,13 +10,19 @@
     <div class="content-wrapper">
         @include('multi.pages.parc._entete', ['titre' => 'Entretiens et réparations', 'sous_menu' => 'entretiens'])
         <div class="content-body">
-            <div class="row match-height">
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-danger mr-2 p-50"><div class="avatar-content"><i data-feather="alert-circle" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$compteurs['retard']}}</h3><p class="card-text mb-0">En retard</p></div></div></div></div>
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-info mr-2 p-50"><div class="avatar-content"><i data-feather="calendar" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{$compteurs['a_venir']}}</h3><p class="card-text mb-0">Planifiés / en cours</p></div></div></div></div>
-                <div class="col-md-4"><div class="card"><div class="card-body d-flex align-items-center"><div class="avatar bg-light-success mr-2 p-50"><div class="avatar-content"><i data-feather="dollar-sign" class="font-medium-5"></i></div></div><div><h3 class="font-weight-bolder mb-0">{{formatMontant($compteurs['cout_mois'])}}</h3><p class="card-text mb-0">FCFA dépensés ce mois</p></div></div></div></div>
+            <div class="row">
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => $compteurs['retard'] > 0 ? 'danger' : 'success', 'icone' => 'alert-circle', 'valeur' => $compteurs['retard'], 'libelle' => 'En retard'])
+                </div>
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => 'info', 'icone' => 'calendar', 'valeur' => $compteurs['a_venir'], 'libelle' => 'Planifiés / en cours'])
+                </div>
+                <div class="col-md-4">
+                    @include('partials.stat_card', ['couleur' => 'warning', 'icone' => 'dollar-sign', 'valeur' => formatMontant($compteurs['cout_mois']), 'libelle' => 'Dépensés ce mois', 'note' => 'FCFA, entretiens réalisés'])
+                </div>
             </div>
-            <div class="card">
-                <div class="card-header flex-wrap pb-50">
+            <div class="card panel-card panel-secondary sx-table-card">
+                <div class="card-header flex-wrap">
                     <form method="GET" action="{{route('vehicule_maintenance.index')}}" class="form-inline" style="gap:.5rem">
                         <select name="statut" class="form-control form-control-sm" onchange="this.form.submit()">
                             <option value="">Tous les statuts</option>
@@ -44,7 +50,7 @@
                         <thead><tr><th>Véhicule</th><th>Entretien</th><th>Prévu</th><th>Réalisé</th><th>Km</th><th>Coût</th><th>Prestataire</th><th>Statut</th><th class="text-center">Actions</th></tr></thead>
                         <tbody>
                         @forelse($maintenances as $m)
-                            <tr class="{{$m->en_retard ? 'table-danger' : ''}}">
+                            <tr class="{{$m->en_retard ? 'sx-row-danger' : ''}}">
                                 <td><a href="{{route('vehicule.show',[$m->id_vehicule,'onglet'=>'entretiens'])}}" class="font-weight-bolder">{{$m->vehicule ? $m->vehicule->immatriculation : '-'}}</a><br><small class="text-muted">{{$m->vehicule ? $m->vehicule->marque.' '.$m->vehicule->modele : ''}} @if($m->vehicule) · {{formatMontant($m->vehicule->kilometrage)}} km @endif</small></td>
                                 <td><span class="font-weight-bolder">{{$m->libelle}}</span><br><small class="text-muted">{{$m->type_libelle}}</small></td>
                                 <td class="text-nowrap">{{$m->date_prevue ? Ladate($m->date_prevue) : '-'}}@if($m->prochain_kilometrage && !$m->date_realisation)<br><small class="text-muted">ou {{formatMontant($m->prochain_kilometrage)}} km</small>@endif</td>
@@ -52,7 +58,7 @@
                                 <td>{{$m->kilometrage ? formatMontant($m->kilometrage) : '-'}}</td>
                                 <td>{{$m->cout ? formatMontant($m->cout).' FCFA' : '-'}}</td>
                                 <td>{{$m->prestataire ?: '-'}}</td>
-                                <td><span class="badge badge-glow {{$m->statut_badge}}">{{$m->statut_libelle}}</span>@if($m->en_retard)<br><small class="text-danger">en retard</small>@endif</td>
+                                <td><span class="badge sx-badge-soft {{str_replace('badge-','badge-light-',$m->statut_badge)}}">{{$m->statut_libelle}}</span>@if($m->en_retard)<br><small class="text-danger">en retard</small>@endif</td>
                                 <td class="text-center text-nowrap">
                                     @if(in_array($m->statut,['planifie','en_cours']))
                                     <button type="button" class="btn btn-sm btn-icon btn-flat-success" title="Marquer réalisé" data-modal="#modal_maintenance" data-action="{{route('vehicule_maintenance.update',$m->id)}}" data-method="PUT" data-titre="Clôturer l'entretien" data-json='{{ json_encode(array_merge($m->only(['type','libelle','description','date_prevue','cout','prestataire','prochaine_date','prochain_kilometrage']), ['id_vehicule' => $m->id_vehicule, 'statut' => 'realise', 'date_realisation' => date('Y-m-d'), 'kilometrage' => $m->kilometrage ?: ($m->vehicule ? $m->vehicule->kilometrage : null), 'planifier_suivant' => 1])) }}' onclick="parcOuvrir(this)"><i data-feather="check-circle"></i></button>

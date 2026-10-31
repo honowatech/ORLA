@@ -72,12 +72,24 @@ class HomeController extends Controller
 
             return redirect()->route('home.client');
         }
+        $debut_mois = Carbon::now()->startOfMonth();
+        $debut_mois_precedent = Carbon::now()->subMonth()->startOfMonth();
+        $fin_mois_precedent = Carbon::now()->subMonth()->endOfMonth();
         $datas = [
             'coursiers' => Coursiers::where('statut',[1])->get(),
             'clients_simple' => Clients::where('type_client',[2])->where('statut',[1])->get(),
             'clients_entreprise' => Clients::where('type_client',[1])->where('statut',[1])->get(),
             'commandes_reussies' => Commandes::where('statut','livre')->get(),
-            'commandes_reussies_du_mois' => Commandes::whereMonth('date_livre', Carbon::now()->month)->where('statut','livre')->get(),
+            'commandes_reussies_du_mois' => Commandes::whereMonth('date_livre', Carbon::now()->month)->whereYear('date_livre', Carbon::now()->year)->where('statut','livre')->get(),
+            'commandes_reussies_mois_precedent' => Commandes::whereBetween('date_livre', [$debut_mois_precedent, $fin_mois_precedent])->where('statut','livre')->get(),
+            'commandes_attente' => Commandes::where('statut','attente')->count(),
+            'commandes_attribuees' => Commandes::where('statut','attribue')->count(),
+            'commandes_encours' => Commandes::where('statut','encours')->count(),
+            'commandes_du_jour' => Commandes::whereDate('date_livraison', Carbon::today())->whereIn('statut',['attente','attribue','encours'])->count(),
+            'commandes_echouees_mois' => Commandes::where('created_at', '>=', $debut_mois)->whereIn('statut',['annulee','echoue'])->count(),
+            'commandes_mois' => Commandes::where('created_at', '>=', $debut_mois)->whereNotIn('statut',['supprime'])->count(),
+            'dernieres_commandes' => Commandes::with(['client','coursier','quartier_livraison'])->whereNotIn('statut',['supprime'])->orderBy('created_at','desc')->take(6)->get(),
+            'top_coursiers' => Commandes::selectRaw('id_coursier, count(*) as total')->where('statut','livre')->where('date_livre', '>=', $debut_mois)->whereNotNull('id_coursier')->groupBy('id_coursier')->orderByDesc('total')->take(5)->with('coursier')->get(),
         ];
         $vehicules = \App\Models\Vehicule::where('statut', 1)->with(['type', 'coursier'])->get();
         $parc = [
