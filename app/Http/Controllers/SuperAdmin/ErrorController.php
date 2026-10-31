@@ -8,56 +8,49 @@ use App\Models\SuperAdmin\User;
 use App\Models\SuperAdmin\Client;
 use App\Models\SuperAdmin\Abonnement;
 use App\Models\SuperAdmin\Contact;
+use App\Tenancy\EntrepriseCourante;
 
 class ErrorController extends Controller
 {
-
-    public function empty_abonnement(Request $request)
+    /**
+     * Ces pages concernent uniquement l'entreprise de l'utilisateur connecté :
+     * si sa situation ne correspond pas à la page demandée, on le renvoie à l'accueil.
+     */
+    public function empty_abonnement(EntrepriseCourante $courante)
     {
-        $clients = Client::get();
-        foreach($clients as $client){
-            if ($client->id_abonnement != null || $clients->count() == 0 || Sa_statut($clients) ) {
-                return redirect(Sa_site_login());
-            }
+        $entreprise = $courante->entreprise();
+        if (!$entreprise->estActive() || $entreprise->accesComplet() || $entreprise->id_abonnement != null) {
+            return redirect(Sa_home());
         }
-        $phones = Contact::where('name','phone')->first();
-        $email = Contact::where('name','email')->first();
-        return view('superadmin.errors.empty_abonnement',compact('phones','email'));
+        return $this->page('superadmin.errors.empty_abonnement');
     }
 
-    public function no_abonnement(Request $request)
+    public function no_abonnement(EntrepriseCourante $courante)
     {
-        $clients = Client::get();
-        $check = Sa_check_abonnement($clients);
-        if($check != 'true' || $clients->count() == 0 || Sa_statut($clients) ){
-            return redirect(Sa_site_login());
+        $entreprise = $courante->entreprise();
+        if (!$entreprise->estActive() || $entreprise->accesComplet() || $entreprise->id_abonnement == null) {
+            return redirect(Sa_home());
         }
-        $phones = Contact::where('name','phone')->first();
-        $email = Contact::where('name','email')->first();
-        return view('superadmin.errors.no_abonnement',compact('phones','email'));
+        return $this->page('superadmin.errors.no_abonnement');
     }
 
     public function full_error(Request $request)
     {
-        $clients = Client::get();
-        if($clients->count() > 0 ){
-            return redirect(Sa_site_login());
-        }
-        $phones = Contact::where('name','phone')->first();
-        $email = Contact::where('name','email')->first();
-        return view('superadmin.errors.empty_client',compact('phones','email'));
+        return redirect(Sa_site_login());
     }
 
-    public function site_inactif(Request $request)
+    public function site_inactif(EntrepriseCourante $courante)
     {
-        $clients = Client::get();
-        foreach($clients as $client){
-            if ($client->statut == 1) {
-                return redirect(Sa_site_login());
-            }
+        if ($courante->entreprise()->estActive()) {
+            return redirect(Sa_home());
         }
+        return $this->page('superadmin.errors.client_inactif');
+    }
+
+    protected function page($vue)
+    {
         $phones = Contact::where('name','phone')->first();
         $email = Contact::where('name','email')->first();
-        return view('superadmin.errors.client_inactif',compact('phones','email'));
+        return view($vue,compact('phones','email'));
     }
 }

@@ -5,7 +5,7 @@
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="{{route('home')}}"><span class="brand-logo">
                                     <i data-feather='truck' class="text-dark" style="height :30px;width: 30px;"></i></span>
-                        <h2 class="brand-text text-dark">Speedex</h2>
+                        @if(!empty($entreprise_courante?->logo))<img src="{{route('entreprise.logo', $entreprise_courante->slug)}}" alt="" style="max-height: 28px; max-width: 28px" class="mr-50">@endif<h2 class="brand-text text-dark" @if(!empty($entreprise_courante?->couleur_principale)) style="color: {{$entreprise_courante->couleur_principale}} !important" @endif>{{($entreprise_courante->name ?? config('app.name'))}}</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0 d-none" id="boutton_menu" data-toggle="collapse"><i class="d-block d-xl-none text-dark toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
             </ul>

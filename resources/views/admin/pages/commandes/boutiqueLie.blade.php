@@ -1,8 +1,8 @@
 
 <option class="boutiques" data-phone="" data-lieu="" value="">{{ $client == null ? 'Choisir un client puis une Boutique' : 'Choisir une Boutique de '. $client->noms }}</option>
 @foreach( $boutiques as $boutique )
-    <option value="{{$boutique->id}}" class="boutiques" data-id="{{$boutique->quartier_boutique->id}}" data-lieu="{{$boutique->id_quartier != null ? $boutique->quartier_boutique->libelle : 'Speedex'}}" data-description="{{$boutique->quartier}}"  {{ $boutique->id == session('id_boutique') ? 'selected' : '' }}>
-        {{$boutique->libelle}} - {{$boutique->id_quartier != null ? $boutique->quartier_boutique->libelle :'Speedex'}}
+    <option value="{{$boutique->id}}" class="boutiques" data-id="{{$boutique->quartier_boutique->id}}" data-lieu="{{$boutique->id_quartier != null ? $boutique->quartier_boutique->libelle : ($entreprise_courante->name ?? config('app.name'))}}" data-description="{{$boutique->quartier}}"  {{ $boutique->id == session('id_boutique') ? 'selected' : '' }}>
+        {{$boutique->libelle}} - {{$boutique->id_quartier != null ? $boutique->quartier_boutique->libelle :($entreprise_courante->name ?? config('app.name'))}}
     </option>
 @endforeach
 @php

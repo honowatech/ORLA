@@ -110,7 +110,7 @@
                                                             </span>
                                                             @endif
                                                     </span>
-                                                    <small class="text-muted">Enregistrée par {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? 'Speedex' : 'Client'}}</small>
+                                                    <small class="text-muted">Enregistrée par {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? ($entreprise_courante->name ?? config('app.name')) : 'Client'}}</small>
                                                 </div>
                                                 <div class="item-options text-center">
                                                     @if($commande->disponibility != 1)
@@ -243,7 +243,7 @@
                                                             </span>
                                                             @endif
                                                     </span>
-                                                    <small class="text-muted">Enregistrée par {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? 'Speedex' : 'Client'}}</small>
+                                                    <small class="text-muted">Enregistrée par {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? ($entreprise_courante->name ?? config('app.name')) : 'Client'}}</small>
                                                 </div>
                                                 <div class="item-options text-center">
                                                     @if($commande->disponibility != 1)

@@ -6,6 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Users extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
+    protected static function booted(): void
+    {
+        static::creating(fn ($user) => static::verifierSiCreeParUnAdministrateur($user));
+    }
+
+    /**
+     * Un compte créé par un utilisateur déjà connecté de l'entreprise (livreur,
+     * agent, client) est considéré comme vérifié : seul le créateur d'une
+     * entreprise doit confirmer son email lui-même.
+     */
+    public static function verifierSiCreeParUnAdministrateur($user): void
+    {
+        if (auth()->check() && empty($user->email_verified_at)) {
+            $user->email_verified_at = now();
+        }
+    }
+
 
     protected $table = 'users';
     public $timestamps = true;

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
     use HasFactory;
     protected $table = 'activity';
     public $timestamps = true;

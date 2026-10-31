@@ -32,7 +32,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'filter' => \App\Http\Middleware\Filter::class,
             'coursier_filter' => \App\Http\Middleware\Coursier_filter::class,
             'admin_filter' => \App\Http\Middleware\Admin_filter::class,
-            'Check_Sa_Client_Error' => \App\Http\Middleware\Check_Sa_Client_Error::class,
+            'entreprise' => \App\Http\Middleware\IdentifierEntreprise::class,
+            'abonnement' => \App\Http\Middleware\VerifierAbonnementEntreprise::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

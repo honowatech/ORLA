@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/dashboard-ecommerce.css')}}">
 @endsection
 @section('title')
-    {{'Speedex Acceuil'}}
+    {{($entreprise_courante->name ?? config('app.name')).' Accueil'}}
 @endsection
 @section('contenu')
     <!-- BEGIN: Content-->

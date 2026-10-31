@@ -14,11 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 ///////////////////////////////////////////////////////////// Super Admin
-Route::get('/Sc-no_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'no_abonnement'])->name('SuperAdmin.no_abonnement');
-Route::get('/Sc-empty_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'empty_abonnement'])->name('SuperAdmin.empty_abonnement');
+// Pages d'abonnement et paiement : toujours pour l'entreprise de l'utilisateur connecté
+Route::middleware(['auth', 'entreprise'])->group(function() {
+        Route::get('/Sc-no_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'no_abonnement'])->name('SuperAdmin.no_abonnement');
+        Route::get('/Sc-empty_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'empty_abonnement'])->name('SuperAdmin.empty_abonnement');
+        Route::get('/Sc-site_inactif', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'site_inactif'])->name('SuperAdmin.site_inactif');
+        Route::resource('Sc-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController')->only(['create', 'show']);
+});
 Route::get('/Sc-full_error', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'full_error'])->name('SuperAdmin.empty_client');
-Route::get('/Sc-site_inactif', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'site_inactif'])->name('SuperAdmin.site_inactif');
-Route::resource('Sc-transaction', 'App\Http\Controllers\SuperAdmin\TransactionController');
 Route::get('/Sc-transaction.checkpay/{id_transaction}', [App\Http\Controllers\SuperAdmin\TransactionController::class, 'checkpay'])->name('Sc-transaction.checkpay');
 
 Route::get('/superadmin',function () {return redirect()->route('SuperAdmin.home');});
@@ -34,6 +37,7 @@ Route::group(['prefix' => 'superadmin'], function(){
         Route::get('/Sa-client-ajax', [App\Http\Controllers\SuperAdmin\ClientController::class, 'index_ajax'])->name('Sa-client.index_ajax');
         Route::post('/Sa-client.recap_create', [App\Http\Controllers\SuperAdmin\ClientController::class, 'recap_create'])->name('Sa-client.recap_create');
         Route::post('/Sa-client_recap_edit', [App\Http\Controllers\SuperAdmin\ClientController::class, 'recap_edit'])->name('Sa-client.recap_edit');
+        Route::post('/Sa-client/{id}/administrateur', [App\Http\Controllers\SuperAdmin\ClientController::class, 'administrateur'])->name('Sa-client.administrateur');
         Route::post('/Sa-client_recap_abonate', [App\Http\Controllers\SuperAdmin\ClientController::class, 'recap_abonate'])->name('Sa-client.recap_abonate');
 
         Route::resource('Sa-abonnement', 'App\Http\Controllers\SuperAdmin\AbonnementController');
@@ -52,14 +56,22 @@ Route::group(['prefix' => 'superadmin'], function(){
 
 ///////////////////////////////////////////////////////////// End Super Admin
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Auth::routes();
+Auth::routes(['register' => false, 'verify' => true]);
+
+// Pages publiques : suivi d'une livraison par le destinataire, logo des entreprises
+Route::get('/suivi/{jeton}', [App\Http\Controllers\SuiviController::class, 'show'])->middleware('throttle:60,1')->name('suivi');
+Route::get('/entreprises/{slug}/logo', [App\Http\Controllers\Admin\ParametresController::class, 'logo'])->name('entreprise.logo');
+
+// Inscription en libre-service d'une entreprise
+Route::get('/inscription', [App\Http\Controllers\Auth\InscriptionController::class, 'create'])->name('inscription');
+Route::post('/inscription', [App\Http\Controllers\Auth\InscriptionController::class, 'store'])->middleware('throttle:5,10')->name('inscription.store');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::middleware('Check_Sa_Client_Error')->group(function() {////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Route::middleware(['auth', 'entreprise'])->group(function() {////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Route::get('/NonAutorisé', [App\Http\Controllers\HomeController::class, 'error'])->name('home.error');
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Route::middleware('auth')->group(function() {
+        Route::middleware(array_values(array_filter([config('tenancy.verifier_email') ? 'verified' : null, 'abonnement'])))->group(function() {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
                 Route::group(['prefix' => '/multi'], function(){
@@ -79,6 +91,13 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                         
                         Route::post('/attribuate_agent', [App\Http\Controllers\Admin\CommandesController::class, 'attribuate_agent'])->name('commande_agent');
                         Route::get('/', [App\Http\Controllers\HomeController::class, 'admin'])->name('home.admin');
+                        Route::get('/demarrage', [App\Http\Controllers\Admin\DemarrageController::class, 'index'])->name('demarrage');
+                        Route::get('/mon-abonnement', [App\Http\Controllers\Admin\MonAbonnementController::class, 'index'])->name('mon_abonnement');
+                        Route::get('/parametres', [App\Http\Controllers\Admin\ParametresController::class, 'edit'])->name('parametres.edit');
+                        Route::put('/parametres', [App\Http\Controllers\Admin\ParametresController::class, 'update'])->name('parametres.update');
+                        Route::get('/journal', [App\Http\Controllers\Admin\JournalController::class, 'index'])->name('journal');
+                        Route::get('/export', [App\Http\Controllers\Admin\ExportController::class, 'telecharger'])->name('export');
+                        Route::post('/invitation/{id}', [App\Http\Controllers\Admin\InvitationController::class, 'envoyer'])->name('invitation.envoyer');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
                         Route::post('/compteLie', [App\Http\Controllers\Admin\UsersController::class, 'compteLie'])->name('compteLie');
@@ -153,11 +172,3 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
 
         });
 });
-
-Route::get('/teston', function(){
-   $user = App\Models\SuperAdmin\User::find(1);
-   $user->password = Illuminate\Support\Facades\Hash::make('12345678');
-   $user->save();
-});
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

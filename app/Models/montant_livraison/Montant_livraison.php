@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Montant_livraison extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
 
     protected $table = 'montant_livraison';
     public $timestamps = true;

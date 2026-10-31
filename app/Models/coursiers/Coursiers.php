@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Coursiers extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
 
     protected $table = 'coursiers';
     public $timestamps = true;

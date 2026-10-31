@@ -47,12 +47,7 @@ class CommandesController extends Controller
 
             return redirect()->route('home.client');
         }
-    if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
-      $quartier = new Quartier;
-      $quartier->libelle = 'Speedex';
-      $quartier->id_ville = 1;
-      $quartier->save();
-    }
+    Quartier::siege();
     $coursiers = Coursiers::where('statut',[1])->get();
     $statut = $request->input('statut') == null || $request->input('statut') == 'all' ? '' : $request->input('statut');
     $mode_de_paiement = $request->input('mode_de_paiement') == null || $request->input('mode_de_paiement') == 'all' ? '' : $request->input('mode_de_paiement');
@@ -127,22 +122,12 @@ class CommandesController extends Controller
         }
       $id_client = $request->input('id_client');
       $client = $id_client != '0' ? Clients::findOrFail($id_client) : null;
-    if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
-      $quartier = new Quartier;
-      $quartier->libelle = 'Speedex';
-      $quartier->id_ville = 1;
-      $quartier->save();
-    }else{
-      $id_quartier = Quartier:: where(strtoupper('libelle'), strtoupper('Speedex'))
-                  ->get('id')
-                  ->value('id');
-      $quartier = Quartier::findOrFail($id_quartier);
-    }
+    $quartier = Quartier::siege();
       $boutiques = Boutiques:: where('id_client',[$id_client])
                   ->where('statut',[1])
                   ->get();
     foreach ($boutiques as $boutique) {
-      if(strtoupper($boutique->libelle) == strtoupper('Speedex') && $boutique->id_quartier != $quartier->id){
+      if($boutique->libelle == Boutiques::LIBELLE_SIEGE && $boutique->id_quartier != $quartier->id){
         $boutique_change = Boutiques::findOrFail($boutique->id);
         $boutique_change->id_quartier = $quartier->id;
         $boutique_change->save();
@@ -323,12 +308,7 @@ class CommandesController extends Controller
                 ->get();
     $villes = Ville::orderBy('created_at')
             ->get();
-    if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
-      $quartier = new Quartier;
-      $quartier->libelle = 'Speedex';
-      $quartier->id_ville = 1;
-      $quartier->save();
-    }
+    Quartier::siege();
     return view('admin.pages.commandes.create',compact('modes_de_paiement','entreprises','produits','villes'));
   }
 

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Boutiques extends Model 
 {
+    use \App\Models\Concerns\AppartientAEntreprise;
+
+    /** Boutique technique d'un client dont les colis sont au siège de l'entreprise. */
+    public const LIBELLE_SIEGE = 'Siège';
+
 
     protected $table = 'boutiques';
     public $timestamps = true;

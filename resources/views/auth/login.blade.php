@@ -106,6 +106,11 @@
                                     <button class="btn btn-info btn-block" tabindex="4">{{ __('Se Connecter') }}</button>
                                 </form>
 
+                                <p class="text-center mt-2">
+                                    <span>Nouvelle entreprise ?</span>
+                                    <a href="{{ route('inscription') }}"><span>Créer l'espace de mon entreprise</span></a>
+                                </p>
+
                                 <div class="divider my-2">
                                     <div class="divider-text">Ou</div>
                                 </div>

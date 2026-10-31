@@ -86,6 +86,19 @@
                                                                     </span>
                                                                 @endif
                                                             </button>
+                                                        </div>
+                                                        @if($client->proprietaire)
+                                                            <div class="mt-1 small">Administrateur : <b>{{$client->proprietaire->noms}}</b> ({{$client->proprietaire->email}})</div>
+                                                        @else
+                                                            <form method="POST" action="{{route('Sa-client.administrateur',$client->id)}}" class="mt-1 d-flex flex-wrap" style="gap: .5rem;">
+                                                                @csrf
+                                                                <input type="text" name="noms" class="form-control form-control-sm" style="max-width: 12rem" placeholder="Noms de l'administrateur" value="{{old('noms')}}" required>
+                                                                <input type="email" name="email" class="form-control form-control-sm" style="max-width: 14rem" placeholder="Email" value="{{old('email')}}" required>
+                                                                <button type="submit" class="btn btn-sm btn-info">Créer et inviter l'administrateur</button>
+                                                                @if($errors->any())<div class="text-danger small w-100">{{$errors->first()}}</div>@endif
+                                                            </form>
+                                                        @endif
+                                                        <div>
                                                             {{-- <button class="btn ml-1  btn-sm btn-outline-danger" data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}', 'supprimer' ,'button_delete_footer')" data-target="#danger">
                                                                     <i data-feather="trash" class="mr-50"></i>
                                                                     Supprimer

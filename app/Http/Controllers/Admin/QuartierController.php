@@ -34,12 +34,7 @@ class QuartierController extends Controller
             return redirect()->route('home.client');
         }
     
-    if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
-      $quartier = new Quartier;
-      $quartier->libelle = 'Speedex';
-      $quartier->id_ville = 1;
-      $quartier->save();
-    }
+    Quartier::siege();
     $request = request();
     $quartiers = Quartier::where('libelle', 'like', '%' . $request->input('recherche') . '%')
         ->orderBy('updated_at','desc')
@@ -70,12 +65,7 @@ class QuartierController extends Controller
 
             return redirect()->route('home.client');
         }
-    if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
-      $quartier = new Quartier;
-      $quartier->libelle = 'Speedex';
-      $quartier->id_ville = 1;
-      $quartier->save();
-    }
+    Quartier::siege();
     $villes = Ville::orderBy('updated_at','desc')->get();
     return view('admin.pages.quartiers.create',compact('villes'));
   }

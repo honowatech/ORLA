@@ -140,6 +140,47 @@
                                             </div>
                                         </div>
                                         <div class="row mx-auto col-12">
+                                            <div class="col-12 text-center mt-1">
+                                                <h6>Limites de l'offre <small class="text-muted">(laisser vide pour illimité ; aucune limite pendant l'essai gratuit)</small></h6>
+                                            </div>
+                                            <div class="col-sm-3 col-6">
+                                                <div class="form-group text-center">
+                                                    <label for="max_coursiers">Livreurs</label>
+                                                    <input type="number" min="1" id="max_coursiers" name="max_coursiers" class="form-control text-center" value="{{ old('max_coursiers', $abonnement->max_coursiers) }}" placeholder="Illimité">
+                                                    @error('max_coursiers')
+                                                    <small class="alert alert-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-6">
+                                                <div class="form-group text-center">
+                                                    <label for="max_vehicules">Véhicules</label>
+                                                    <input type="number" min="1" id="max_vehicules" name="max_vehicules" class="form-control text-center" value="{{ old('max_vehicules', $abonnement->max_vehicules) }}" placeholder="Illimité">
+                                                    @error('max_vehicules')
+                                                    <small class="alert alert-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-6">
+                                                <div class="form-group text-center">
+                                                    <label for="max_agents">Agents</label>
+                                                    <input type="number" min="1" id="max_agents" name="max_agents" class="form-control text-center" value="{{ old('max_agents', $abonnement->max_agents) }}" placeholder="Illimité">
+                                                    @error('max_agents')
+                                                    <small class="alert alert-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-6">
+                                                <div class="form-group text-center">
+                                                    <label for="max_commandes_mois">Commandes / mois</label>
+                                                    <input type="number" min="1" id="max_commandes_mois" name="max_commandes_mois" class="form-control text-center" value="{{ old('max_commandes_mois', $abonnement->max_commandes_mois) }}" placeholder="Illimité">
+                                                    @error('max_commandes_mois')
+                                                    <small class="alert alert-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-auto col-12">
                                             <div class="d-none d-md-block text-center col-bg-5 col-lg-8 col-md-12 col-12 mx-auto">
                                                  <button type="reset" onclick="Sa_reset()" class="btn col-8 col-sm-7 col-lg-5  col-xl-3 col-md-4 btn-danger mt-1 mt-md-2 mr-md-4">
                                                     <i class="mr-1" data-feather='x'></i> Effacer
