@@ -75,6 +75,7 @@ class Type_vehiculeController extends Controller
     $type_vehicule = new Type_vehicule;
     $type_vehicule->libelle = $libelle;
     $type_vehicule->description = $description;
+    $this->appliquerContraintes($request, $type_vehicule);
     $type_vehicule->save(); 
     $message = "Type de véhicule <b>".$type_vehicule->libelle."</b> enregistré avec <b class='text-success'> Succès.</b>";
     session()->flash('message',$message);
@@ -147,6 +148,7 @@ class Type_vehiculeController extends Controller
     $type_vehicule = Type_vehicule::findOrFail($id);
     $type_vehicule->libelle = $libelle;
     $type_vehicule->description = $description;
+    $this->appliquerContraintes($request, $type_vehicule);
     $type_vehicule->save();
     $message = "Type de véhicule <b>".$type_vehicule->libelle."</b> mis à jour avec <b class='text-success'> Succès.</b>";
     session()->flash('message',$message);
@@ -197,6 +199,25 @@ class Type_vehiculeController extends Controller
     }
   }
   
+
+  /** Contraintes d'exploitation (optimiseur de tournées). */
+  private function appliquerContraintes(Request $request, Type_vehicule $type_vehicule): void
+  {
+    $request->validate([
+      'vitesse_moyenne' => 'nullable|numeric|min:1|max:200',
+      'cout_km' => 'nullable|numeric|min:0',
+      'cout_heure' => 'nullable|numeric|min:0',
+      'capacite_colis' => 'nullable|integer|min:1',
+      'heure_debut_autorisee' => 'nullable|date_format:H:i|required_with:heure_fin_autorisee',
+      'heure_fin_autorisee' => 'nullable|date_format:H:i|required_with:heure_debut_autorisee',
+    ]);
+    $type_vehicule->vitesse_moyenne = $request->filled('vitesse_moyenne') ? $request->input('vitesse_moyenne') : config('routage.vitesse_defaut', 30);
+    $type_vehicule->cout_km = $request->input('cout_km') ?: 0;
+    $type_vehicule->cout_heure = $request->input('cout_heure') ?: 0;
+    $type_vehicule->capacite_colis = $request->filled('capacite_colis') ? $request->input('capacite_colis') : null;
+    $type_vehicule->heure_debut_autorisee = $request->input('heure_debut_autorisee') ?: null;
+    $type_vehicule->heure_fin_autorisee = $request->input('heure_fin_autorisee') ?: null;
+  }
 }
 
 ?>

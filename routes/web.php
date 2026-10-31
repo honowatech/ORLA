@@ -69,6 +69,11 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                         Route::resource('zone', 'App\Http\Controllers\Multi\ZoneController');
                         Route::post('/quartierLie', [App\Http\Controllers\Multi\ZoneController::class, 'quartierLie'])->name('quartierLie');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        //--- Optimisation des tournées de livraison ---//
+                        Route::resource('troncon', 'App\Http\Controllers\Multi\Troncon_routeController');
+                        Route::post('/tournee/simuler', [App\Http\Controllers\Multi\TourneeController::class, 'simuler'])->name('tournee.simuler');
+                        Route::resource('tournee', 'App\Http\Controllers\Multi\TourneeController');
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('details_zone', 'App\Http\Controllers\Multi\Details_zoneController');
                         Route::resource('informations_personnels', 'App\Http\Controllers\Multi\Informations_personnelsController');
                 });

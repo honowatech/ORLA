@@ -71,6 +71,24 @@
                         </li>
                     </ul>
                 </li>
+                <li class=" navigation-header">Logistique<i data-feather="more-horizontal"></i>
+                </li>
+                <li class=" nav-item"><a class="d-flex align-items-center"><i data-feather='navigation'></i><span class="menu-title text-truncate" data-i18n="user">Tournées optimisées</span></a>
+                    <ul class="menu-content">
+                        <li id="TourneeListe"><a class="d-flex align-items-center" href="{{route('tournee.index')}}"><i data-feather="circle"></i><span class="menu-item" data-i18n="eCommerce">Liste</span></a>
+                        </li>
+                        <li id="TourneeAjouter"><a class="d-flex align-items-center" href="{{route('tournee.create')}}"><i data-feather="circle"></i><span class="menu-item" data-i18n="Analytics">Planifier</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a class="d-flex align-items-center"><i data-feather='git-branch'></i><span class="menu-title text-truncate" data-i18n="user">Tronçons de route</span></a>
+                    <ul class="menu-content">
+                        <li id="TronconListe"><a class="d-flex align-items-center" href="{{route('troncon.index')}}"><i data-feather="circle"></i><span class="menu-item" data-i18n="eCommerce">Liste</span></a>
+                        </li>
+                        <li id="TronconAjouter"><a class="d-flex align-items-center" href="{{route('troncon.create')}}"><i data-feather="circle"></i><span class="menu-item" data-i18n="Analytics">Ajouter</span></a>
+                        </li>
+                    </ul>
+                </li>
                 <li class=" navigation-header">Clientelle<i data-feather="more-horizontal"></i>
                 <li class=" nav-item"><a class="d-flex align-items-center"><i data-feather='users'></i><span class="menu-title text-truncate" data-i18n="user">Clients</span></a>
                     <ul class="menu-content">

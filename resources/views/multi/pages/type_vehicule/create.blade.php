@@ -67,6 +67,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @include('multi.pages.type_vehicule.contraintes')
                                         </div>
                                         <div class="row">
                                             <div class="d-none d-md-block text-center col-bg-5 col-lg-8 col-md-12 col-12 mx-auto">

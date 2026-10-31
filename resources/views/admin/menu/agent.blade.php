@@ -26,6 +26,14 @@
                 </li>
                 <li id="CommandesListe" class="nav-item"><a href="{{route('commandes.index')}}" class="d-flex align-items-center"><i data-feather='shopping-cart'></i><span class="menu-title text-truncate" data-i18n="user">Commandes</span></a>
                 </li>
+                <li class=" navigation-header">Logistique<i data-feather="more-horizontal"></i>
+                </li>
+                <li id="TourneeListe" class="nav-item"><a href="{{route('tournee.index')}}" class="d-flex align-items-center"><i data-feather='navigation'></i><span class="menu-title text-truncate" data-i18n="user">Tournées optimisées</span></a>
+                </li>
+                <li id="TourneeAjouter" class="nav-item"><a href="{{route('tournee.create')}}" class="d-flex align-items-center"><i data-feather='plus-circle'></i><span class="menu-title text-truncate" data-i18n="user">Planifier une tournée</span></a>
+                </li>
+                <li id="TronconListe" class="nav-item"><a href="{{route('troncon.index')}}" class="d-flex align-items-center"><i data-feather='git-branch'></i><span class="menu-title text-truncate" data-i18n="user">Tronçons de route</span></a>
+                </li>
                 <li class=" navigation-header"><i data-feather="more-horizontal"></i>
             </ul>
         </div>

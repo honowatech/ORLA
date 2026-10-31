@@ -72,6 +72,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @include('multi.pages.type_vehicule.contraintes', ['type_vehicule' => $type_vehicule])
                                         </div>
                                         <div class="row">
                                             <div class="d-none d-md-block text-center col-bg-5 col-lg-8 col-md-12 col-12 mx-auto">

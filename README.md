@@ -39,6 +39,14 @@ The platform runs as a **SaaS**: a Super Admin onboards client companies, sells 
 - Manage vehicle types and vehicles (registration, model, city, courier assignment).
 - Manage couriers and delivery zones centrally.
 
+### Route optimisation (logistics managers)
+
+- **Road segments** (`troncon_route`): distance, usual duration, road condition (good / average / degraded / impassable), one-way or two-way, closing hours (markets, roadworks…) and vehicle types forbidden on the segment.
+- **Vehicle type constraints**: average speed, cost per km, hourly cost, authorised driving hours (e.g. trucks only 06:00–22:00) and capacity.
+- **Neighbourhood GPS coordinates** (optional) used to estimate distances when no segment is recorded.
+- **Optimised tours** (`tournee`): pick a courier, a vehicle, a departure depot/time and a set of orders; the engine computes the best stop order (pickup before delivery, delivery deadlines, time-dependent traffic, closed/forbidden segments, vehicle driving hours), estimates arrival times, distance, duration and cost, and compares it with the "classic" order (by promised delivery date). Saving the tour assigns the orders to the courier and produces a printable route sheet with a map when coordinates are available.
+- Engine: time-dependent Dijkstra on the segment graph + greedy construction and local search (relocate / 2-opt). Tunable in `config/routage.php`; unit-tested in `tests/Unit/Routage`.
+
 ## Roles
 
 | Role            | Dashboard route   | Purpose                                   |

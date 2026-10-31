@@ -58,6 +58,23 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6 col-12 mx-auto">
+                                                <div class="form-group">
+                                                    <label for="latitude">Latitude</label>
+                                                    <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
+                                                    <input type="number" step="0.0000001" min="-90" max="90" id="latitude" class="form-control @error('latitude') is-invalid @enderror" name="latitude" placeholder="ex : 3.8667" value="{{ old('latitude', $quartier->latitude) }}">
+                                                    @error('latitude') <small class="alert alert-danger">{{ $message }}</small> @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mx-auto">
+                                                <div class="form-group">
+                                                    <label for="longitude">Longitude</label>
+                                                    <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
+                                                    <input type="number" step="0.0000001" min="-180" max="180" id="longitude" class="form-control @error('longitude') is-invalid @enderror" name="longitude" placeholder="ex : 11.5167" value="{{ old('longitude', $quartier->longitude) }}">
+                                                    <small class="text-muted">Coordonnées GPS : permettent d'estimer les distances pour l'optimisation des tournées.</small>
+                                                    @error('longitude') <small class="alert alert-danger">{{ $message }}</small> @enderror
+                                                </div>
+                                            </div>
                                             <div class="d-none d-md-block text-center col-bg-5 col-lg-8 col-md-12 col-12 mx-auto">
                                                 <button type="reset" class="btn col-8 col-sm-7 col-lg-5  col-xl-3 col-md-4 btn-danger mt-1 mt-md-2 mr-md-4">
                                                     <i class="mr-1" data-feather='x'></i> Effacer

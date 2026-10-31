@@ -117,6 +117,7 @@ class QuartierController extends Controller
       $quartier = new Quartier ;
       $quartier->libelle = $libelle;
       $quartier->id_ville = $id_ville;
+      $this->appliquerCoordonnees($request, $quartier);
      $quartier->save();
      $message = "Quartier créée avec <b class='text-success'> Succès.</b>";
     session()->flash('message',$message);
@@ -210,6 +211,7 @@ class QuartierController extends Controller
     }
     $quartier = Quartier::findOrFail($id);
     $quartier->libelle = $libelle;
+    $this->appliquerCoordonnees($request, $quartier);
     $quartier->save();
     $message = "Quartier mise à jour avec <b class='text-success'> Succès.</b>";
     session()->flash('message',$message);
@@ -252,6 +254,17 @@ class QuartierController extends Controller
     return redirect()->route('quartier.index');
   }
   
+
+  /** Coordonnées GPS optionnelles (optimiseur de tournées). */
+  private function appliquerCoordonnees(Request $request, Quartier $quartier): void
+  {
+    $request->validate([
+      'latitude' => 'nullable|numeric|between:-90,90|required_with:longitude',
+      'longitude' => 'nullable|numeric|between:-180,180|required_with:latitude',
+    ]);
+    $quartier->latitude = $request->filled('latitude') ? $request->input('latitude') : null;
+    $quartier->longitude = $request->filled('longitude') ? $request->input('longitude') : null;
+  }
 }
 
 ?>

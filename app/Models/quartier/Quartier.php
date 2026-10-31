@@ -9,7 +9,13 @@ class Quartier extends Model
 
     protected $table = 'quartier';
     public $timestamps = true;
-    protected $visible = array('id_zone','libelle','id_ville');
+    protected $visible = array('id_zone','libelle','id_ville','latitude','longitude');
+    protected $fillable = array('id_zone','libelle','id_ville','latitude','longitude');
+
+    public function aCoordonnees(): bool
+    {
+        return $this->latitude !== null && $this->longitude !== null;
+    }
 
     public function zone()
     {
