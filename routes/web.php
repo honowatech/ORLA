@@ -136,8 +136,6 @@ Route::middleware('Check_Sa_Client_Error')->group(function() {//////////////////
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('Clientusers', 'App\Http\Controllers\Client\UsersController');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Route::resource('Clientclients', 'App\Http\Controllers\Client\ClientsController');
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('Clientcommandes', 'App\Http\Controllers\Client\CommandesController');
                         Route::post('/boutiqueLie', [App\Http\Controllers\Client\CommandesController::class, 'boutiqueLie'])->name('ClientboutiqueLie');
                         Route::post('/commandeclients', [App\Http\Controllers\Client\CommandesController::class, 'commandeClient'])->name('ClientcommandeClient');
