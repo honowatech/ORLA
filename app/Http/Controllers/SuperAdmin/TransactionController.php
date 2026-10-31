@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\SuperAdmin\User;
 use App\Models\SuperAdmin\Client;
 use App\Tenancy\EntrepriseCourante;
+use App\Billing\PaiementAbonnement;
 use App\Models\SuperAdmin\Abonnement;
 use App\Models\SuperAdmin\Contact;
 use App\Models\SuperAdmin\Transaction;
@@ -157,7 +158,7 @@ class TransactionController extends Controller
             return redirect()->back();
         }elseif($methode == 'mobile'){
             $transaction->statut = 'waiting';
-            $transaction->save();
+            app(PaiementAbonnement::class)->preparer($transaction);
             Sa_pay($abonnement->montant,$transaction);
         }
         
@@ -169,35 +170,15 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function checkpay($id)
+    /**
+     * Retour du navigateur après paiement Monetbil. L'accès n'est prolongé
+     * qu'après vérification de la signature, de la référence et du montant.
+     */
+    public function checkpay($id, Request $request, PaiementAbonnement $paiement)
     {
       $transaction = Transaction::findOrFail($id);
-      $api = Api::where('statut',[1])->where('name','Monetbill')->first();
-      $_SESSION['api'] = $api;
-      $check = Sa_checkpay();
-      $transaction->statut = $check['statut'];
-      $transaction->save();
-      foreach ($check as $key => $value) {
-        if ($value == null) {
-            continue;
-        }
-        $info = Info_transaction::where('id_transaction',$transaction->id)
-                                ->where('name',$key)
-                                ->where('value',$value)->exists();
-        if(!$info){
-            $info_transaction = new Info_transaction;
-            $info_transaction->id_transaction = $transaction->id;
-            $info_transaction->name = $key;
-            $info_transaction->value = $value;
-            $info_transaction->save();
-        }
-      }
+      $check = ['statut' => $paiement->confirmer($transaction, $request->query())];
       if($check['statut'] == 'success'){
-        $client = Client::findOrFail($transaction->id_client);
-        $client->date_fin = $transaction->date_fin;
-        $client->id_abonnement = $transaction->abonnement->id;
-        $client->date_dernier_paiement = $transaction->created_at;
-        $client->save();
         return redirect()->route('Sc-transaction.show',$transaction->id);
       }else if($check['statut'] == 'cancelled'){
         $message = "la Transaction a été <b class='text-danger'> Interrompue.</b><br> <a class='btn btn-primary btn-sm' href='".route('Sc-transaction.show',$transaction->id)."'>voir<a>";

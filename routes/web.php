@@ -88,6 +88,7 @@ Route::middleware(['auth', 'entreprise'])->group(function() {///////////////////
                         Route::post('/attribuate_agent', [App\Http\Controllers\Admin\CommandesController::class, 'attribuate_agent'])->name('commande_agent');
                         Route::get('/', [App\Http\Controllers\HomeController::class, 'admin'])->name('home.admin');
                         Route::get('/demarrage', [App\Http\Controllers\Admin\DemarrageController::class, 'index'])->name('demarrage');
+                        Route::get('/mon-abonnement', [App\Http\Controllers\Admin\MonAbonnementController::class, 'index'])->name('mon_abonnement');
                         Route::post('/invitation/{id}', [App\Http\Controllers\Admin\InvitationController::class, 'envoyer'])->name('invitation.envoyer');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');

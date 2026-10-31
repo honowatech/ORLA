@@ -123,6 +123,10 @@ class AbonnementController extends Controller
           'montant' => 'bail|required|numeric|min:100|max:9999999999999999999',
           'accumulateur' => 'bail|required|numeric|min:1',
           'periode_grace' => 'bail|required|numeric|min:0',
+          'max_coursiers' => 'nullable|integer|min:1',
+          'max_vehicules' => 'nullable|integer|min:1',
+          'max_agents' => 'nullable|integer|min:1',
+          'max_commandes_mois' => 'nullable|integer|min:1',
           'type_periode' => 'bail|required',
           // 'type_periode' => 'bail|required|in:'.$types_periode,
       ]);
@@ -134,6 +138,11 @@ class AbonnementController extends Controller
       $abonnement->accumulateur = $accumulateur;
       $abonnement->type_periode = $type_periode;
       $abonnement->periode_grace = $periode_grace;
+      // Limites de l'offre (vide = illimité)
+      foreach (array_keys(\App\Billing\Limites::RESSOURCES) as $table) {
+        $colonne = \App\Billing\Limites::RESSOURCES[$table][0];
+        $abonnement->$colonne = $request->filled($colonne) ? (int) $request->input($colonne) : null;
+      }
       $abonnement->statut = 1;
       $abonnement->save();
       $message = "Abonnement ".Sa_name($titre)."créée avec <b class='text-success'> Succès.</b>";
@@ -237,6 +246,10 @@ class AbonnementController extends Controller
           'montant' => 'bail|required|numeric|min:100|max:9999999999999999999',
           'accumulateur' => 'bail|required|numeric|min:1',
           'periode_grace' => 'bail|required|numeric|min:0',
+          'max_coursiers' => 'nullable|integer|min:1',
+          'max_vehicules' => 'nullable|integer|min:1',
+          'max_agents' => 'nullable|integer|min:1',
+          'max_commandes_mois' => 'nullable|integer|min:1',
           'type_periode' => 'bail|required',
           // 'type_periode' => 'bail|required|in:'.$types_periode,
       ]);
@@ -253,6 +266,11 @@ class AbonnementController extends Controller
       $abonnement->accumulateur = $accumulateur;
       $abonnement->type_periode = $type_periode;
       $abonnement->periode_grace = $periode_grace;
+      // Limites de l'offre (vide = illimité)
+      foreach (array_keys(\App\Billing\Limites::RESSOURCES) as $table) {
+        $colonne = \App\Billing\Limites::RESSOURCES[$table][0];
+        $abonnement->$colonne = $request->filled($colonne) ? (int) $request->input($colonne) : null;
+      }
       $abonnement->statut = 1;
       $abonnement->save();
       $message = "Abonnement ".Sa_name($titre)." modifié avec <b class='text-success'> Succès.</b>";

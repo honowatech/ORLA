@@ -48,6 +48,8 @@ trait AppartientAEntreprise
             if (empty($model->entreprise_id) && ! $courante->filtreDesactive()) {
                 $model->entreprise_id = $courante->idOuEchec();
             }
+
+            app(\App\Billing\Limites::class)->verifierCreation($model);
         });
     }
 

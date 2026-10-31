@@ -46,9 +46,12 @@ use Carbon\Carbon;
             Monetbil::setCurrency('XAF');
             Monetbil::setLocale('fr'); // Display language fr or en
             Monetbil::setCountry('CM');
-            Monetbil::setPayment_ref(md5(uniqid()));
-            Monetbil::setUser(12);
+            // $id_transaction : la transaction, préparée par PaiementAbonnement::preparer()
+            Monetbil::setItem_ref($id_transaction->id);
+            Monetbil::setPayment_ref($id_transaction->reference_paiement);
+            Monetbil::setUser($id_transaction->id_client);
             Monetbil::setReturn_url(route('Sc-transaction.checkpay',$id_transaction));
+            Monetbil::setNotify_url(route('monetbil.notify'));
             Monetbil::setLogo('https://focus-rent.honowa.com/public/app-assets/images/logo/fichier_2.svg');
 
             // Start a payment
@@ -56,53 +59,6 @@ use Carbon\Carbon;
             return Monetbil::startPayment(); 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        }
-    }
-    if (!function_exists('Sa_checkpay')) {
-        function Sa_checkpay() {
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            require_once  __DIR__.'/../Http/Controllers/SuperAdmin/monetbil/monetbil.php';
-            // Setup Monetbil arguments
-
-            $params = Monetbil::getQueryParams();
-            $service_secret = Monetbil::getServiceSecret();
-
-            if (!Monetbil::checkSign($service_secret, $params)) {
-                return ['statut' => 'failed'];
-            }
-
-            $transaction_id = Monetbil::getQuery('transaction_id');
-            $status = Monetbil::getQuery('status');
-            $phone = Monetbil::getQuery('phone');
-            $user = Monetbil::getQuery('user');
-            $item_ref = Monetbil::getQuery('item_ref');
-            $payment_ref = Monetbil::getQuery('payment_ref');
-            $first_name = Monetbil::getQuery('first_name');
-            $last_name = Monetbil::getQuery('last_name');
-            $email = Monetbil::getQuery('email');
-
-            list($payment_status) = Monetbil::checkPayment($transaction_id);
-            if (Monetbil::STATUS_SUCCESS == $payment_status){
-                $statut = 'success';
-            } 
-            elseif (Monetbil::STATUS_CANCELLED == $payment_status){
-                $statut = 'cancelled';
-            }
-            else{
-                $statut = 'failed';
-            }
-            return [
-                    'transaction_id'=>$transaction_id ,
-                    'phone'=>$phone ,
-                    'user'=>$user ,
-                    'item_ref'=>$item_ref ,
-                    'payment_ref'=>$payment_ref ,
-                    'first_name'=>$first_name ,
-                    'last_name'=>$last_name ,
-                    'email'=>$email,
-                    'statut'=>$statut
-                ];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }
     if (!function_exists('Sa_phone')) {
