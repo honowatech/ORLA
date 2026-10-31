@@ -107,9 +107,16 @@ class FacturationTest extends TestCase
         $autreReference = $this->retourMonetbil($transaction, ['payment_ref' => 'une-autre-reference']);
         $this->assertSame('failed', $service->confirmer($transaction->fresh(), $autreReference));
 
-        $this->monetbilRepond(Monetbil::STATUT_SUCCES, 100);
-        $this->assertSame('failed', $service->confirmer($transaction->fresh(), $this->retourMonetbil($transaction)));
+        $this->assertFalse($entreprise->fresh()->abonnementValide());
+    }
 
+    public function test_un_paiement_d_un_montant_insuffisant_n_accorde_rien(): void
+    {
+        $entreprise = Entreprise::create(['name' => 'Alpha', 'statut' => 1]);
+        $transaction = $this->transaction($entreprise, $this->offre());
+        $this->monetbilRepond(Monetbil::STATUT_SUCCES, 100);
+
+        $this->assertSame('failed', app(PaiementAbonnement::class)->confirmer($transaction, $this->retourMonetbil($transaction)));
         $this->assertFalse($entreprise->fresh()->abonnementValide());
     }
 
