@@ -37,6 +37,7 @@ Route::group(['prefix' => 'superadmin'], function(){
         Route::get('/Sa-client-ajax', [App\Http\Controllers\SuperAdmin\ClientController::class, 'index_ajax'])->name('Sa-client.index_ajax');
         Route::post('/Sa-client.recap_create', [App\Http\Controllers\SuperAdmin\ClientController::class, 'recap_create'])->name('Sa-client.recap_create');
         Route::post('/Sa-client_recap_edit', [App\Http\Controllers\SuperAdmin\ClientController::class, 'recap_edit'])->name('Sa-client.recap_edit');
+        Route::post('/Sa-client/{id}/administrateur', [App\Http\Controllers\SuperAdmin\ClientController::class, 'administrateur'])->name('Sa-client.administrateur');
         Route::post('/Sa-client_recap_abonate', [App\Http\Controllers\SuperAdmin\ClientController::class, 'recap_abonate'])->name('Sa-client.recap_abonate');
 
         Route::resource('Sa-abonnement', 'App\Http\Controllers\SuperAdmin\AbonnementController');
@@ -55,14 +56,18 @@ Route::group(['prefix' => 'superadmin'], function(){
 
 ///////////////////////////////////////////////////////////// End Super Admin
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'verify' => true]);
+
+// Inscription en libre-service d'une entreprise
+Route::get('/inscription', [App\Http\Controllers\Auth\InscriptionController::class, 'create'])->name('inscription');
+Route::post('/inscription', [App\Http\Controllers\Auth\InscriptionController::class, 'store'])->middleware('throttle:5,10')->name('inscription.store');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::middleware(['auth', 'entreprise'])->group(function() {////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Route::get('/NonAutorisé', [App\Http\Controllers\HomeController::class, 'error'])->name('home.error');
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Route::middleware('abonnement')->group(function() {
+        Route::middleware(array_values(array_filter([config('tenancy.verifier_email') ? 'verified' : null, 'abonnement'])))->group(function() {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
                 Route::group(['prefix' => '/multi'], function(){
@@ -82,6 +87,8 @@ Route::middleware(['auth', 'entreprise'])->group(function() {///////////////////
                         
                         Route::post('/attribuate_agent', [App\Http\Controllers\Admin\CommandesController::class, 'attribuate_agent'])->name('commande_agent');
                         Route::get('/', [App\Http\Controllers\HomeController::class, 'admin'])->name('home.admin');
+                        Route::get('/demarrage', [App\Http\Controllers\Admin\DemarrageController::class, 'index'])->name('demarrage');
+                        Route::post('/invitation/{id}', [App\Http\Controllers\Admin\InvitationController::class, 'envoyer'])->name('invitation.envoyer');
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
                         Route::post('/compteLie', [App\Http\Controllers\Admin\UsersController::class, 'compteLie'])->name('compteLie');

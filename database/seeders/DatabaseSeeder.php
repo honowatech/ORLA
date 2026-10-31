@@ -27,17 +27,23 @@ class DatabaseSeeder extends Seeder {
     \App\Models\typeUtilisateur\TypeUtilisateur::create(array(
                 'libelle' => 'Client'
             ));
-    \App\Models\ville\Ville::create(array(
+    $courante = app(\App\Tenancy\EntrepriseCourante::class);
+
+        // Ville commune à toutes les entreprises
+    $courante->sansFiltre(fn () => \App\Models\ville\Ville::create(array(
                 'libelle' => 'Douala',
                 'code' => 'Dla',
-            ));
-    \App\Models\users\Users::create(array(
-                'email' => 'test@example.com',
-                'password' => Hash::make('11111111'),
-                'id_type_utilisateur' => 1,
+            )));
+
+        // Entreprise de démonstration et son administrateur
+    $entreprise = \App\Models\Entreprise::create(array(
+                'name' => 'Speedex',
                 'statut' => 1,
-                'noms' => 'Admin Speedex'
+                'essai_jusqu_au' => now()->addDays(config('tenancy.essai_jours')),
             ));
+    app(\App\Tenancy\InscriptionEntreprise::class)->creerAdministrateur(
+                $entreprise, 'Admin Speedex', 'test@example.com', null, '11111111'
+            )->markEmailAsVerified();
 
 	}
 }

@@ -15,6 +15,8 @@
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                     <li class=" nav-item"><a class="d-flex align-items-center"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="user">Tableau de bord</span></a>
                         <ul class="menu-content">
+                            <li id="Demarrage"><a class="d-flex align-items-center" href="{{route('demarrage')}}"><i data-feather="circle"></i><span class="menu-item">Démarrage</span></a>
+                            </li>
                             <li id="Acceuil"><a class="d-flex align-items-center" href="{{route('home')}}"><i data-feather="circle"></i><span class="menu-item" data-i18n="eCommerce">Statistiques</span></a>
                             </li>
                             {{-- <li id="Notifications"><a class="d-flex align-items-center" href="{{route('notification.index')}}"><i data-feather="circle"></i><span class="menu-item" data-i18n="eCommerce">Notifications</span></a>

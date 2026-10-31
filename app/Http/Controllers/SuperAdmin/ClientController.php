@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\SuperAdmin\User;
 use App\Models\SuperAdmin\Client;
 use App\Models\SuperAdmin\Abonnement;
+use App\Tenancy\InscriptionEntreprise;
 
 class ClientController extends Controller
 {
@@ -152,6 +153,34 @@ class ClientController extends Controller
      * @param  int  $id
      * @return Response
      */
+    /**
+     * Crée le compte administrateur d'une entreprise et lui envoie une
+     * invitation pour qu'il choisisse son mot de passe.
+     */
+    public function administrateur($id, Request $request, InscriptionEntreprise $inscription)
+    {
+        $check = check_superadmin();
+        if($check != 'true'){
+            session()->put('dernier_url',url()->current());
+            return redirect()->route($check);
+        }
+        $client = Client::findOrFail($id);
+        $request->validate([
+            'noms' => 'bail|required|string|min:2|max:255',
+            'email' => 'bail|required|email|max:255|unique:users,email',
+        ]);
+        $user = $inscription->creerAdministrateur($client, $request->input('noms'), $request->input('email'), $client->telephone);
+        try {
+            $inscription->inviter($user);
+            $message = "Administrateur <b>".$user->email."</b> créé, invitation envoyée avec <b class='text-success'>Succès</b>";
+        } catch (\Throwable $e) {
+            report($e);
+            $message = "Administrateur <b>".$user->email."</b> créé, mais l'email d'invitation <b class='text-danger'>n'a pas pu être envoyé</b>. Il peut utiliser « Mot de passe oublié ».";
+        }
+        session()->flash('message',$message);
+        return redirect()->route('Sa-client.show',$client->id);
+    }
+
     public function show($id,Request $request)
     {
         $check = check_superadmin();

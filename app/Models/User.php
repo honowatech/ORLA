@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use \App\Models\Concerns\AppartientAEntreprise;
 
@@ -54,6 +54,11 @@ class User extends Authenticatable
      * courante soit connue : ce modèle ne doit donc pas être fermé par défaut.
      * La connexion se fait par email, unique sur toute la plateforme.
      */
+    protected static function booted(): void
+    {
+        static::creating(fn ($user) => \App\Models\users\Users::verifierSiCreeParUnAdministrateur($user));
+    }
+
     public function filtreStrictSansEntreprise(): bool
     {
         return false;

@@ -15,6 +15,13 @@ return [
     'essai_jours' => (int) env('TENANCY_ESSAI_JOURS', 14),
 
     /*
+    | Le créateur d'une entreprise doit confirmer son email avant d'accéder à
+    | son espace. Nécessite un envoi d'emails configuré (MAIL_*).
+    */
+
+    'verifier_email' => (bool) env('TENANCY_VERIFIER_EMAIL', true),
+
+    /*
     |--------------------------------------------------------------------------
     | Tables métier
     |--------------------------------------------------------------------------

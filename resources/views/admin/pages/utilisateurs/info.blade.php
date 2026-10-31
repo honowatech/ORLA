@@ -61,6 +61,10 @@
                                                         </div>
                                                         <div>
                                                             <button class="text-danger btn btn-danger" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}','{{$user->noms}}', ' Réinitialiser le mot de passe de ' ,'button_footer')" data-target="#danger"> Réinitialiser</button>
+                                                            <form method="POST" action="{{route('invitation.envoyer',$user->id)}}" class="d-inline">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-outline-info ml-1" title="Envoie un lien pour choisir son mot de passe">Envoyer une invitation</button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
