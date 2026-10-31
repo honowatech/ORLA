@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->scoped(\App\Tenancy\EntrepriseCourante::class);
+        $this->app->extend('validation.presence', fn ($verifier, $app) => new \App\Validation\PresenceVerifierEntreprise($app['db']));
     }
 
     /**

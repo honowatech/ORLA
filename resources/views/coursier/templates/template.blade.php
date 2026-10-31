@@ -113,7 +113,7 @@
                         <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon" data-feather="menu"></i></a></li>
                     </ul>
                     {{-- <a class="ml-lg-2 navbar-brand d-xl-block d-none" href="{{route('home')}}">
-                        <span class="font-weight-bolder text-info">Speedex</span>
+                        <span class="font-weight-bolder text-info">{{($entreprise_courante->name ?? config('app.name'))}}</span>
                     </a> --}}
                 </div>
             </div>

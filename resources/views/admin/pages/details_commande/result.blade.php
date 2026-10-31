@@ -88,7 +88,7 @@
         <div class="px-2 my-auto">
             <div style="font-size: 1rem;">
                 @if($argent_du > 0 )
-                    Speedex doit 
+                    {{($entreprise_courante->name ?? config('app.name'))}} doit 
                     <span class="font-weight-bolder">
                         {{$argent_du}}
                     </span>
@@ -182,7 +182,7 @@
                                             </div>
                                                 <input type="hidden" id="telephone2" name="telephone" />
                                             @elseif( $argent_du < 0 )
-                                                <input type="text" class="form-control text-center" placeholder="Speedex" id="telephone" name="telephone" value="Speedex" required readonly />
+                                                <input type="text" class="form-control text-center" placeholder="{{($entreprise_courante->name ?? config('app.name'))}}" id="telephone" name="telephone" value="{{($entreprise_courante->name ?? config('app.name'))}}" required readonly />
                                                 <input type="hidden" id="telephone2" name="telephone" value="Speedex"/>
                                             @endif
                                             @error('telephone') 

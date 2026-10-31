@@ -8,6 +8,36 @@ class Quartier extends Model
 {
     use \App\Models\Concerns\AppartientAEntreprise;
 
+    /** Quartier technique représentant les locaux de l'entreprise. */
+    public const LIBELLE_SIEGE = 'Siège';
+
+    /**
+     * Quartier « Siège » de l'entreprise courante, créé au besoin dans sa
+     * première ville (ou dans une ville « À préciser » si elle n'en a aucune).
+     */
+    public static function siege(): self
+    {
+        $siege = static::where('libelle', self::LIBELLE_SIEGE)->first();
+        if ($siege !== null) {
+            return $siege;
+        }
+
+        $ville = \App\Models\ville\Ville::orderByRaw('entreprise_id is null')->orderBy('id')->first();
+        if ($ville === null) {
+            $ville = new \App\Models\ville\Ville;
+            $ville->libelle = 'À préciser';
+            $ville->code = 'NA';
+            $ville->save();
+        }
+
+        $siege = new static;
+        $siege->libelle = self::LIBELLE_SIEGE;
+        $siege->id_ville = $ville->id;
+        $siege->save();
+
+        return $siege;
+    }
+
 
     protected $table = 'quartier';
     public $timestamps = true;

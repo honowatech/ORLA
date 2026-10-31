@@ -143,7 +143,7 @@
                                                         {{$boutique->libelle}}
                                                     </td>
                                                     <td>
-                                                        {{$boutique->quartier_boutique!=null?$boutique->quartier_boutique->libelle:'Speedex'}}
+                                                        {{$boutique->quartier_boutique!=null?$boutique->quartier_boutique->libelle:($entreprise_courante->name ?? config('app.name'))}}
                                                     </td>
                                                     <td>  
                                                         <span class="badge badge-pill @if($boutique->statut == 0)badge-light-danger @else badge-light-success @endif">

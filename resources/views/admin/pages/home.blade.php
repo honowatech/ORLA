@@ -2,7 +2,7 @@
 @section('css')
 @endsection
 @section('title')
-    {{'Speedex Home'}}
+    {{($entreprise_courante->name ?? config('app.name')).' Accueil'}}
 @endsection
 @section('contenu')
     <!-- BEGIN: Content-->

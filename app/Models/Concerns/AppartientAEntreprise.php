@@ -7,6 +7,8 @@ use App\Tenancy\EntrepriseCourante;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Donnée métier propre à une entreprise.
@@ -15,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * - Sans entreprise courante, une requête HTTP ne renvoie rien (fermé par
  *   défaut) ; seuls la console et EntrepriseCourante::sansFiltre() voient tout.
  * - entreprise_id est rempli automatiquement à la création.
+ * - les liens vers d'autres données (config tenancy.liens) doivent viser la
+ *   même entreprise : sinon l'enregistrement est refusé comme une erreur de saisie.
  */
 trait AppartientAEntreprise
 {
@@ -35,12 +39,53 @@ trait AppartientAEntreprise
             }
         });
 
+        static::saving(function (Model $model) {
+            $model->verifierLiensEntreprise();
+        });
+
         static::creating(function (Model $model) {
             $courante = app(EntrepriseCourante::class);
             if (empty($model->entreprise_id) && ! $courante->filtreDesactive()) {
                 $model->entreprise_id = $courante->idOuEchec();
             }
         });
+    }
+
+    public function verifierLiensEntreprise(): void
+    {
+        $courante = app(EntrepriseCourante::class);
+        $entrepriseId = $this->entreprise_id ?? $courante->id();
+        if ($courante->filtreDesactive() || $entrepriseId === null) {
+            return;
+        }
+
+        $partagees = config('tenancy.tables_partagees', []);
+        $erreurs = [];
+
+        foreach (config('tenancy.liens.'.$this->getTable(), []) as $colonne => $table) {
+            $valeur = $this->getAttribute($colonne);
+            if ($valeur === null || $valeur === '' || ! $this->isDirty($colonne)) {
+                continue;
+            }
+
+            $existe = DB::table($table)
+                ->where('id', $valeur)
+                ->where(function ($q) use ($entrepriseId, $table, $partagees) {
+                    $q->where('entreprise_id', $entrepriseId);
+                    if (in_array($table, $partagees, true)) {
+                        $q->orWhereNull('entreprise_id');
+                    }
+                })
+                ->exists();
+
+            if (! $existe) {
+                $erreurs[$colonne] = 'La donnée sélectionnée est introuvable.';
+            }
+        }
+
+        if ($erreurs) {
+            throw ValidationException::withMessages($erreurs);
+        }
     }
 
     protected function appliquerFiltreEntreprise(Builder $query, int $id): void

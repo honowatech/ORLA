@@ -42,12 +42,7 @@ class ClientsController extends Controller
 
             return redirect()->route('home.client');
         }
-    if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
-      $quartier = new Quartier;
-      $quartier->libelle = 'Speedex';
-      $quartier->id_ville = 1;
-      $quartier->save();
-    }
+    Quartier::siege();
     $request = request();
     $clients = Clients::where('noms', 'like', '%' . $request->input('recherche') . '%')
         ->orWhere('telephone', 'like', '%' . $request->input('recherche') . '%')
@@ -88,12 +83,7 @@ class ClientsController extends Controller
 
             return redirect()->route('home.client');
         }
-    if(Quartier::where(strtoupper('libelle'),strtoupper('Speedex'))->count() == 0){
-      $quartier = new Quartier;
-      $quartier->libelle = 'Speedex';
-      $quartier->id_ville = 1;
-      $quartier->save();
-    }
+    Quartier::siege();
     if (TypeClient::count() == 0) {
       $type1 = new TypeClient;
       $type1->libelle = 'Entreprise';
@@ -186,10 +176,10 @@ class ClientsController extends Controller
     if ( $typeClient == 1) {
 
       $boutique = new Boutiques;
-      $boutique->libelle = 'Speedex';
+      $boutique->libelle = Boutiques::LIBELLE_SIEGE;
       $boutique->id_quartier = null;
       $boutique->id_client = $client->id;
-      $boutique->quartier = "Cette boutique est chez speedex";
+      $boutique->quartier = "Cette boutique est au siège de l'entreprise";
       $boutique->statut = 1;
       $boutique->save();
     }
