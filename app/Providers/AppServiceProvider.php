@@ -34,5 +34,10 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+
+        // Connexion mobile : limite les tentatives par email + adresse IP.
+        RateLimiter::for('api-login', function (Request $request) {
+            return Limit::perMinute(6)->by(strtolower((string) $request->input('email')).'|'.$request->ip());
+        });
     }
 }

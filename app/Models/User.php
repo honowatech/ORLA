@@ -47,6 +47,31 @@ class User extends Authenticatable
     ];
 
 
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_COURSIER = 'coursier';
+    public const ROLE_CLIENT = 'client';
+
+    /**
+     * Rôle applicatif déduit du type d'utilisateur
+     * (Super Admin et Agent sont regroupés sous « admin »).
+     */
+    public function role(): ?string
+    {
+        $libelle = strtoupper((string) $this->type_utilisateur?->libelle);
+
+        return match ($libelle) {
+            'SUPER ADMIN', 'AGENT' => self::ROLE_ADMIN,
+            'COURSIER' => self::ROLE_COURSIER,
+            'CLIENT' => self::ROLE_CLIENT,
+            default => null,
+        };
+    }
+
+    public function estActif(): bool
+    {
+        return (bool) $this->statut;
+    }
+
     public function type_utilisateur()
     {
         return $this->belongsTo('App\Models\typeUtilisateur\TypeUtilisateur', 'id_type_utilisateur');

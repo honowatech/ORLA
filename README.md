@@ -86,6 +86,11 @@ Seeders create the base user types, a default city (Douala), an admin user
 (`test@example.com` / `11111111`) and a Super Admin account
 (`superadmin@example.com` / `11111111`).
 
+## Mobile API
+
+A versioned REST API (`/api/v1`, Sanctum bearer tokens) serves the upcoming
+courier and client mobile apps. See [docs/API.md](docs/API.md) (in French).
+
 ## Notes
 
 - Delivery orders follow a status lifecycle: `attente` → `attribue` → `encours` → `livre` / `annulee` / `echoue`.

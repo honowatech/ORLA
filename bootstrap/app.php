@@ -3,6 +3,9 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -33,6 +36,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'coursier_filter' => \App\Http\Middleware\Coursier_filter::class,
             'admin_filter' => \App\Http\Middleware\Admin_filter::class,
             'Check_Sa_Client_Error' => \App\Http\Middleware\Check_Sa_Client_Error::class,
+            'api.active' => \App\Http\Middleware\Api\EnsureAccountIsActive::class,
+            'api.role' => \App\Http\Middleware\Api\EnsureUserRole::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
@@ -41,5 +46,22 @@ return Application::configure(basePath: dirname(__DIR__))
             'password',
             'password_confirmation',
         ]);
+
+        // L'API répond toujours en JSON, même si l'en-tête Accept est absent.
+        $exceptions->shouldRenderJsonWhen(
+            fn (Request $request) => $request->is('api/*') || $request->expectsJson()
+        );
+
+        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json(['message' => 'Ressource introuvable.'], 404);
+            }
+        });
+
+        $exceptions->render(function (AuthenticationException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json(['message' => 'Non authentifié.', 'code' => 'non_authentifie'], 401);
+            }
+        });
     })
     ->create();
