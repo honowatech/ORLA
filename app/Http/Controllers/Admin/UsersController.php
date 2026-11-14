@@ -180,7 +180,7 @@ class UsersController extends Controller
         $compte->id_utilisateur = $utilisateur->id;
         $compte->save();
     }
-    $message = "Utilisateur créé avec <b class='text-success'> Succès.</b>";
+    $message = __('Utilisateur créé avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('users.index');
   }
@@ -304,7 +304,7 @@ class UsersController extends Controller
       $client->save();
     }
     $utilisateur->save();
-    $message = "Utilisateur mis à jour avec <b class='text-success'> Succès.</b>";
+    $message = __('Utilisateur mis à jour avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('users.index');
   }
@@ -335,7 +335,7 @@ class UsersController extends Controller
     $user = Users::findOrFail($id);
     if ($user->statut == 0) {
         $user->statut = 1;
-        $message = $user->noms." Activé(e) avec <b class='text-success'> Succès.</b>";
+        $message = __(':v1 Activé(e) avec <b class=\'text-success\'> Succès.</b>', ['v1' => $user->noms]);
         if($user->id_agent != null){
           $agent = Agents::findOrFail($user->id_agent);
           $agent->statut = 1;
@@ -353,7 +353,7 @@ class UsersController extends Controller
         }
     }else{
       $user->statut = 0;
-      $message = $user->noms." Desactivé(e) avec <b class='text-success'>Succès.</b>";
+      $message = __(':v1 Desactivé(e) avec <b class=\'text-success\'>Succès.</b>', ['v1' => $user->noms]);
         if($user->id_agent != null){
           $agent = Agents::findOrFail($user->id_agent);
           $agent->statut = 0;

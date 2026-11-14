@@ -25,38 +25,38 @@
                                 <div class="card col-md-10 col-12 py-2 m-auto">
                                     <div class="my-1">
                                         <h4 class="text-center">
-                                            Nous avons une <span class="text-danger">Erreur </span>
+                                            {{ __('Nous avons une') }} <span class="text-danger">{{ __('Erreur') }} </span>
                                         </h4>
                                     </div>
                                     <div class="content-body text-center">
                                         <div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
                                             <p>
-                                                Pour accéder à l'application veuillez contacter  <a href="https://honowa.com/contact">Honowa Technologies </a> via :
+                                                {{ __('Pour accéder à l\'application veuillez contacter') }}  <a href="https://honowa.com/contact">{{ __('Honowa Technologies') }} </a> {{ __('via :') }}
                                             </p>
                                             <div class="text-center my-2 row col-md-10 mx-auto">
                                                 <p>
-                                                    <i data-feather="phone" class="mr-50"></i> Téléphones : {{Sa_phone(explode('/',$phones->value)[0])}} / {{Sa_phone(explode('/',$phones->value)[1])}}.
+                                                    <i data-feather="phone" class="mr-50"></i> {{ __('Téléphones : :v1 / :v2.', ['v1' => Sa_phone(explode('/',$phones->value)[0]), 'v2' => Sa_phone(explode('/',$phones->value)[1])]) }}
                                                 </p>
 
                                                 <p>
-                                                    <i data-feather="mail" class="mr-50"></i> Email : {{$email->value}}.
+                                                    <i data-feather="mail" class="mr-50"></i> {{ __('Email : :v1.', ['v1' => $email->value]) }}
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="row col-md-8 col-lg-6 mb-3 mx-auto" style="gap: 2rem;">
                                             <a class="btn btn-primary btn-gradient-primary mx-auto" href="{{url()->current()}}">
-                                                <i data-feather="loader" class="mr-50"></i>Actualiser
+                                                <i data-feather="loader" class="mr-50"></i>{{ __('Actualiser') }}
                                             </a>
                                             <a class="btn btn-success btn-gradient-success mx-auto" href="{{route('Sc-transaction.create')}}">
-                                                <i data-feather="shopping-cart" class="mr-50"></i>S'Abonner
+                                                <i data-feather="shopping-cart" class="mr-50"></i>{{ __('S\'Abonner') }}
                                             </a>
                                         </div>
                                         @if(check_superadmin() != 'true') 
                                         <hr>
                                         <div class="row col-md-8 col-lg-6 mx-auto" style="gap: 2rem;">
                                             <div class="mx-auto">
-                                                <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{route('logout')}}','', 'vous déconnecter' ,'button_deconnection')">
-                                                    <i data-feather="power" class="mr-50"></i>Se Déconnecter
+                                                <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{route('logout')}}','', '{{ __('vous déconnecter') }}' ,'button_deconnection')">
+                                                    <i data-feather="power" class="mr-50"></i>{{ __('Se Déconnecter') }}
                                                 </button>
                                             </div>
                                         </div>

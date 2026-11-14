@@ -12,12 +12,12 @@
     	 <div class="content-header-left col-md-12 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Liste des zones</h2>
+                        <h2 class="content-header-title float-left mb-0">{{ __('Liste des zones') }}</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Liste des zones
+                            <li class="breadcrumb-item active">{{ __('Liste des zones') }}
                             </li>
                         </ol>
                     </div>
@@ -28,7 +28,7 @@
     <div class="card pl-1 pr-1">
             <div class="content-body"> 
                 <div class="row justify-content-between bg-light-secondary" >
-                    <a class="btn btn-primary col-lg-2 m-1" href="{{route('zone.create')}}">Nouvelle Zone</a>
+                    <a class="btn btn-primary col-lg-2 m-1" href="{{route('zone.create')}}">{{ __('Nouvelle Zone') }}</a>
                         <form action="{{ route('zone.index') }}" class="col-lg-3 mt-1" id="search" method="POST">
                             @csrf
                             @method('GET')
@@ -37,7 +37,7 @@
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
                                     </div>
-                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="Rechercher un coursier">
+                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="{{ __('Rechercher un coursier') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="page" id="page" value="">
@@ -51,11 +51,11 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>libelle</th>
-                                        <th>Ville</th>
-                                        <th>Date création</th>
-                                        <th>statut</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('libelle') }}</th>
+                                        <th>{{ __('Ville') }}</th>
+                                        <th>{{ __('Date création') }}</th>
+                                        <th>{{ __('statut') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,16 +75,16 @@
                                             <td>
                                                 {{$zone->ville->libelle}} 
                                             </td>
-	                                        <td>Le
-                                                <span class="badge badge-pill badge-light-info">{{explode(' ',$zone->updated_at)[0]}}</span> à
+	                                        <td>{{ __('Le') }}
+                                                <span class="badge badge-pill badge-light-info">{{explode(' ',$zone->updated_at)[0]}}</span> {{ __('à') }}
                                                 <span class="badge badge-pill badge-light-info">{{explode(' ',$zone->updated_at)[1]}}</span>
                                             </td>
                                             <td>
                                                 <span class="badge badge-pill @if($zone->statut == 0)badge-light-danger @else badge-light-success @endif">
                                                     @if($zone->statut == 0)
-                                                        Désactivé
+                                                        {{ __('Désactivé') }}
                                                     @else 
-                                                        Actif
+                                                        {{ __('Actif') }}
                                                     @endif
                                                 </span>
                                             </td>
@@ -96,22 +96,22 @@
 	                                                <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="{{route('zone.show',$zone->id)}}">
                                                             <i data-feather='eye'></i>
-                                                            <span class="ml-1">Détails</span>
+                                                            <span class="ml-1">{{ __('Détails') }}</span>
                                                         </a>
 	                                                    <a class="dropdown-item " href="{{route('zone.edit',$zone->id)}}">
 	                                                        <i data-feather="edit-2" class="mr-50"></i>
-	                                                        <span class="ml-1">Editer</span>
+	                                                        <span class="ml-1">{{ __('Editer') }}</span>
 	                                                    </a>
-                                                        <span class=" @if($zone->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',@if($zone->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($zone->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',@if($zone->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                             @if($zone->statut == 1)
                                                                 <i data-feather='x'></i>
                                                                 <span class="ml-1 text-danger" type="button">
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                                 </span>
                                                             @else
                                                                 <i data-feather='check'></i>
                                                                 <span class="ml-1 text-success" type="button">
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                                 </span> 
                                                             @endif
                                                         </span>
@@ -130,11 +130,11 @@
                             {{-- Previous Page Link --}}
                                 @if ($zones->onFirstPage())
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Précédent</span>
+                                        <span disabled class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $zones->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $zones->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
                                 @for($i=1;$i<=$zones->lastPage();$i++)
@@ -145,11 +145,11 @@
                                 {{-- Next Page Link --}}
                                 @if ($zones->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $zones->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $zones->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Suivant</span>
+                                        <span disabled class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -167,9 +167,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 
 @endsection

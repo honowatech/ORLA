@@ -1,7 +1,7 @@
 @if($clients->count() > 0)
-    <option value=""> Choisir un client </option>
+    <option value=""> {{ __('Choisir un client') }} </option>
 @else
-    <option value=""> Aucun client </option>
+    <option value=""> {{ __('Aucun client') }} </option>
 @endif
 @foreach($clients as $client)
     <option value="{{$client->id}}"> {{$client->noms}} {{$client->Prenoms}} </option>

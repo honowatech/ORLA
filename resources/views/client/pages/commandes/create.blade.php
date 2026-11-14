@@ -14,12 +14,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Nouvelle Commande</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Nouvelle Commande') }}</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('home')}}l">Acceuil</a>
+                                    <li class="breadcrumb-item"><a href="{{route('home')}}l">{{ __('Acceuil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active"> Nouvelle Commande
+                                    <li class="breadcrumb-item active"> {{ __('Nouvelle Commande') }}
                                     </li>
                                 </ol>
                             </div>
@@ -39,7 +39,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link @if( $client->type__client->libelle != 'Entreprise') active @endif" href="#account-vertical-general"  onclick="reinitialisation();change_type('simple')" data-toggle="pill" aria-expanded="true">
                                         <i data-feather="clock" class="font-medium-3 mr-1"></i>
-                                        <span class="font-weight-bold">Simple</span>
+                                        <span class="font-weight-bold">{{ __('Simple') }}</span>
                                     </a>
                                 </li>
                                 @else
@@ -47,7 +47,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link @if( $client->type__client->libelle == 'Entreprise')active @endif" data-toggle="pill" href="#account-vertical-general"  onclick="reinitialisation();change_type('entreprise');" aria-expanded="false">
                                         <i data-feather="lock" class="font-medium-3 mr-1"></i>
-                                        <span class="font-weight-bold">Entreprise</span>
+                                        <span class="font-weight-bold">{{ __('Entreprise') }}</span>
                                     </a>
                                 </li>
                                 @endif
@@ -68,11 +68,11 @@
                                                 <input type="text" id="type_commande" hidden name="type_commande" value="{{ $client->type__client->libelle != 'Entreprise'? 'simple' : 'entreprise' }}">
                                                 <div class="row">
                                                     <fieldset style="border: 2px solid #00000010" class="hidden col-11 mb-1 row mx-auto p-2">
-                                                        <legend class="pl-1">Infos du client</legend>
+                                                        <legend class="pl-1">{{ __('Infos du client') }}</legend>
                                                         <div class="col-md-6 col-12">
                                                             <div class="form-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                <label for="phone_number">Numéro de Téléphone</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="phone_number">{{ __('Numéro de Téléphone') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="input-group input-group-merge @error('telephone')  is-invalid @enderror">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="mr-1 flag-icon flag-icon-cm"></i>+237</span>
@@ -81,7 +81,7 @@
                                                                 </div>
                                                                 <div class="dropdown-menu mx-auto resultat pxs-1" id="result_client" style="overflow: auto; max-height: 245px; min-width:100px;" x-placement="bottom">
                                                                     <span>
-                                                                        <b class="text-center">Remplir le champ pour avoir des propositions</b>
+                                                                        <b class="text-center">{{ __('Remplir le champ pour avoir des propositions') }}</b>
                                                                     </span>
                                                                 </div>
                                                                 <input type="text" hidden id="phone_number2" name="telephone"/>
@@ -93,13 +93,13 @@
                                                         </div>
                                                         <div class="col-md-6 col-12">
                                                             <div class="form-group">
-                                                                <label for="nom_client" id="label">Nom du client</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="nom_client" id="label">{{ __('Nom du client') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="input-group input-group-merge @error('nom_client') is-invalid @enderror"  id="fetelephone">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="mr-1" data-feather="at-sign"></i></span>
                                                                     </div>
-                                                                    <input type="text" class="simple_info @error('nom_client')  is-invalid @enderror form-control" placeholder="Nom et prénoms" id="nom_client" name="nom_client" value="{{$client->noms }} {{$client->Prenoms }}" required/>
+                                                                    <input type="text" class="simple_info @error('nom_client')  is-invalid @enderror form-control" placeholder="{{ __('Nom et prénoms') }}" id="nom_client" name="nom_client" value="{{$client->noms }} {{$client->Prenoms }}" required/>
                                                                 </div>
                                                                 @error('nom_client') 
                                                                         <small class="alert alert-danger"> {{$message}} </small>
@@ -108,14 +108,14 @@
                                                         </div>
                                                     </fieldset>
                                                     <fieldset style="border: 2px solid #00000010" class="hidden col-11 mb-1 row mx-auto p-2">
-                                                        <legend class="pl-1">Infos sur l'entreprise</legend>
+                                                        <legend class="pl-1">{{ __('Infos sur l\'entreprise') }}</legend>
                                                         <div  class="col-md-10 col-12 mx-auto">
                                                             <div class="form-group">
-                                                                <label for="entreprise"> Entreprise </label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="entreprise"> {{ __('Entreprise') }} </label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="form-group">
                                                                     <select class="boutique_info @error('entreprise')  is-invalid @enderror select2 form-control" onchange="change_value('entreprise');choose()" id="entreprise" name="entreprise" required />
-                                                                        <option class="entreprise" value="" selected>Choisir une Entreprise
+                                                                        <option class="entreprise" value="" selected>{{ __('Choisir une Entreprise') }}
                                                                         </option>
                                                                         @foreach($entreprises as $entreprise)
                                                                         <option class="entreprise" data-id="{{$entreprise->id}}" data-phone="{{$entreprise->telephone}}" 
@@ -125,7 +125,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 <input type="text" id="id_client2" hidden value="{{old('id_client2') }}" name="id_client2"/>
-                                                                    <small id="entreprise_error" class="alert alert-danger" hidden> Veuillez faire une selection </small>
+                                                                    <small id="entreprise_error" class="alert alert-danger" hidden> {{ __('Veuillez faire une selection') }} </small>
                                                                 @error('entreprise') 
                                                                     <small class="alert alert-danger"> {{$message}} </small>
                                                                 @enderror
@@ -133,12 +133,12 @@
                                                             </div>
                                                     </fieldset>
                                                     <fieldset style="border: 2px solid #00000010" id="boutique_info" class="col-11 mb-1 row mx-auto p-2">
-                                                        <legend class="pl-1">Infos sur la Boutique</legend>
+                                                        <legend class="pl-1">{{ __('Infos sur la Boutique') }}</legend>
                                                         <div class="col-12 pr-0 row">
                                                             <div class="col-md-8 pr-md-1 pr-0 col-12 mx-auto">
                                                                 <div class="form-group">
-                                                                    <label for="id_boutique">Choisir La boutique</label>
-                                                                    <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                    <label for="id_boutique">{{ __('Choisir La boutique') }}</label>
+                                                                    <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                     <div class="form-group mb-0" id="div_boutique" hidden>
                                                                         <select class="boutique_info @error('id_boutique') is-invalid @enderror select2 form-control" id="id_boutique" name="id_boutique" onchange="put_info_entreprise()" required>
                                                                         </select>
@@ -149,13 +149,13 @@
                                                                         </div>
                                                                     </div>
                                                                     <small class="alert alert-danger"><span id="erreur1"></span><br> </small>
-                                                                    <small id="id_boutique_error" class="alert alert-danger" hidden> Veuillez faire une selection </small>
+                                                                    <small id="id_boutique_error" class="alert alert-danger" hidden> {{ __('Veuillez faire une selection') }} </small>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-10 pr-0 pr-md-1 col-12 mx-auto">
                                                                 <div class="form-group">
-                                                                    <label for="produit">Produit</label>
-                                                                        <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                    <label for="produit">{{ __('Produit') }}</label>
+                                                                        <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                     <div class="form-group">
                                                                         <select class=" @error('produit')  is-invalid @enderror select2 form-control boutique_info" id="produit" onchange="upgrade_ligne_produit('decrire');" multiple name="produit" required>
                                                                             @foreach($produits as $produit)
@@ -170,7 +170,7 @@
                                                                             @endforeach
                                                                         </select>
                                                                         <input type="text" name="table_produit" id="table_produit" hidden>
-                                                                        <small id="produit_error" class="alert alert-danger" hidden> Veuillez faire une selection </small>
+                                                                        <small id="produit_error" class="alert alert-danger" hidden> {{ __('Veuillez faire une selection') }} </small>
                                                                     @error('produit') 
                                                                             <small class="alert alert-danger"> {{$message}} </small>
                                                                     @enderror
@@ -182,15 +182,15 @@
                                                         </div>
                                                     </fieldset>
                                                     <fieldset style="border: 2px solid #00000010" class="col-11 mb-1 row mx-auto p-2">
-                                                        <legend class="pl-1">Infos de Livraison</legend>
+                                                        <legend class="pl-1">{{ __('Infos de Livraison') }}</legend>
                                                         <div class="col-md-6 col-12" id="collecte">
-                                                            <h4 class="col-12 text-center">Adresse à la collecte</h4>
+                                                            <h4 class="col-12 text-center">{{ __('Adresse à la collecte') }}</h4>
                                                             <div class="row">
                                                                 <div class="row m-auto">
                                                                     <div class=" col-12">
                                                                         <div class="form-group">
-                                                                            <label for="contact_colis" id="label">Contact</label>
-                                                                            <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                            <label for="contact_colis" id="label">{{ __('Contact') }}</label>
+                                                                            <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             <div class="input-group input-group-merge @error('contact_colis')  is-invalid @enderror">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text"><i class="mr-1 flag-icon flag-icon-cm"></i>+237</span>
@@ -205,8 +205,8 @@
                                                                     </div>
                                                                     <div class="col-md-6 mx-auto col-12">
                                                                         <div class="form-group">
-                                                                            <label for="ville_collecte"> Ville </label>
-                                                                            <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                            <label for="ville_collecte"> {{ __('Ville') }} </label>
+                                                                            <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             <div class="form-group">
                                                                                 <select class=" @error('ville_collecte')  is-invalid @enderror select2 form-control" id="ville_collecte" name="ville_collecte" required />
                                                                                     @foreach($villes as $ville)
@@ -224,17 +224,17 @@
                                                                     </div>
                                                                     <div class="col-md-6 mx-auto col-12">
                                                                         <div class="form-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                            <label for="lieu_collecte">Lieu</label>
-                                                                            <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                            <label for="lieu_collecte">{{ __('Lieu') }}</label>
+                                                                            <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             <div class="input-group input-group-merge @error('lieu_collecte')  is-invalid @enderror">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text"><i class="mr-1" data-feather="map-pin"></i></span>
                                                                                 </div>
-                                                                                <input type="text" class=" @error('lieu_collecte')  is-invalid @enderror form-control" placeholder="Lieu de collecte" id="lieu_collecte" name="lieu_collecte" value="{{old('lieu_collecte') }}" onclick="selectionner_infos('{{route('Clientlieu')}}','lieu_collecte','result_collecte')" onkeyup="initialise(['id_quartier_colis']);montant_commande();selectionner_infos('{{route('Clientlieu')}}','lieu_collecte','result_collecte')" required/>
+                                                                                <input type="text" class=" @error('lieu_collecte')  is-invalid @enderror form-control" placeholder="{{ __('Lieu de collecte') }}" id="lieu_collecte" name="lieu_collecte" value="{{old('lieu_collecte') }}" onclick="selectionner_infos('{{route('Clientlieu')}}','lieu_collecte','result_collecte')" onkeyup="initialise(['id_quartier_colis']);montant_commande();selectionner_infos('{{route('Clientlieu')}}','lieu_collecte','result_collecte')" required/>
                                                                             </div>
                                                                             <div class="px-1 dropdown-menu mx-auto resultat" id="result_collecte" style="overflow: auto; max-height: 245px; min-width:100px;" x-placement="bottom">
                                                                                 <span>
-                                                                                    <b class="text-center">Remplir le champ pour avoir des propositions</b>
+                                                                                    <b class="text-center">{{ __('Remplir le champ pour avoir des propositions') }}</b>
                                                                                 </span>
                                                                             </div>
                                                                             <input type="text" hidden id="id_quartier_colis" value="{{old('id_quartier_colis')}}" name="id_quartier_colis"/>
@@ -245,9 +245,9 @@
                                                                     </div>
                                                                     <div class="col-12  mx-auto">
                                                                         <div class="form-group">
-                                                                            <label for="description_collecte">Description du lieu de collecte</label>
-                                                                            <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
-                                                                            <textarea class="@error('description_collecte')  is-invalid @enderror form-control" placeholder="Décrire le Lieu de collecte" rows="3" id="description_collecte" name="description_collecte">{{old('description_collecte')}}</textarea>
+                                                                            <label for="description_collecte">{{ __('Description du lieu de collecte') }}</label>
+                                                                            <span class="text-info cursor-pointer" title="{{ __('Optionnel') }}">{{ __('Optionnel') }}</span>
+                                                                            <textarea class="@error('description_collecte')  is-invalid @enderror form-control" placeholder="{{ __('Décrire le Lieu de collecte') }}" rows="3" id="description_collecte" name="description_collecte">{{old('description_collecte')}}</textarea>
                                                                             @error('description_collecte') 
                                                                                     <small class="alert alert-danger"> {{$message}} </small>
                                                                             @enderror
@@ -257,17 +257,17 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-12 mx-auto" id="livraison">
-                                                            <h4 class="col-12 text-center">Adresse à la Livraison</h4>
+                                                            <h4 class="col-12 text-center">{{ __('Adresse à la Livraison') }}</h4>
                                                             <div class="row">
                                                                     <div class="col-12">
                                                                         <div class="form-group">
-                                                                            <label for="nom_livraison" id="label">Nom du Destinataire</label>
-                                                                            <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
+                                                                            <label for="nom_livraison" id="label">{{ __('Nom du Destinataire') }}</label>
+                                                                            <span class="text-info cursor-pointer" title="{{ __('Optionnel') }}">{{ __('Optionnel') }}</span>
                                                                             <div class="input-group input-group-merge @error('nom_livraison') is-invalid @enderror"  id="fetelephone">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text"><i class="mr-1" data-feather="at-sign"></i></span>
                                                                                 </div>
-                                                                                <input type="text" class="@error('nom_livraison')  is-invalid @enderror form-control" placeholder="Nom et prénoms" id="nom_livraison" name="nom_livraison" value="{{old('nom_livraison') }}"/>
+                                                                                <input type="text" class="@error('nom_livraison')  is-invalid @enderror form-control" placeholder="{{ __('Nom et prénoms') }}" id="nom_livraison" name="nom_livraison" value="{{old('nom_livraison') }}"/>
                                                                             </div>
                                                                             @error('nom_livraison') 
                                                                                     <small class="alert alert-danger"> {{$message}} </small>
@@ -276,8 +276,8 @@
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <div class="form-group">
-                                                                            <label for="contact_livraison" id="label">Contact</label>
-                                                                            <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                            <label for="contact_livraison" id="label">{{ __('Contact') }}</label>
+                                                                            <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             <div class="input-group input-group-merge @error('contact_livraison')  is-invalid @enderror">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text"><i class="mr-1 flag-icon flag-icon-cm"></i>+237</span>
@@ -292,8 +292,8 @@
                                                                     </div>
                                                                     <div class="col-md-6 col-12">
                                                                         <div class="form-group">
-                                                                            <label for="ville_livraison"> Ville </label>
-                                                                            <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                            <label for="ville_livraison"> {{ __('Ville') }} </label>
+                                                                            <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             <div class="form-group">
                                                                                 <select class=" @error('ville_livraison')  is-invalid @enderror select2 form-control" id="ville_livraison" name="ville_livraison" required />
                                                                                     @foreach($villes as $ville)
@@ -311,17 +311,17 @@
                                                                     </div>
                                                                     <div class="col-md-6 col-12">
                                                                         <div class="form-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                            <label for="lieu_livraison">Lieu</label>
-                                                                            <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                            <label for="lieu_livraison">{{ __('Lieu') }}</label>
+                                                                            <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             <div class="input-group input-group-merge @error('lieu_livraison')  is-invalid @enderror">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text"><i class="mr-1" data-feather="map-pin"></i></span>
                                                                                 </div>
-                                                                                <input type="text" class=" @error('lieu_livraison')  is-invalid @enderror form-control" placeholder="Lieu de collecte" id="lieu_livraison" name="lieu_livraison" value="{{old('lieu_livraison') }}" onclick="selectionner_infos('{{route('Clientlieu2')}}','lieu_livraison','result_livraison')" onkeyup="initialise(['id_quartier_livraison']);montant_commande();selectionner_infos('{{route('Clientlieu2')}}','lieu_livraison','result_livraison')" required/>
+                                                                                <input type="text" class=" @error('lieu_livraison')  is-invalid @enderror form-control" placeholder="{{ __('Lieu de collecte') }}" id="lieu_livraison" name="lieu_livraison" value="{{old('lieu_livraison') }}" onclick="selectionner_infos('{{route('Clientlieu2')}}','lieu_livraison','result_livraison')" onkeyup="initialise(['id_quartier_livraison']);montant_commande();selectionner_infos('{{route('Clientlieu2')}}','lieu_livraison','result_livraison')" required/>
                                                                             </div>
                                                                             <div class="px-1 dropdown-menu mx-auto resultat" id="result_livraison" style="overflow: auto; max-height: 245px; min-width:100px;" x-placement="bottom">
                                                                                 <span>
-                                                                                    <b class="text-center">Remplir le champ pour avoir des propositions</b>
+                                                                                    <b class="text-center">{{ __('Remplir le champ pour avoir des propositions') }}</b>
                                                                                 </span>
                                                                             </div>
                                                                             <input type="text" value="{{old('id_quartier_livraison')}}"  id="id_quartier_livraison" hidden name="id_quartier_livraison"/>
@@ -332,9 +332,9 @@
                                                                     </div>
                                                                     <div class="col-12  mx-auto">
                                                                         <div class="form-group">
-                                                                            <label for="description_livraison">Description du lieu de livraison</label>
-                                                                            <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
-                                                                            <textarea class=" @error('description_livraison')  is-invalid @enderror form-control" placeholder="Décrire le Lieu de livraison" rows="3" id="description_livraison" name="description_livraison">{{old('description_livraison')}}</textarea>
+                                                                            <label for="description_livraison">{{ __('Description du lieu de livraison') }}</label>
+                                                                            <span class="text-info cursor-pointer" title="{{ __('Optionnel') }}">{{ __('Optionnel') }}</span>
+                                                                            <textarea class=" @error('description_livraison')  is-invalid @enderror form-control" placeholder="{{ __('Décrire le Lieu de livraison') }}" rows="3" id="description_livraison" name="description_livraison">{{old('description_livraison')}}</textarea>
                                                                             @error('description_livraison') 
                                                                                     <small class="alert alert-danger"> {{$message}} </small>
                                                                             @enderror
@@ -344,10 +344,10 @@
                                                         </div>
                                                     </fieldset>
                                                     <fieldset style="border: 2px solid #00000010" class="col-11 mb-1 row mx-auto p-2">
-                                                        <legend class="pl-1">Infos sur le Paiement</legend>
+                                                        <legend class="pl-1">{{ __('Infos sur le Paiement') }}</legend>
                                                         <div class="col-md-6 col-12 mx-auto">
                                                             <div class="text-center mx-auto">
-                                                                <label>Le coursier récupère l'argent ? </label><span class="text-danger cursor-pointer" title="Obligatoire"> * </span>
+                                                                <label>{{ __('Le coursier récupère l\'argent ?') }} </label><span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}"> * </span>
                                                             </div>
                                                             <div class="form-group">
                                                                 <div class="form-group row col-md-10 col-lg-8 mx-auto justify-content-around">
@@ -365,8 +365,8 @@
                                                         </div>
                                                         <div class="col-md-6 col-12 hidden">
                                                             <div class="form-group">
-                                                                <label for="montant_livraison">Frais de livraison</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="montant_livraison">{{ __('Frais de livraison') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="input-group input-group-merge @error('montant_livraison')  is-invalid @enderror">
                                                                     <input type="text" class="@error('montant_livraison')  is-invalid @enderror form-control" placeholder="1,000" id="montant_livraison" name="montant_livraison2" onkeyup="format_montant('montant_livraison');remplir_montant('montant_livraison')" value="{{old('montant_livraison') == null ? '1000' : old('montant_livraison')}}" required />
                                                                     <div class="input-group-append">
@@ -381,10 +381,10 @@
                                                         </div>
                                                         <div class="col-md-6 col-12 mx-auto" id="div_collecter">
                                                             <div class="form-group">
-                                                                <label for="montant_collecter">Montant à collecter</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="montant_collecter">{{ __('Montant à collecter') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="input-group input-group-merge @error('montant_collecter')  is-invalid @enderror">
-                                                                    <input type="text" class=" @error('montant_collecter')  is-invalid @enderror form-control" placeholder="Tout l'argent à récupérer" id="montant_collecter" name="montant_collecter2" onkeyup="format_montant('montant_collecter');remplir_montant('montant_collecter')" value="{{old('montant_collecter')}}" required />
+                                                                    <input type="text" class=" @error('montant_collecter')  is-invalid @enderror form-control" placeholder="{{ __('Tout l\'argent à récupérer') }}" id="montant_collecter" name="montant_collecter2" onkeyup="format_montant('montant_collecter');remplir_montant('montant_collecter')" value="{{old('montant_collecter')}}" required />
                                                                     <div class="input-group-append">
                                                                         <span class="input-group-text">FCFA</span>
                                                                     </div>
@@ -397,16 +397,16 @@
                                                         </div>
                                                     </fieldset>
                                                     <fieldset style="border: 2px solid #00000010" class="col-11 mb-1 row mx-auto p-2">
-                                                        <legend class="pl-1">Date de livraison</legend>
+                                                        <legend class="pl-1">{{ __('Date de livraison') }}</legend>
                                                         <div class="col-md-6 col-12  mx-auto">
                                                             <div class="form-group">
-                                                                <label for="date">Date</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="date">{{ __('Date') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="input-group input-group-merge @error('date')  is-invalid @enderror">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="mr-1" data-feather="calendar"></i></span>
                                                                     </div>
-                                                                    <input class="form-control flatpickr-human-friendly @error('date')  is-invalid @enderror "  placeholder="January 01, 2024" tabindex="0" type="text" id="date" readonly="readonly" name="date" required value="{{old('date')}}">
+                                                                    <input class="form-control flatpickr-human-friendly @error('date')  is-invalid @enderror "  placeholder="{{ __('January 01, 2024') }}" tabindex="0" type="text" id="date" readonly="readonly" name="date" required value="{{old('date')}}">
                                                                 </div>
                                                                 @error('date') 
                                                                         <small class="alert alert-danger"> {{$message}} </small>
@@ -415,18 +415,18 @@
                                                         </div>
                                                         <div class="col-md-6 col-12">
                                                             <div class="form-group">
-                                                                <label for="time">Heure</label>
-                                                                <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
+                                                                <label for="time">{{ __('Heure') }}</label>
+                                                                <span class="text-info cursor-pointer" title="{{ __('Optionnel') }}">{{ __('Optionnel') }}</span>
                                                                 <div class="row">
                                                                     <div class="col-9">
                                                                         <div class="input-group input-group-merge @error('time')  is-invalid @enderror">
                                                                             <div class="input-group-prepend">
                                                                                 <span class="input-group-text"><i class="mr-1" data-feather="clock"></i></span>
                                                                             </div>
-                                                                            <input type="text" id="time" class="flatpickr-time flatpickr text-left form-control input @error('time') is-invalid @enderror " name="time" style="height: 2.714rem;" placeholder="Heure:Minute" value="{{old('time')}}"/>
+                                                                            <input type="text" id="time" class="flatpickr-time flatpickr text-left form-control input @error('time') is-invalid @enderror " name="time" style="height: 2.714rem;" placeholder="{{ __('Heure:Minute') }}" value="{{old('time')}}"/>
                                                                         </div>
                                                                     </div>
-                                                                    <button type="button" onclick="time.value='';" class="col-2 btn btn-gradient-danger btn-danger" title="Effacer l'heure"><i data-feather="x"></i></button>
+                                                                    <button type="button" onclick="time.value='';" class="col-2 btn btn-gradient-danger btn-danger" title="{{ __('Effacer l\'heure') }}"><i data-feather="x"></i></button>
                                                                 </div>
                                                                 @error('time') 
                                                                         <small class="alert alert-danger"> {{$message}} </small>
@@ -435,12 +435,12 @@
                                                         </div>
                                                     </fieldset>
                                                     <fieldset style="border: 2px solid #00000010" class="col-11 mb-1 row mx-auto p-2">
-                                                        <legend class="pl-1">Infos supplémentaires</legend>
+                                                        <legend class="pl-1">{{ __('Infos supplémentaires') }}</legend>
                                                         <div class="col-md-8 col-12  mx-auto">
                                                             <div class="form-group">
-                                                                <label for="description">Description</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
-                                                                <textarea type="number" class="@error('description')  is-invalid @enderror form-control" placeholder="Décrire le colis" rows="3" id="description0" name="description" required >{{old('description')}}</textarea>
+                                                                <label for="description">{{ __('Description') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
+                                                                <textarea type="number" class="@error('description')  is-invalid @enderror form-control" placeholder="{{ __('Décrire le colis') }}" rows="3" id="description0" name="description" required >{{old('description')}}</textarea>
                                                                 @error('description') 
                                                                         <small class="alert alert-danger"> {{$message}} </small>
                                                                 @enderror
@@ -449,18 +449,18 @@
                                                     </fieldset>
                                                     <div class="d-none d-md-block text-center col-bg-5 col-lg-8 col-md-12 col-12 mx-auto">
                                                         <button type="reset" class="btn col-8 col-sm-7 col-lg-5  col-xl-3 col-md-4 btn-danger mt-1 mt-md-2 mr-md-4">
-                                                            <i class="mr-1" data-feather='x'></i> Effacer
+                                                            <i class="mr-1" data-feather='x'></i> {{ __('Effacer') }}
                                                         </button>
                                                         <button onclick="seeRecap()" type="button" class="recap btn col-8 col-sm-7 col-lg-5 col-xl-3 col-md-4 btn-success mt-1 mt-md-2">
-                                                            <i class="mr-1" data-feather='download'></i> Continuer
+                                                            <i class="mr-1" data-feather='download'></i> {{ __('Continuer') }}
                                                         </button>
                                                     </div>
                                                     <div class="d-block d-md-none text-center col-bg-5 col-lg-8 col-md-12 col-12 mx-auto">
                                                         <button  onclick="seeRecap()" type="button" class="recap btn col-8 col-sm-7 col-lg-5  col-xl-3 col-md-4 btn-success mt-1 mt-md-2 mr-md-2">
-                                                            <i class="mr-1" data-feather='download'></i> Continuer
+                                                            <i class="mr-1" data-feather='download'></i> {{ __('Continuer') }}
                                                         </button>
                                                         <button type="reset" class="btn col-8 col-sm-7 col-lg-5 col-xl-3 col-md-4 btn-danger mt-1 mt-md-2">
-                                                            <i class="mr-1" data-feather='x'></i> Effacer
+                                                            <i class="mr-1" data-feather='x'></i> {{ __('Effacer') }}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -480,83 +480,83 @@
                                                     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalScrollableTitle">Récap de la commande</h5>
-                                                                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                                                                <h5 class="modal-title" id="exampleModalScrollableTitle">{{ __('Récap de la commande') }}</h5>
+                                                                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                                                                     <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-12"> Type de commande :</div> <div class="col-md-6 col-12 text-uppercase" id="Type_commande_modal"></div>
+                                                                    <div class="col-md-6 col-12"> {{ __('Type de commande :') }}</div> <div class="col-md-6 col-12 text-uppercase" id="Type_commande_modal"></div>
                                                                 </div>
                                                                 <hr>
                                                                 <div class="boutique_info">
                                                                     <div class="row">
-                                                                        <div class="boutique_info col-md-6 col-12">Nom de L'entreprise :</div> <div class="col-md-6 col-12 text-uppercase" id="nom_entreprise_modal"></div>
+                                                                        <div class="boutique_info col-md-6 col-12">{{ __('Nom de L\'entreprise :') }}</div> <div class="col-md-6 col-12 text-uppercase" id="nom_entreprise_modal"></div>
                                                                     </div>
                                                                     <hr>
                                                                 </div>
                                                                 <div class="simple_info">
                                                                     <div class="row ">
-                                                                        <div class="simple_info col-md-6 col-12">Nom du client :</div> <div class="col-md-6 col-12  text-uppercase" id="nom_client_modal"></div>
+                                                                        <div class="simple_info col-md-6 col-12">{{ __('Nom du client :') }}</div> <div class="col-md-6 col-12  text-uppercase" id="nom_client_modal"></div>
                                                                     </div>
                                                                     <hr>
                                                                 </div>
                                                                 <div class="simple_info">
                                                                     <div class="row">
-                                                                        <div class="simple_info col-md-6 col-12">Numéro du client :</div> <div class="col-md-6 col-12" id="telephone_client_modal"></div>
+                                                                        <div class="simple_info col-md-6 col-12">{{ __('Numéro du client :') }}</div> <div class="col-md-6 col-12" id="telephone_client_modal"></div>
                                                                     </div>
                                                                     <hr>
                                                                 </div>
                                                                 <div class="boutique_info">
                                                                     <div class="row">
-                                                                        <div class="boutique_info col-md-6 col-12">Nom de la Boutique :</div> <div class="col-md-6 col-12  text-uppercase" id="boutique_modal"></div>
+                                                                        <div class="boutique_info col-md-6 col-12">{{ __('Nom de la Boutique :') }}</div> <div class="col-md-6 col-12  text-uppercase" id="boutique_modal"></div>
                                                                     </div>
                                                                     <hr>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-12">Contact à la collecte :</div> <div class="col-md-6 col-12" id="contact_colis_modal"></div>
+                                                                    <div class="col-md-6 col-12">{{ __('Contact à la collecte :') }}</div> <div class="col-md-6 col-12" id="contact_colis_modal"></div>
                                                                 </div>
                                                                 <hr>
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-12">Lieu de la collecte :</div> <div class="col-md-6 col-12 text-uppercase" id="lieu_colis_modal"></div>
+                                                                    <div class="col-md-6 col-12">{{ __('Lieu de la collecte :') }}</div> <div class="col-md-6 col-12 text-uppercase" id="lieu_colis_modal"></div>
                                                                 </div>
                                                                 <hr>
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-12">Contact à la livraison :</div> <div class="col-md-6 col-12" id="contact_livraison_modal"></div>
+                                                                    <div class="col-md-6 col-12">{{ __('Contact à la livraison :') }}</div> <div class="col-md-6 col-12" id="contact_livraison_modal"></div>
                                                                 </div>
                                                                 <hr>
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-12">Lieu de la livraison :</div> <div class="col-md-6 col-12 text-uppercase" id="lieu_livraison_modal"></div>
+                                                                    <div class="col-md-6 col-12">{{ __('Lieu de la livraison :') }}</div> <div class="col-md-6 col-12 text-uppercase" id="lieu_livraison_modal"></div>
                                                                 </div>
                                                                 <hr>
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-12">Montant à récupérer :</div> 
+                                                                    <div class="col-md-6 col-12">{{ __('Montant à récupérer :') }}</div> 
                                                                     <div class="col-md-6 col-12" id="mode_paiement_modal"></div>
                                                                 </div>
                                                                 <hr>
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-12">Date de Livraison :</div> 
+                                                                    <div class="col-md-6 col-12">{{ __('Date de Livraison :') }}</div> 
                                                                     <div class="col-md-6 col-12" id="date_modal"></div>
                                                                 </div>
                                                                 <hr>
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-12 my-auto">Description du colis :</div> <div class="col-md-6 col-12" id="description_modal"></div>
+                                                                    <div class="col-md-6 col-12 my-auto">{{ __('Description du colis :') }}</div> <div class="col-md-6 col-12" id="description_modal"></div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer justify-content-center justify-content-md-around pt-2">
                                                                     <button data-dismiss="modal" class="d-none d-md-block btn col-12 col-md-5 col-lg-4 btn-danger round  mx-auto">
-                                                                        <i class="mr-1" data-feather='x'></i> Annuler
+                                                                        <i class="mr-1" data-feather='x'></i> {{ __('Annuler') }}
                                                                     </button>
                                                                     <button type="button" onclick="tosubmit()" class="d-none d-md-block btn round col-12 btn-success col-md-5 col-lg-4 mx-auto">
-                                                                        <i class="mr-1" data-feather='download'></i> Enregistrer
+                                                                        <i class="mr-1" data-feather='download'></i> {{ __('Enregistrer') }}
                                                                     </button>
 
                                                                     <button type="button" onclick="tosubmit()" class="d-block d-md-none btn round col-12 btn-success col-md-5 col-lg-4 mx-auto">
-                                                                        <i class="mr-1" data-feather='download'></i> Enregistrer
+                                                                        <i class="mr-1" data-feather='download'></i> {{ __('Enregistrer') }}
                                                                     </button>
                                                                     <button data-dismiss="modal" class="d-block d-md-none btn col-12 col-md-5 col-lg-4 btn-danger round  mx-auto">
-                                                                        <i class="mr-1" data-feather='x'></i> Annuler
+                                                                        <i class="mr-1" data-feather='x'></i> {{ __('Annuler') }}
                                                                     </button>
                                                             </div>
                                                         </div>
@@ -582,19 +582,19 @@
                 <div class="row col-12 p-0">
                     <div class="col-md-7 col-12 m-auto">
                         <div class="form-group">
-                            <span>#produit</span>
+                            <span>{{ __('#produit') }}</span>
                             <input type="hidden" class="boutique_info form-control text-center" id="Produit#id" name="produit#id" required value="#id" />
                         </div>
                     </div>
                     <div class="col-md-5 col-12">
                         <div class="form-group">
-                            <label for="quantite#id">Quantité</label>
-                            <span class=" text-danger cursor-pointer" title="Obligatoire">*</span>
+                            <label for="quantite#id">{{ __('Quantité') }}</label>
+                            <span class=" text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                             <div class="input-group input-group-merge @error('quantite#id')  is-invalid @enderror">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i data-feather='shopping-bag'></i></span>
                                 </div>
-                                <input type="number" class="boutique_info form-control text-center" placeholder="Quantité" id="quantite#id" name="quantite#id" required value="1" onkeyup="voir_description('decrire','description0')" />
+                                <input type="number" class="boutique_info form-control text-center" placeholder="{{ __('Quantité') }}" id="quantite#id" name="quantite#id" required value="1" onkeyup="voir_description('decrire','description0')" />
                             </div>
                         </div>
                     </div>
@@ -610,8 +610,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120"> Information </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-dark" id="myModalLabel120"> {{ __('Information') }} </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -621,7 +621,7 @@
             </p>
         </div>
         <div class="modal-footer" style="justify-content: center;">
-            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">Terminer</button>
+            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">{{ __('Terminer') }}</button>
         </div>
         </div>
     </div>

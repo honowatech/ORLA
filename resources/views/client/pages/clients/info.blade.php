@@ -1,6 +1,6 @@
 @extends('client/templates/template')
 @section('title')
-    Informations sur le client {{$client->type__client->libelle}} {{$client->noms}}
+    {{ __('Informations sur le client') }} {{$client->type__client->libelle}} {{$client->noms}}
 @endsection
 @section('contenu')
 
@@ -12,12 +12,12 @@
                <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Infos sur {{$client->noms.' '.$client->Prenoms}}</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Infos sur') }} {{$client->noms.' '.$client->Prenoms}}</h2>
                             <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Infos sur {{$client->noms.' '.$client->Prenoms}}
+                            <li class="breadcrumb-item active">{{ __('Infos sur') }} {{$client->noms.' '.$client->Prenoms}}
                             </li>
                         </ol>
                     </div>
@@ -40,7 +40,7 @@
                                         <div class="col-bg-6 col-sm-10 col-lg-6 mt-2 mt-xl-0 mx-auto d-flex flex-column justify-content-between border-container-lg">
                                             <div class="user-avatar-section">
                                                 <div class="d-flex justify-content-start">
-                                                    <img class="img-fluid rounded" src="{{asset('app-assets/images/avatars/user.png')}}" height="140" width="140" alt="User avatar" />
+                                                    <img class="img-fluid rounded" src="{{asset('app-assets/images/avatars/user.png')}}" height="140" width="140" alt="{{ __('User avatar') }}" />
                                                     <div class="my-auto">
                                                         <div class="user-info mb-1">
                                                             <h4 class="mb-0 ">{{$client->noms.' '.$client->Prenoms}}</h4>
@@ -55,20 +55,20 @@
                                                 <div class="d-flex flex-lg-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather="user" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Noms</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Noms') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0"><span class="d-none d-lg-inline-block">{{$client->noms}} </span> {{$client->Prenoms}}</p>
                                                 </div>
                                                 <div class="d-flex flex-lg-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="check" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Status</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Status') }}</span>
                                                     </div>
                                                     <span class="badge badge-pill @if($client->statut == 0)badge-light-danger @else badge-light-success @endif">
                                                         @if($client->statut == 0)
-                                                            Désactivé
+                                                            {{ __('Désactivé') }}
                                                         @else 
-                                                            Actif
+                                                            {{ __('Actif') }}
                                                         @endif
                                                     </span>
                                                     
@@ -76,21 +76,21 @@
                                                 <div class="d-flex flex-lg-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="star" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Rôle</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Rôle') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0"><span class="d-none d-lg-inline-block">{{'Client'}}</span> ({{$client->Type__client->libelle}}) </p>
                                                 </div>
                                                 <div class="d-flex flex-lg-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="flag" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Pays</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Pays') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{'Cameroun'}}</p>
                                                 </div>
                                                 <div class="d-flex flex-lg-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather="phone" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Contacts</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Contacts') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0"><span class="d-none d-lg-inline-block">(+237)</span> {{phone2($client->telephone)}}</p>
                                                 </div>
@@ -116,7 +116,7 @@
                                 <div class="col-lg-6 col-12">
                                     <div class="card-header row">
                                         <h4 class=" card-title">
-                                             Boutiques ( {{$client->boutiques->count()}} )
+                                             {{ __('Boutiques ( :v1 )', ['v1' => $client->boutiques->count()]) }}
                                         </h4>
                                     </div>
                                 </div>
@@ -125,9 +125,9 @@
                                         <thead class="thead-light">
                                             <tr class="text-center">
                                                 <th>N°</th>
-                                                <th>Libelle</th>
-                                                <th>quartier</th>
-                                                <th>status</th>
+                                                <th>{{ __('Libelle') }}</th>
+                                                <th>{{ __('quartier') }}</th>
+                                                <th>{{ __('status') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -148,9 +148,9 @@
                                                     <td>  
                                                         <span class="badge badge-pill @if($boutique->statut == 0)badge-light-danger @else badge-light-success @endif">
                                                             @if($boutique->statut == 0)
-                                                                Désactivée
+                                                                {{ __('Désactivée') }}
                                                             @else 
-                                                                Active
+                                                                {{ __('Active') }}
                                                             @endif
                                                         </span>
                                                     </td>
@@ -174,11 +174,11 @@
     </div>
     <!-- END: Content-->
 <div id="button_footer" hidden>
-<button type="button" class="btn btn-danger round" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-danger round" data-dismiss="modal">{{ __('Annuler') }}</button>
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-success round">Confirmer</button>
+        <button type="submit" class="btn btn-success round">{{ __('Confirmer') }}</button>
     </form>
 </div>
 @endsection

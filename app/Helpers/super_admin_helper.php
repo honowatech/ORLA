@@ -84,7 +84,7 @@ use Carbon\Carbon;
             // Setup Monetbil arguments
             Monetbil::setAmount($montant);
             Monetbil::setCurrency('XAF');
-            Monetbil::setLocale('fr'); // Display language fr or en
+            Monetbil::setLocale(app()->getLocale() === 'en' ? 'en' : 'fr'); // Display language fr or en
             Monetbil::setCountry('CM');
             Monetbil::setPayment_ref(md5(uniqid()));
             Monetbil::setUser(12);
@@ -179,9 +179,9 @@ use Carbon\Carbon;
     }
     if (!function_exists('Sa_Ladate')) {
         function Sa_Ladate($ladate) {
-            $mois = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'];
+            $mois = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
             $ladate = new DateTime($ladate);
-            return $ladate->format('d ').$mois[$ladate->format('m')-1].$ladate->format(' Y');
+            return $ladate->format('d ').__($mois[$ladate->format('m')-1]).$ladate->format(' Y');
         }
     }
     if (!function_exists('Sa_name')) {
@@ -225,9 +225,9 @@ use Carbon\Carbon;
     }
     if (!function_exists('Sa_Ladate')) {
         function Sa_Ladate($ladate) {
-            $mois = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'];
+            $mois = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
             $ladate = new DateTime($ladate);
-            return $ladate->format('d ').$mois[$ladate->format('m')-1].$ladate->format(' Y');
+            return $ladate->format('d ').__($mois[$ladate->format('m')-1]).$ladate->format(' Y');
         }
     }
     if (!function_exists('Sa_Heure')) {

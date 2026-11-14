@@ -170,19 +170,19 @@ class PasswordController extends Controller
         'password_confirm' => 'bail|required|min:8',
     ]);
     if ($password_new != $password_confirm) {
-        $message = "<b class='text-danger'> Echec ! </b><br> Les mots de passes ne correspondent pas.";
+        $message = __('<b class=\'text-danger\'> Echec ! </b><br> Les mots de passes ne correspondent pas.');
         session()->flash('message',$message);
         return redirect()->back();
     }
     if(!password_verify($password, $user->password)){
-        $message = "<b class='text-danger'> Echec ! </b><br> Votre mot de passe est éroné.";
+        $message = __('<b class=\'text-danger\'> Echec ! </b><br> Votre mot de passe est éroné.');
         session()->flash('message',$message);
         return redirect()->back();
     }
     $user = Users::findOrFail($id);
     $user->password = password_hash($password_new, PASSWORD_BCRYPT);
     $user->save();
-    $message = "Modifications enregistrées avec <b class='text-success'> Succès. </b>";
+    $message = __('Modifications enregistrées avec <b class=\'text-success\'> Succès. </b>');
     session()->flash('message',$message);
     return redirect()->route('Coursierusers.show',Auth::user()->id);
   }

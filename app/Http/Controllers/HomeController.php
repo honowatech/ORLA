@@ -148,6 +148,6 @@ class HomeController extends Controller
      */
     public function error()
     {
-        return 'Votre compte est désactivé';
+        return __('Votre compte est désactivé');
     }
 }

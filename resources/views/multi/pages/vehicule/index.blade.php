@@ -12,12 +12,12 @@
     	 <div class="content-header-left col-md-12 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Liste des Véhicules</h2>
+                        <h2 class="content-header-title float-left mb-0">{{ __('Liste des Véhicules') }}</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Liste des Véhicules
+                            <li class="breadcrumb-item active">{{ __('Liste des Véhicules') }}
                             </li>
                         </ol>
                     </div>
@@ -36,7 +36,7 @@
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
                                     </div>
-                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="Rechercher un Véhicule">
+                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="{{ __('Rechercher un Véhicule') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="page" id="page" value="">
@@ -50,16 +50,16 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>Immatriculation</th>
-                                        <th>Type</th>
-                                        <th>Marque</th>
-                                        <th>Modèle</th>
+                                        <th>{{ __('Immatriculation') }}</th>
+                                        <th>{{ __('Type') }}</th>
+                                        <th>{{ __('Marque') }}</th>
+                                        <th>{{ __('Modèle') }}</th>
                                         {{-- <th>Date création</th> --}}
                                         @if(filter(['routeur','superviseur_ville'],auth()->user()) != 'true')
-                                        <th>Ville</th>
+                                        <th>{{ __('Ville') }}</th>
                                         @endif
-                                        <th>statut</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('statut') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,9 +98,9 @@
                                             <td>
                                                 <span class="badge badge-glow @if($vehicule->statut == 0)badge-danger @else badge-success @endif">
                                                     @if($vehicule->statut == 0)
-                                                        Désactivé
+                                                        {{ __('Désactivé') }}
                                                     @else 
-                                                        Actif
+                                                        {{ __('Actif') }}
                                                     @endif
                                                 </span>
                                             </td>
@@ -116,27 +116,27 @@
                                                         </a> --}}
                                                         <a class="dropdown-item " href="{{route('vehicule.edit',$vehicule)}}">
                                                             <i data-feather="edit-2" class="mr-50 text-info"></i>
-                                                            <span class="ml-1">Editer</span>
+                                                            <span class="ml-1">{{ __('Editer') }}</span>
                                                         </a>
                                                         @if($vehicule->statut == 0)
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' Activer le Type de véhicule ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' {{ __('Activer le Type de véhicule') }} ','button_footer')" data-target="#danger">
                                                                 <i data-feather='check' class="text-success"></i>
                                                                 <span class="ml-1" type="button">
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                                 </span>
                                                             </span>
                                                         @else
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' Désactiver le Type de véhicule ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' {{ __('Désactiver le Type de véhicule') }} ','button_footer')" data-target="#danger">
                                                                 <i data-feather='x' class="text-danger"></i>
                                                                 <span class="ml-1" type="button">
-                                                                    désactiver
+                                                                    {{ __('désactiver') }}
                                                                 </span>
                                                             </span>
                                                         @endif
-                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' supprimer ','button_delete')" data-target="#danger">
+                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('vehicule.destroy',$vehicule->id)}}','{{$vehicule->libelle}}',' {{ __('supprimer') }} ','button_delete')" data-target="#danger">
                                                             <i data-feather='trash-2' class="text-danger"></i>
                                                             <span class="ml-1" type="button">
-                                                                Supprimer
+                                                                {{ __('Supprimer') }}
                                                             </span>
                                                         </span>
                                                     </div>
@@ -166,22 +166,22 @@
                                 {{-- Previous Page Link --}}
                                 @if ($vehicules->onFirstPage())
                                     <li class="page-item disabled" aria-disabled="true">
-                                        <span class="page-link">Précédent</span>
+                                        <span class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $vehicules->currentPage()-1 }})" rel="prev">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $vehicules->currentPage()-1 }})" rel="prev">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
 
                                 {{-- Next Page Link --}}
                                 @if ($vehicules->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $vehicules->currentPage()+1 }})" rel="next">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $vehicules->currentPage()+1 }})" rel="next">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled" aria-disabled="true">
-                                        <span class="page-link">Suivant</span>
+                                        <span class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -260,17 +260,17 @@
         @csrf
         @method('DELETE')
         <input type="hidden" name="type" value="delete">
-        <button type="submit" class="btn btn-gradient-success btn-success ">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success ">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 <div id="button_footer" hidden>
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success ">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success ">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 @endsection
 @section('javascript')

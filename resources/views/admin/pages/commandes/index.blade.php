@@ -22,12 +22,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Liste des commandes</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Liste des commandes') }}</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('home')}}l">Acceuil</a>
+                                    <li class="breadcrumb-item"><a href="{{route('home')}}l">{{ __('Acceuil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active"> Liste des commandes
+                                    <li class="breadcrumb-item active"> {{ __('Liste des commandes') }}
                                     </li>
                                 </ol>
                             </div>
@@ -41,17 +41,17 @@
                 <div class="row justify-content-between bg-light-secondary pt-50 pt-lg-0" >
                     @if( strtoupper(Auth()->user()->type_utilisateur->libelle) != strtoupper('agent'))
                         <div class=" col-xl-2 col-lg-3 col-md-6 col-8 m-auto">
-                            <a class="btn btn-dark col-12" style="margin-bottom:0px !important;" href="{{route('commandes.create')}}"><small>Nouvelle</small></a>
+                            <a class="btn btn-dark col-12" style="margin-bottom:0px !important;" href="{{route('commandes.create')}}"><small>{{ __('Nouvelle') }}</small></a>
                         </div>
                     @endif
                         <form action="{{ route('commandes.index') }}" class="col-lg-9 col-xl-10 mt-1 row pr-0" id="search" method="GET">
                             @csrf
                             <div class="col-lg-4 col-sm-6 col-12 pr-0">
                                 <div class="form-group">
-                                    <label for="statut">Statut</label>
+                                    <label for="statut">{{ __('Statut') }}</label>
                                     <div class="form-group">
                                         <select class=" @error('statut') is-invalid @enderror hide-search form-control select2-hidden-accessible" id="statut" onchange="document.querySelector('#search').submit()" name="statut" />
-                                            <option value="all">Tout afficher</option>
+                                            <option value="all">{{ __('Tout afficher') }}</option>
                                                 @foreach($statuts as $statut)
                                                     <option value="{{$statut}}" {{$statut == session()->get('statut') ? 'selected' : ''}}>
                                                         {{$statut == 'attente' ? 'En attente' : ''}}
@@ -72,14 +72,14 @@
                             <div class="col-lg-4 col-sm-6 col-12 pr-0">
                                 <div class="form-group">
                                     <div class="text-center mx-auto">
-                                        <label>Le coursier récupère l'argent ? </label><span class="text-danger cursor-pointer" title="Obligatoire"> * </span>
+                                        <label>{{ __('Le coursier récupère l\'argent ?') }} </label><span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}"> * </span>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-group row col-md-10 col-lg-12 mx-auto justify-content-around">
                                             <div class="form-check custom-control custom-control-info custom-radio mt-1 mr-1">
                                                 <input onchange="document.querySelector('#search').submit()" class="mode_paiement custom-control-input" type="radio" id="tout" name="mode_de_paiement" value="" {{ !session()->has('mode_de_paiement') || session()->get('mode_de_paiement')==null ? 'checked' : ''}}>
                                                 <label class="custom-control-label" for="tout">
-                                                    Oui et Non
+                                                    {{ __('Oui et Non') }}
                                                 </label>
                                             </div>
                                         @foreach($modes_de_paiement as $mode_de_paiement)
@@ -100,13 +100,13 @@
                             </div>
                             <div class="col-lg-4 col-12 pr-0 pr-lg-2">
                                 <div class="form-group">
-                                    <label for="mode_de_paiement">Rechercher</label>
+                                    <label for="mode_de_paiement">{{ __('Rechercher') }}</label>
                                     <div class="form-group">
                                         <div class="input-group input-group-merge">
                                             <div class="input-group-prepend ">
                                                 <span class="input-group-text"><i data-feather='search'></i></span>
                                             </div>
-                                            <input type="search" autofocus class="form-control" name="search" value="{{ session()->get('search')}}" placeholder="Rechercher un coursier">
+                                            <input type="search" autofocus class="form-control" name="search" value="{{ session()->get('search')}}" placeholder="{{ __('Rechercher un coursier') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -122,14 +122,14 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>Type Commande</th>
-                                        <th>Noms Et Prénoms</th>
-                                        <th>Téléphone</th>
-                                        <th>adresse livraison</th>
-                                        <th>frais</th>
-                                        <th>Date de livraison</th>
-                                        <th>Statut</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('Type Commande') }}</th>
+                                        <th>{{ __('Noms Et Prénoms') }}</th>
+                                        <th>{{ __('Téléphone') }}</th>
+                                        <th>{{ __('adresse livraison') }}</th>
+                                        <th>{{ __('frais') }}</th>
+                                        <th>{{ __('Date de livraison') }}</th>
+                                        <th>{{ __('Statut') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -176,13 +176,13 @@
                                                 </span>
 	                                        </td>
                                             <td class="text-left">
-                                                <span class="badge badge-glow badge-light-dark"> Le 
+                                                <span class="badge badge-glow badge-light-dark"> {{ __('Le') }} 
                                                     {{Ladate($commande->date_livraison)}}
-                                                </span> à
+                                                </span> {{ __('à') }}
 
                                                 <span class="badge badge-glow badge-light-dark">
                                                     @if(isset(explode(' ',$commande->date_livraison)[1]) && explode(' ',$commande->date_livraison)[1] == '00:00:00')
-                                                    Tout moment
+                                                    {{ __('Tout moment') }}
                                                     @else
                                                         {{Heure($commande->date_livraison)}}
                                                     @endif
@@ -191,7 +191,7 @@
                                             <td>
                                                 <span class="badge badge-glow badge-{{explode('/',$contenu[$commande->statut])[0]}}">
                                                     <i class="mr-25" data-feather={{explode('/',$contenu[$commande->statut])[1]}}></i>
-                                                        {{explode('/',$contenu[$commande->statut])[2]}}
+                                                        {{ __(explode('/',$contenu[$commande->statut])[2]) }}
                                                 </span>
                                             </td>
 	                                        <td>
@@ -202,17 +202,17 @@
 	                                                <div class="dropdown-menu" id="accordion-hover">
 	                                                    <a class="dropdown-item" href="{{route('commandes.show',$commande->id)}}">
 	                                                        <i data-feather='eye'></i>
-	                                                        <span class="ml-1">Détails</span>
+	                                                        <span class="ml-1">{{ __('Détails') }}</span>
 	                                                    </a>
                                                         @if(strtoupper(Auth()->user()->type_utilisateur->libelle) != strtoupper('agent'))
                                                             @if(in_array($commande->statut ,['attente']))
-                                                                <a class="dropdown-item" data-toggle="modal" data-target="#agent_modal_{{$commande->id}}"  title="Cliquer pour Attribuer à un agent">
+                                                                <a class="dropdown-item" data-toggle="modal" data-target="#agent_modal_{{$commande->id}}"  title="{{ __('Cliquer pour Attribuer à un agent') }}">
                                                                     <i data-feather="user-check"></i>
                                                                     <span class="ml-1">
                                                                         @if($commande->id_agent == null)
-                                                                            Attribuer à un agent
+                                                                            {{ __('Attribuer à un agent') }}
                                                                         @else
-                                                                            Modifer L' agent en charge
+                                                                            {{ __('Modifer L\' agent en charge') }}
                                                                         @endif
                                                                     </span>
                                                                 </a>
@@ -223,7 +223,7 @@
                                                                 @if( strtoupper(Auth()->user()->type_utilisateur->libelle) != strtoupper('agent'))
                                                                     <a class="dropdown-item" href="{{route('commandes.edit',$commande->id)}}">
                                                                         <i data-feather="edit-2" class="mr-50"></i>
-                                                                        <span class="ml-1">Modifier</span>
+                                                                        <span class="ml-1">{{ __('Modifier') }}</span>
                                                                     </a>
                                                                 @endif
                                                             @endif
@@ -239,7 +239,7 @@
                                                                                             <div class="card m-0">
                                                                                                 <span class="dropdown-item" id="modal_danger" data-toggle="modal" data-target="#change_statut" data-target="#collapse300{{$commande->id}}" aria-expanded="true" aria-controls="collapse300{{$commande->id}}" onclick="remplir_modale('contenu{{$commande->id}}')">
                                                                                                     <i data-feather="rotate-ccw" class="mr-50"></i>
-                                                                                                    <span class=" collapse-hover-title" > Changer le statut </span>
+                                                                                                    <span class=" collapse-hover-title" > {{ __('Changer le statut') }} </span>
                                                                                                 </span>
                                                                                                 @php
                                                                                                     $commande->statut == 'attente' ? $depart = 1 : $statuts;
@@ -256,7 +256,7 @@
                                                                                                                     @continue
                                                                                                                 @endif
                                                                                                             @endif
-                                                                                                            <span id="erreur{{$commande->id}}" class="dropdown-item cursor-pointer" class="cursor pointer" data-toggle="modal" data-target="{{$statuts[$i] == 'attribue' ? '#choose_coursier' :'#danger2'}}" onclick="put_statut('{{$statuts[$i]}}'); remplir('{{route('commandes.destroy',$commande->id)}}','', 'Changer le statut de la commande à {{$statuts[$i] == 'attente' ? 'En attente' : ''}}{{$statuts[$i] == 'attribue' ? 'Attribuée' : ''}}{{$statuts[$i] == 'encours' ? 'En cours' : ''}}{{$statuts[$i] == 'livre' ? 'Livrée' : ''}}{{$statuts[$i] == 'annulee' ? 'Annulée' : ''}}{{$statuts[$i] == 'echoue' ? 'Echouée' : ''}}','button_remove',0)">
+                                                                                                            <span id="erreur{{$commande->id}}" class="dropdown-item cursor-pointer" class="cursor pointer" data-toggle="modal" data-target="{{$statuts[$i] == 'attribue' ? '#choose_coursier' :'#danger2'}}" onclick="put_statut('{{$statuts[$i]}}'); remplir('{{route('commandes.destroy',$commande->id)}}','', '{{ __('Changer le statut de la commande à') }} {{$statuts[$i] == 'attente' ? __('En attente') : ''}}{{$statuts[$i] == 'attribue' ? __('Attribuée') : ''}}{{$statuts[$i] == 'encours' ? __('En cours') : ''}}{{$statuts[$i] == 'livre' ? __('Livrée') : ''}}{{$statuts[$i] == 'annulee' ? __('Annulée') : ''}}{{$statuts[$i] == 'echoue' ? __('Echouée') : ''}}','button_remove',0)">
 
                                                                                                                 <i data-feather='chevron-right'></i>
                                                                                                                 <span>
@@ -292,7 +292,7 @@
                             </table>
                             @if($count==1)
                                 <div class="w-100 text-center p-1">
-                                           <i class="text-danger" data-feather='alert-triangle' style="width: 30px; height: 30px; margin-bottom: 0.5rem;"></i> <h5> Aucune information ...</h5>
+                                           <i class="text-danger" data-feather='alert-triangle' style="width: 30px; height: 30px; margin-bottom: 0.5rem;"></i> <h5> {{ __('Aucune information ...') }}</h5>
                                 </div>
                             @endif
                             @foreach($commandes as $commande)
@@ -303,8 +303,8 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <div></div>
-                                                        <h4 class="modal-title text-dark" id="myModalLabel120">Attribuer à un Agent</h4>
-                                                        <button type="button" class="bg-danger close m-0" data-dismiss="modal" aria-label="Close">
+                                                        <h4 class="modal-title text-dark" id="myModalLabel120">{{ __('Attribuer à un Agent') }}</h4>
+                                                        <button type="button" class="bg-danger close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                                                             <span class="text-white" aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -314,12 +314,12 @@
                                                     <div class="modal-body p-md-5 p-2">
                                                         <div class="col-12 mx-auto">
                                                             <div class="form-group">
-                                                                <label for="agent">Choisir un Agent </label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="agent">{{ __('Choisir un Agent') }} </label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="form-group">
                                                                     <select class="boutique_info @error('agent')  is-invalid @enderror select2 form-control" id="agent" name="agent" required />
                                                                         <option value="">
-                                                                            Selectionner un agent
+                                                                            {{ __('Selectionner un agent') }}
                                                                         </option>
                                                                         @foreach($agents as $agent)
                                                                         <option value="{{$agent->id}}"
@@ -334,7 +334,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-success">
-                                                            Enregistrer
+                                                            {{ __('Enregistrer') }}
                                                         </button>
                                                     </div>
                                                     </form>
@@ -350,8 +350,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <div></div>
-                                            <h3 class="modal-title text-dark" id="myModalLabel120">Changer le satut</h3>
-                                            <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                                            <h3 class="modal-title text-dark" id="myModalLabel120">{{ __('Changer le satut') }}</h3>
+                                            <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                                                 <span class="text-dark" aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -372,8 +372,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <div></div>
-                                            <h3 class="modal-title text-dark" id="myModalLabel120">Choisir le coursier</h3>
-                                            <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                                            <h3 class="modal-title text-dark" id="myModalLabel120">{{ __('Choisir le coursier') }}</h3>
+                                            <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                                                 <span class="text-dark" aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -381,12 +381,12 @@
                                             <div class="card">
                                                 <div class=" col-12 my-auto">
                                                     <div class="form-group">
-                                                        <label for="id_coursier">Choisir Un Coursiers</label>
-                                                        <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                        <label for="id_coursier">{{ __('Choisir Un Coursiers') }}</label>
+                                                        <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                         <div class="form-group">
                                                             <input type="hidden" class="statut" name="statut">
                                                             <select class=" @error('id_coursier')  is-invalid @enderror select2 form-control" id="id_coursier" name="id_coursier" onchange="" required>
-                                                                <option value="">Coursiers</option>
+                                                                <option value="">{{ __('Coursiers') }}</option>
                                                             @foreach($coursiers as $coursier)
                                                                 <option class="text-uppercase" value="{{$coursier->id}}" {{$coursier->id == old('id_coursier') ? 'selected' : ''}}>
                                                                         {{$coursier->noms}} {{$coursier->prenoms}}
@@ -402,8 +402,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer" style="justify-content: space-around;">
-                                            <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
-                                            <button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+                                            <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
+                                            <button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
                                         </div>
                                     </div>
                                     </form>
@@ -418,11 +418,11 @@
                             {{-- Previous Page Link --}}
                                 @if ($commandes->onFirstPage())
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Précédent</span>
+                                        <span disabled class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $commandes->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $commandes->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
                                 @for($i=1;$i<=$commandes->lastPage();$i++)
@@ -433,11 +433,11 @@
                                 {{-- Next Page Link --}}
                                 @if ($commandes->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $commandes->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $commandes->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Suivant</span>
+                                        <span disabled class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -456,8 +456,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120">Confirmation! </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-dark" id="myModalLabel120">{{ __('Confirmation!') }} </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -472,18 +472,18 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 <div id="button_remove" hidden>
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
         <input type="hidden" class="statut" name="statut">
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-    <button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+    <button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 @endsection
 @section('javascript')

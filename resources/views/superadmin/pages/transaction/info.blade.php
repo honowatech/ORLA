@@ -1,6 +1,6 @@
 @extends('superadmin/layout/template_error')
 @section('title')
-{{'Transaction'}} {{$statuts_valeurs[$transaction->statut]}}e
+{{ __('Transaction') }} {{ __($statuts_valeurs[$transaction->statut].'e') }}
 @endsection
 @section('content')
 
@@ -12,7 +12,7 @@
             <div class="content-header-left col-md-12 col-12 m-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                            <h2 class="content-header-title mb-0"> Transaction {{$statuts_valeurs[$transaction->statut]}}e </h2>
+                            <h2 class="content-header-title mb-0"> {{ __('Transaction') }} {{ __($statuts_valeurs[$transaction->statut].'e') }} </h2>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h2 class="mx-auto">
-                                        Informations de la transaction
+                                        {{ __('Informations de la transaction') }}
                                     </h2>
                                 </div>
                                 <div class="card-body">
@@ -37,7 +37,7 @@
                                         <div class="row justify-content-center mx-1 mb-2">
                                             <div>
                                                 <div class="text-center"><i data-feather='alert-triangle' class="mr-50 text-danger"></i></div>
-                                                <b> Aucune information disponible</b>
+                                                <b> {{ __('Aucune information disponible') }}</b>
                                             </div>
                                         </div>
                                         @endif
@@ -52,7 +52,7 @@
                                                         {{Sa_phone($information->value)}}
                                                     @elseif($information->name == 'statut')
                                                         <span class="badge-{{$statuts[$information->value]}} badge">
-                                                            {{$statuts_valeurs[$information->value]}}
+                                                            {{ __($statuts_valeurs[$information->value]) }}
                                                         </span>
                                                     @else
                                                         {{$information->value}}
@@ -65,9 +65,9 @@
                                             <a class="btn btn-primary btn-gradient-primary" href="{{Sa_site_login()}}">
                                                 <i data-feather='home' class="mr-50"></i>
                                                 @if(check_superadmin() != 'true') 
-                                                Accéder au site
+                                                {{ __('Accéder au site') }}
                                                 @else
-                                                Voir le site
+                                                {{ __('Voir le site') }}
                                                 @endif
                                             </a>
                                         </div>
@@ -75,8 +75,8 @@
                                         <hr>
                                         <div class="row col-md-8 col-lg-6 mx-auto" style="gap: 2rem;">
                                             <div class="mx-auto">
-                                                <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{route('logout')}}','', 'vous déconnecter' ,'button_deconnection')">
-                                                    <i data-feather="power" class="mr-50"></i>Se Déconnecter
+                                                <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{route('logout')}}','', '{{ __('vous déconnecter') }}' ,'button_deconnection')">
+                                                    <i data-feather="power" class="mr-50"></i>{{ __('Se Déconnecter') }}
                                                 </button>
                                             </div>
                                         </div>

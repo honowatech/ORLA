@@ -87,11 +87,11 @@ class ClientController extends Controller
         $entree = true;
         $telephone_secondaire = $datas['telephone_secondaire'] == null ? '' : ' / '.Sa_phone2($datas['telephone_secondaire']);
         echo "<h4>";
-            echo '</p> Vous allez enregistrer <b>'.$datas['name'].'</b> en tant que Client.</p>';
-            echo '<p>Numéro de CNI : <b>'.$datas['cni'].'</b></p>';
+            echo __('</p> Vous allez enregistrer <b>:v1</b> en tant que Client.</p>', ['v1' => $datas['name']]);
+            echo __('<p>Numéro de CNI : <b>:v1</b></p>', ['v1' => $datas['cni']]);
             echo '<p>Contact : <b>'.Sa_phone($datas['telephone']).$telephone_secondaire.'</b>.</p>';
             if($datas['adresse']==null){
-                echo '<p>Adresse : <b>Aucune adresse</b>.</p>';
+                echo __('<p>Adresse : <b>Aucune adresse</b>.</p>');
             }else{
                 echo '<p>Adresse : <b>'.$datas['adresse'].'</b>.</p>';
             }
@@ -141,7 +141,7 @@ class ClientController extends Controller
       $client->cni = $cni;
       $client->statut = 1;
       $client->save();
-      $message = "Client ".$name." créé avec <b class='text-success'> Succès.</b>";
+      $message = __('Client :v1 créé avec <b class=\'text-success\'> Succès.</b>', ['v1' => $name]);
       session()->flash('message',$message);
       return redirect()->route('Sa-client.show',$client->id);
     }
@@ -188,11 +188,11 @@ class ClientController extends Controller
         $entree = true;
         $telephone_secondaire = $datas['telephone_secondaire'] == null ? '' : ' / '.Sa_phone2($datas['telephone_secondaire']);
         echo "<h4>";
-            echo '</p> Vous allez enregistrer <b>'.$datas['name'].'</b> en tant que Client.</p>';
-            echo '<p>Numéro de CNI : <b>'.$datas['cni'].'</b></p>';
+            echo __('</p> Vous allez enregistrer <b>:v1</b> en tant que Client.</p>', ['v1' => $datas['name']]);
+            echo __('<p>Numéro de CNI : <b>:v1</b></p>', ['v1' => $datas['cni']]);
             echo '<p>Contact : <b>'.Sa_phone($datas['telephone']).$telephone_secondaire.'</b>.</p>';
             if($datas['adresse']==null){
-                echo '<p>Adresse : <b>Aucune adresse</b>.</p>';
+                echo __('<p>Adresse : <b>Aucune adresse</b>.</p>');
             }else{
                 echo '<p>Adresse : <b>'.$datas['adresse'].'</b>.</p>';
             }
@@ -224,18 +224,18 @@ class ClientController extends Controller
         // dd($datas);
         $entree = true;
         echo "<h4>";
-            echo '</p> Vous allez enregistrer une nouvelle Transaction.</p>';
+            echo __('</p> Vous allez enregistrer une nouvelle Transaction.</p>');
             echo '<p>Client : <b>'.$client->name.'</b></p>';
             echo '<p>Abonnement : <b>'.$abonnement->titre.'</b></p>';
-            echo '<p>Montant : <b>'.Sa_montant($abonnement->montant).'</b> FCFA Valide pour <b> '.$periode.' </b>.</p>';
+            echo __('<p>Montant : <b>:v1</b> FCFA Valide pour <b> :v2 </b>.</p>', ['v1' => Sa_montant($abonnement->montant), 'v2' => $periode]);
             if($datas['date_debut'] == null){
                 if ($client->date_fin == null) {
-                    echo '<p>Débute le <b>'.Sa_Ladate(now()).'  à '.Sa_Heure(now()).'</b>.</p>';
+                    echo __('<p>Débute le <b>:v1  à :v2</b>.</p>', ['v1' => Sa_Ladate(now()), 'v2' => Sa_Heure(now())]);
                 }else{
-                    echo '<p>Débute le <b>'.Sa_Ladate($client->date_fin) .' à '.Sa_Heure($client->date_fin).'</b>.</p>';
+                    echo __('<p>Débute le <b>:v1 à :v2</b>.</p>', ['v1' => Sa_Ladate($client->date_fin), 'v2' => Sa_Heure($client->date_fin)]);
                 }
             }else{
-                echo '<p>Débute le <b>'.Sa_Ladate($datas['date_debut']).'  à '.Sa_Heure($datas['date_debut']).'</b>.</p>';
+                echo __('<p>Débute le <b>:v1  à :v2</b>.</p>', ['v1' => Sa_Ladate($datas['date_debut']), 'v2' => Sa_Heure($datas['date_debut'])]);
             }
         echo "</h4>";
     }
@@ -311,7 +311,7 @@ class ClientController extends Controller
       $client->adresse = $adresse;
       $client->cni = $cni;
       $client->save();
-      $message = "Client ".Sa_name($name)." modifié avec <b class='text-success'> Succès.</b>";
+      $message = __('Client :v1 modifié avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($name)]);
       session()->flash('message',$message);
       return redirect()->route('Sa-client.show',$client->id);
     }
@@ -332,10 +332,10 @@ class ClientController extends Controller
       $client = Client::findOrFail($id);
       if ($client->statut == 0) {
         $client->statut = 1;
-        $message = "Client ".Sa_name($client->name)." Activé avec <b class='text-success'> Succès.</b>";
+        $message = __('Client :v1 Activé avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($client->name)]);
       }else{
         $client->statut = 0;
-        $message = "Client ".Sa_name($client->name)." Desactivé avec <b class='text-success'> Succès.</b>";
+        $message = __('Client :v1 Desactivé avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($client->name)]);
       }
       $client->save();
       session()->flash('message',$message);

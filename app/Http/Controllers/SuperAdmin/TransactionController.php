@@ -105,12 +105,12 @@ class TransactionController extends Controller
             $client = Client::where('statut',[1])->first();
         }
             if ($abonnement->statut != 1) {
-                $message = "<b class='text-danger'> Erreur. </b></br> L'abonnement ".$abonnement->titre." n'est plus actif";
+                $message = __('<b class=\'text-danger\'> Erreur. </b></br> L\'abonnement :v1 n\'est plus actif', ['v1' => $abonnement->titre]);
                 session()->flash('message',$message);
                 return redirect()->back();
             }
             if (!in_array($methode, ['mobile', 'bank', 'application'])) {
-                $message = "<b class='text-danger'> Erreur. </b></br> Echec du lancement du paiement";
+                $message = __('<b class=\'text-danger\'> Erreur. </b></br> Echec du lancement du paiement');
                 session()->flash('message',$message);
                 return redirect()->back();
             }
@@ -136,7 +136,7 @@ class TransactionController extends Controller
             $client->id_abonnement = $transaction->abonnement->id;
             $client->date_dernier_paiement = $transaction->created_at;
             $client->save();
-            $message = "Abonnement <b>".$abonnement->titre."</b> Attribué à <b>".$client->name."</b> avec <b class='text-success'>Succès </b>";
+            $message = __('Abonnement <b>:v1</b> Attribué à <b>:v2</b> avec <b class=\'text-success\'>Succès </b>', ['v1' => $abonnement->titre, 'v2' => $client->name]);
             session()->flash('message',$message);
             return redirect()->back();
         }elseif($methode == 'mobile'){
@@ -184,11 +184,11 @@ class TransactionController extends Controller
         $client->save();
         return redirect()->route('Sc-transaction.show',$transaction->id);
       }else if($check['statut'] == 'cancelled'){
-        $message = "la Transaction a été <b class='text-danger'> Interrompue.</b><br> <a class='btn btn-primary btn-sm' href='".route('Sc-transaction.show',$transaction->id)."'>voir<a>";
+        $message = __('la Transaction a été <b class=\'text-danger\'> Interrompue.</b><br> <a class=\'btn btn-primary btn-sm\' href=\':v1\'>voir<a>', ['v1' => route('Sc-transaction.show',$transaction->id)]);
         session()->flash('message',$message);
         return redirect()->route('Sc-transaction.create');
       }
-        $message = "la Transaction a <b class='text-danger'> Echouée.</b><br> <a class='btn btn-primary btn-sm' href='".route('Sc-transaction.show',$transaction->id)."'>voir<a>";
+        $message = __('la Transaction a <b class=\'text-danger\'> Echouée.</b><br> <a class=\'btn btn-primary btn-sm\' href=\':v1\'>voir<a>', ['v1' => route('Sc-transaction.show',$transaction->id)]);
         session()->flash('message',$message);
         return redirect()->route('Sc-transaction.create');
     }
@@ -272,10 +272,10 @@ class TransactionController extends Controller
       $client = Client::findOrFail($id);
       if ($client->statut == 0) {
         $client->statut = 1;
-        $message = "Client ".Sa_name($client->name)." Activé avec <b class='text-success'> Succès.</b>";
+        $message = __('Client :v1 Activé avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($client->name)]);
       }else{
         $client->statut = 0;
-        $message = "Client ".Sa_name($client->name)." Desactivé avec <b class='text-success'> Succès.</b>";
+        $message = __('Client :v1 Desactivé avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($client->name)]);
       }
       $client->save();
       session()->flash('message',$message);

@@ -83,7 +83,23 @@ return [
     |
     */
 
-    'locale' => 'fr',
+    'locale' => env('APP_LOCALE', 'fr'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Available Locales
+    |--------------------------------------------------------------------------
+    |
+    | Languages the interface can be displayed in. Users switch between them
+    | with the FR / EN selector (route "lang.switch"). French strings are the
+    | translation keys; English translations live in lang/en.json.
+    |
+    */
+
+    'available_locales' => [
+        'fr' => 'Français',
+        'en' => 'English',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +112,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'fr',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'fr'),
 
     /*
     |--------------------------------------------------------------------------

@@ -30,12 +30,12 @@ class SuperAdminController extends Controller
         $check_password = false;
         $dernier_url = session()->has('dernier_url') ? session()->get('dernier_url') : route('SuperAdmin.home');
         if( $user == null ){
-            $message = 'Nous ne trouvons pas votre email';
+            $message = __('Nous ne trouvons pas votre email');
             $back = true;
         }else{
             $check_password = password_verify($password, $user->password);
             if($check_password == false){
-                $message = 'Vos informations ne correspondent pas';
+                $message = __('Vos informations ne correspondent pas');
                 $back = true;
             }
         }

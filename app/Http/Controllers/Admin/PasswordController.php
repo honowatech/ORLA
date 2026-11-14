@@ -184,7 +184,7 @@ class PasswordController extends Controller
     $utilisateur = Users::findOrFail($id);
     $utilisateur->password = Hash::make('11111111');
     $utilisateur->save();
-    $message = "Mot de passe réinitialisé avec <b class='text-success'> Succès.</b>";
+    $message = __('Mot de passe réinitialisé avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->back();
     }

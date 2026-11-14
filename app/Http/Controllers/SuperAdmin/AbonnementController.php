@@ -92,10 +92,10 @@ class AbonnementController extends Controller
         // dd($datas);
         $entree = true;
         echo "<h4>";
-            echo '</p> Vous allez enregistrer un <b> Abonnement </b>.</p>';
-            echo '<p>Libellé : <b>'.$datas['titre'].'</b></p>';
-            echo '<p>Montant : <b>'.Sa_montant($datas['montant']).'</b> FCFA à payer chaque  <b> '.$periode.' </b>. </p>';
-            echo '<p> Avec une période de grace allant jusqu\'à <b>'.$datas['periode_grace'].'</b> Jours.</p>';
+            echo __('</p> Vous allez enregistrer un <b> Abonnement </b>.</p>');
+            echo __('<p>Libellé : <b>:v1</b></p>', ['v1' => $datas['titre']]);
+            echo __('<p>Montant : <b>:v1</b> FCFA à payer chaque  <b> :v2 </b>. </p>', ['v1' => Sa_montant($datas['montant']), 'v2' => $periode]);
+            echo __('<p> Avec une période de grace allant jusqu\'à <b>:v1</b> Jours.</p>', ['v1' => $datas['periode_grace']]);
         echo "</h4>";
     }
 
@@ -136,7 +136,7 @@ class AbonnementController extends Controller
       $abonnement->periode_grace = $periode_grace;
       $abonnement->statut = 1;
       $abonnement->save();
-      $message = "Abonnement ".Sa_name($titre)."créée avec <b class='text-success'> Succès.</b>";
+      $message = __('Abonnement :v1créée avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($titre)]);
       session()->flash('message',$message);
       return redirect()->route('Sa-abonnement.index');
       // return redirect()->route('Sa-abonnement.show',$abonnement->id);
@@ -182,11 +182,11 @@ class AbonnementController extends Controller
         // dd($datas);
         $entree = true;
         echo "<h4>";
-            echo '</p> Vous allez enregistrer un <b> Abonnement </b>.</p>';
-            echo '</p><u> Valeurs de après modification </u> :</b></p>';
-            echo '<p>Libellé : <b>'.$datas['titre'].'</b></p>';
-            echo '<p>Montant : <b>'.Sa_montant($datas['montant']).'</b> FCFA à payer chaque  <b> '.$période.' </b>. </p>';
-            echo '<p> Avec une période de grace allant jusqu\'à <b>'.$datas['periode_grace'].'</b> Jours.</p>';
+            echo __('</p> Vous allez enregistrer un <b> Abonnement </b>.</p>');
+            echo __('</p><u> Valeurs de après modification </u> :</b></p>');
+            echo __('<p>Libellé : <b>:v1</b></p>', ['v1' => $datas['titre']]);
+            echo __('<p>Montant : <b>:v1</b> FCFA à payer chaque  <b> :v2 </b>. </p>', ['v1' => Sa_montant($datas['montant']), 'v2' => $période]);
+            echo __('<p> Avec une période de grace allant jusqu\'à <b>:v1</b> Jours.</p>', ['v1' => $datas['periode_grace']]);
         echo "</h4>";
     }
 
@@ -255,7 +255,7 @@ class AbonnementController extends Controller
       $abonnement->periode_grace = $periode_grace;
       $abonnement->statut = 1;
       $abonnement->save();
-      $message = "Abonnement ".Sa_name($titre)." modifié avec <b class='text-success'> Succès.</b>";
+      $message = __('Abonnement :v1 modifié avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($titre)]);
       session()->flash('message',$message);
       return redirect()->route('Sa-abonnement.index');
       // return redirect()->route('Sa-abonnement.show',$abonnement->id);
@@ -277,10 +277,10 @@ class AbonnementController extends Controller
       $abonnement = Abonnement::findOrFail($id);
       if ($abonnement->statut == 0) {
         $abonnement->statut = 1;
-        $message = "Abonnement ".Sa_name($abonnement->titre)." Activé avec <b class='text-success'> Succès.</b>";
+        $message = __('Abonnement :v1 Activé avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($abonnement->titre)]);
       }else{
         $abonnement->statut = 0;
-        $message = "Abonnement ".Sa_name($abonnement->titre)." Desactivé avec <b class='text-success'> Succès.</b>";
+        $message = __('Abonnement :v1 Desactivé avec <b class=\'text-success\'> Succès.</b>', ['v1' => Sa_name($abonnement->titre)]);
       }
       $abonnement->save();
       session()->flash('message',$message);

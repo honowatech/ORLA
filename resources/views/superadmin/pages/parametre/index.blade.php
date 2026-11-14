@@ -14,13 +14,13 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Paramètres</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Paramètres') }}</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('SuperAdmin.home')}}">Acceuil</a>
+                                    <li class="breadcrumb-item"><a href="{{route('SuperAdmin.home')}}">{{ __('Acceuil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item active"> 
-                                        Paramètres
+                                        {{ __('Paramètres') }}
                                     </li>
                                 </ol>
                             </div>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <section class="mx-2">
-                <h3 class="text-center mb-2">Configurer les Apis de paiement</h3>
+                <h3 class="text-center mb-2">{{ __('Configurer les Apis de paiement') }}</h3>
                 <div class="row">
                     @foreach($apis as $api)
                     <div class="card col-md-10 col-12 mx-auto">
@@ -47,18 +47,18 @@
                         </div>
                         <div class="row mx-1">
                             <a class="btn btn-primary btn-gradient-primary mx-auto mb-2" href="{{route('Sa-api.edit',$api->id)}}">
-                                <i data-feather='tool' class="mr-50"></i> <span>configurer</span>
+                                <i data-feather='tool' class="mr-50"></i> <span>{{ __('configurer') }}</span>
                             </a>
-                            <button class="btn mx-auto mb-2 @if($api->statut == 1) btn-danger btn-gradient-danger @else btn-success btn-gradient-success @endif " data-toggle="modal" onclick="remplir('{{route('Sa-api.destroy',$api->id)}}','{{Sa_name($api->name)}}',@if($api->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                            <button class="btn mx-auto mb-2 @if($api->statut == 1) btn-danger btn-gradient-danger @else btn-success btn-gradient-success @endif " data-toggle="modal" onclick="remplir('{{route('Sa-api.destroy',$api->id)}}','{{Sa_name($api->name)}}',@if($api->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                 @if($api->statut == 1)
                                 <i data-feather='eye-off' class="mr-50"></i>
                                 <span>
-                                        Désactiver
+                                        {{ __('Désactiver') }}
                                 </span>
                                 @else
                                 <i data-feather='eye' class="mr-50"></i>
                                 <span>
-                                        Activer
+                                        {{ __('Activer') }}
                                 </span>
                                 @endif
                             </button>
@@ -70,7 +70,7 @@
                                         <tbody>
                                             <tr>
                                                 <td class="bg-light-{{$api->key == null ? 'danger' : 'success'}}" style="max-width: 180px !important;min-width: 180px !important; width: 180px !important;">
-                                                    <i data-feather="key" class="mr-50"></i> Clé Api
+                                                    <i data-feather="key" class="mr-50"></i> {{ __('Clé Api') }}
                                                 </td>
                                                 <td class="text-center">
                                                     <b>
@@ -80,7 +80,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="bg-light-{{$api->secret == null ? 'danger' : 'success'}}" style="max-width: 180px !important;min-width: 180px !important; width: 180px !important;">
-                                                    <i data-feather="lock" class="mr-50"></i> Secret Api
+                                                    <i data-feather="lock" class="mr-50"></i> {{ __('Secret Api') }}
                                                 </td>
                                                 <td class="text-center">
                                                     <b>
@@ -90,7 +90,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="bg-light-{{$api->user == null ? 'danger' : 'success'}}" style="max-width: 180px !important;min-width: 180px !important; width: 180px !important;">
-                                                    <i data-feather="user" class="mr-50"></i> User Name
+                                                    <i data-feather="user" class="mr-50"></i> {{ __('User Name') }}
                                                 </td>
                                                 <td class="text-center">
                                                     <b>
@@ -100,7 +100,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="bg-light-{{$api->password == null ? 'danger' : 'success'}}" style="max-width: 180px !important;min-width: 180px !important; width: 180px !important;">
-                                                    <i data-feather="more-horizontal" class="mr-50"></i> Mot de passe
+                                                    <i data-feather="more-horizontal" class="mr-50"></i> {{ __('Mot de passe') }}
                                                 </td>
                                                 <td class="text-center">
                                                     <b>

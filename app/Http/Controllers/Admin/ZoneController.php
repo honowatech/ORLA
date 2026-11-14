@@ -184,7 +184,7 @@ class ZoneController extends Controller
     foreach($zones as $zone){
       array_push($verificate_table, $zone->id);
     }
-     $message = "Zone créée avec <b class='text-success'> Succès.</b>";
+     $message = __('Zone créée avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
      return redirect()->route('zone.index');
   }
@@ -281,7 +281,7 @@ class ZoneController extends Controller
     $zone = zone::findOrFail($id);
     $zone->libelle = $libelle;
     $zone->save();
-    $message = "Zone mise à jour avec <b class='text-success'> Succès.</b>";
+    $message = __('Zone mise à jour avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('zone.index');
   }
@@ -314,10 +314,10 @@ class ZoneController extends Controller
               $quartier = Quartier::findOrFail($request->input('id_quartier'));
               $quartier->id_zone = null;
               $quartier->save();
-          $message = "Quartier Supprimé de la liste avec <b class='text-success'> succès</b>";
+          $message = __('Quartier Supprimé de la liste avec <b class=\'text-success\'> succès</b>');
             session()->flash('message',$message);
         }else{
-          $message = "<b class='text-danger'>Erreur fatale</b><br>Une ville doit être liée à au moins (1) Quartier";
+          $message = __('<b class=\'text-danger\'>Erreur fatale</b><br>Une ville doit être liée à au moins (1) Quartier');
           session()->flash('message',$message);
         }
           return redirect()->back();
@@ -325,7 +325,7 @@ class ZoneController extends Controller
       if ($request->input('add') != null){
         $request->input('id_quartier_associe')== null ? $id_quartiers_associe = null : $id_quartiers_associe = explode(',',$request->input('id_quartier_associe'));
         if ($request->input('id_quartier_associe')== null) {
-          $message = "<b class='text-danger'>Vous n'avez choisis aucun Quartier</b>";
+          $message = __('<b class=\'text-danger\'>Vous n\'avez choisis aucun Quartier</b>');
           session()->flash('message',$message);
         }else{
           foreach ($id_quartiers_associe as $id_quartier_associe) {
@@ -333,7 +333,7 @@ class ZoneController extends Controller
             $quartier->id_zone = $id;
             $quartier->save();
           }
-          $message = "<b class='text-success'>Quartier(s) ajoutés avec succès</b>";
+          $message = __('<b class=\'text-success\'>Quartier(s) ajoutés avec succès</b>');
           session()->flash('message',$message);
         }
         return redirect()->back();
@@ -341,10 +341,10 @@ class ZoneController extends Controller
       $zone = Zone::findOrFail($id);
       if ($zone->statut == 0) {
         $zone->statut = 1;
-        $message = $zone->libelle." Activé(e) <b class='text-success'> Succès.</b>";
+        $message = __(':v1 Activé(e) <b class=\'text-success\'> Succès.</b>', ['v1' => $zone->libelle]);
       }else{
         $zone->statut = 0;
-        $message = $zone->libelle." Desactivé(e) <b class='text-success'> Succès.</b>";
+        $message = __(':v1 Desactivé(e) <b class=\'text-success\'> Succès.</b>', ['v1' => $zone->libelle]);
       }
       $zone->save();
       session()->flash('message',$message);

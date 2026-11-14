@@ -1,6 +1,6 @@
 @extends('admin/templates/template')
 @section('title')
-Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
+{{ __('Informations sur') }} {{$coursier->noms}} {{$coursier->prenoms}}
 @endsection
 @section('contenu')
 
@@ -12,14 +12,14 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Infos sur {{$coursier->noms.' '.$coursier->prenoms}}</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Infos sur') }} {{$coursier->noms.' '.$coursier->prenoms}}</h2>
                             <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{route('coursiers.index')}}">Liste des Coursiers</a>
+                            <li class="breadcrumb-item"><a href="{{route('coursiers.index')}}">{{ __('Liste des Coursiers') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Infos sur {{$coursier->noms}} {{$coursier->prenoms}}
+                            <li class="breadcrumb-item active">{{ __('Infos sur') }} {{$coursier->noms}} {{$coursier->prenoms}}
                             </li>
                         </ol>
                     </div>
@@ -42,24 +42,24 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                         <div class="col-bg-6 col-lg-6 d-flex flex-column justify-content-between border-container-lg">
                                             <div class="user-avatar-section">
                                                 <div class="d-flex justify-content-start">
-                                                    <img class="img-fluid rounded" src="{{asset('app-assets/images/avatars/user.png')}}" height="104" width="125" alt="User avatar" />
+                                                    <img class="img-fluid rounded" src="{{asset('app-assets/images/avatars/user.png')}}" height="104" width="125" alt="{{ __('User avatar') }}" />
                                                     <div class="d-flex flex-column ml-1">
                                                         <div class="user-info mb-1">
                                                             <h4 class="mb-0 ">{{$coursier->noms.' '.$coursier->prenoms}}</h4>
                                                             <span class="card-text ">{{'Coursier'}}</span>
                                                         </div>
                                                         <div class="d-flex flex-wrap">
-                                                            <a href="{{route('coursiers.edit',$coursier->id)}}" class="round btn btn-outline-dark">Modifier</a>
-                                                            <button class="btn ml-md-1 ml-bg-1 @if($coursier->statut == 1) round btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}','{{$coursier->noms.' '.$coursier->prenoms}}', @if($coursier->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <a href="{{route('coursiers.edit',$coursier->id)}}" class="round btn btn-outline-dark">{{ __('Modifier') }}</a>
+                                                            <button class="btn ml-md-1 ml-bg-1 @if($coursier->statut == 1) round btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}','{{$coursier->noms.' '.$coursier->prenoms}}', @if($coursier->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                             @if($coursier->statut == 1)
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                             @else
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                             @endif
                                                         </button>
                                                         </div>
                                                         <div class="d-flex flex-wrap">
-                                                            <button data-toggle="modal" data-target="#select2InModal" class="round col-12 btn btn-dark">Attribuer les Zones</button>
+                                                            <button data-toggle="modal" data-target="#select2InModal" class="round col-12 btn btn-dark">{{ __('Attribuer les Zones') }}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -71,7 +71,7 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                     </div>
                                                     <div class="ml-1">
                                                         <h5 class="mb-0 text-center">{{$coursier->zone_coursier->count()}}</h5>
-                                                        <small>Zones Associées</small>
+                                                        <small>{{ __('Zones Associées') }}</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,20 +81,20 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                 <div class="d-flex flex-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather="user" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Noms</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Noms') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{$coursier->noms.' '.$coursier->prenoms}}</p>
                                                 </div>
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="check" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Status</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Status') }}</span>
                                                     </div>
                                                     <span class="badge badge-pill @if($coursier->statut == 0)badge-light-danger @else badge-light-success @endif">
                                                         @if($coursier->statut == 0)
-                                                            Désactivé
+                                                            {{ __('Désactivé') }}
                                                         @else 
-                                                            Actif
+                                                            {{ __('Actif') }}
                                                         @endif
                                                     </span>
                                                     
@@ -102,21 +102,21 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="star" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Rôle</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Rôle') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{'Coursier'}}</p>
                                                 </div>
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="flag" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Pays</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Pays') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{'Cameroun'}}</p>
                                                 </div>
                                                 <div class="d-flex flex-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather="phone" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Contacts</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Contacts') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">(+237) {{$coursier->telephone}}</p>
                                                 </div>
@@ -138,10 +138,10 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                             <!-- zone Permissions -->
                             <div class="card">
                                 <div class="card-header row" style="gap: 2rem;">
-                                    <h4 class=" card-title">Zones Attribuées( {{$coursier->zone_coursier->count()}} )</h4>
+                                    <h4 class=" card-title">{{ __('Zones Attribuées( :v1 )', ['v1' => $coursier->zone_coursier->count()]) }}</h4>
                                     <div class="">
                                         <button type="button" class="btn round btn-dark" data-toggle="modal" data-target="#select2InModal">
-                                            Attribuer des zones
+                                            {{ __('Attribuer des zones') }}
                                         </button>
                                     </div>
                                 </div>
@@ -150,15 +150,15 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" id="myModalLabel1">Modale de Sélection</h4>
-                                                                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                                                                <h4 class="modal-title" id="myModalLabel1">{{ __('Modale de Sélection') }}</h4>
+                                                                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <p>Attribuer les zones à {{$coursier->noms}} {{$coursier->prenoms}}</p>
+                                                                <p>{{ __('Attribuer les zones à') }} {{$coursier->noms}} {{$coursier->prenoms}}</p>
                                                             
-                                                                <label for="zone">Choisir une ou plusieurs Zones</label>
+                                                                <label for="zone">{{ __('Choisir une ou plusieurs Zones') }}</label>
                                                                 <div class="form-group mb-0" id="div_zone">
                                                                     <select class=" @error('zone')  is-invalid @enderror select2 form-control" id="zone" multiple='multiple' onchange="remplir_vrai_input()">
                                                                         @foreach($zones as $zone)
@@ -174,9 +174,9 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                                     @csrf
                                                                     <input type="hidden" name="zones" id="vrai_input" required>
                                                                     <input type="hidden"  name="id_coursier" value="{{$coursier->id}}">
-                                                                    <button type="submit" class="btn btn-outline-success"> Valider </button>
+                                                                    <button type="submit" class="btn btn-outline-success"> {{ __('Valider') }} </button>
                                                                 </form>
-                                                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Annuler</button>
+                                                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">{{ __('Annuler') }}</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -187,8 +187,8 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                         <thead class="thead-light">
                                             <tr class="text-center">
                                                 <th>N°</th>
-                                                <th>Nom</th>
-                                                <th>enlever</th>
+                                                <th>{{ __('Nom') }}</th>
+                                                <th>{{ __('enlever') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -204,8 +204,8 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
                                                         {{$zone->zone_affectee->libelle}}
                                                     </td>
                                                     <td>
-                                                        <div class="cursor-pointer w-25 m-auto" title="Retire la zone à {{$coursier->noms}} {{$coursier->prenoms}}" data-toggle="modal" 
-                                                            onclick="put_zone_id('{{$zone->zone_affectee->id}}'); remplir('{{route('details_zone.update',$coursier->id)}}','{{$coursier->noms}} {{$coursier->prenoms}}', 'désattribuer {{$zone->zone_affectee->libelle}} à','button_remove')" data-target="#danger">
+                                                        <div class="cursor-pointer w-25 m-auto" title="{{ __('Retire la zone à :v1 :v2', ['v1' => $coursier->noms, 'v2' => $coursier->prenoms]) }}" data-toggle="modal" 
+                                                            onclick="put_zone_id('{{$zone->zone_affectee->id}}'); remplir('{{route('details_zone.update',$coursier->id)}}','{{$coursier->noms}} {{$coursier->prenoms}}', '{{ __('désattribuer :v1 à', ['v1' => $zone->zone_affectee->libelle]) }}','button_remove')" data-target="#danger">
 
                                                         <i data-feather='x-circle' class="text-danger cursor-pointer" height="24" width="24"></i>
                                                             
@@ -239,9 +239,9 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 <div id="button_remove" hidden>
     <form method="POST" class="destroy_form">
@@ -249,9 +249,9 @@ Informations sur {{$coursier->noms}} {{$coursier->prenoms}}
         @method('PATCH')
         <input type="hidden" class="id_zone" name="id_zone">
         <input type="hidden"  name="remove" value="1">
-        <button type="submit" class="btn btn-outline-info">Confirmer</button>
+        <button type="submit" class="btn btn-outline-info">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-outline-danger" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 @endsection
 @section('javascript')

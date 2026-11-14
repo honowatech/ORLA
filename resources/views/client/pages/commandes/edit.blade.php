@@ -14,12 +14,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Modifier une Commande</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Modifier une Commande') }}</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('home')}}l">Acceuil</a>
+                                    <li class="breadcrumb-item"><a href="{{route('home')}}l">{{ __('Acceuil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active"> Modifier une Commande
+                                    <li class="breadcrumb-item active"> {{ __('Modifier une Commande') }}
                                     </li>
                                 </ol>
                             </div>
@@ -45,24 +45,24 @@
                                                 <input type="text" hidden name="type_commande" value="simple">
                                                 <div class="row">
                                                     <fieldset style="border: 2px solid #00000010" class="col-11 mb-1 row mx-auto p-2">
-                                                        <legend class="pl-1">Infos de livraison</legend>
+                                                        <legend class="pl-1">{{ __('Infos de livraison') }}</legend>
                                                         <div class="col-md-6 col-12">
                                                             <div class="form-group">
                                                                 <div class="col-12 px-0 text-md-center">
-                                                                    <label for="contact_colis">Addresse du colis</label>
+                                                                    <label for="contact_colis">{{ __('Addresse du colis') }}</label>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col-md-7 col-12">
                                                                         <div class="form-group pb-0">
                                                                             <div class="col-12 text-center">
-                                                                                <label for="contact_colis">Contact</label>
-                                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                                <label for="contact_colis">{{ __('Contact') }}</label>
+                                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             </div>
                                                                         <div class="input-group input-group-merge @error('contact_colis')  is-invalid @enderror">
                                                                             <div class="input-group-prepend">
                                                                                 <span class="input-group-text"><i class="mr-1 flag-icon flag-icon-cm"></i>+237</span>
                                                                             </div>
-                                                                                <input type="text" class="@error('contact_colis')  is-invalid @enderror form-control" placeholder="Contact du colis" id="contact_colis" onkeyup="phone('contact_colis')" name="contact_colis2" value="{{old('contact_colis2') == null ? explode('*/*',$commande->adresse_colis)[0] : old('contact_colis2')}}" required />
+                                                                                <input type="text" class="@error('contact_colis')  is-invalid @enderror form-control" placeholder="{{ __('Contact du colis') }}" id="contact_colis" onkeyup="phone('contact_colis')" name="contact_colis2" value="{{old('contact_colis2') == null ? explode('*/*',$commande->adresse_colis)[0] : old('contact_colis2')}}" required />
                                                                             </div>
                                                                             <input type="text" id="contact_colis2" name="contact_colis" hidden />
                                                                             @error('contact_colis') 
@@ -73,14 +73,14 @@
                                                                     <div class="col-md-5 col-12">
                                                                         <div class="form-group">
                                                                             <div class="col-12 text-center">
-                                                                                <label for="lieu_colis">Lieu</label>
-                                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                                <label for="lieu_colis">{{ __('Lieu') }}</label>
+                                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             </div>
                                                                             <div class="input-group input-group-merge @error('lieu_colis')  is-invalid @enderror">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text"><i data-feather="map-pin"></i></span>
                                                                                 </div>
-                                                                                <input type="text" class="@error('lieu_colis')  is-invalid @enderror form-control" placeholder="Quartier" id="lieu_colis" name="lieu_colis" value="{{old('lieu_colis') == null ? explode('*/*',$commande->adresse_colis)[1] : old('lieu_colis')}}" required />
+                                                                                <input type="text" class="@error('lieu_colis')  is-invalid @enderror form-control" placeholder="{{ __('Quartier') }}" id="lieu_colis" name="lieu_colis" value="{{old('lieu_colis') == null ? explode('*/*',$commande->adresse_colis)[1] : old('lieu_colis')}}" required />
                                                                             </div>
                                                                             
                                                                             @error('lieu_colis') 
@@ -93,9 +93,9 @@
                                                                     @endphp
                                                                     <div class="col-12  mx-auto">
                                                                         <div class="form-group">
-                                                                            <label for="description_collecte">Description du lieu de collecte</label>
-                                                                            <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
-                                                                            <textarea class="@error('description_collecte')  is-invalid @enderror form-control" placeholder="Décrire le Lieu de collecte" rows="3" id="description_collecte" name="description_collecte">{{old('description_collecte') == null ? $description : old('description_collecte')}}</textarea>
+                                                                            <label for="description_collecte">{{ __('Description du lieu de collecte') }}</label>
+                                                                            <span class="text-info cursor-pointer" title="{{ __('Optionnel') }}">{{ __('Optionnel') }}</span>
+                                                                            <textarea class="@error('description_collecte')  is-invalid @enderror form-control" placeholder="{{ __('Décrire le Lieu de collecte') }}" rows="3" id="description_collecte" name="description_collecte">{{old('description_collecte') == null ? $description : old('description_collecte')}}</textarea>
                                                                             @error('description_collecte') 
                                                                                     <small class="alert alert-danger"> {{$message}} </small>
                                                                             @enderror
@@ -107,7 +107,7 @@
                                                         <div class="col-md-6 col-12">
                                                             <div class="form-group">
                                                                 <div class="col-12 px-0 text-md-center">
-                                                                    <label for="contact_livraison">Addresse de livraison</label>
+                                                                    <label for="contact_livraison">{{ __('Addresse de livraison') }}</label>
                                                                 </div>
                                                                 <div class="row">
                                                                     @php
@@ -115,13 +115,13 @@
                                                                     @endphp
                                                                     <div class="col-12">
                                                                         <div class="form-group">
-                                                                            <label for="nom_livraison" id="label">Nom du Destinataire</label>
-                                                                            <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
+                                                                            <label for="nom_livraison" id="label">{{ __('Nom du Destinataire') }}</label>
+                                                                            <span class="text-info cursor-pointer" title="{{ __('Optionnel') }}">{{ __('Optionnel') }}</span>
                                                                             <div class="input-group input-group-merge @error('nom_livraison') is-invalid @enderror"  id="fetelephone">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text"><i class="mr-1" data-feather="at-sign"></i></span>
                                                                                 </div>
-                                                                                <input type="text" class="simple_info @error('nom_livraison')  is-invalid @enderror form-control" placeholder="Nom et prénoms" id="nom_livraison" name="nom_livraison" value="{{old('nom_livraison') == null ? $nom_destinataire : old('nom_livraison')}}"/>
+                                                                                <input type="text" class="simple_info @error('nom_livraison')  is-invalid @enderror form-control" placeholder="{{ __('Nom et prénoms') }}" id="nom_livraison" name="nom_livraison" value="{{old('nom_livraison') == null ? $nom_destinataire : old('nom_livraison')}}"/>
                                                                             </div>
                                                                             @error('nom_livraison') 
                                                                                     <small class="alert alert-danger"> {{$message}} </small>
@@ -131,14 +131,14 @@
                                                                     <div class="col-md-7 col-12">
                                                                         <div class="form-group pb-0">
                                                                             <div class="col-12 text-center">
-                                                                                <label for="contact_livraison">Contact</label>
-                                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                                <label for="contact_livraison">{{ __('Contact') }}</label>
+                                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             </div>
                                                                         <div class="input-group input-group-merge @error('contact_livraison')  is-invalid @enderror">
                                                                             <div class="input-group-prepend">
                                                                                 <span class="input-group-text"><i class="mr-1 flag-icon flag-icon-cm"></i>+237</span>
                                                                             </div>
-                                                                                <input type="text" class="@error('contact_livraison')  is-invalid @enderror form-control" placeholder="Contact de livraison" id="contact_livraison" onkeyup="phone('contact_livraison')" name="contact_livraison2" value="{{old('contact_livraison2') == null ? explode('*/*',$commande->adresse_livraison)[0] : old('contact_livraison2')}}" required />
+                                                                                <input type="text" class="@error('contact_livraison')  is-invalid @enderror form-control" placeholder="{{ __('Contact de livraison') }}" id="contact_livraison" onkeyup="phone('contact_livraison')" name="contact_livraison2" value="{{old('contact_livraison2') == null ? explode('*/*',$commande->adresse_livraison)[0] : old('contact_livraison2')}}" required />
                                                                             </div>
                                                                             <input type="text" id="contact_livraison2" name="contact_livraison" hidden/>
                                                                             @error('contact_livraison') 
@@ -149,14 +149,14 @@
                                                                     <div class="col-md-5 col-12">
                                                                         <div class="form-group">
                                                                             <div class="col-12 text-center">
-                                                                                <label for="lieu_livraison">Lieu</label>
-                                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                                <label for="lieu_livraison">{{ __('Lieu') }}</label>
+                                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                             </div>
                                                                             <div class="input-group input-group-merge @error('lieu_livraison')  is-invalid @enderror">
                                                                                 <div class="input-group-prepend">
                                                                                     <span class="input-group-text"><i data-feather="map-pin"></i></span>
                                                                                 </div>
-                                                                                <input type="text" class="@error('lieu_livraison')  is-invalid @enderror form-control" placeholder="Quartier" id="lieu_livraison" name="lieu_livraison" value="{{old('lieu_livraison') == null ? explode('*/*',$commande->adresse_livraison)[1] : old('lieu_livraison')}}" required />
+                                                                                <input type="text" class="@error('lieu_livraison')  is-invalid @enderror form-control" placeholder="{{ __('Quartier') }}" id="lieu_livraison" name="lieu_livraison" value="{{old('lieu_livraison') == null ? explode('*/*',$commande->adresse_livraison)[1] : old('lieu_livraison')}}" required />
                                                                             </div>
                                                                             
                                                                             @error('lieu_livraison') 
@@ -169,9 +169,9 @@
                                                                     @endphp
                                                                     <div class="col-12  mx-auto">
                                                                         <div class="form-group">
-                                                                            <label for="description_livraison">Description du lieu de livraison</label>
-                                                                            <span class="text-info cursor-pointer" title="Optionnel">Optionnel</span>
-                                                                            <textarea class=" @error('description_livraison')  is-invalid @enderror form-control" placeholder="Décrire le Lieu de livraison" rows="3" id="description_livraison" name="description_livraison">{{old('description_livraison') == null ? $description : old('description_livraison')}}</textarea>
+                                                                            <label for="description_livraison">{{ __('Description du lieu de livraison') }}</label>
+                                                                            <span class="text-info cursor-pointer" title="{{ __('Optionnel') }}">{{ __('Optionnel') }}</span>
+                                                                            <textarea class=" @error('description_livraison')  is-invalid @enderror form-control" placeholder="{{ __('Décrire le Lieu de livraison') }}" rows="3" id="description_livraison" name="description_livraison">{{old('description_livraison') == null ? $description : old('description_livraison')}}</textarea>
                                                                             @error('description_livraison') 
                                                                                     <small class="alert alert-danger"> {{$message}} </small>
                                                                             @enderror
@@ -182,8 +182,8 @@
                                                         </div>
                                                         <div class="col-md-6 col-12">
                                                             <div class="form-group">
-                                                                <label for="montant_livraison">Montant_livraison</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="montant_livraison">{{ __('Montant_livraison') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="input-group input-group-merge @error('montant_livraison')  is-invalid @enderror">
                                                                     <input type="text" class="@error('montant_livraison')  is-invalid @enderror form-control numeral-mask" placeholder="10,000" id="montant_livraison" name="montant_livraison2" onkeyup="remplir_montant('montant_livraison')" value="{{old('montant_livraison') == null ? $commande->montant_livraison : old('montant_livraison')}}" required />
                                                                     <div class="input-group-append">
@@ -220,13 +220,13 @@
                                                         </div> --}}
                                                         <div class="col-md-6 col-12  mx-auto">
                                                             <div class="form-group">
-                                                                <label for="date">Date de livraison</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="date">{{ __('Date de livraison') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                                 <div class="input-group input-group-merge @error('date')  is-invalid @enderror">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text"><i class="mr-1" data-feather="calendar"></i></span>
                                                                     </div>
-                                                                    <input class="form-control flatpickr-human-friendly @error('date')  is-invalid @enderror "  placeholder="January 01, 2024" tabindex="0" type="text" id="date" readonly="readonly" name="date" required value="{{old('date_livraison') == null ? $commande->date_livraison : old('date_livraison')}}">
+                                                                    <input class="form-control flatpickr-human-friendly @error('date')  is-invalid @enderror "  placeholder="{{ __('January 01, 2024') }}" tabindex="0" type="text" id="date" readonly="readonly" name="date" required value="{{old('date_livraison') == null ? $commande->date_livraison : old('date_livraison')}}">
                                                                 </div>
                                                                 @error('date') 
                                                                         <small class="alert alert-danger"> {{$message}} </small>
@@ -236,18 +236,18 @@
                                                     </fieldset>
                                                     <div class="d-none d-md-block text-center col-bg-5 col-lg-8 col-md-12 col-12 mx-auto">
                                                         <button type="reset" onclick="tout()" class="btn col-8 col-sm-7 col-lg-5  col-xl-3 col-md-4 btn-danger mt-1 mt-md-2 mr-md-4">
-                                                            <i class="mr-1" data-feather='x'></i> Effacer
+                                                            <i class="mr-1" data-feather='x'></i> {{ __('Effacer') }}
                                                         </button>
                                                         <button type="submit" class="btn col-8 col-sm-7 col-lg-5 col-xl-3 col-md-4 btn-success mt-1 mt-md-2">
-                                                            <i class="mr-1" data-feather='download'></i> Enregistrer
+                                                            <i class="mr-1" data-feather='download'></i> {{ __('Enregistrer') }}
                                                         </button>
                                                     </div>
                                                     <div class="d-block d-md-none text-center col-bg-5 col-lg-8 col-md-12 col-12 mx-auto">
                                                         <button type="submit" class="btn col-8 col-sm-7 col-lg-5  col-xl-3 col-md-4 btn-success mt-1 mt-md-2 mr-md-2">
-                                                            <i class="mr-1" data-feather='download'></i> Enregistrer
+                                                            <i class="mr-1" data-feather='download'></i> {{ __('Enregistrer') }}
                                                         </button>
                                                         <button type="reset" onclick="tout()" class="btn col-8 col-sm-7 col-lg-5 col-xl-3 col-md-4 btn-danger mt-1 mt-md-2">
-                                                            <i class="mr-1" data-feather='x'></i> Effacer
+                                                            <i class="mr-1" data-feather='x'></i> {{ __('Effacer') }}
                                                         </button>
                                                     </div>
                                                 </div>

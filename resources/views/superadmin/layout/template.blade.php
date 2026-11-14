@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -89,22 +89,23 @@
             </ul>
         </div>
         <ul class="nav navbar-nav align-items-center ml-auto">
+            @include('partials.lang-switcher')
             <li class="nav-item dropdown dropdown-user">
                 <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="user-nav d-sm-flex d-none">
-                        <span class=" round user-name font-weight-bolder" alt="avatar" height="40" width="40"> {{ session()->get('SuperAdmin_infos')['infos']->name }} </span> 
+                        <span class=" round user-name font-weight-bolder" alt="{{ __('avatar') }}" height="40" width="40"> {{ session()->get('SuperAdmin_infos')['infos']->name }} </span> 
                         <small class="text-muted">
-                            Super Admin
+                            {{ __('Super Admin') }}
                         </small> 
                     </div>
                     <div class="avatar shadow bg-secondary">
-                        <div class="avatar-content">SA</div>
-                        <span class="avatar-status-online" title="En ligne"></span>
+                        <div class="avatar-content">{{ __('SA') }}</div>
+                        <span class="avatar-status-online" title="{{ __('En ligne') }}"></span>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                    <a class="dropdown-item text-danger" onclick="remplir('{{route('SuperAdmin.disconnect')}}','', 'vous déconnecter' ,'button_deconnection')">
-                        <i class="mr-50 text-danger" data-feather="log-out"></i>Déconnexion
+                    <a class="dropdown-item text-danger" onclick="remplir('{{route('SuperAdmin.disconnect')}}','', '{{ __('vous déconnecter') }}' ,'button_deconnection')">
+                        <i class="mr-50 text-danger" data-feather="log-out"></i>{{ __('Déconnexion') }}
                         <div id="button_deconnection" hidden>
                             <button type="button" class="btn btn-danger " data-dismiss="modal">
                                 <i data-feather="x"></i>
@@ -146,8 +147,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120"> Informations... </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-dark" id="myModalLabel120"> {{ __('Informations...') }} </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span class="text-dark" aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -168,8 +169,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title text-secondary" id="myModalLabel120">Confirmation!</h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-secondary" id="myModalLabel120">{{ __('Confirmation!') }}</h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -189,9 +190,9 @@
 <footer class="footer footer-static footer-light">
     <p class="clearfix mb-0">
         <span class="float-md-left d-block d-md-inline-block mt-25">
-            COPYRIGHT &copy; 2024
-            <a class="ml-25" href="https://honowa.com" target="_blank">Honowa Technologies</a>
-            <span class="d-none d-sm-inline-block">, Tous les droits reservés</span>
+            {{ __('COPYRIGHT © 2024') }}
+            <a class="ml-25" href="https://honowa.com" target="_blank">{{ __('Honowa Technologies') }}</a>
+            <span class="d-none d-sm-inline-block">{{ __(', Tous les droits reservés') }}</span>
         </span>
         <span class="float-md-right d-none d-md-block">
         </span>
@@ -312,12 +313,12 @@
                 },
                 error: function(){
                     if(put == undefined){
-                        result.innerHTML = "<h4 class='mt-1 text-danger text-center'> Erreur !</h4><div class='mb-1 w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                        result.innerHTML = "<h4 class='mt-1 text-danger text-center'> {{ __('Erreur !') }}</h4><div class='mb-1 w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                     }else{
                         if (document.querySelector('#tospin')) {
-                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> {{ __('Erreur !') }}</h4><div class='w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                         }else{
-                            result.innerHTML = "<option value=''>Erreur! Veuillez actualisez la page...</option>"
+                            result.innerHTML = "<option value=''>{{ __('Erreur! Veuillez actualisez la page...') }}</option>"
                         }
                     }
                 }
@@ -350,12 +351,12 @@
                 },
                 error: function(){
                     if(put == undefined){
-                        result.innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                        result.innerHTML = "<h4 class='text-danger text-center'> {{ __('Erreur !') }}</h4><div class='w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                     }else{
                         if (document.querySelector('#tospin')) {
-                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> {{ __('Erreur !') }}</h4><div class='w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                         }else{
-                            result.innerHTML = "<option value=''>Erreur! Veuillez actualisez la page...</option>"
+                            result.innerHTML = "<option value=''>{{ __('Erreur! Veuillez actualisez la page...') }}</option>"
                         }
                     }
                 }
@@ -434,7 +435,7 @@
             for (var i = 0; i < destroy_form.length; i++) {
                 destroy_form[i].action = lien;
             }
-            destroy_title.innerHTML = 'Vous êtes sur de vouloir '+action+' ? <br> <br> '+noms+' ';
+            destroy_title.innerHTML = @json(__('Vous êtes sur de vouloir'))+' '+action+' ? <br> <br> '+noms+' ';
             document.querySelector('#modal_danger').click();
             document.querySelector('#confirm_footer').innerHTML = document.querySelector('#'+id_remplir).innerHTML
             

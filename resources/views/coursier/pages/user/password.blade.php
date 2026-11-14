@@ -15,12 +15,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Changer le mot de Passe</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Changer le mot de Passe') }}</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                                    <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item cursor pointer active">Changer le mot de Passe
+                                    <li class="breadcrumb-item cursor pointer active">{{ __('Changer le mot de Passe') }}
                                     </li>
                                 </ol>
                             </div>
@@ -36,15 +36,15 @@
                         <div class="col-md-8 p-0 mx-auto">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Changer le mot de passe
+                                    <h4 class="card-title">{{ __('Changer le mot de passe') }}
                                         <small class="text-muted ml-md-1">
                                             @if(isset($user->coursier_utilisateur->infos_perso->cni) && $user->coursier_utilisateur->infos_perso->cni != null)
                                             <div class="bg-light-success border text-center d-inline-block px-1">
-                                                Authentifié
+                                                {{ __('Authentifié') }}
                                             </div>
                                             @else
-                                            <div class="bg-light-danger border text-center d-inline-block px-1" title="Veuillez contacter un responsable pour l'Authentification">
-                                                Non authentifié
+                                            <div class="bg-light-danger border text-center d-inline-block px-1" title="{{ __('Veuillez contacter un responsable pour l\'Authentification') }}">
+                                                {{ __('Non authentifié') }}
                                             </div>
                                             @endif
                                         </small>
@@ -57,10 +57,10 @@
                                             <!-- header media -->
                                             <div class="text-center mx-auto  mb-2">
                                                 <a class="d-none d-md-block " href="javascript:void(0);">
-                                                    <img src="{{asset('app-assets/images/avatars/coursier.png')}}" height="100" width="100" alt="User avatar" />
+                                                    <img src="{{asset('app-assets/images/avatars/coursier.png')}}" height="100" width="100" alt="{{ __('User avatar') }}" />
                                                 </a>
                                                 <a class="d-block d-md-none " href="javascript:void(0);">
-                                                    <img src="{{asset('app-assets/images/avatars/coursier.png')}}" height="80" width="80" alt="User avatar" />
+                                                    <img src="{{asset('app-assets/images/avatars/coursier.png')}}" height="80" width="80" alt="{{ __('User avatar') }}" />
                                                 </a>
                                             </div>
                                             <!--/ header media -->
@@ -72,14 +72,14 @@
                                                 <div class="">
                                                     <div class="col-md-10 mx-auto col-12 col-lg-8">
                                                         <div class="form-group">
-                                                                <label for="password">Mot de passe actuel</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="password">{{ __('Mot de passe actuel') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                             <div class="form-group">
                                                                 <div class="input-group input-group-merge form-password-toggle @error('password') is-invalid @enderror">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                                                     </div>
-                                                                    <input type="password" autocomplete="" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Mot de Passe" value="" name="password" aria-describedby="basic-default-password1"  required/>
+                                                                    <input type="password" autocomplete="" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="{{ __('Mot de Passe') }}" value="" name="password" aria-describedby="basic-default-password1"  required/>
                                                                 </div>
                                                                 @error('password')
                                                                         <small class="alert alert-danger">{{ $message }}</small>
@@ -89,14 +89,14 @@
                                                     </div>
                                                     <div class="col-md-10 mx-auto col-12 col-lg-8">
                                                         <div class="form-group">
-                                                                <label for="password_new">Nouveau mot de passe </label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="password_new">{{ __('Nouveau mot de passe') }} </label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                             <div class="form-group">
                                                                 <div class="input-group input-group-merge form-password-toggle @error('password_new') is-invalid @enderror">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                                                     </div>
-                                                                    <input type="password" oninput="samepass('password_new','password_confirm')" autocomplete="" class="form-control @error('password_new') is-invalid @enderror" id="password_new" placeholder="Mot de Passe" value="" name="password_new" aria-describedby="basic-default-password1"  required/>
+                                                                    <input type="password" oninput="samepass('password_new','password_confirm')" autocomplete="" class="form-control @error('password_new') is-invalid @enderror" id="password_new" placeholder="{{ __('Mot de Passe') }}" value="" name="password_new" aria-describedby="basic-default-password1"  required/>
                                                                 </div>
                                                                 @error('password_new')
                                                                         <small class="alert alert-danger">{{ $message }}</small>
@@ -106,17 +106,17 @@
                                                     </div>
                                                     <div class="col-md-10 mx-auto col-12 col-lg-8">
                                                         <div class="form-group">
-                                                                <label for="password_confirm">Confirmer le mot de passe </label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="password_confirm">{{ __('Confirmer le mot de passe') }} </label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                             <div class="form-group">
                                                                 <div class="input-group input-group-merge form-password-toggle @error('password_confirm') is-invalid @enderror">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                                                     </div>
-                                                                    <input type="password" oninput="samepass('password_new','password_confirm')" autocomplete="" class="form-control @error('password_confirm') is-invalid @enderror" id="password_confirm" placeholder="Mot de Passe" value="" name="password_confirm" aria-describedby="basic-default-password1"  required/>
+                                                                    <input type="password" oninput="samepass('password_new','password_confirm')" autocomplete="" class="form-control @error('password_confirm') is-invalid @enderror" id="password_confirm" placeholder="{{ __('Mot de Passe') }}" value="" name="password_confirm" aria-describedby="basic-default-password1"  required/>
                                                                 </div>
-                                                                    <small class="alert alert-danger" id="password_confirmerror" hidden>Les mots de passes ne correspondent pas</small>
-                                                                    <small class="alert alert-success" id="password_confirmsuccess" hidden>Les mots de passes correspondent</small>
+                                                                    <small class="alert alert-danger" id="password_confirmerror" hidden>{{ __('Les mots de passes ne correspondent pas') }}</small>
+                                                                    <small class="alert alert-success" id="password_confirmsuccess" hidden>{{ __('Les mots de passes correspondent') }}</small>
                                                                 @error('password_confirm')
                                                                         <small class="alert alert-danger">{{ $message }}</small>
                                                                 @enderror

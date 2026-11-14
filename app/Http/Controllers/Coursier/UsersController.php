@@ -201,7 +201,7 @@ class UsersController extends Controller
         $coursier->save();
     }
     $utilisateur->save();
-    $message = "Informations Enregistrées avec <b class='text-success'> Succès. </b>";
+    $message = __('Informations Enregistrées avec <b class=\'text-success\'> Succès. </b>');
     session()->flash('message',$message);
     return redirect()->route('Coursierusers.show',$utilisateur->id);
   }
@@ -243,13 +243,13 @@ class UsersController extends Controller
         $activity->color = 'danger';
         $activity->message ='commande rendue Indisponible avec  <b class="text-success">succès</b>';
         $commande->disponibility = 0;
-        $message = "Commande rendue Indisponible avec <b class='text-success'> Succès. </b>";
+        $message = __('Commande rendue Indisponible avec <b class=\'text-success\'> Succès. </b>');
     }else{
         $activity->title = 'Commande Disponible';
         $activity->color = 'success';
         $activity->message ='commande rendue Disponible avec  <b class="text-success">succès</b>';
       $commande->disponibility = 1;
-      $message = "Commande rendue Disponible avec <b class='text-success'> Succès.</b>";
+      $message = __('Commande rendue Disponible avec <b class=\'text-success\'> Succès.</b>');
     }
     $activity->save();
     $commande->save();

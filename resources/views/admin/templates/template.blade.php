@@ -3,7 +3,7 @@ use App\Models\users\Users;
 use Illuminate\Support\Facades\Auth;
 @endphp
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -117,6 +117,7 @@ use Illuminate\Support\Facades\Auth;
 <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow">
     <div class="navbar-container d-flex content">
         <ul class="nav navbar-nav align-items-center ml-auto">  
+            @include('partials.lang-switcher')
             <li class="nav-item dropdown dropdown-user pr-1">
                 <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="user-nav d-sm-flex d-none">
@@ -137,7 +138,7 @@ use Illuminate\Support\Facades\Auth;
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
                     <a class="dropdown-item" href="{{route('home')}}">
-                        <i class="mr-50" data-feather="settings"></i> Settings
+                        <i class="mr-50" data-feather="settings"></i> {{ __('Settings') }}
                     </a>
                     <a class="dropdown-item" href="{{route('home')}}">
                         <i class="mr-50" data-feather="help-circle"></i> FAQ
@@ -150,11 +151,11 @@ use Illuminate\Support\Facades\Auth;
                     <form method="POST" class="destroy_form">
                         @csrf
                         @method('POST')
-                        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+                        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
                     </form>
-                    <button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
                 </div>      
-                    <button class=" btn  btn-icon " title="Déconnexion"  style="margin-bottom:0px !important;" type="submit"onclick="remplir('{{route('logout')}}','', 'vous déconnecter' ,'button_deconnection')">
+                    <button class=" btn  btn-icon " title="{{ __('Déconnexion') }}"  style="margin-bottom:0px !important;" type="submit"onclick="remplir('{{route('logout')}}','', '{{ __('vous déconnecter') }}' ,'button_deconnection')">
                         <i class="redable" data-feather="power" style="width: 25px; height: 25px"></i>
                     </button>
                     
@@ -172,7 +173,7 @@ use Illuminate\Support\Facades\Auth;
 </nav>
 <ul class="main-search-list-defaultlist-other-list d-none">
     <li class="auto-suggestion justify-content-between"><a class="d-flex align-items-center justify-content-between w-100 py-50">
-            <div class="d-flex justify-content-start"><span class="mr-75" data-feather="alert-circle"></span><span>No results found.</span></div>
+            <div class="d-flex justify-content-start"><span class="mr-75" data-feather="alert-circle"></span><span>{{ __('No results found.') }}</span></div>
         </a></li>
 </ul>
 <!-- END: Header-->
@@ -194,8 +195,8 @@ use Illuminate\Support\Facades\Auth;
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120">Confirmation! </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-dark" id="myModalLabel120">{{ __('Confirmation!') }} </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -215,8 +216,8 @@ use Illuminate\Support\Facades\Auth;
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120"> Information </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close" autofocus>
+                <h3 class="modal-title text-dark" id="myModalLabel120"> {{ __('Information') }} </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}" autofocus>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -226,7 +227,7 @@ use Illuminate\Support\Facades\Auth;
             </p>
         </div>
         <div class="modal-footer" style="justify-content: center;">
-            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">Terminer</button>
+            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">{{ __('Terminer') }}</button>
         </div>
         </div>
     </div>
@@ -246,9 +247,9 @@ use Illuminate\Support\Facades\Auth;
 <footer class="footer footer-static footer-light">
     <p class="clearfix mb-0">
         <span class="float-md-left d-block d-md-inline-block mt-25">
-            <span class="d-none d-sm-inline-block">COPYRIGHT</span> &copy; 2023
-            <a class="ml-25" href="https://honowa.com" target="_blank">Honowa Technologie</a>
-            <span class="d-none d-sm-inline-block">, Tous les droits reservés</span>
+            <span class="d-none d-sm-inline-block">{{ __('COPYRIGHT') }}</span> &copy; 2023
+            <a class="ml-25" href="https://honowa.com" target="_blank">{{ __('Honowa Technologie') }}</a>
+            <span class="d-none d-sm-inline-block">{{ __(', Tous les droits reservés') }}</span>
         </span>
     </p>
 </footer>
@@ -289,7 +290,7 @@ use Illuminate\Support\Facades\Auth;
             for (var i = 0; i < destroy_form.length; i++) {
                 destroy_form[i].action = lien;
             }
-            destroy_title.innerHTML = 'Êtes-vous certain de vouloir'+action+' ? <br> <br> '+noms+' ';
+            destroy_title.innerHTML = @json(__('Êtes-vous certain de vouloir'))+' '+action.trim()+' ? <br> <br> '+noms+' ';
             if(cliquer == 1){
                 document.querySelector('#modal_danger').click();
             }else{
@@ -327,12 +328,12 @@ use Illuminate\Support\Facades\Auth;
                 },
                 error: function(){
                     if(put == undefined){
-                        result.innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                        result.innerHTML = "<h4 class='text-danger text-center'> {{ __('Erreur !') }}</h4><div class='w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                     }else{
                         if (document.querySelector('#tospin')) {
-                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> {{ __('Erreur !') }}</h4><div class='w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                         }else{
-                            result.innerHTML = "<option value=''>Erreur! Veuillez actualisez la page...</option>"
+                            result.innerHTML = "<option value=''>{{ __('Erreur! Veuillez actualisez la page...') }}</option>"
                         }
                     }
                 }

@@ -96,7 +96,7 @@ class VilleController extends Controller
     $ville->libelle = $libelle;
     $ville->code = $code;
     $ville->save(); 
-    $message = "Ville enregistrée avec <b class='text-success'> Succès.</b>";
+    $message = __('Ville enregistrée avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('ville.index');
   }
@@ -199,7 +199,7 @@ class VilleController extends Controller
     $ville->libelle = $libelle;
     $ville->code = $code;
     $ville->save();
-    $message = "Ville mise à jour avec <b class='text-success'> Succès.</b>";
+    $message = __('Ville mise à jour avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('ville.index');
   }
@@ -228,13 +228,13 @@ class VilleController extends Controller
             return redirect()->route('home.client');
         }
     if (Zone::where('id_ville',[$id])->count() > 0) {
-    $message = "<b class='text-danger'>Echec... </b> Cette Ville est liée à ".Zone::where('id_ville',[$id])->count()." Zone";
+    $message = __('<b class=\'text-danger\'>Echec... </b> Cette Ville est liée à :v1 Zone', ['v1' => Zone::where('id_ville',[$id])->count()]);
     session()->flash('message',$message);
       return redirect()->back();
     }
     $ville = Ville::findOrFail($id);
     $ville->delete();
-    $message = "Ville supprimée <b class='text-success'> Succès.</b>";
+    $message = __('Ville supprimée <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('ville.index');
   }

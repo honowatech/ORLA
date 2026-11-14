@@ -98,7 +98,7 @@ class Details_zoneController extends Controller
         }
         
         if($request->input('zones') == null){
-            $message = "Echec : vous devez choisir une zone parmis les zones de la liste. assurez-vous qu'au-moins une zone soit définie dans la ville du livreur";
+            $message = __('Echec : vous devez choisir une zone parmis les zones de la liste. assurez-vous qu\'au-moins une zone soit définie dans la ville du livreur');
             session()->flash('message',$message);
             return redirect()->back();
         }
@@ -106,7 +106,7 @@ class Details_zoneController extends Controller
     $zones = $request->input('zones');
     $id_coursier = $request->input('id_coursier');
 
-    $message = "<b class='text-danger'>Echec de la requete! </b>, Informations éronnés ";
+    $message = __('<b class=\'text-danger\'>Echec de la requete! </b>, Informations éronnés ');
       session()->flash('message',$message);
     $validated = $request->validate([
       'id_coursier' => 'numeric',
@@ -118,7 +118,7 @@ class Details_zoneController extends Controller
       $details->id_zone = $id_zone;
       $details->save();
     }
-      $message = "Zone(s) attribuée(s) avec <b class='text-success'> Succès.</b>";
+      $message = __('Zone(s) attribuée(s) avec <b class=\'text-success\'> Succès.</b>');
       session()->flash('message',$message);
     return redirect()->back();
   }
@@ -208,7 +208,7 @@ class Details_zoneController extends Controller
     foreach($details as $detail){
       $detail->delete();
     }
-      $message = "Zone déattribuée avec <b class='text-success'> Succès.</b>";
+      $message = __('Zone déattribuée avec <b class=\'text-success\'> Succès.</b>');
       session()->flash('message',$message);
     return redirect()->back();
   }

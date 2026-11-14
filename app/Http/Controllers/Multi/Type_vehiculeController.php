@@ -76,7 +76,7 @@ class Type_vehiculeController extends Controller
     $type_vehicule->libelle = $libelle;
     $type_vehicule->description = $description;
     $type_vehicule->save(); 
-    $message = "Type de véhicule <b>".$type_vehicule->libelle."</b> enregistré avec <b class='text-success'> Succès.</b>";
+    $message = __('Type de véhicule <b>:v1</b> enregistré avec <b class=\'text-success\'> Succès.</b>', ['v1' => $type_vehicule->libelle]);
     session()->flash('message',$message);
     return redirect()->route('type_vehicule.index');
   }
@@ -148,7 +148,7 @@ class Type_vehiculeController extends Controller
     $type_vehicule->libelle = $libelle;
     $type_vehicule->description = $description;
     $type_vehicule->save();
-    $message = "Type de véhicule <b>".$type_vehicule->libelle."</b> mis à jour avec <b class='text-success'> Succès.</b>";
+    $message = __('Type de véhicule <b>:v1</b> mis à jour avec <b class=\'text-success\'> Succès.</b>', ['v1' => $type_vehicule->libelle]);
     session()->flash('message',$message);
     return redirect()->route('type_vehicule.index');
   }
@@ -171,26 +171,26 @@ class Type_vehiculeController extends Controller
     $type = $request->input('type');
     if ($type == 'delete') {
       if ($type_vehicule->vehicule->count() > 0) {
-        $message = "<b class='text-danger'> Erreur.</b> <br> Ce Type de véhicule est connecté à un ou plusieurs véhicules...<br>Déconnecter et rééssayer";
+        $message = __('<b class=\'text-danger\'> Erreur.</b> <br> Ce Type de véhicule est connecté à un ou plusieurs véhicules...<br>Déconnecter et rééssayer');
         session()->flash('message',$message);
         return redirect()->back();
       }
       $type_vehicule->delete();
-      $message = "Type de Vehicule supprimée <b class='text-success'> Succès.</b>";
+      $message = __('Type de Vehicule supprimée <b class=\'text-success\'> Succès.</b>');
       session()->flash('message',$message);
       return redirect()->back();
     }else{
       if ($type_vehicule->statut == 0) {
         $type_vehicule->statut = 1;
         $type_vehicule->save();
-        $message = "Type de Vehicule activé avec <b class='text-success'> Succès.</b>";
+        $message = __('Type de Vehicule activé avec <b class=\'text-success\'> Succès.</b>');
         session()->flash('message',$message);
         return redirect()->back();
         // code...
       }else{
         $type_vehicule->statut = 0;
         $type_vehicule->save();
-        $message = "Type de Vehicule desactivé avec <b class='text-success'> Succès.</b>";
+        $message = __('Type de Vehicule desactivé avec <b class=\'text-success\'> Succès.</b>');
         session()->flash('message',$message);
         return redirect()->back();
       }

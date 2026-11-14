@@ -4,11 +4,11 @@
                             <table class="table">
                                 <thead>
                                     <tr class="text-center">
-                                        <th> @if($titre) Description @endif Produit</th>
-                                        <th>Livraison</th>
-                                        <th>Total à percevoir</th>
-                                        <th>Frais de livraison</th>
-                                        <th>A reverser au client</th>
+                                        <th> @if($titre) {{ __('Description') }} @endif {{ __('Produit') }}</th>
+                                        <th>{{ __('Livraison') }}</th>
+                                        <th>{{ __('Total à percevoir') }}</th>
+                                        <th>{{ __('Frais de livraison') }}</th>
+                                        <th>{{ __('A reverser au client') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,14 +88,14 @@
         <div class="px-2 my-auto">
             <div style="font-size: 1rem;">
                 @if($argent_du > 0 )
-                    Speedex doit 
+                    {{ __('Speedex doit') }} 
                     <span class="font-weight-bolder">
                         {{$argent_du}}
                     </span>
                     FCFA
                 @elseif($argent_du < 0)
                     <span class="d-none d-md-inline-block"> 
-                        {{ucfirst($client->noms)}} {{ucfirst($client->Prenoms)}} Vous doit 
+                        {{ucfirst($client->noms)}} {{ucfirst($client->Prenoms)}} {{ __('Vous doit') }} 
                     </span> 
                     <span class="font-weight-bolder">
                         {{(-1)*$argent_du}}
@@ -103,7 +103,7 @@
                     FCFA
                 @elseif($argent_du == 0)
                     <span> 
-                        C'est
+                        {{ __('C\'est') }}
                     </span>
                     <span class="font-weight-bolder text-success"> Ok
                     </span>!
@@ -111,12 +111,12 @@
             </div>
         </div>
         @if($argent_du != 0)
-                <button class="btn btn-success btn-gradient-success my-auto" @if( $argent_du > 0 ) onfocus="phone('telephone'); @endif " data-toggle="modal" data-target="#paiement" title="Cliquer pour régler la facture">
-                    <span>Régler</span>
+                <button class="btn btn-success btn-gradient-success my-auto" @if( $argent_du > 0 ) onfocus="phone('telephone'); @endif " data-toggle="modal" data-target="#paiement" title="{{ __('Cliquer pour régler la facture') }}">
+                    <span>{{ __('Régler') }}</span>
                 </button>
         @endif
         @if($paiements->count() > 0)
-            <a data-toggle="modal" data-target="#tarnsactions" class="btn btn-icon rounded-circle btn-info waves-effect my-auto ml-2" title="Voir les paiements"> 
+            <a data-toggle="modal" data-target="#tarnsactions" class="btn btn-icon rounded-circle btn-info waves-effect my-auto ml-2" title="{{ __('Voir les paiements') }}"> 
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign text-white"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
             </a>
         @endif
@@ -128,8 +128,8 @@
         <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="paiementTitle"> Régler la facture </h5>
-                    <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="paiementTitle"> {{ __('Régler la facture') }} </h5>
+                    <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -148,8 +148,8 @@
                                 @endif
                                 <div class="row">
                                     <span class="text-center col-12 mb-1">
-                                        Choisir un mode de paiement
-                                        <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                        {{ __('Choisir un mode de paiement') }}
+                                        <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                     </span>
                                     <div class="col-12 mb-1">
                                         <div class="form-group d-flex">
@@ -159,7 +159,7 @@
                                                     <div class="custom-control custom-radio">
                                                         <input type="radio" id="{{$index}}" name="mode_paiement" class="mode_paiement m-auto custom-control-input" @if($index=='mobilemoney') checked @endif value="{{$index}}">
                                                         <label class="custom-control-label" for="{{$index}}">
-                                                            <img src="{{asset($src)}}" alt="avatar" style="position: absolute; bottom: -50%; top: -50%; height: 40px; width: 50px;">
+                                                            <img src="{{asset($src)}}" alt="{{ __('avatar') }}" style="position: absolute; bottom: -50%; top: -50%; height: 40px; width: 50px;">
                                                         </label>
                                                     </div>
                                                 </div>
@@ -168,8 +168,8 @@
                                         </div>
                                     </div>
                                     <span class="text-center col-12 mb-1">
-                                        Numéro de téléphone
-                                        <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                        {{ __('Numéro de téléphone') }}
+                                        <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                     </span>
                                     <div class="col-12 mb-1">
                                         <div class="form-group">
@@ -182,7 +182,7 @@
                                             </div>
                                                 <input type="hidden" id="telephone2" name="telephone" />
                                             @elseif( $argent_du < 0 )
-                                                <input type="text" class="form-control text-center" placeholder="Speedex" id="telephone" name="telephone" value="Speedex" required readonly />
+                                                <input type="text" class="form-control text-center" placeholder="{{ __('Speedex') }}" id="telephone" name="telephone" value="Speedex" required readonly />
                                                 <input type="hidden" id="telephone2" name="telephone" value="Speedex"/>
                                             @endif
                                             @error('telephone') 
@@ -193,18 +193,18 @@
                                     <div class="mt-2 d-md-flex col-12">
                                         <div class="col-md-6 col-12 mx-auto">
                                             <div class="form-group">
-                                                <button type="reset" class="btn btn-danger col-12" data-dismiss="modal" aria-label="Close" id="close_modal">
-                                                    Annuler
+                                                <button type="reset" class="btn btn-danger col-12" data-dismiss="modal" aria-label="{{ __('Close') }}" id="close_modal">
+                                                    {{ __('Annuler') }}
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12 mx-auto">
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-success col-12" onclick="save_transaction()"  id="boutton_paiement">
-                                                    Payer
+                                                    {{ __('Payer') }}
                                                 </button>
                                                 <div class="text-center p-50" id="tospin">
-                                                    tospin
+                                                    {{ __('tospin') }}
                                                 </div>
                                             </div>
                                         </div>
@@ -225,27 +225,27 @@
         <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="tarnsactionsTitle"> {{ucfirst($client->noms)}} {{ucfirst($client->Prenoms)}} (Transactions)</h5>
-                    <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="tarnsactionsTitle"> {{ucfirst($client->noms)}} {{ucfirst($client->Prenoms)}} {{ __('(Transactions)') }}</h5>
+                    <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body pt-5">
                     <div class="row">
                         <div class="col-10 mx-auto" id="info_tarnsactions">
-                            <h4 class="text-center col-12 mb-1">Transactions du {{date('d-M-Y',strtoTime($date))}}</h4>
+                            <h4 class="text-center col-12 mb-1">{{ __('Transactions du') }} {{date('d-M-Y',strtoTime($date))}}</h4>
                             <hr>
                             <div class="row" id="table-without-card">
                                 <div class="table-responsive col-lg-12">
                                     <table class="table">
                                         <thead>
                                             <tr class="text-center">
-                                                <th>Type</th>
-                                                <th>Montant</th>
-                                                <th>mode paiement</th>
-                                                <th>Contact Recepteur</th>
-                                                <th>Agent</th>
-                                                <th>Client</th>
+                                                <th>{{ __('Type') }}</th>
+                                                <th>{{ __('Montant') }}</th>
+                                                <th>{{ __('mode paiement') }}</th>
+                                                <th>{{ __('Contact Recepteur') }}</th>
+                                                <th>{{ __('Agent') }}</th>
+                                                <th>{{ __('Client') }}</th>
                                             </tr>
                                         </thead>
                                         @php
@@ -269,7 +269,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="avatar">
-                                                            <img src="{{asset($img[$paiement->mode_paiement])}}" alt="avatar" style="height: 40px; width: 50px;">
+                                                            <img src="{{asset($img[$paiement->mode_paiement])}}" alt="{{ __('avatar') }}" style="height: 40px; width: 50px;">
                                                         </div>
                                                     </td>
                                                     <td>

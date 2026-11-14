@@ -12,12 +12,12 @@
     	 <div class="content-header-left col-md-12 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Liste des Clients</h2>
+                        <h2 class="content-header-title float-left mb-0">{{ __('Liste des Clients') }}</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Liste des Clients
+                            <li class="breadcrumb-item active">{{ __('Liste des Clients') }}
                             </li>
                         </ol>
                     </div>
@@ -28,7 +28,7 @@
     <div class="card pl-1 pr-1">
             <div class="content-body">
                 <div class="row justify-content-between  bg-light-secondary" >
-                    <a class="btn btn-success round col-lg-2 m-1" href="{{route('clients.create')}}">Nouveau Client</a>
+                    <a class="btn btn-success round col-lg-2 m-1" href="{{route('clients.create')}}">{{ __('Nouveau Client') }}</a>
                         <form action="{{ route('clients.index') }}" class="col-lg-3 mt-1" id="search" method="POST">
                             @csrf
                             @method('GET')
@@ -37,7 +37,7 @@
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
                                     </div>
-                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="Rechercher un coursier">
+                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="{{ __('Rechercher un coursier') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="page" id="page" value="">
@@ -51,13 +51,13 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>Noms Et Prénoms</th>
-                                        <th>Avatar</th>
-                                        <th>Téléphone</th>
-                                        <th>type</th>
-                                        <th>Statut</th>
-                                        <th>Authentification</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('Noms Et Prénoms') }}</th>
+                                        <th>{{ __('Avatar') }}</th>
+                                        <th>{{ __('Téléphone') }}</th>
+                                        <th>{{ __('type') }}</th>
+                                        <th>{{ __('Statut') }}</th>
+                                        <th>{{ __('Authentification') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,18 +107,18 @@
                                             <td>
                                                 <span class="badge badge-pill @if($client->statut == 0)badge-light-danger @else badge-light-success @endif">
                                             		@if($client->statut == 0)
-		                                             	Désactivé
+		                                             	{{ __('Désactivé') }}
 		                                            @else 
-		                                            	Actif
+		                                            	{{ __('Actif') }}
 		                                            @endif
                                                 </span>
                                             </td>
                                             <td>
                                                     @if($client->infos_perso->cni == null)
-                                                        <a class="text-info btn-info btn-sm" title="Cliquer Pour authentifier" href="{{route('informations_personnels.edit',$client->id.'-1')}}"> Authentifier </a>
+                                                        <a class="text-info btn-info btn-sm" title="{{ __('Cliquer Pour authentifier') }}" href="{{route('informations_personnels.edit',$client->id.'-1')}}"> {{ __('Authentifier') }} </a>
                                                     @else 
                                                         <i data-feather="user-check" class="text-success"></i> 
-                                                        <small class="text-success">Authentifié</small>
+                                                        <small class="text-success">{{ __('Authentifié') }}</small>
                                                     @endif
                                             </td>
 	                                        <td>
@@ -129,22 +129,22 @@
 	                                                <div class="dropdown-menu">
 	                                                    <a class="dropdown-item" href="{{route('clients.show',$client->id)}}">
 	                                                        <i data-feather='eye'></i>
-	                                                        <span class="ml-1">Détails</span>
+	                                                        <span class="ml-1">{{ __('Détails') }}</span>
 	                                                    </a>
                                                         <a class="dropdown-item" href="{{route('clients.edit',$client->id)}}">
                                                             <i data-feather="edit-2" class="mr-50"></i>
-                                                            <span class="ml-1">Editer</span>
+                                                            <span class="ml-1">{{ __('Editer') }}</span>
                                                         </a>
-                                                        <span class=" @if($client->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('clients.destroy',$client->id)}}','{{$client->noms.' '.$client->Prenoms}}',@if($client->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($client->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('clients.destroy',$client->id)}}','{{$client->noms.' '.$client->Prenoms}}',@if($client->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                             @if($client->statut == 1)
                                                                 <i data-feather='user-x'></i>
                                                                 <span class="ml-1 text-danger" type="button">
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                                 </span>
                                                             @else
                                                                 <i data-feather='user-check'></i>
                                                                 <span class="ml-1 text-success" type="button">
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                                 </span> 
                                                             @endif
                                                         </span>
@@ -163,11 +163,11 @@
                             {{-- Previous Page Link --}}
                                 @if ($clients->onFirstPage())
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Précédent</span>
+                                        <span disabled class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $clients->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $clients->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
                                 @for($i=1;$i<=$clients->lastPage();$i++)
@@ -178,11 +178,11 @@
                                 {{-- Next Page Link --}}
                                 @if ($clients->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $clients->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $clients->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Suivant</span>
+                                        <span disabled class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -199,9 +199,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 
 @endsection

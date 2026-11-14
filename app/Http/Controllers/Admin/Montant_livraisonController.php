@@ -140,7 +140,7 @@ class Montant_livraisonController extends Controller
     $montant_livraison = Montant_livraison::findOrFail($id);
     $montant_livraison->montant = $montant;
     $montant_livraison->save();
-    return "Montant modifié avec Succès";
+    return __('Montant modifié avec Succès');
   }
 
   /**
