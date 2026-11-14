@@ -20,6 +20,8 @@ use App\Models\informations_personnels\Informations_personnels;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use App\Actions\Commandes\ChangerStatutCommande;
+use App\Actions\Commandes\EnregistrerCommande;
 
 class CommandesController extends Controller 
 {
@@ -472,56 +474,32 @@ class CommandesController extends Controller
         $lieu_livraison = $quartier_livraison->libelle;
         $id_quartier_livraison = $quartier_livraison->id;
     }
-//ici on enregistre la commande avec les infos communs (indispensables à l'enregistrement)
-    $commande->id_client = $id_client;
-    $commande->telephone = $telephone;
-    $commande->nom_client = $nom_client;
-//ici on enregistre la commande avec l'id du client et l'id de la boutique type_commande
-    if($type_commande == 'entreprise'){
-      $commande->id_boutique = $id_boutique;
-    }
-    $commande->id_saver = Auth::user()->id;
-    $commande->date_commande = now();
-    $commande->type_commande = $type_commande;
-    $commande->adresse_colis = $adresse_colis;
-    $commande->id_quartier_colis = $id_quartier_colis;
-    $commande->adresse_livraison = $adresse_livraison;
-    $commande->id_quartier_livraison = $id_quartier_livraison;
-    $commande->montant_livraison = $montant_livraison;
-    $commande->montant_recuperer = $montant_collecter;
+//ici on enregistre la commande (action partagée avec le générateur de la démo)
     $heure = $time == null ? '00:00:00' : $time.':00';
-    $full_date = $date.' '.$heure;
-    $date_livraison = Carbon::createFromFormat('Y-m-d H:i:s', $full_date);
-    $commande->date_livraison = $date_livraison;
-// ici on trouve la valeur de l'id du montant en fonction des zones
-    $quartier_depart = Quartier::findOrFail($id_quartier_colis);
-    $quartier_arrivee = Quartier::findOrFail($id_quartier_livraison);
-    if($quartier_depart->zone == $quartier_arrivee->zone || $quartier_depart->zone == null || $quartier_arrivee->zone == null){
-      $id_montant_livraison = null;
-    }else{
-      $id_montant_livraison = Montant_livraison::whereIn('id_zone_colis',[$quartier_depart->zone->id,$quartier_arrivee->zone->id])
-                          ->whereIn('id_zone_livraison',[$quartier_depart->zone->id,$quartier_arrivee->zone->id])
-                          ->limit(1)
-                          ->get('id')
-                          ->value('id');
-    }
-    $commande->id_montant_livraison = $id_montant_livraison;
-    $commande->description = $description;
-    $commande->mode_de_paiement = $mode_de_paiement;
-    $commande->statut = 'attente';
-    $commande->save();
-// ici on enregistre le detail de la commande si celle ci contient un produit enregistré
+    $date_livraison = Carbon::createFromFormat('Y-m-d H:i:s', $date.' '.$heure);
+    $liste_produits = [];
     if($type_commande == 'entreprise'){
         foreach ($produits as $produit) {
-            $detail_commande = new Details_commande;
-            $detail_commande->id_commande = $commande->id;
-            $detail_commande->id_produit = $produit->id;
-            $detail_commande->nom_produit = $produit->noms;
-            $detail_commande->quantite = $request->input('quantite'.$produit->id);
-            $detail_commande->prix = $montant_livraison;
-            $detail_commande->save();
+            $liste_produits[] = [$produit, $request->input('quantite'.$produit->id)];
         }
     }
+    app(EnregistrerCommande::class)->handle([
+        'id_client' => $id_client,
+        'telephone' => $telephone,
+        'nom_client' => $nom_client,
+        'id_boutique' => $id_boutique,
+        'id_saver' => Auth::user()->id,
+        'type_commande' => $type_commande,
+        'adresse_colis' => $adresse_colis,
+        'id_quartier_colis' => $id_quartier_colis,
+        'adresse_livraison' => $adresse_livraison,
+        'id_quartier_livraison' => $id_quartier_livraison,
+        'montant_livraison' => $montant_livraison,
+        'montant_recuperer' => $montant_collecter,
+        'date_livraison' => $date_livraison,
+        'description' => $description,
+        'mode_de_paiement' => $mode_de_paiement,
+    ], $liste_produits);
 // on retourne la vue avec le message de succès
     session()->forget('id_boutique');
     session()->forget('table_produit');
@@ -695,47 +673,21 @@ class CommandesController extends Controller
       ]);
     session()->forget('message');
 // ici on vérifie si le coursier existe et est bel et bien un nombre positif supérieur à 0
+    $changement = app(ChangerStatutCommande::class);
     if ( $id_coursier != null ) {
-// on vérifie si la commande qui veut être attribuée est bel et bien en attente. si oui on insère l'id du coursier sinon on retourne un message d'erreur
-      if($commande->statut == 'attente'){
+// on vérifie si la commande qui veut être attribuée est bel et bien en attente. sinon on retourne un message d'erreur
+      if($changement->peutAttribuer($commande)){
         session()->flash('id_commande',$id);
         $validated = $request->validate([
           'id_coursier' => 'bail|required|numeric|min:1',
         ]);
-        $commande->id_coursier = $id_coursier;
       }else{
         $message = "<b class='text-danger text-center'>Echec ! </br> Mauvaise pratique.</b>";
         session()->flash('message',$message);
         return redirect()->back();
       }
     }
-// ici on fait un algorithme qui va nous donner le tableau possibility qui va contenir les possibilité de changement de statut pour la dernière action
-    $statuts_norm = ['attente','attribue','encours','livre','annulee','echoue'];
-    $commande->statut == 'attente' ? $depart = 1 : $statuts_norm;
-    $commande->statut == 'attribue' ? $depart = 2 : $statuts_norm;
-    $commande->statut == 'encours' ? $depart = 3 : $statuts_norm;
-    $possibility = array();
-    for( $i = $depart ; $i < count($statuts_norm) ; $i++ ){
-      if( $commande->statut == 'attente' && $i == 2 ){
-        continue;
-      }
-      if( $commande->statut == 'attente' && $i == 3 ){
-        continue;
-      }
-      array_push($possibility,$statuts_norm[$i]);
-    }
-    if(in_array($statut, $possibility)){
-      $commande->statut = $statut;
-      if(in_array($statut,['livre','echoue','annulee'])){
-        if($commande->date_mise_encours == null){
-          $commande->date_mise_encours = now();
-        }
-        $commande->date_livre = now();
-      }
-      if($statut == 'encours'){
-          $commande->date_mise_encours = now();
-      }
-      $commande->save();
+    if($changement->handle($commande, $statut, $id_coursier)){
       $message = "Statut de la commande modifié avec <b class='text-success text-center'> succès.</b>";
       session()->flash('message',$message);
       return redirect()->back();
