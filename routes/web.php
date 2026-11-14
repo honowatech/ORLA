@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+///////////////////////////////////////////////////////////// Démo sans mot de passe (docs/demo.md)
+// Toujours enregistrées : elles répondent 404 tant que DEMO_ENABLED=false.
+Route::get('/demo', [App\Http\Controllers\DemoController::class, 'index'])->name('demo.index');
+Route::post('/demo', [App\Http\Controllers\DemoController::class, 'enter'])->middleware(['guest', 'throttle:demo'])->name('demo.enter');
+Route::post('/demo/profile', [App\Http\Controllers\DemoController::class, 'switchProfile'])->middleware('auth')->name('demo.profile');
+Route::post('/demo/end', [App\Http\Controllers\DemoController::class, 'end'])->middleware('auth')->name('demo.end');
+
 ///////////////////////////////////////////////////////////// Super Admin
 Route::get('/Sc-no_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'no_abonnement'])->name('SuperAdmin.no_abonnement');
 Route::get('/Sc-empty_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'empty_abonnement'])->name('SuperAdmin.empty_abonnement');

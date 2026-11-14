@@ -86,6 +86,10 @@ Seeders create the base user types, a default city (Douala), an admin user
 (`test@example.com` / `11111111`) and a Super Admin account
 (`superadmin@example.com` / `11111111`).
 
+## Demo access
+
+A password-less demo can be enabled in production (`DEMO_ENABLED=true`): visitors pick a profile on `/demo` and get their own sandboxed agency (a separate SQLite file) filled with two months of generated activity. See [docs/demo.md](docs/demo.md).
+
 ## Notes
 
 - Delivery orders follow a status lifecycle: `attente` → `attribue` → `encours` → `livre` / `annulee` / `echoue`.

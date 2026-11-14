@@ -28,6 +28,14 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\Admin_filter::class,
         ]);
 
+        // Garde démo : dans tout le groupe web, et avant toute lecture de
+        // l'utilisateur (Authenticate, SubstituteBindings…).
+        $middleware->web(append: [\App\Http\Middleware\DemoSandbox::class]);
+        $middleware->prependToPriorityList(
+            \Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests::class,
+            \App\Http\Middleware\DemoSandbox::class,
+        );
+
         $middleware->alias([
             'filter' => \App\Http\Middleware\Filter::class,
             'coursier_filter' => \App\Http\Middleware\Coursier_filter::class,

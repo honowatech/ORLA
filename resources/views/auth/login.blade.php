@@ -105,6 +105,9 @@
                                     </div>
                                     <button class="btn btn-info btn-block" tabindex="4">{{ __('Se Connecter') }}</button>
                                 </form>
+                                @if (config('demo.enabled'))
+                                    <a class="btn btn-outline-primary btn-block mt-1" href="{{ route('demo.index') }}">Essayer la démo, sans compte</a>
+                                @endif
 
                                 <div class="divider my-2">
                                     <div class="divider-text">Ou</div>

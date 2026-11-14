@@ -112,6 +112,7 @@ use Illuminate\Support\Facades\Auth;
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="" @if(session()->has('message')) onload="success()" @endif>
+@include('demo.banner')
 
 <!-- BEGIN: Header-->
 <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow">
