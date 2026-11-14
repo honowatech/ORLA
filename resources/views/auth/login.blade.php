@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -9,7 +9,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Connexion Speedex</title>
+    <title>{{ __('Connexion Speedex') }}</title>
     <link rel="apple-touch-icon" href="{{asset('app-assets/images/avatars/map-pin.png')}}>">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/avatars/map-pin.png')}}">
     
@@ -55,8 +55,8 @@
                                     <i data-feather='truck' class="text-info" style="height :60px;width: 60px;"></i>
                                 </a>
 
-                                <h4 class="text-center card-title mb-1">Bienvenue Sur Speedex 👋</h4>
-                                <p class="text-center card-text mb-2">Connectez vous pour accèder à l'application</p>
+                                <h4 class="text-center card-title mb-1">{{ __('Bienvenue Sur Speedex 👋') }}</h4>
+                                <p class="text-center card-text mb-2">{{ __('Connectez vous pour accèder à l\'application') }}</p>
 
                                 <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -73,7 +73,7 @@
 
                                     <div class="form-group">
                                         <div class="d-flex justify-content-between">
-                                            <label for="login-password">Mot de Passe</label>
+                                            <label for="login-password">{{ __('Mot de Passe') }}</label>
                                             @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         <small>{{ __('Mot de passe Oublié?') }}</small>
@@ -105,12 +105,13 @@
                                     </div>
                                     <button class="btn btn-info btn-block" tabindex="4">{{ __('Se Connecter') }}</button>
                                 </form>
+                                @include('partials.lang-links')
 
                                 <div class="divider my-2">
-                                    <div class="divider-text">Ou</div>
+                                    <div class="divider-text">{{ __('Ou') }}</div>
                                 </div>
 
-                                <div class="auth-footer-btn d-flex justify-content-center" title="Indisponibles pour le moment">
+                                <div class="auth-footer-btn d-flex justify-content-center" title="{{ __('Indisponibles pour le moment') }}">
                                     <button href="#" class="btn btn-facebook" disabled>
                                         <i data-feather="facebook"></i>
                                     </button>

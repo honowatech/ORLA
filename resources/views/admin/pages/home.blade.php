@@ -21,9 +21,9 @@
                         <div class="col-12">
                             <div class="card card-statistics">
                                 <div class="card-header">
-                                    <h4 class="card-title">Statistiques</h4>
+                                    <h4 class="card-title">{{ __('Statistiques') }}</h4>
                                     <div class="d-flex align-items-center">
-                                        <p class="card-text font-small-2 mr-25 mb-0">mis à jour <span class="temps"></span></p>
+                                        <p class="card-text font-small-2 mr-25 mb-0">{{ __('mis à jour') }} <span class="temps"></span></p>
                                     </div>
                                 </div>
                                 <div class="card-body statistics-body">
@@ -37,7 +37,7 @@
                                                 </div>
                                                 <div class="media-body my-auto">
                                                     <h4 class="font-weight-bolder px-2 mb-0">{{$datas['coursiers']->count()}}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Coursiers</p>
+                                                    <p class="card-text font-small-3 mb-0">{{ __('Coursiers') }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -50,7 +50,7 @@
                                                 </div>
                                                 <div class="media-body my-auto">
                                                     <h4 class="font-weight-bolder px-2 mb-0">{{$datas['clients_entreprise']->count()}}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Clients Entreprise</p>
+                                                    <p class="card-text font-small-3 mb-0">{{ __('Clients Entreprise') }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,7 +63,7 @@
                                                 </div>
                                                 <div class="media-body my-auto">
                                                     <h4 class="font-weight-bolder px-2 mb-0">{{$datas['clients_simple']->count()}}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Clients Simple</p>
+                                                    <p class="card-text font-small-3 mb-0">{{ __('Clients Simple') }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -76,7 +76,7 @@
                                                 </div>
                                                 <div class="media-body my-auto">
                                                     <h4 class="font-weight-bolder px-2 mb-0">{{$datas['commandes_reussies']->count()}}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Commandes Réussies</p>
+                                                    <p class="card-text font-small-3 mb-0">{{ __('Commandes Réussies') }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,7 +95,7 @@
                                 <div class="col-lg-6 col-md-4 col-8 mx-auto">
                                     <div class="card card-tiny-line-stats">
                                         <div class="card-header text">
-                                            <h6 >Chiffre d'Affaire du mois</h6>
+                                            <h6 >{{ __('Chiffre d\'Affaire du mois') }}</h6>
                                         </div>
                                         <div class="card-body pb-50">
                                             <h2 class="font-weight-bolder text-center mb-1">{{$datas['commandes_reussies_du_mois']->sum('montant_livraison')}} XAF</h2>
@@ -670,17 +670,17 @@
                   // console.log(dateActuelle)
                   // console.log(dateSoumise)
             if (secondes != 0 && minutes == 0 && heures == 0 && jours == 0 && mois == 0 && annees == 0) {
-                return `Maintenant`;
+                return @json(__('Maintenant'));
             } else if (minutes != 0 && heures == 0 && jours == 0 && mois == 0 && annees == 0) {
-                return `il y a ${minutes} minutes`;
+                return @json(__('il y a :n minutes')).replace(':n', minutes);
             } else if (heures != 0 && jours == 0 && mois == 0 && annees == 0) {
-                return `il y a ${heures} heures`;
+                return @json(__('il y a :n heures')).replace(':n', heures);
             } else if (jours != 0 && mois == 0 && annees == 0) {
-                return `il y a ${jours} jours`;
+                return @json(__('il y a :n jours')).replace(':n', jours);
             } else if (mois != 0 && annees == 0) {
-                return `il y a ${mois} mois`;
+                return @json(__('il y a :n mois')).replace(':n', mois);
             } else {
-                return `il y a ${annees} années`;
+                return @json(__('il y a :n années')).replace(':n', annees);
             }
         }
         setInterval(function(){

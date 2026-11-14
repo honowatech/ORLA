@@ -12,7 +12,7 @@
             <div class="content-header-left col-md-12 col-12 m-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                            <h2 class="content-header-title mb-0"> S'abonner </h2>
+                            <h2 class="content-header-title mb-0"> {{ __('S\'abonner') }} </h2>
                         </div>
                     </div>
                 </div>
@@ -28,20 +28,20 @@
                         <div class="col-lg-6 card p-2 col-md-8 col-sm-10 mx-auto mt-2">
                             <h4 class="text-center mb-3">
                                 <i data-feather="alert-triangle" class="text-danger" style="height: 20px; width: 20px;"></i><br><br>
-                                Pas d'abonnement disponible.
+                                {{ __('Pas d\'abonnement disponible.') }}
                             </h4>
                             <p>
-                                Pour avoir des abonnements veuillez contacter  <a href="https://honowa.com/contact">Honowa Technologies </a> via :
+                                {{ __('Pour avoir des abonnements veuillez contacter') }}  <a href="https://honowa.com/contact">{{ __('Honowa Technologies') }} </a> {{ __('via :') }}
                             </p>
                             <div class="text-center col-md-10 mx-auto">
                                 <p>
-                                    <i data-feather="phone" class="mr-50"></i> Téléphones : {{Sa_phone(explode('/',$phones->value)[0])}} / {{Sa_phone(explode('/',$phones->value)[1])}}.
+                                    <i data-feather="phone" class="mr-50"></i> {{ __('Téléphones : :v1 / :v2.', ['v1' => Sa_phone(explode('/',$phones->value)[0]), 'v2' => Sa_phone(explode('/',$phones->value)[1])]) }}
                                 </p>
                                 <p>
-                                    <i data-feather="mail" class="mr-50"></i> Email : {{$email->value}}.
+                                    <i data-feather="mail" class="mr-50"></i> {{ __('Email : :v1.', ['v1' => $email->value]) }}
                                 </p>
                                 <a class="btn btn-primary btn-gradient-primary" href="{{url()->current()}}">
-                                    <i data-feather="loader" class="mr-50"></i>Actualiser
+                                    <i data-feather="loader" class="mr-50"></i>{{ __('Actualiser') }}
                                 </a>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                         <b>{{$abonnement->titre}}</b>
                                         @if($abonnement->id == $client->id)
                                             <smal class="text-muted" style="font-size: 10px;">
-                                               (Préféré)
+                                               {{ __('(Préféré)') }}
                                             </smal>
                                         @endif
                                     </h2>
@@ -65,7 +65,7 @@
                                     <div>
                                         <div class="row justify-content-between mx-1 mb-2">
                                             <div>
-                                                    <b> Périodicité :</b>
+                                                    <b> {{ __('Périodicité :') }}</b>
                                             </div>
                                             <div>
                                                 <span class="text-truncate">
@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="row justify-content-between mx-1 my-2">
                                             <div>
-                                                    <b> Montant :</b>
+                                                    <b> {{ __('Montant :') }}</b>
                                             </div>
                                             <div>
                                                 <span class="text-truncate">
@@ -86,7 +86,7 @@
                                         <div class="text-center">
                                             @if($api == null)
                                                 <span class="badge badge-danger">
-                                                    <i data-feather="alert-triangle" class="mr-50"></i> Paiement indisponible
+                                                    <i data-feather="alert-triangle" class="mr-50"></i> {{ __('Paiement indisponible') }}
                                                 </span>
                                             @else
                                             <form method="POST" action="{{route('Sa-transaction.store')}}">
@@ -95,9 +95,9 @@
                                                 <input type="hidden" name="methode" value="mobile">
                                                 <button class="btn btn-success btn-gradient-success">
                                                     @if($abonnement->id == $client->id_abonnement)
-                                                    <i data-feather='rotate-cw' class="mr-50"></i> Renouveller
+                                                    <i data-feather='rotate-cw' class="mr-50"></i> {{ __('Renouveller') }}
                                                     @else
-                                                    <i data-feather='shopping-cart' class="mr-50"></i> Souscrire
+                                                    <i data-feather='shopping-cart' class="mr-50"></i> {{ __('Souscrire') }}
                                                     @endif
                                                 </button>
                                             </form>
@@ -112,8 +112,8 @@
                 @if(check_superadmin() != 'true')
                     <div class="row col-md-8 col-lg-6 mx-auto" style="gap: 2rem;">
                         <div class="mx-auto">
-                            <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{route('logout')}}','', 'vous déconnecter' ,'button_deconnection')">
-                                <i data-feather="power" class="mr-50"></i>Se Déconnecter
+                            <button type="submit" class="btn btn-outline-danger" onclick="remplir('{{route('logout')}}','', '{{ __('vous déconnecter') }}' ,'button_deconnection')">
+                                <i data-feather="power" class="mr-50"></i>{{ __('Se Déconnecter') }}
                             </button>
                         </div>
                     </div>

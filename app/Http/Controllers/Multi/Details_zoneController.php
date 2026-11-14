@@ -51,7 +51,7 @@ class Details_zoneController extends Controller
     $zones = $request->input('zones');
     $id_coursier = $request->input('id_coursier');
 
-    $message = "<b class='text-danger'>Echec de la requete! </b>, Informations éronnés ";
+    $message = __('<b class=\'text-danger\'>Echec de la requete! </b>, Informations éronnés ');
       session()->flash('message',$message);
     $validated = $request->validate([
       'id_coursier' => 'numeric',
@@ -63,7 +63,7 @@ class Details_zoneController extends Controller
       $details->id_zone = $id_zone;
       $details->save();
     }
-      $message = "Zones attribuées avec <b class='text-success'> Succès.</b>";
+      $message = __('Zones attribuées avec <b class=\'text-success\'> Succès.</b>');
       session()->flash('message',$message);
     return redirect()->back();
   }
@@ -120,7 +120,7 @@ class Details_zoneController extends Controller
     foreach($details as $detail){
       $detail->delete();
     }
-      $message = "Zone désattribuée avec <b class='text-success'> Succès.</b>";
+      $message = __('Zone désattribuée avec <b class=\'text-success\'> Succès.</b>');
       session()->flash('message',$message);
     return redirect()->back();
   }

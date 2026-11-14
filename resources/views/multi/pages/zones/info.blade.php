@@ -14,14 +14,14 @@
                    <div class="content-header-left col-md-12 col-12 mb-2">
                         <div class="row breadcrumbs-top">
                             <div class="col-12">
-                                <h2 class="content-header-title float-left mb-0">Infos la zone "{{$zones->libelle}}"</h2>
+                                <h2 class="content-header-title float-left mb-0">{{ __('Infos la zone ":v1"', ['v1' => $zones->libelle]) }}</h2>
                                 <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                                <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('zone.index')}}">Liste des Zones</a>
+                                <li class="breadcrumb-item"><a href="{{route('zone.index')}}">{{ __('Liste des Zones') }}</a>
                                 </li>
-                                <li class="breadcrumb-item active">Infos sur la zone "{{$zones->libelle}}"
+                                <li class="breadcrumb-item active">{{ __('Infos sur la zone ":v1"', ['v1' => $zones->libelle]) }}
                                 </li>
                             </ol>
                         </div>
@@ -44,19 +44,19 @@
                                         <div class="col-bg-6 col-lg-6 d-flex flex-column justify-content-between border-container-lg">
                                             <div class="zone-avatar-section">
                                                 <div class="d-flex justify-content-start">
-                                                    <img class="img-fluid rounded" src="{{asset('app-assets/images/avatars/map-pin.png')}}" height="104" width="104" alt="User avatar" />
+                                                    <img class="img-fluid rounded" src="{{asset('app-assets/images/avatars/map-pin.png')}}" height="104" width="104" alt="{{ __('User avatar') }}" />
                                                     <div class="d-flex flex-column ml-1">
                                                         <div class="zone-info mb-1">
                                                             <h4 class="mb-0 ml-2">{{$zones->libelle}}</h4>
-                                                            <span class="card-text ml-3"> de {{$zones->ville->libelle}}</span>
+                                                            <span class="card-text ml-3"> {{ __('de') }} {{$zones->ville->libelle}}</span>
                                                         </div>
                                                         <div class="d-flex flex-wrap">
-                                                            <a href="{{route('zone.edit',$zones->id)}}" class="btn btn-dark ml-2">Modifier</a>
-                                                            <button class=" btn ml-2 @if($zones->statut == 1) btn-danger  @else btn-success  @endif " data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zones->id)}}','{{$zones->libelle}}', @if($zones->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <a href="{{route('zone.edit',$zones->id)}}" class="btn btn-dark ml-2">{{ __('Modifier') }}</a>
+                                                            <button class=" btn ml-2 @if($zones->statut == 1) btn-danger  @else btn-success  @endif " data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zones->id)}}','{{$zones->libelle}}', @if($zones->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                             @if($zones->statut == 1)
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                             @else
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                             @endif
                                                         </button>
                                                         </div>
@@ -69,20 +69,20 @@
                                                 <div class="d-flex flex-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather='at-sign' class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Libellé</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Libellé') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{$zones->libelle}}</p>
                                                 </div>
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="check" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Status</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Status') }}</span>
                                                     </div>
                                                     <span class="badge badge-glow @if($zones->statut == 0)badge-danger @else badge-success @endif">
                                                         @if($zones->statut == 0)
-                                                            Désactivé
+                                                            {{ __('Désactivé') }}
                                                         @else 
-                                                            Actif
+                                                            {{ __('Actif') }}
                                                         @endif
                                                     </span>
                                                     
@@ -90,14 +90,14 @@
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="flag" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Pays</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Pays') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{'Cameroun'}}</p>
                                                 </div>
                                                 <div class="d-flex flex-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather="map-pin" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Ville</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Ville') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0"> {{$zones->ville->libelle}} </p>
                                                 </div>
@@ -120,10 +120,10 @@
                             <!-- zone Permissions -->
                             <div class="card">
                                 <div class="card-header row" style="gap: 2rem;">
-                                    <h4 class=" card-title">Quartiers Associés ( {{$zones->quartiers->count()}} )</h4>
+                                    <h4 class=" card-title">{{ __('Quartiers Associés ( :v1 )', ['v1' => $zones->quartiers->count()]) }}</h4>
                                     <div class="">
                                         <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#select2InModal">
-                                            Ajouter des quartiers
+                                            {{ __('Ajouter des quartiers') }}
                                         </button>
                                     </div>
                                 </div>
@@ -137,15 +137,15 @@
                                                             <input type="hidden"  id="vrai_input" required>
                                                             <input type="hidden"  name="add" value="1">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" id="myModalLabel1">Modale de Sélection</h4>
-                                                                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                                                                <h4 class="modal-title" id="myModalLabel1">{{ __('Modale de Sélection') }}</h4>
+                                                                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <p>Sélectionner un ou plusiers Quartiers</p>
+                                                                <p>{{ __('Sélectionner un ou plusiers Quartiers') }}</p>
                                                             
-                                                                <label for="id_quartier_associe">Choisir des Quartiers</label>
+                                                                <label for="id_quartier_associe">{{ __('Choisir des Quartiers') }}</label>
                                                                 <div class="form-group mb-0" id="div_id_quartier_associe">
                                                                     <select class=" @error('id_quartier_associe')  is-invalid @enderror select2 form-control" id="id_quartier_associe" name="id_quartier_associe[]" multiple='multiple'>
                                                                         @foreach($quartiers_libres as $quartier_libre)
@@ -157,8 +157,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer d-flex justify-content-around">
-                                                                    <button type="submit" class="btn btn-success"> Valider </button>
-                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuller</button>
+                                                                    <button type="submit" class="btn btn-success"> {{ __('Valider') }} </button>
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Annuller') }}</button>
                                                             </div>
                                                         </form>
                                                         </div>
@@ -170,8 +170,8 @@
                                         <thead class="thead-light">
                                             <tr class="text-center">
                                                 <th>N°</th>
-                                                <th>Nom</th>
-                                                <th>enlever</th>
+                                                <th>{{ __('Nom') }}</th>
+                                                <th>{{ __('enlever') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -187,8 +187,8 @@
                                                         {{$quartier->libelle}}
                                                     </td>
                                                     <td>
-                                                        <div class="cursor-pointer w-25 m-auto" title="Enlever le quartier de {{$zones->libelle}}" data-toggle="modal" 
-                                                            onclick="put_quartier_id('{{$quartier->id}}'); remplir('{{route('zone.destroy',$zones->id)}}','{{$zones->libelle}}', 'Enlever {{$quartier->libelle}} de la zone','button_remove')" data-target="#danger">
+                                                        <div class="cursor-pointer w-25 m-auto" title="{{ __('Enlever le quartier de :v1', ['v1' => $zones->libelle]) }}" data-toggle="modal" 
+                                                            onclick="put_quartier_id('{{$quartier->id}}'); remplir('{{route('zone.destroy',$zones->id)}}','{{$zones->libelle}}', '{{ __('Enlever :v1 de la zone', ['v1' => $quartier->libelle]) }}','button_remove')" data-target="#danger">
 
                                                         <i data-feather='x-circle' class="text-danger cursor-pointer" height="24" width="24"></i>
                                                             
@@ -220,9 +220,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success ">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success ">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 <div id="button_remove" hidden>
     <form method="POST" class="destroy_form">
@@ -230,9 +230,9 @@
         @method('DELETE')
         <input type="hidden" class="id_quartier" name="id_quartier">
         <input type="hidden"  name="remove" value="1">
-        <button type="submit" class="btn btn-gradient-success btn-success ">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success ">{{ __('Confirmer') }}</button>
     </form>
-    <button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">Annuler</button>
+    <button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 @endsection
 @section('javascript')

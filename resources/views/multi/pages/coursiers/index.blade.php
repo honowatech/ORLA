@@ -11,12 +11,12 @@
     	 <div class="content-header-left col-md-12 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Liste des Livreurs</h2>
+                    <h2 class="content-header-title float-left mb-0">{{ __('Liste des Livreurs') }}</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Liste des Livreurs
+                            <li class="breadcrumb-item active">{{ __('Liste des Livreurs') }}
                             </li>
                         </ol>
                     </div>
@@ -38,7 +38,7 @@
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
                                     </div>
-                                    <input type="search" class="form-control" name="search" value="{{ session()->get('search')}}" placeholder="Rechercher un Livreur">
+                                    <input type="search" class="form-control" name="search" value="{{ session()->get('search')}}" placeholder="{{ __('Rechercher un Livreur') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="page" id="page" value="">
@@ -53,15 +53,15 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>Noms Et Prénoms</th>
-                                        <th>Avatar</th>
-                                        <th>Téléphone</th>
-                                        <th>Statut</th>
-                                        <th>Authentification</th>
+                                        <th>{{ __('Noms Et Prénoms') }}</th>
+                                        <th>{{ __('Avatar') }}</th>
+                                        <th>{{ __('Téléphone') }}</th>
+                                        <th>{{ __('Statut') }}</th>
+                                        <th>{{ __('Authentification') }}</th>
                                         @if(filter(['routeur','superviseur_ville'],auth()->user()) != 'true')
-                                        <th>Ville</th>
+                                        <th>{{ __('Ville') }}</th>
                                         @endif
-                                        <th>Actions</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,18 +102,18 @@
                                             <td>
                                                 <span class="badge badge-glow @if($coursier->statut == 0)badge-danger @else badge-success @endif">
                                             		@if($coursier->statut == 0)
-		                                             	Désactivé
+		                                             	{{ __('Désactivé') }}
 		                                            @else 
-		                                            	Actif
+		                                            	{{ __('Actif') }}
 		                                            @endif
                                                 </span>
                                             </td>
                                             <td>
                                                     @if($coursier->infos_perso->cni == null)
-                                                        <a class="text-info btn-info btn-sm" title="Cliquer Pour authentifier" href="{{route('informations_personnels.edit',$coursier->id.'-2')}}"> Authentifier </a>
+                                                        <a class="text-info btn-info btn-sm" title="{{ __('Cliquer Pour authentifier') }}" href="{{route('informations_personnels.edit',$coursier->id.'-2')}}"> {{ __('Authentifier') }} </a>
                                                     @else 
                                                         <i data-feather="user-check" class="text-success"></i> 
-                                                        <small class="text-success">Authentifié</small>
+                                                        <small class="text-success">{{ __('Authentifié') }}</small>
                                                     @endif
                                             </td>
                                             @if(filter(['routeur','superviseur_ville'],auth()->user()) != 'true')
@@ -131,22 +131,22 @@
 	                                                <div class="dropdown-menu">
 	                                                    <a class="dropdown-item" href="{{route('coursiers.show',$coursier->id)}}">
 	                                                        <i data-feather='eye' class="text-dark mr-50"></i>
-	                                                        <span>Détails</span>
+	                                                        <span>{{ __('Détails') }}</span>
 	                                                    </a>
                                                         <a class="dropdown-item" href="{{route('coursiers.edit',$coursier->id)}}">
                                                             <i data-feather="edit-2" class="text-info mr-50"></i>
-                                                            <span>Editer</span>
+                                                            <span>{{ __('Editer') }}</span>
                                                         </a>
-                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}','{{$coursier->noms.' '.$coursier->prenoms}}',@if($coursier->statut == 1) ' Désactiver ' @else ' Activer ' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('coursiers.destroy',$coursier->id)}}','{{$coursier->noms.' '.$coursier->prenoms}}',@if($coursier->statut == 1) ' {{ __('Désactiver') }} ' @else ' {{ __('Activer') }} ' @endif ,'button_footer')" data-target="#danger">
                                                             @if($coursier->statut == 1)
                                                                 <i data-feather='x' class="text-danger mr-50"></i>
                                                                 <span type="button">
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                                 </span>
                                                             @else
                                                                 <i data-feather='check' class=" text-success mr-50"></i>
                                                                 <span type="button">
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                                 </span> 
                                                             @endif
                                                         </span>
@@ -178,22 +178,22 @@
                                 {{-- Previous Page Link --}}
                                 @if ($coursiers->onFirstPage())
                                     <li class="page-item disabled" aria-disabled="true">
-                                        <span class="page-link">Précédent</span>
+                                        <span class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $coursiers->currentPage()-1 }})" rel="prev">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $coursiers->currentPage()-1 }})" rel="prev">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
 
                                 {{-- Next Page Link --}}
                                 @if ($coursiers->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $coursiers->currentPage()+1 }})" rel="next">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $coursiers->currentPage()+1 }})" rel="next">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled" aria-disabled="true">
-                                        <span class="page-link">Suivant</span>
+                                        <span class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -271,9 +271,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success ">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success ">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 
 @endsection

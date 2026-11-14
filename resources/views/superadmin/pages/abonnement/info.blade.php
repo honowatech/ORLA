@@ -24,17 +24,17 @@
     	           <div class="content-header-left col-md-12 col-12 mb-2">
                         <div class="row breadcrumbs-top">
                             <div class="col-12">
-                                <h2 class="content-header-title float-left mb-0">Détails de {{Sa_name($client->name)}}</h2>
+                                <h2 class="content-header-title float-left mb-0">{{ __('Détails de') }} {{Sa_name($client->name)}}</h2>
                                 <div class="breadcrumb-wrapper">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{route('SuperAdmin.home')}}">Acceuil</a>
+                                        <li class="breadcrumb-item"><a href="{{route('SuperAdmin.home')}}">{{ __('Acceuil') }}</a>
                                         </li>
                                         <li class="breadcrumb-item">
                                             <a href="{{route('Sa-client.index')}}">
-                                                Liste des Clients 
+                                                {{ __('Liste des Clients') }} 
                                             </a>
                                         </li>
-                                        <li class="breadcrumb-item active">Détails de {{Sa_name($client->name)}}
+                                        <li class="breadcrumb-item active">{{ __('Détails de') }} {{Sa_name($client->name)}}
                                         </li>
                                     </ol>
                                 </div>
@@ -71,22 +71,22 @@
                                                         <div class="row" style="gap: 1rem;">
                                                             <a href="{{route('Sa-client.edit',$client->id)}}" class=" btn btn-secondary btn-gradient-secondary btn-sm ml-1">
                                                                 <i data-feather="edit-2" class="mr-50"></i>
-                                                                Modifier
+                                                                {{ __('Modifier') }}
                                                             </a>
-                                                            <button class="btn ml-1 btn-sm @if($client->statut == 1)  btn-gradient-danger btn-danger  @else btn-gradient-success btn-success @endif "  data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}',@if($client->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <button class="btn ml-1 btn-sm @if($client->statut == 1)  btn-gradient-danger btn-danger  @else btn-gradient-success btn-success @endif "  data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}',@if($client->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                                 @if($client->statut == 1)
                                                                     <i data-feather="x" class="mr-50"></i>
                                                                     <span>
-                                                                        Désactiver
+                                                                        {{ __('Désactiver') }}
                                                                     </span>
                                                                 @else
                                                                     <i data-feather="check" class="mr-50"></i>
                                                                     <span>
-                                                                        Activer
+                                                                        {{ __('Activer') }}
                                                                     </span>
                                                                 @endif
                                                             </button>
-                                                            {{-- <button class="btn ml-1  btn-sm btn-outline-danger" data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}', 'supprimer' ,'button_delete_footer')" data-target="#danger">
+                                                            {{-- <button class="btn ml-1  btn-sm btn-outline-danger" data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}', '{{ __('supprimer') }}' ,'button_delete_footer')" data-target="#danger">
                                                                     <i data-feather="trash" class="mr-50"></i>
                                                                     Supprimer
                                                             </button> --}} 
@@ -100,7 +100,7 @@
                                                 <div class="d-flex flex-wrap d-sm-block d-sm-flex  d-none">
                                                     <div class="user-info-title">
                                                         <i data-feather="user" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Noms</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Noms') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">
                                                         <b>
@@ -111,7 +111,7 @@
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="credit-card" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">CNI</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('CNI') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">
                                                         <b>
@@ -122,7 +122,7 @@
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="phone" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Contact</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Contact') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">
                                                         <span>
@@ -134,7 +134,7 @@
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="phone" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Contact 2</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Contact 2') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">
                                                         <span>
@@ -150,13 +150,13 @@
                                                         @else 
                                                             <i data-feather="check-circle" class="mr-1"></i> 
                                                         @endif
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Status</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Status') }}</span>
                                                     </div>
                                                     <span class="badge badge-pill badge-glow @if($client->statut == 0)badge-danger @else badge-success @endif">
 	                                            		@if($client->statut == 0)
-			                                             	Désactivé
+			                                             	{{ __('Désactivé') }}
 			                                            @else 
-			                                            	Actif
+			                                            	{{ __('Actif') }}
 			                                            @endif
                                                 	</span> 
                                                 </div> 
@@ -176,7 +176,7 @@
                             <!-- zone Permissions -->
                             <div class="card">
                                 <div class="card-header mx-1 row" style="gap: 2rem;">
-                                    <h4 class=" card-title">Tableau des Transactions</h4>
+                                    <h4 class=" card-title">{{ __('Tableau des Transactions') }}</h4>
                                 </div>
                                 <div class="card-body">
                                 <form action="{{ route('Sa-client.show',$client->id) }}" class="col-lg-3 mt-1" id="search" method="GET">
@@ -202,15 +202,15 @@
     <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="descriptionTitle"> Description </h5>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="descriptionTitle"> {{ __('Description') }} </h5>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-10 mx-auto py-2" id="info_description">
-                        Infos de chaque paiement ici !
+                        {{ __('Infos de chaque paiement ici !') }}
                     </div>
                 </div>
             </div>

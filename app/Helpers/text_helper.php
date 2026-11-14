@@ -31,9 +31,9 @@
     }
     if (!function_exists('Ladate')) {
         function Ladate($ladate) {
-            $mois = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'];
+            $mois = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
             $ladate = new DateTime($ladate);
-            return $ladate->format('d ').$mois[$ladate->format('m')-1].$ladate->format(' Y');
+            return $ladate->format('d ').__($mois[$ladate->format('m')-1]).$ladate->format(' Y');
         }
     }
     if (!function_exists('Heure')) {
@@ -108,17 +108,17 @@
               $secondes = $intervalle->s;
 
               if ( $minutes == 0 && $heures == 0 && $jours == 0 && $mois == 0 && $annees == 0 ) {
-                return "{$secondes} secondes";
+                return __(':n secondes', ['n' => $secondes]);
               } elseif ( $minutes != 0 && $heures == 0 && $jours == 0 && $mois == 0 && $annees == 0 ) {
-                return "{$minutes} minutes";
+                return __(':n minutes', ['n' => $minutes]);
               } else if ($heures != 0 && $jours == 0 && $mois == 0 && $annees == 0 ) {
-                return "{$heures} heures";
+                return __(':n heures', ['n' => $heures]);
               } else if ($jours != 0 && $mois == 0 && $annees == 0 ) {
-                return "{$jours} jours";
+                return __(':n jours', ['n' => $jours]);
               } else if ($mois != 0 && $annees == 0 ) {
-                return "{$mois} mois";
+                return __(':n mois', ['n' => $mois]);
               } else {
-                return "{$annees} années";
+                return __(':n années', ['n' => $annees]);
               }
         }
     }

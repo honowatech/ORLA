@@ -11,12 +11,12 @@
          <div class="content-header-left col-md-12 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Liste des Produits</h2>
+                        <h2 class="content-header-title float-left mb-0">{{ __('Liste des Produits') }}</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Liste des Produits
+                            <li class="breadcrumb-item active">{{ __('Liste des Produits') }}
                             </li>
                         </ol>
                     </div>
@@ -29,7 +29,7 @@
             <div class="content-body"> 
                 <div class="row justify-content-between bg-light-secondary" >
                     <a class="btn btn-info waves-effect col-md-3  col-sm-7 col-10 mx-auto mx-lg-1 col-lg-2 m-1" href="{{route('produits.create')}}">
-                        <i class="mr-1" data-feather='plus'></i>Nouveau
+                        <i class="mr-1" data-feather='plus'></i>{{ __('Nouveau') }}
                     </a>
                         <form action="{{ route('produits.index') }}" class="col-md-3 col-sm-7 col-10 col-8 mx-lg-1 p-0 mx-auto col-lg-3 mt-1" id="search" method="POST">
                             @csrf
@@ -39,7 +39,7 @@
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
                                     </div>
-                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="Rechercher">
+                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="{{ __('Rechercher') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="page" id="page" value="">
@@ -53,10 +53,10 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>Noms</th>
-                                        <th>libelle</th>
-                                        <th>Date création</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('Noms') }}</th>
+                                        <th>{{ __('libelle') }}</th>
+                                        <th>{{ __('Date création') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,7 +78,7 @@
                                                 <div class="badge badge-light-dark">
                                                     {{Ladate($produit->created_at)}}
                                                 </div>
-                                                à
+                                                {{ __('à') }}
                                                 <div class="badge badge-light-dark">
                                                     {{Heure($produit->created_at)}}
                                                 </div>
@@ -91,17 +91,17 @@
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" onclick="responses_ajax('info_description',['{{$produit->id}}'],'{{route('produits.show',$produit->id)}}','GET')" data-toggle="modal" data-target="#description">
                                                             <i data-feather='eye'></i>
-                                                            <span class="ml-1">Description</span>
+                                                            <span class="ml-1">{{ __('Description') }}</span>
                                                         </a>
                                                         <a class="dropdown-item" href="{{route('produits.edit',$produit)}}">
                                                             <i data-feather="edit-2" class="mr-50"></i>
-                                                            <span class="ml-1">Modifier</span>
+                                                            <span class="ml-1">{{ __('Modifier') }}</span>
                                                         </a>
                                                         @if($produit->details_commande->count() == 0 && $produit->stock->count() == 0)
-                                                                <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('produits.destroy',$produit->id)}}','{{$produit->noms}}','Supprimer ce Produit' ,'button_footer')" data-target="#danger">
+                                                                <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('produits.destroy',$produit->id)}}','{{$produit->noms}}','{{ __('Supprimer ce Produit') }}' ,'button_footer')" data-target="#danger">
                                                                 <i data-feather='trash-2'></i>
                                                                 <span class="ml-2 text-danger" type="button">
-                                                                    Supprimer
+                                                                    {{ __('Supprimer') }}
                                                                 </span>
                                                         </span>
                                                         @endif
@@ -121,11 +121,11 @@
                             {{-- Previous Page Link --}}
                                 @if ($produits->onFirstPage())
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Précédent</span>
+                                        <span disabled class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $produits->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $produits->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
                                 @for($i=1;$i<=$produits->lastPage();$i++)
@@ -136,11 +136,11 @@
                                 {{-- Next Page Link --}}
                                 @if ($produits->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $produits->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $produits->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Suivant</span>
+                                        <span disabled class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -152,15 +152,15 @@
     <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="descriptionTitle"> Informations </h5>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="descriptionTitle"> {{ __('Informations') }} </h5>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-10 mx-auto" id="info_description">
-                        Infos de chaque Produit ici !
+                        {{ __('Infos de chaque Produit ici !') }}
                     </div>
                 </div>
             </div>
@@ -182,9 +182,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 
 @endsection

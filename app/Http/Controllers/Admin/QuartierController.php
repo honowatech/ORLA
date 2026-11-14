@@ -118,7 +118,7 @@ class QuartierController extends Controller
       $quartier->libelle = $libelle;
       $quartier->id_ville = $id_ville;
      $quartier->save();
-     $message = "Quartier créée avec <b class='text-success'> Succès.</b>";
+     $message = __('Quartier créée avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
      return redirect()->route('quartier.index');
   }
@@ -211,7 +211,7 @@ class QuartierController extends Controller
     $quartier = Quartier::findOrFail($id);
     $quartier->libelle = $libelle;
     $quartier->save();
-    $message = "Quartier mise à jour avec <b class='text-success'> Succès.</b>";
+    $message = __('Quartier mise à jour avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('quartier.index');
   }
@@ -241,13 +241,13 @@ class QuartierController extends Controller
         }
     $quartier = Quartier::with(['ville','zone','boutiques','point_relais','commandes_pointdepart','commandes_pointarrivee',])->findOrFail($id);
     if($quartier->boutiques->count()>0||$quartier->point_relais->count()>0||$quartier->commandes_pointdepart->count()>0||$quartier->commandes_pointarrivee->count()>0){
-        $message = "<b class='text-danger'>Echec... </b> Ce Quartier possède plusieurs connexions";
+        $message = __('<b class=\'text-danger\'>Echec... </b> Ce Quartier possède plusieurs connexions');
         session()->flash('message',$message);
         return redirect()->back();
     }
     $quartier = Quartier::findOrFail($id);
     $quartier->delete();
-    $message = "Quartier supprimée <b class='text-success'> Succès.</b>";
+    $message = __('Quartier supprimée <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('quartier.index');
   }

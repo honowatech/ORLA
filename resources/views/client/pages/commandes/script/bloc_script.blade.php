@@ -94,7 +94,7 @@
                 div_boutique.hidden = false;
                 id_boutique.innerHTML = "";
                 document.querySelector('#erreur1').hidden = false;
-                document.querySelector('#erreur1').innerHTML = "Veuillez choisir une entreprise existante";
+                document.querySelector('#erreur1').innerHTML = @json(__('Veuillez choisir une entreprise existante'));
                 return  true;
             }
             id_boutique.disabled = false;
@@ -113,7 +113,7 @@
                         id_boutique.innerHTML = response;
                     },
                     error: function(){
-                        alert("Un problème est survenu veuillez atualiser la page !!!");
+                        alert(@json(__('Un problème est survenu veuillez atualiser la page !!!')));
                     }
                 });
             }
@@ -160,7 +160,7 @@
                         format_montant('montant_livraison');
                     },
                     error: function(){
-                       resultat.value = "Un problème est survenu veuillez atualiser la page !!!";
+                       resultat.value = @json(__('Un problème est survenu veuillez atualiser la page !!!'));
                     }
             });
         }
@@ -177,7 +177,7 @@
                 if(true_value!=undefined){
                     var true_value = document.querySelector('#'+true_value);
                     if(true_value.value.length < 1){
-                        resultat.innerHTML = '<b class="text-center">Remplir le champ pour avoir des propositions</b>';
+                        resultat.innerHTML = '<b class="text-center">{{ __('Remplir le champ pour avoir des propositions') }}</b>';
                         return true;
                     }
                 }
@@ -191,7 +191,7 @@
                         resultat.innerHTML = response;
                     },
                     error: function(){
-                        resultat.innerHTML = " Un problème est survenu veuillez réessayer plus tard !!!";
+                        resultat.innerHTML = " "+@json(__('Un problème est survenu veuillez réessayer plus tard !!!'));
                     }
             });
         }
@@ -220,7 +220,7 @@
                 simple_info = document.querySelectorAll('.simple_info');
                     document.querySelector('#type_commande').value = valeur;
             if(valeur == 'simple'){
-                textarea.placeholder = 'Décrire le colis';
+                textarea.placeholder = @json(__('Décrire le colis'));
                 collecte.hidden = false;
                 livraison.classList.add("col-md-6");
                 livraison.classList.remove("col-md-10");
@@ -236,7 +236,7 @@
                     simples.hidden = false;
                 });
             }else{
-                textarea.placeholder = 'Décrire le produit';
+                textarea.placeholder = @json(__('Décrire le produit'));
                 collecte.hidden = true;
                 livraison.classList.remove("col-md-6");
                 livraison.classList.add("col-md-10");
@@ -289,20 +289,20 @@
             contact_livraison_modal.innerHTML = ' +237 '+contact_livraison.value
             lieu_livraison_modal.innerHTML = lieu_livraison.value
 
-            result = time.value == '' ? "" : " à "+time.value;
+            result = time.value == '' ? "" : " "+@json(__('à'))+" "+time.value;
             mois_lettre = [
-                            'Janvier',
-                            'Février',
-                            'Mars',
-                            'Avril',
-                            'Mai',
-                            'Juin',
-                            'Juillet',
-                            'Août',
-                            'Septembre',
-                            'Octobre',
-                            'Novembre',
-                            'Décembre'
+                            @json(__('Janvier')),
+                            @json(__('Février')),
+                            @json(__('Mars')),
+                            @json(__('Avril')),
+                            @json(__('Mai')),
+                            @json(__('Juin')),
+                            @json(__('Juillet')),
+                            @json(__('Août')),
+                            @json(__('Septembre')),
+                            @json(__('Octobre')),
+                            @json(__('Novembre')),
+                            @json(__('Décembre'))
                         ]
             date = new Date(date.value);
             jour = date.getDate();
@@ -316,13 +316,13 @@
             mode_paiement_modal.innerHTML =  result +' FCFA '
             boutiques.forEach((boutique0) => {
                 if(boutique0.selected == true){
-                    result = boutique0.innerHTML == 'Choisir un client puis une Boutique' || boutique0.innerHTML.includes('Choisir une Boutique de')? "" : boutique0.innerHTML;
+                    result = boutique0.innerHTML == @json(__('Choisir un client puis une Boutique')) || boutique0.innerHTML.includes(@json(__('Choisir une Boutique de')))? "" : boutique0.innerHTML;
                     boutique_modal.innerHTML =  result 
                 }
             });
             entreprises.forEach((entreprise) => {
                 if(entreprise.selected == true){
-                    result = entreprise.innerHTML == 'Choisir une Entreprise' ? "" : entreprise.innerHTML;
+                    result = entreprise.innerHTML == @json(__('Choisir une Entreprise')) ? "" : entreprise.innerHTML;
                     nom_entreprise_modal.innerHTML =  result 
                 }
             });

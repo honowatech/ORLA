@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -118,17 +118,18 @@
                 </div>
             </div>
             <ul class="nav navbar-nav align-items-center ml-auto">
+            @include('partials.lang-switcher')
                 <li class="nav-item dropdown dropdown-user">
                     <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="user-nav d-sm-flex">
-                        <span class=" round user-name font-weight-bolder" alt="avatar" height="40" width="40"> {{ Auth::user()->noms }} </span>
-                        <small class="text-muted">Coursier</small>
+                        <span class=" round user-name font-weight-bolder" alt="{{ __('avatar') }}" height="40" width="40"> {{ Auth::user()->noms }} </span>
+                        <small class="text-muted">{{ __('Coursier') }}</small>
                     </div>
-                         <img class="avatar" src="{{asset('app-assets/images/avatars/user1.png')}}" height="40" width="40" alt="User avatar" />
+                         <img class="avatar" src="{{asset('app-assets/images/avatars/user1.png')}}" height="40" width="40" alt="{{ __('User avatar') }}" />
                 </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
                         <a class="dropdown-item" href="{{route('Coursierusers.show',Auth::user()->id)}}">
-                            <i class="mr-50" data-feather="user"></i> Profil
+                            <i class="mr-50" data-feather="user"></i> {{ __('Profil') }}
                         </a>
                         {{-- <a class="dropdown-item" href="{{route('Coursierusers.edit',Auth::user()->id)}}">
                             <i class="mr-50" data-feather='unlock'></i> Mon Compte
@@ -137,17 +138,17 @@
                         <div class="dropdown-divider"></div>
                         {{-- <a class="dropdown-item" href="{{route('home')}}"><i class="mr-50" data-feather="help-circle"></i> FAQ
                         </a> --}}
-                        <a data-toggle="modal" data-target="#danger" class="dropdown-item text-danger" onclick="remplir('{{route('logout')}}','', 'vous déconnecter' ,'button_deconnection')">
-                        <i class="mr-50 text-danger" data-feather="log-out"></i>Déconnexion
+                        <a data-toggle="modal" data-target="#danger" class="dropdown-item text-danger" onclick="remplir('{{route('logout')}}','', '{{ __('vous déconnecter') }}' ,'button_deconnection')">
+                        <i class="mr-50 text-danger" data-feather="log-out"></i>{{ __('Déconnexion') }}
                         <div id="button_deconnection" hidden>
                             <button type="button" class="btn round btn-danger col-8 col-md-4" data-dismiss="modal">
-                                <i class="mr-1" data-feather="x"></i> Annuler
+                                <i class="mr-1" data-feather="x"></i> {{ __('Annuler') }}
                             </button>
                             <form method="POST" class="col-8 col-md-4 p-0 destroy_form">
                                 @csrf
                                 @method('POST')
                                 <button type="submit" class="btn round btn-success col-12">
-                                    <i class="mr-1" data-feather="check"></i> Confirmer
+                                    <i class="mr-1" data-feather="check"></i> {{ __('Confirmer') }}
                                 </button>
                             </form>
                         </div>      
@@ -184,8 +185,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120">Confirmation! </h3>
-                <button type="button" class="btn-danger close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-dark" id="myModalLabel120">{{ __('Confirmation!') }} </h3>
+                <button type="button" class="btn-danger close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span aria-hidden="true" class="text-white">&times;</span>
                 </button>
             </div>
@@ -206,8 +207,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120"> Information </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close" autofocus>
+                <h3 class="modal-title text-dark" id="myModalLabel120"> {{ __('Information') }} </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}" autofocus>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -217,7 +218,7 @@
             </p>
         </div>
         <div class="modal-footer" style="justify-content: center;">
-            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">Terminer</button>
+            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">{{ __('Terminer') }}</button>
         </div>
         </div>
     </div>
@@ -236,14 +237,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title text-dark" id="myModalLabel120"> Informations... </h3>
-                <button type="button" class="btn-danger close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-dark" id="myModalLabel120"> {{ __('Informations...') }} </h3>
+                <button type="button" class="btn-danger close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span class="text-white" aria-hidden="true">&times;</span>
                 </button>
             </div>
         <div class="modal-body">
             <p class="text-center">
-                Mot clé copié avec <b class="text-success">Success</b>
+                {{ __('Mot clé copié avec') }} <b class="text-success">{{ __('Success') }}</b>
             </p>
         </div>
         <div class="modal-footer" style="justify-content: center;">
@@ -260,9 +261,9 @@
 <footer class="footer footer-static footer-light">
     <p class="clearfix mb-0">
         <span class="float-md-left d-block d-md-inline-block mt-25">
-            <span class="d-none d-sm-inline-block">COPYRIGHT</span> &copy; 2023
-            <a class="ml-25" href="https://honowa.com" target="_blank">Honowa Technologie</a>
-            <span class="d-none d-sm-inline-block">, Tous les droits reservés</span>
+            <span class="d-none d-sm-inline-block">{{ __('COPYRIGHT') }}</span> &copy; 2023
+            <a class="ml-25" href="https://honowa.com" target="_blank">{{ __('Honowa Technologie') }}</a>
+            <span class="d-none d-sm-inline-block">{{ __(', Tous les droits reservés') }}</span>
         </span>
     </p>
 </footer>
@@ -304,7 +305,7 @@
             for (var i = 0; i < destroy_form.length; i++) {
                 destroy_form[i].action = lien;
             }
-            destroy_title.innerHTML = 'Êtes-vous certain de vouloir '+action+' ? <br> <br> '+noms+' ';
+            destroy_title.innerHTML = @json(__('Êtes-vous certain de vouloir'))+' '+action+' ? <br> <br> '+noms+' ';
             if(cliquer == 1){
                 document.querySelector('#modal_danger').click();
             }
@@ -341,12 +342,12 @@
                 },
                 error: function(){
                     if(put == undefined){
-                        result.innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                        result.innerHTML = "<h4 class='text-danger text-center'> {{ __('Erreur !') }}</h4><div class='w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                     }else{
                         if (document.querySelector('#tospin')) {
-                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> Erreur !</h4><div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                            document.querySelector('#tospin').innerHTML = "<h4 class='text-danger text-center'> {{ __('Erreur !') }}</h4><div class='w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                         }else{
-                            result.innerHTML = "<option value=''>Erreur! Veuillez actualisez la page...</option>";
+                            result.innerHTML = "<option value=''>{{ __('Erreur! Veuillez actualisez la page...') }}</option>";
                         }
                     }
                     setTimeout(function(){

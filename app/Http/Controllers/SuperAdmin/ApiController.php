@@ -83,22 +83,22 @@ class ApiController extends Controller
         // dd($datas);
         $entree = true;
         echo "<h4>";
-            echo '<p>Vous allez modifier l\'api '.$datas['name'].' Money : </p>';
+            echo __('<p>Vous allez modifier l\'api :v1 Money : </p>', ['v1' => $datas['name']]);
             if($datas['user']==null){
-                echo '<p>User Name : <b>NULL</b>.</p>';
+                echo __('<p>User Name : <b>NULL</b>.</p>');
             }else{
-                echo '<p>User Name : <b>'.$datas['user'].'</b>.</p>';
+                echo __('<p>User Name : <b>:v1</b>.</p>', ['v1' => $datas['user']]);
             }
             if($datas['password']==null){
-                echo '<p>Mot de Passe : <b>NULL</b>.</p>';
+                echo __('<p>Mot de Passe : <b>NULL</b>.</p>');
             }else{
-                echo '<p>Mot de Passe : <b>'.Sa_password($datas['password']).'</b>.</p>';
+                echo __('<p>Mot de Passe : <b>:v1</b>.</p>', ['v1' => Sa_password($datas['password'])]);
             }
-            echo '<p>Clé de l\'api : <b>'.$datas['key'].'</b>.</p>';
+            echo __('<p>Clé de l\'api : <b>:v1</b>.</p>', ['v1' => $datas['key']]);
             if($datas['secret']==null){
-                echo '<p>Secret de l\'api : <b>NULL</b>.</p>';
+                echo __('<p>Secret de l\'api : <b>NULL</b>.</p>');
             }else{
-                echo '<p>Secret de l\'api : <b>'.$datas['secret'].'</b>.</p>';
+                echo __('<p>Secret de l\'api : <b>:v1</b>.</p>', ['v1' => $datas['secret']]);
             }
         echo "</h4>";
     }
@@ -163,7 +163,7 @@ class ApiController extends Controller
       $api->key = $key;
       $api->secret = $secret;
       $api->save();
-      $message = "Api ".$api->name." modifié avec <b class='text-success'> Succès.</b>";
+      $message = __('Api :v1 modifié avec <b class=\'text-success\'> Succès.</b>', ['v1' => $api->name]);
       session()->flash('message',$message);
       return redirect()->route('Sa-parametre.index');
     }
@@ -184,10 +184,10 @@ class ApiController extends Controller
       $api = Api::findOrFail($id);
       if ($api->statut == 0) {
         $api->statut = 1;
-        $message = "Api <b>".Sa_name($api->name)."</b> <span class='text-success'> Disponible </span> chez le client";
+        $message = __('Api <b>:v1</b> <span class=\'text-success\'> Disponible </span> chez le client', ['v1' => Sa_name($api->name)]);
       }else{
         $api->statut = 0;
-        $message = "Api <b>".Sa_name($api->name)."</b> <span class='text-danger'> Indisponible </span> chez le client";
+        $message = __('Api <b>:v1</b> <span class=\'text-danger\'> Indisponible </span> chez le client', ['v1' => Sa_name($api->name)]);
       }
       $api->save();
       session()->flash('message',$message);

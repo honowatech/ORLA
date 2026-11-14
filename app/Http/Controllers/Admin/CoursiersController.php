@@ -148,7 +148,7 @@ class CoursiersController extends Controller
       $coursier->id_utilisateur = $utilisateur->id;
       $coursier->save();
 
-      $message = "Coursier(e) et utilisateur lié créés avec <b class='text-success'> Succès.</b>";
+      $message = __('Coursier(e) et utilisateur lié créés avec <b class=\'text-success\'> Succès.</b>');
       session()->flash('message',$message);
     }else{
       $coursier = new Coursiers;
@@ -157,7 +157,7 @@ class CoursiersController extends Controller
       $coursier->telephone = $telephone;
       $coursier->statut = 1;
       $coursier->save();
-      $message = "Coursier(e) créé(e) avec <b class='text-success'> Succès.</b>";
+      $message = __('Coursier(e) créé(e) avec <b class=\'text-success\'> Succès.</b>');
       session()->flash('message',$message);
     }
     return redirect()->route('coursiers.show',$coursier->id);
@@ -272,7 +272,7 @@ class CoursiersController extends Controller
           $utilisateur->telephone = $telephone;
           $utilisateur->save();
     }
-    $message = "Coursier(e) mis(e) à jour avec Succès.</b>";
+    $message = __('Coursier(e) mis(e) à jour avec Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('coursiers.show',$coursier->id);
   }
@@ -308,7 +308,7 @@ class CoursiersController extends Controller
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
-      $message = $coursier->noms.' '.$coursier->prenoms." Activé(e) avec <b class='text-success'> Succès.</b>";
+      $message = __(':v1 :v2 Activé(e) avec <b class=\'text-success\'> Succès.</b>', ['v1' => $coursier->noms, 'v2' => $coursier->prenoms]);
     }else{
       $coursier->statut = 0;
         if($coursier->id_utilisateur!=null){
@@ -316,7 +316,7 @@ class CoursiersController extends Controller
             $utilisateur->statut = 0;
             $utilisateur->save();
         }
-      $message = $coursier->noms.' '.$coursier->prenoms." Desactivé(e) avec <b class='text-success'> Succès.</b>";
+      $message = __(':v1 :v2 Desactivé(e) avec <b class=\'text-success\'> Succès.</b>', ['v1' => $coursier->noms, 'v2' => $coursier->prenoms]);
     }
     $coursier->save();
     session()->flash('message',$message);

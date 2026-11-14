@@ -35,6 +35,9 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                        @foreach(config('app.available_locales', []) as $code => $label)
+                            <li class="nav-item"><a class="nav-link @if(app()->getLocale() === $code) fw-bold @endif" href="{{ route('lang.switch', $code) }}" hreflang="{{ $code }}">{{ strtoupper($code) }}</a></li>
+                        @endforeach
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

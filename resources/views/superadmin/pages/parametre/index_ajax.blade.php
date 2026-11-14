@@ -1,5 +1,5 @@
 @if($clients->count() == 0)
-<div class="col-12 p-2 font-weight-bolder text-center">Aucun résultat</div>
+<div class="col-12 p-2 font-weight-bolder text-center">{{ __('Aucun résultat') }}</div>
 @else
                 <div>
                     <div class="row" id="table-hover-animation">
@@ -9,11 +9,11 @@
                                 <thead class="thead-dark">
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>Noms Et Prénoms</th>
-                                        <th>Avatar</th>
-                                        <th>Telephone (s)</th>
-                                        <th>Statut</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('Noms Et Prénoms') }}</th>
+                                        <th>{{ __('Avatar') }}</th>
+                                        <th>{{ __('Telephone (s)') }}</th>
+                                        <th>{{ __('Statut') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,9 +52,9 @@
                                             <td>
                                                 <span class="badge badge-pill badge-glow @if($client->statut == 0) badge-danger @else badge-success @endif">
                                                     @if($client->statut == 0)
-                                                        Désactivé
+                                                        {{ __('Désactivé') }}
                                                     @else
-                                                        Actif
+                                                        {{ __('Actif') }}
                                                     @endif
                                                 </span>
                                             </td>
@@ -66,22 +66,22 @@
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="{{route('Sa-client.show',$client->id)}}">
                                                             <i data-feather='eye'></i>
-                                                            <span class="ml-1">Détails</span>
+                                                            <span class="ml-1">{{ __('Détails') }}</span>
                                                         </a>
                                                         <a class="dropdown-item" href="{{route('Sa-client.edit',$client->id)}}">
                                                             <i data-feather='edit-2'></i>
-                                                            <span class="ml-1">Editer</span>
+                                                            <span class="ml-1">{{ __('Editer') }}</span>
                                                         </a>
-                                                        <span class=" @if($client->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}',@if($client->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($client->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('Sa-client.destroy',$client->id)}}','{{Sa_name($client->name)}}',@if($client->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                             @if($client->statut == 1)
                                                                 <i data-feather='user-minus'></i>
                                                                 <span class="ml-1 text-danger" type="button">
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                                 </span>
                                                             @else
                                                                 <i data-feather='user-check'></i>
                                                                 <span class="ml-1 text-success" type="button">
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                                 </span>
                                                             @endif
                                                         </span>
@@ -112,11 +112,11 @@
                 {{-- Previous Page Link --}}
                 @if ($clients->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
-                        <span class="page-link">Précédent</span>
+                        <span class="page-link">{{ __('Précédent') }}</span>
                     </li>
                 @else
                     <li class="page-item">
-                        <a class="page-link" onclick="mettre({{ $clients->currentPage()-1 }})" rel="prev">Suivant</a>
+                        <a class="page-link" onclick="mettre({{ $clients->currentPage()-1 }})" rel="prev">{{ __('Suivant') }}</a>
                     </li>
                 @endif
 

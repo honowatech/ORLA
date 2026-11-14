@@ -172,7 +172,7 @@ class CommandesController extends Controller
                   ->where('type_client',$type_client)
                   ->get();
       if ($clients->count()==0) {
-         return "<b class='text-danger'> Aucune valeur ne correspond</b>";
+         return __('<b class=\'text-danger\'> Aucune valeur ne correspond</b>');
       }
     return view('client.pages.commandes.client',compact('clients'));
   }
@@ -204,7 +204,7 @@ class CommandesController extends Controller
                   ->where('id_ville',$ville_collecte)
                   ->get();
       if ($quartiers->count()==0) {
-         return "<b class='text-danger'> Aucune valeur ne correspond</b>";
+         return __('<b class=\'text-danger\'> Aucune valeur ne correspond</b>');
       }
       $id_quartier = "id_quartier_colis";
       $lieu = "lieu_collecte";
@@ -279,7 +279,7 @@ class CommandesController extends Controller
                   ->where('id_ville',$ville_livraison)
                   ->get();
       if ($quartiers->count()==0) {
-         return "<b class='text-danger'> Aucune valeur ne correspond</b>";
+         return __('<b class=\'text-danger\'> Aucune valeur ne correspond</b>');
       }
       $id_quartier = "id_quartier_livraison";
       $lieu = "lieu_livraison";
@@ -399,7 +399,7 @@ class CommandesController extends Controller
     if($type_commande == 'entreprise'){
 //ici on fait les vérifications spécifiques à la commande de type entreprise
       if ($id_client2 == null) {
-        $message = "<b class='text-danger text-center'>Erreur !!!</b> <br> <span> Nous ne trouvons pas cette Entreprise <br> Enregistrez là et réesayez en <a href='".route('clients.create')."' target='_blank'> cliquant ici </a></span> ";
+        $message = __('<b class=\'text-danger text-center\'>Erreur !!!</b> <br> <span> Nous ne trouvons pas cette Entreprise <br> Enregistrez là et réesayez en <a href=\':v1\' target=\'_blank\'> cliquant ici </a></span> ', ['v1' => route('clients.create')]);
         session()->flash('message',$message);
       }
       $table_produit = explode(',', $request->input('table_produit'));
@@ -526,10 +526,10 @@ class CommandesController extends Controller
     session()->forget('id_boutique');
     session()->forget('table_produit');
 
-    $message = "<span> Commande créée avec </span><b class='text-success'> Succès.</b>";
+    $message = __('<span> Commande créée avec </span><b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     if($type_commande == 'entreprise'){
-        $message = "<span> Commande créée avec </span><b class='text-success'> Succès.</b>";
+        $message = __('<span> Commande créée avec </span><b class=\'text-success\'> Succès.</b>');
         session()->flash('success',$message);
         return redirect()->route('commandes.create');
     }
@@ -653,7 +653,7 @@ class CommandesController extends Controller
     $commande->date_livraison = $date_livraison;
     // $commande->mode_de_paiement = $mode_de_paiement;
     $commande ->save();
-    $message = "La commande a été modifiée avec <b class='text-success'> succès.</b>";
+    $message = __('La commande a été modifiée avec <b class=\'text-success\'> succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('Clientcommandes.index');
 
@@ -687,7 +687,7 @@ class CommandesController extends Controller
     $id_coursier = $request->input('id_coursier');
 // on cherche la commande concernée
     $commande = Commandes::findOrFail($id);
-    $message = "<b class='text-danger text-center'>Echec ! </br> Ce statut n'est pas correct.</b>";
+    $message = __('<b class=\'text-danger text-center\'>Echec ! </br> Ce statut n\'est pas correct.</b>');
 // ici on vérifie si le statut existe et est bel et bien une chaine de caractère
     session()->flash('message',$message);
     $validated = $request->validate([
@@ -704,7 +704,7 @@ class CommandesController extends Controller
         ]);
         $commande->id_coursier = $id_coursier;
       }else{
-        $message = "<b class='text-danger text-center'>Echec ! </br> Mauvaise pratique.</b>";
+        $message = __('<b class=\'text-danger text-center\'>Echec ! </br> Mauvaise pratique.</b>');
         session()->flash('message',$message);
         return redirect()->back();
       }
@@ -736,11 +736,11 @@ class CommandesController extends Controller
           $commande->date_mise_encours = now();
       }
       $commande->save();
-      $message = "Statut de la commande modifié avec <b class='text-success text-center'> succès.</b>";
+      $message = __('Statut de la commande modifié avec <b class=\'text-success text-center\'> succès.</b>');
       session()->flash('message',$message);
       return redirect()->back();
     }else{ 
-      $message = "<b class='text-danger text-center'>Echec ! </br> Cette opération est impossible.</b>";
+      $message = __('<b class=\'text-danger text-center\'>Echec ! </br> Cette opération est impossible.</b>');
       session()->flash('message',$message);
       return redirect()->back();
     }

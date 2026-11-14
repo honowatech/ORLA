@@ -118,7 +118,7 @@ class ProduitsController extends Controller
       $produits->description = $description;
       $produits->statut = 1;
      $produits->save();
-     $message = "Produit créée avec <b class='text-success'> Succès.</b>";
+     $message = __('Produit créée avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
      return redirect()->route('produits.index');
   }
@@ -231,7 +231,7 @@ class ProduitsController extends Controller
       $produit->libelle = $libelle;
       $produit->description = $description;
      $produit->save();
-    $message = "Produit modifié avec <b class='text-success'> Succès.</b>";
+    $message = __('Produit modifié avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('produits.index');
   }
@@ -263,11 +263,11 @@ class ProduitsController extends Controller
     if($produit->details_commande->count() == 0 && $produit->stock->count() == 0){
       $produit = Produits::findOrFail($id);
       $produit->delete();
-      $message = "Produit supprimé <b class='text-success'> Succès.</b>";
+      $message = __('Produit supprimé <b class=\'text-success\'> Succès.</b>');
       session()->flash('message',$message);
       return redirect()->route('produits.index');
     }
-        $message = "<b class='text-danger'>Echec... </b> Ce Produit possède plusieurs connexions";
+        $message = __('<b class=\'text-danger\'>Echec... </b> Ce Produit possède plusieurs connexions');
         session()->flash('message',$message);
         return redirect()->back();
   }

@@ -37,10 +37,10 @@
                     valeur_table = row == 1 ? option.dataset.id : ','+option.dataset.id;
                     table_produit.value += valeur_table;
                     textarea.value += row+') -> '+option.dataset.description+' ('+document.querySelector('#quantite'+option.dataset.id).value+')\n\n';
-                    textarea.placeholder = 'Décrire le produit';
+                    textarea.placeholder = @json(__('Décrire le produit'));
                     row++
                 }else{
-                    textarea.placeholder = 'Décrire le colis';
+                    textarea.placeholder = @json(__('Décrire le colis'));
                 }
             });
             textarea.style.height = row*50+'px'

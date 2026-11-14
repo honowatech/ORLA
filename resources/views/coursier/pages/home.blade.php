@@ -20,7 +20,7 @@
         <div class="content-wrapper">
             <div class="content-body">
                 <div class="bs-stepper checkout-tab-steps">
-                    <h2 class="text-center">Livraisons de la journée</h2>
+                    <h2 class="text-center">{{ __('Livraisons de la journée') }}</h2>
                     <div class="bs-stepper-content">
                         <!-- Checkout Place order starts -->
                         <div id="step-cart" class="content">
@@ -34,7 +34,7 @@
                                     @if($commandes->count() == 0 && $commandes2->count() == 0)
                                         <div class="card p-2">
                                             <div class="item-img">
-                                                <h2 class="text-center">AUCUNE COMMANDE !</h2>
+                                                <h2 class="text-center">{{ __('AUCUNE COMMANDE !') }}</h2>
                                             </div>
                                         </div>
                                     @endif
@@ -77,17 +77,17 @@
                                                         {{phone(explode('*/*',$commande->adresse_colis)[0])}}<i data-feather='copy' class="ml-50"></i>
                                                     </button>
                                                     <div class=" mx-auto">
-                                                        <span class="quantity-title text-underline font-weight-bolder">Description :</span>
+                                                        <span class="quantity-title text-underline font-weight-bolder">{{ __('Description :') }}</span>
                                                         <br>
                                                         <span class="text-left input-group quantity-counter-wrapper" title="{!!$commande->description!!}">
                                                             {!!$commande->description!!}
                                                         </span>
                                                     </div>
                                                     <span class="delivery-date">
-                                                        Prévu pour le 
+                                                        {{ __('Prévu pour le') }} 
                                                         <span class="font-weight-bold text-dark">
                                                             {{Ladate($commande->date_livraison)}}
-                                                        </span> à 
+                                                        </span> {{ __('à') }} 
                                                         <span class="font-weight-bold text-dark">
                                                             {{Heure($commande->date_livraison) == '00h00min' ? 'Tout moment' : Heure($commande->date_livraison)}}
                                                         </span>
@@ -101,26 +101,26 @@
                                                             @endphp
                                                         @endif
                                                             @if($commande->statut != 'livre' && strtotime($commande->date_livraison) >= $new_date)
-                                                            <span title="Le date n'est pas encore arrivée">
+                                                            <span title="{{ __('Le date n\'est pas encore arrivée') }}">
                                                                 <i data-feather='clock' class="text-success font-weight-bold"></i>
                                                             </span>
                                                             @elseif($commande->statut != 'livre' && strtotime($commande->date_livraison) < $new_date)
-                                                            <span title="Délai dépassé">
+                                                            <span title="{{ __('Délai dépassé') }}">
                                                                 <i data-feather='clock' class="text-danger font-weight-bold"></i> 
                                                             </span>
                                                             @endif
                                                     </span>
-                                                    <small class="text-muted">Enregistrée par {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? 'Speedex' : 'Client'}}</small>
+                                                    <small class="text-muted">{{ __('Enregistrée par') }} {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? 'Speedex' : 'Client'}}</small>
                                                 </div>
                                                 <div class="item-options text-center">
                                                     @if($commande->disponibility != 1)
-                                                    <div class="badge badge-pill badge-glow badge-danger">Client Indisponible</div>
+                                                    <div class="badge badge-pill badge-glow badge-danger">{{ __('Client Indisponible') }}</div>
                                                     @else
-                                                    <div class="badge badge-pill badge-glow badge-success">Client disponible</div>
+                                                    <div class="badge badge-pill badge-glow badge-success">{{ __('Client disponible') }}</div>
                                                     @endif
                                                     <div class="item-wrapper">
                                                         <div class="item-cost mb-1">
-                                                            <small class="pb-1 text-muted">Montant à récupérer</small>
+                                                            <small class="pb-1 text-muted">{{ __('Montant à récupérer') }}</small>
                                                             <h5 class="font-weight-bolder">{{formatMontant($commande->montant_recuperer)}} XAF</h5>
                                                             <p class="card-text shipping">
                                                                 @if($commande->statut == 'attribue')
@@ -142,31 +142,31 @@
                                                         </div>
                                                     </div>
                                                     @if($commande->statut == 'attribue' && $commande->disponibility == 1)
-                                                    <button type="button" data-toggle="modal" data-target="#danger" class="btn btn-secondary btn-gradient-secondary btn-sm mt-1 text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('encours'); remplir('{{route('Coursiercommandes.destroy',$commande->id)}}','', 'Changer le statut de la commande ','button_remove')">
+                                                    <button type="button" data-toggle="modal" data-target="#danger" class="btn btn-secondary btn-gradient-secondary btn-sm mt-1 text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('encours'); remplir('{{route('Coursiercommandes.destroy',$commande->id)}}','', '{{ __('Changer le statut de la commande') }} ','button_remove')">
                                                         <i data-feather="zap" class="mr-50"></i>
-                                                        Débuter la livraison
+                                                        {{ __('Débuter la livraison') }}
                                                     </button>
                                                     @endif
                                                     @if($commande->statut == 'encours' && $commande->disponibility == 1)
-                                                    <button type="button" data-toggle="modal" data-target="#danger" class="mx-auto btn btn-success btn-gradient-success btn-sm mt-1 text-truncate" onclick="put_statut('livre'); remplir('{{route('Coursiercommandes.destroy',$commande->id)}}','', 'Changer le statut de la commande ','button_remove')" style="margin:0.5rem 0rem !important;">
+                                                    <button type="button" data-toggle="modal" data-target="#danger" class="mx-auto btn btn-success btn-gradient-success btn-sm mt-1 text-truncate" onclick="put_statut('livre'); remplir('{{route('Coursiercommandes.destroy',$commande->id)}}','', '{{ __('Changer le statut de la commande') }} ','button_remove')" style="margin:0.5rem 0rem !important;">
                                                         <i data-feather="check" class="mr-50"></i>
-                                                        Terminer la livraison
+                                                        {{ __('Terminer la livraison') }}
                                                     </button>
                                                     @endif
-                                                    <button type="button" data-toggle="modal" data-target="#danger" class="btn btn-danger btn-gradient-danger btn-sm mt-1 text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Coursiercommandes.destroy',$commande->id)}}','', 'Changer le statut de la commande ','button_remove')">
+                                                    <button type="button" data-toggle="modal" data-target="#danger" class="btn btn-danger btn-gradient-danger btn-sm mt-1 text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Coursiercommandes.destroy',$commande->id)}}','', '{{ __('Changer le statut de la commande') }} ','button_remove')">
                                                         <i data-feather="x" class="mr-50"></i>
-                                                        Annuler la livraison
+                                                        {{ __('Annuler la livraison') }}
                                                     </button>
                                                     <hr class="w-100">
                                                     @if ($commande->disponibility == 1)
-                                                        <a type="button" data-toggle="modal" data-target="#danger" class="btn round btn-danger btn-gradient-danger btn-sm text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Coursierusers.destroy',$commande->id)}}','', 'Rendre cette Commande Indisponible ','button_remove')">
+                                                        <a type="button" data-toggle="modal" data-target="#danger" class="btn round btn-danger btn-gradient-danger btn-sm text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Coursierusers.destroy',$commande->id)}}','', '{{ __('Rendre cette Commande Indisponible') }} ','button_remove')">
                                                             <i data-feather="phone-off" class="mr-50"></i>
-                                                            <span>Rendre Indisponible</span>
+                                                            <span>{{ __('Rendre Indisponible') }}</span>
                                                         </a> 
                                                     @else
-                                                        <a type="button" data-toggle="modal" data-target="#danger" class="btn round btn-success btn-gradient-success btn-sm text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Coursierusers.destroy',$commande->id)}}','', 'Rendre cette Commande Disponible ','button_remove')">
+                                                        <a type="button" data-toggle="modal" data-target="#danger" class="btn round btn-success btn-gradient-success btn-sm text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Coursierusers.destroy',$commande->id)}}','', '{{ __('Rendre cette Commande Disponible') }} ','button_remove')">
                                                             <i data-feather="phone" class="mr-50"></i>
-                                                            <span>Rendre Disponible</span>
+                                                            <span>{{ __('Rendre Disponible') }}</span>
                                                         </a>
                                                     @endif
                                                     <span id="tospin_{{$commande->id}}"></span>
@@ -213,7 +213,7 @@
                                                         {{phone(explode('*/*',$commande->adresse_colis)[0])}}<i data-feather='copy' class="ml-50"></i>
                                                     </button>
                                                     <div class=" mx-auto">
-                                                        <span class="quantity-title text-underline font-weight-bolder">Description :</span>
+                                                        <span class="quantity-title text-underline font-weight-bolder">{{ __('Description :') }}</span>
                                                         <br>
                                                         <span class="text-left input-group quantity-counter-wrapper" title="{{str_replace('<br>','',$commande->description)}}">
                                                             {!!$commande->description!!}
@@ -223,7 +223,7 @@
                                                         {{$commande->statut == 'annulee' ? 'Annulé' : ''}}
                                                         {{$commande->statut == 'livre' ? 'Livré' : ''}}
                                                         {{$commande->statut == 'echoue' ? 'Echoué' : ''}}
-                                                        le {{Ladate($commande->date_livre)}} à {{Heure($commande->date_livre) == '00h00min' ? 'Tout moment' : Heure($commande->date_livre)}}
+                                                        {{ __('le :v1 à', ['v1' => Ladate($commande->date_livre)]) }} {{Heure($commande->date_livre) == '00h00min' ? 'Tout moment' : Heure($commande->date_livre)}}
                                                         @if(Heure($commande->date_livre) != '00h00min' )
                                                             @php
                                                                 $new_date = strtotime($commande->date_livre);
@@ -234,26 +234,26 @@
                                                             @endphp
                                                         @endif
                                                             @if($commande->statut == 'livre' && strtotime($commande->date_livraison) >= $new_date)
-                                                            <span title="A été livré à temps">
+                                                            <span title="{{ __('A été livré à temps') }}">
                                                                 <i data-feather='clock' class="text-success"></i>
                                                             </span>
                                                             @elseif($commande->statut == 'livre' && strtotime($commande->date_livraison) < $new_date)
-                                                            <span title="A été livré en retard">
+                                                            <span title="{{ __('A été livré en retard') }}">
                                                                 <i data-feather='clock' class="text-danger"></i> 
                                                             </span>
                                                             @endif
                                                     </span>
-                                                    <small class="text-muted">Enregistrée par {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? 'Speedex' : 'Client'}}</small>
+                                                    <small class="text-muted">{{ __('Enregistrée par') }} {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? 'Speedex' : 'Client'}}</small>
                                                 </div>
                                                 <div class="item-options text-center">
                                                     @if($commande->disponibility != 1)
-                                                    <div class="badge badge-pill badge-glow badge-danger">Client Indisponible</div>
+                                                    <div class="badge badge-pill badge-glow badge-danger">{{ __('Client Indisponible') }}</div>
                                                     @else
-                                                    <div class="badge badge-pill badge-glow badge-success">Client disponible</div>
+                                                    <div class="badge badge-pill badge-glow badge-success">{{ __('Client disponible') }}</div>
                                                     @endif
                                                     <div class="item-wrapper">
                                                         <div class="item-cost mb-1">
-                                                            <small class="pb-1 text-muted">Montant à récupérer</small>
+                                                            <small class="pb-1 text-muted">{{ __('Montant à récupérer') }}</small>
                                                             <h5 class="font-weight-bolder">{{formatMontant($commande->montant_recuperer)}} XAF</h5>
                                                             <p class="card-text shipping">
                                                                 @if($commande->statut == 'livre')
@@ -287,7 +287,7 @@
                                     <div class="checkout-options">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 class="card-title">Activité journalière</h4>
+                                                <h4 class="card-title">{{ __('Activité journalière') }}</h4>
                                             </div>
                                             <div class="card-body">
                                                 <ul class="timeline">
@@ -299,15 +299,15 @@
                                                                     <h6>
                                                                         {{-- <img class="mr-1" src="{{asset('app-assets/images/avatars/user1.png')}}" alt="invoice" height="23"> --}}
                                                                         <span class="pr-25">
-                                                                            <i data-feather='shopping-cart' alt="invoice" height="23"></i>
+                                                                            <i data-feather='shopping-cart' alt="{{ __('invoice') }}" height="23"></i>
                                                                         </span>
-                                                                        {{$activity->title}}
+                                                                        {{ __($activity->title) }}
                                                                     </h6>
                                                                     <span class="timeline-event-time temps" data-date="{{strtotime($activity->jour.' '.$activity->heure)}}"></span>
                                                                 </div>
-                                                                <p>{!!$activity->message!!}.</p>
+                                                                <p>{!! __($activity->message) !!}.</p>
                                                                 <div class="media align-items-center">
-                                                                    <a class="media-body" href="{{$activity->lien}}">{{$activity->texte_lien}}</a>
+                                                                    <a class="media-body" href="{{$activity->lien}}">{{ __($activity->texte_lien) }}</a>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -367,17 +367,17 @@
                   // console.log(dateActuelle)
                   // console.log(dateSoumise)
                   if (secondes != 0 && minutes == 0 && heures == 0 && jours == 0 && mois == 0 && annees == 0) {
-                    return `Maintenant`;
+                    return @json(__('Maintenant'));
                   } else if (minutes != 0 && heures == 0 && jours == 0 && mois == 0 && annees == 0) {
-                    return `il y a ${minutes} Minutes`;
+                    return @json(__('il y a :n minutes')).replace(':n', minutes);
                   } else if (heures != 0 && jours == 0 && mois == 0 && annees == 0) {
-                    return `il y a ${heures} Heures`;
+                    return @json(__('il y a :n heures')).replace(':n', heures);
                   } else if (jours != 0 && mois == 0 && annees == 0) {
-                    return `il y a ${jours} Jours`;
+                    return @json(__('il y a :n jours')).replace(':n', jours);
                   } else if (mois != 0 && annees == 0) {
-                    return `il y a ${mois} Mois`;
+                    return @json(__('il y a :n mois')).replace(':n', mois);
                   } else {
-                    return `il y a ${annees} Années`;
+                    return @json(__('il y a :n années')).replace(':n', annees);
                   }
             }
                 var options = document.querySelectorAll('.temps');

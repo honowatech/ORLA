@@ -170,7 +170,7 @@ class ClientsController extends Controller
       $client->id_utilisateur = $utilisateur->id;
       $client->save();
 
-      $message = "<b class='text-success'>Client(e) et utilisateur lié créés avec Succès.</b>";
+      $message = __('<b class=\'text-success\'>Client(e) et utilisateur lié créés avec Succès.</b>');
       session()->flash('message',$message);
     }else{
       $client = new Clients;
@@ -180,7 +180,7 @@ class ClientsController extends Controller
       $client->telephone = $telephone;
       $client->statut = 1;
       $client->save();
-      $message = "<b class='text-success'>Client(e) créé avec Succès.</b>";
+      $message = __('<b class=\'text-success\'>Client(e) créé avec Succès.</b>');
       session()->flash('message',$message);
     }
     if ( $typeClient == 1) {
@@ -189,7 +189,7 @@ class ClientsController extends Controller
       $boutique->libelle = 'Speedex';
       $boutique->id_quartier = null;
       $boutique->id_client = $client->id;
-      $boutique->quartier = "Cette boutique est chez speedex";
+      $boutique->quartier = __('Cette boutique est chez speedex');
       $boutique->statut = 1;
       $boutique->save();
     }
@@ -300,7 +300,7 @@ class ClientsController extends Controller
           $utilisateur->telephone = $telephone;
           $utilisateur->save();
     }
-    $message = "<b class='text-success'>Client(e) mis(e) à jour avec Succès.</b>";
+    $message = __('<b class=\'text-success\'>Client(e) mis(e) à jour avec Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('clients.show',$client->id);
   }
@@ -336,7 +336,7 @@ class ClientsController extends Controller
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
-      $message = "<b class='text-success'>".$client->noms.' '.$client->prenoms." Activé(e) avec Succès.</b>";
+      $message = __('<b class=\'text-success\'>:v1 :v2 Activé(e) avec Succès.</b>', ['v1' => $client->noms, 'v2' => $client->prenoms]);
     }else{
         $client->statut = 0;
         if($client->id_utilisateur!=null){
@@ -344,7 +344,7 @@ class ClientsController extends Controller
             $utilisateur->statut = 0;
             $utilisateur->save();
         }
-        $message = "<b class='text-success'>".$client->noms.' '.$client->prenoms." Desactivé(e) avec Succès.</b>";
+        $message = __('<b class=\'text-success\'>:v1 :v2 Desactivé(e) avec Succès.</b>', ['v1' => $client->noms, 'v2' => $client->prenoms]);
     }
     $client->save();
     session()->flash('message',$message);

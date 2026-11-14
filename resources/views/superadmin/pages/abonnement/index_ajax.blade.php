@@ -1,5 +1,5 @@
 @if($abonnements->count() == 0)
-<div class="col-12 p-2 font-weight-bolder text-center">Aucun résultat</div>
+<div class="col-12 p-2 font-weight-bolder text-center">{{ __('Aucun résultat') }}</div>
 @else
                 <div>
                     <div class="row" id="table-hover-animation">
@@ -9,11 +9,11 @@
                                 <thead class="thead-dark">
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>Libellé</th>
-                                        <th>Période</th>
-                                        <th>Montant</th>
-                                        <th>Statut</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('Libellé') }}</th>
+                                        <th>{{ __('Période') }}</th>
+                                        <th>{{ __('Montant') }}</th>
+                                        <th>{{ __('Statut') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,9 +49,9 @@
                                             <td>
                                                 <span class="badge badge-pill badge-glow @if($abonnement->statut == 0) badge-danger @else badge-success @endif">
                                                     @if($abonnement->statut == 0)
-                                                        Désactivé
+                                                        {{ __('Désactivé') }}
                                                     @else
-                                                        Actif
+                                                        {{ __('Actif') }}
                                                     @endif
                                                 </span>
                                             </td>
@@ -67,18 +67,18 @@
                                                         </a> --}}
                                                         <a class="dropdown-item" href="{{route('Sa-abonnement.edit',$abonnement->id)}}">
                                                             <i data-feather='edit-2'></i>
-                                                            <span class="ml-1">Editer</span>
+                                                            <span class="ml-1">{{ __('Editer') }}</span>
                                                         </a>
-                                                        <span class=" @if($abonnement->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('Sa-abonnement.destroy',$abonnement->id)}}','{{Sa_name($abonnement->titre)}}',@if($abonnement->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($abonnement->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('Sa-abonnement.destroy',$abonnement->id)}}','{{Sa_name($abonnement->titre)}}',@if($abonnement->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                             @if($abonnement->statut == 1)
                                                                 <i data-feather='x'></i>
                                                                 <span class="ml-1 text-danger" type="button">
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                                 </span>
                                                             @else
                                                                 <i data-feather='check'></i>
                                                                 <span class="ml-1 text-success" type="button">
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                                 </span>
                                                             @endif
                                                         </span>
@@ -109,11 +109,11 @@
                 {{-- Previous Page Link --}}
                 @if ($abonnements->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
-                        <span class="page-link">Précédent</span>
+                        <span class="page-link">{{ __('Précédent') }}</span>
                     </li>
                 @else
                     <li class="page-item">
-                        <a class="page-link" onclick="mettre({{ $abonnements->currentPage()-1 }})" rel="prev">Suivant</a>
+                        <a class="page-link" onclick="mettre({{ $abonnements->currentPage()-1 }})" rel="prev">{{ __('Suivant') }}</a>
                     </li>
                 @endif
 

@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Interface language switch (FR / EN)
+Route::get('/lang/{locale}', [App\Http\Controllers\LocaleController::class, 'switch'])->name('lang.switch');
+
 ///////////////////////////////////////////////////////////// Super Admin
 Route::get('/Sc-no_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'no_abonnement'])->name('SuperAdmin.no_abonnement');
 Route::get('/Sc-empty_abonnement', [App\Http\Controllers\SuperAdmin\ErrorController::class, 'empty_abonnement'])->name('SuperAdmin.empty_abonnement');

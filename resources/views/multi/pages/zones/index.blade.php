@@ -12,12 +12,12 @@
     	 <div class="content-header-left col-md-12 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Liste des zones</h2>
+                        <h2 class="content-header-title float-left mb-0">{{ __('Liste des zones') }}</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Liste des zones
+                            <li class="breadcrumb-item active">{{ __('Liste des zones') }}
                             </li>
                         </ol>
                     </div>
@@ -38,7 +38,7 @@
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
                                     </div>
-                                    <input type="search" class="form-control" name="search" value="{{ session()->get('search')}}" placeholder="Rechercher une zone">
+                                    <input type="search" class="form-control" name="search" value="{{ session()->get('search')}}" placeholder="{{ __('Rechercher une zone') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="page" id="page" value="">
@@ -52,13 +52,13 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>libelle</th>
+                                        <th>{{ __('libelle') }}</th>
                                         @if(filter(['routeur','superviseur_ville'],auth()->user()) != 'true')
-                                        <th>Ville</th>
+                                        <th>{{ __('Ville') }}</th>
                                         @endif
-                                        <th>Date création</th>
-                                        <th>statut</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('Date création') }}</th>
+                                        <th>{{ __('statut') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,14 +83,14 @@
                                             </td>
                                             @endif
 	                                        <td>
-                                                <span class="badge badge-glow badge-light-dark">Le {{Ladate($zone->updated_at)}} à {{Heure($zone->updated_at)}}</span>
+                                                <span class="badge badge-glow badge-light-dark">{{ __('Le :v1 à', ['v1' => Ladate($zone->updated_at)]) }} {{Heure($zone->updated_at)}}</span>
                                             </td>
                                             <td>
                                                 <span class="badge badge-glow @if($zone->statut == 0)badge-danger @else badge-success @endif">
                                                     @if($zone->statut == 0)
-                                                        Désactivé
+                                                        {{ __('Désactivé') }}
                                                     @else 
-                                                        Actif
+                                                        {{ __('Actif') }}
                                                     @endif
                                                 </span>
                                             </td>
@@ -102,24 +102,24 @@
 	                                                <div class="dropdown-menu">
                                                         <a class="dropdown-item " href="{{route('zone.show',$zone)}}">
                                                             <i data-feather="eye" class="mr-50 text-dark"></i>
-                                                            <span class="ml-1">Détails</span>
+                                                            <span class="ml-1">{{ __('Détails') }}</span>
                                                         </a> 
                                                         <a class="dropdown-item " href="{{route('zone.edit',$zone)}}">
                                                             <i data-feather="edit-2" class="mr-50 text-info"></i>
-                                                            <span class="ml-1">Editer</span>
+                                                            <span class="ml-1">{{ __('Editer') }}</span>
                                                         </a>
                                                         @if($zone->statut == 0)
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',' Activer ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',' {{ __('Activer') }} ','button_footer')" data-target="#danger">
                                                                 <i data-feather='check' class="text-success"></i>
                                                                 <span class="ml-1" type="button">
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                                 </span>
                                                             </span>
                                                         @else
-                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',' Désactiver ','button_footer')" data-target="#danger">
+                                                            <span class="dropdown-item" data-toggle="modal" onclick="remplir('{{route('zone.destroy',$zone->id)}}','{{$zone->libelle}}',' {{ __('Désactiver') }} ','button_footer')" data-target="#danger">
                                                                 <i data-feather='x' class="text-danger"></i>
                                                                 <span class="ml-1" type="button">
-                                                                    désactiver
+                                                                    {{ __('désactiver') }}
                                                                 </span>
                                                             </span>
                                                         @endif
@@ -150,22 +150,22 @@
                                 {{-- Previous Page Link --}}
                                 @if ($zones->onFirstPage())
                                     <li class="page-item disabled" aria-disabled="true">
-                                        <span class="page-link">Précédent</span>
+                                        <span class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $zones->currentPage()-1 }})" rel="prev">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $zones->currentPage()-1 }})" rel="prev">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
 
                                 {{-- Next Page Link --}}
                                 @if ($zones->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $zones->currentPage()+1 }})" rel="next">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $zones->currentPage()+1 }})" rel="next">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled" aria-disabled="true">
-                                        <span class="page-link">Suivant</span>
+                                        <span class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -243,9 +243,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success ">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success ">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger " data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 
 @endsection

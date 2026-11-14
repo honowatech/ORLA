@@ -15,12 +15,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Editer Le Profil</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Editer Le Profil') }}</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                                    <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item cursor pointer active">Editer Le Profil
+                                    <li class="breadcrumb-item cursor pointer active">{{ __('Editer Le Profil') }}
                                     </li>
                                 </ol>
                             </div>
@@ -36,15 +36,15 @@
                         <div class="col-md-8 p-0 mx-auto">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Editer mon Profil
+                                    <h4 class="card-title">{{ __('Editer mon Profil') }}
                                         <small class="text-muted ml-md-1">
                                             @if(isset($user->client_utilisateur->infos_perso->cni) && $user->client_utilisateur->infos_perso->cni != null)
                                             <div class="bg-light-success border text-center d-inline-block px-1">
-                                                Authentifié
+                                                {{ __('Authentifié') }}
                                             </div>
                                             @else
-                                            <div class="bg-light-danger border text-center d-inline-block px-1" title="Veuillez contacter un responsable pour l'Authentification">
-                                                Non authentifié
+                                            <div class="bg-light-danger border text-center d-inline-block px-1" title="{{ __('Veuillez contacter un responsable pour l\'Authentification') }}">
+                                                {{ __('Non authentifié') }}
                                             </div>
                                             @endif
                                         </small>
@@ -61,10 +61,10 @@
                                                     $path = 'app-assets/images/avatars/client'.$plus.'.jpeg';
                                                 @endphp
                                                 <a class="d-none d-md-block " href="javascript:void(0);">
-                                                    <img src="{{asset($path)}}" height="100" width="100" alt="User avatar" />
+                                                    <img src="{{asset($path)}}" height="100" width="100" alt="{{ __('User avatar') }}" />
                                                 </a>
                                                 <a class="d-block d-md-none " href="javascript:void(0);">
-                                                    <img src="{{asset($path)}}" height="80" width="80" alt="User avatar" />
+                                                    <img src="{{asset($path)}}" height="80" width="80" alt="{{ __('User avatar') }}" />
                                                 </a>
                                             </div>
                                             <!--/ header media -->
@@ -80,14 +80,14 @@
                                                 <div class="">
                                                     <div class="col-md-10 col-bg-6 mx-auto col-12 col-lg-8">
                                                         <div class="form-group">
-                                                                <label for="noms">Noms</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="noms">{{ __('Noms') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                             <div class="form-group">
                                                                 <div class="input-group input-group-merge @error('noms') is-invalid @enderror">
                                                                     <div class="input-group-prepend ">
                                                                         <span class="input-group-text"><i data-feather="at-sign"></i></span>
                                                                     </div>
-                                                                    <input type="text" id="noms" class="form-control  @error('noms') is-invalid @enderror" name="noms" autofocus placeholder="Noms" value="{{ old('noms') == null ? $noms : old('noms') }}" required/>
+                                                                    <input type="text" id="noms" class="form-control  @error('noms') is-invalid @enderror" name="noms" autofocus placeholder="{{ __('Noms') }}" value="{{ old('noms') == null ? $noms : old('noms') }}" required/>
                                                                     <div class="input-group-append  ">
                                                                         <span class="input-group-text">
                                                                             <label for="noms" class="p-auto m-auto">
@@ -102,14 +102,14 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                                <label for="prenoms">Prénoms</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="prenoms">{{ __('Prénoms') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                             <div class="form-group">
                                                                 <div class="input-group input-group-merge @error('prenoms') is-invalid @enderror">
                                                                     <div class="input-group-prepend ">
                                                                         <span class="input-group-text"><i data-feather="at-sign"></i></span>
                                                                     </div>
-                                                                    <input type="text" id="prenoms" class="form-control  @error('prenoms') is-invalid @enderror" name="prenoms" placeholder="Prénoms" value="{{ old('noms') == null ? $prenoms : old('prenoms') }}" required/>
+                                                                    <input type="text" id="prenoms" class="form-control  @error('prenoms') is-invalid @enderror" name="prenoms" placeholder="{{ __('Prénoms') }}" value="{{ old('noms') == null ? $prenoms : old('prenoms') }}" required/>
                                                                     <div class="input-group-append  ">
                                                                         <span class="input-group-text">
                                                                             <label for="prenoms" class="p-auto m-auto">
@@ -127,7 +127,7 @@
                                                     <div class="col-md-10 col-bg-6 mx-auto col-12 col-lg-8">
                                                         <div class="form-group">
                                                                 <label for="email-icon">Email</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                             <div class="form-group">
                                                                 <div class="input-group input-group-merge  @error('email') is-invalid @enderror">
                                                                     <div class="input-group-prepend ">
@@ -151,8 +151,8 @@
                                                     </div>
                                                     <div class="col-md-10 col-bg-6 mx-auto col-12 col-lg-8">
                                                         <div class="form-group">
-                                                                <label for="email-icon">Numéro de téléphone</label>
-                                                                <span class="text-danger cursor-pointer" title="Obligatoire">*</span>
+                                                                <label for="email-icon">{{ __('Numéro de téléphone') }}</label>
+                                                                <span class="text-danger cursor-pointer" title="{{ __('Obligatoire') }}">*</span>
                                                             <div class="input-group input-group-merge @error('telephone')  is-invalid @enderror">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"><i class="mr-1 flag-icon flag-icon-cm"></i>(+237)</span>

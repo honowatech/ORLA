@@ -225,7 +225,7 @@ class CommandesController extends Controller
     $statut == 'encours' ? $reponse = 'Livraison En cours':'';
 // on cherche la commande concernée
     $commande = Commandes::findOrFail($id);
-    $message = "<b class='text-danger text-center'>Echec ! </br> Ce statut n'est pas correct.</b>";
+    $message = __('<b class=\'text-danger text-center\'>Echec ! </br> Ce statut n\'est pas correct.</b>');
 // ici on vérifie si le statut existe et est bel et bien une chaine de caractère
     session()->flash('message',$message);
     $validated = $request->validate([
@@ -242,7 +242,7 @@ class CommandesController extends Controller
         ]);
         $commande->id_coursier = $id_coursier;
       }else{
-        $message = "<b class='text-danger text-center'>Echec ! </br> Mauvaise pratique.</b>";
+        $message = __('<b class=\'text-danger text-center\'>Echec ! </br> Mauvaise pratique.</b>');
         session()->flash('message',$message);
         return redirect()->back();
       }
@@ -291,7 +291,7 @@ class CommandesController extends Controller
 
         $activity->title = $reponse;
         $commande->save();
-        $message = "<b class='text-success text-center'>Statut de la commande modifié avec succès.</b>";
+        $message = __('<b class=\'text-success text-center\'>Statut de la commande modifié avec succès.</b>');
         session()->flash('message',$message);
         $activity->save();
         return redirect()->back();
@@ -299,7 +299,7 @@ class CommandesController extends Controller
         $activity->title = "Echec de l'action";
         $activity->color = 'danger';
         $activity->message = 'Le changement de statut a échoué';
-        $message = "<b class='text-danger text-center'>Echec ! </br> Cette opération est impossible.</b>";
+        $message = __('<b class=\'text-danger text-center\'>Echec ! </br> Cette opération est impossible.</b>');
         session()->flash('message',$message);
         $activity->save();
       return redirect()->back();

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 </html><!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -10,7 +10,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Erreur 404</title>
+    <title>{{ __('Erreur 404') }}</title>
     <link rel="apple-touch-icon" href="{{asset('app-assets/images/avatars/map-pin.png')}}>">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/avatars/map-pin.png')}}">
 
@@ -55,15 +55,16 @@
                     <div class=" misc-inner p-sm-1">
                         <div class="text-center">
                             <h2 class="mb-2">
-                              EREUR 404   
+                              {{ __('EREUR 404') }}   
                             </h2>
-                            <p class="mb-2">Oups! 😖 Page non trouvée. 🕵🏻‍♀️</p>
+                            <p class="mb-2">{{ __('Oups! 😖 Page non trouvée. 🕵🏻‍♀️') }}</p>
                             <p>
                                 <a class="btn btn-info mb-2" href="{{route('home')}}">
-                                    Retour à l'acceuil
+                                    {{ __('Retour à l\'acceuil') }}
                                 </a>
                             </p>
-                            <img class="img-fluid" src="{{asset('app-assets/images/pages/404.png')}}" alt="Error page" />
+                            @include('partials.lang-links')
+                            <img class="img-fluid" src="{{asset('app-assets/images/pages/404.png')}}" alt="{{ __('Error page') }}" />
                         </div>
                     </div>
                 </div>

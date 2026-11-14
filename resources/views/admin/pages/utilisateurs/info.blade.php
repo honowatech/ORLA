@@ -13,14 +13,14 @@
     	       <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Infos sur {{$user->noms}}</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Infos sur') }} {{$user->noms}}</h2>
                             <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{route('users.index')}}">Liste des Utilisateurs</a>
+                            <li class="breadcrumb-item"><a href="{{route('users.index')}}">{{ __('Liste des Utilisateurs') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Infos sur {{$user->noms}}
+                            <li class="breadcrumb-item active">{{ __('Infos sur') }} {{$user->noms}}
                             </li>
                         </ol>
                     </div>
@@ -43,24 +43,24 @@
                                         <div class="col-bg-6 col-lg-6 d-flex flex-column justify-content-between border-container-lg">
                                             <div class="user-avatar-section">
                                                 <div class="d-flex justify-content-start">
-                                                    <img class="img-fluid rounded" src="{{asset('app-assets/images/avatars/user.png')}}" height="104" width="104" alt="User avatar" />
+                                                    <img class="img-fluid rounded" src="{{asset('app-assets/images/avatars/user.png')}}" height="104" width="104" alt="{{ __('User avatar') }}" />
                                                     <div class="d-flex flex-column ml-1">
                                                         <div class="user-info mb-1">
                                                             <h4 class="mb-0 ml-1">{{$user->noms}}</h4>
                                                             <span class="card-text ml-1">{{$user->email}}</span>
                                                         </div>
                                                         <div class="d-flex flex-wrap">
-                                                            <a href="{{route('users.edit',$user->email)}}" class="btn btn-outline-dark ml-1">Modifier</a>
-                                                            <button class=" btn ml-1 @if($user->statut == 1) btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('users.destroy',$user->id)}}','{{$user->noms}}', @if($user->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                            <a href="{{route('users.edit',$user->email)}}" class="btn btn-outline-dark ml-1">{{ __('Modifier') }}</a>
+                                                            <button class=" btn ml-1 @if($user->statut == 1) btn-outline-danger  @else btn-outline-success  @endif " data-toggle="modal" onclick="remplir('{{route('users.destroy',$user->id)}}','{{$user->noms}}', @if($user->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                             @if($user->statut == 1)
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                             @else
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                             @endif
                                                         </button>
                                                         </div>
                                                         <div>
-                                                            <button class="text-danger btn btn-danger" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}','{{$user->noms}}', ' Réinitialiser le mot de passe de ' ,'button_footer')" data-target="#danger"> Réinitialiser</button>
+                                                            <button class="text-danger btn btn-danger" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}','{{$user->noms}}', ' {{ __('Réinitialiser le mot de passe de') }} ' ,'button_footer')" data-target="#danger"> {{ __('Réinitialiser') }}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -72,7 +72,7 @@
                                                     </div>
                                                     <div class="ml-1">
                                                         <h5 class="mb-0 text-center">{{$user->commandes_enregistrees->count()}}</h5>
-                                                        <small>Commandes enregistrées</small>
+                                                        <small>{{ __('Commandes enregistrées') }}</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,20 +82,20 @@
                                                 <div class="d-flex flex-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather="user" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Noms</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Noms') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{$user->noms}}</p>
                                                 </div>
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="check" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Status</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Status') }}</span>
                                                     </div>
                                                     <span class="badge badge-pill @if($user->statut == 0)badge-light-danger @else badge-light-success @endif">
 	                                            		@if($user->statut == 0)
-			                                             	Désactivé
+			                                             	{{ __('Désactivé') }}
 			                                            @else 
-			                                            	Actif
+			                                            	{{ __('Actif') }}
 			                                            @endif
                                                 	</span>
                                                     
@@ -103,21 +103,21 @@
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="star" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Rôle</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Rôle') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{$user->type_utilisateur->libelle}}</p>
                                                 </div>
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
                                                         <i data-feather="flag" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Pays</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Pays') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{'Cameroun'}}</p>
                                                 </div>
                                                 <div class="d-flex flex-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather="phone" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Contacts</span>
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">{{ __('Contacts') }}</span>
                                                     </div>
                                                     <p class="card-text mb-0">(+237) {{$user->telephone}}</p>
                                                 </div>
@@ -140,18 +140,18 @@
                             <!-- User Permissions -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Permissions</h4>
+                                    <h4 class="card-title">{{ __('Permissions') }}</h4>
                                 </div>
-                                <p class="card-text ml-2">Permission accordées Au rôle " {{$user->type_utilisateur->libelle}} " </p>
+                                <p class="card-text ml-2">{{ __('Permission accordées Au rôle " :v1 "', ['v1' => $user->type_utilisateur->libelle]) }} </p>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-borderless">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>Module</th>
-                                                <th>Lecture</th>
-                                                <th>Ecriture</th>
-                                                <th>Création</th>
-                                                <th>Suppression</th>
+                                                <th>{{ __('Module') }}</th>
+                                                <th>{{ __('Lecture') }}</th>
+                                                <th>{{ __('Ecriture') }}</th>
+                                                <th>{{ __('Création') }}</th>
+                                                <th>{{ __('Suppression') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -215,9 +215,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 @endsection
 @section('javascript')

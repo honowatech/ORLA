@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -42,6 +42,7 @@
 <body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
     <!-- BEGIN: Content-->
     @yield('content')
+    @include('partials.lang-links')
     <!-- END: Content-->
 <!-- pop-up message succes -->
 @if(session()->has('message'))
@@ -50,8 +51,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120"> Informations... </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-dark" id="myModalLabel120"> {{ __('Informations...') }} </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span class="text-dark" aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -72,8 +73,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title text-secondary" id="myModalLabel120">Confirmation!</h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title text-secondary" id="myModalLabel120">{{ __('Confirmation!') }}</h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -103,9 +104,9 @@
     <footer class="footer footer-static footer-light">
         <p class="clearfix mb-0">
             <span class="float-md-left d-block d-md-inline-block mt-25">
-                COPYRIGHT &copy; 2024
-                <a class="ml-25" href="https://honowa.com" target="_blank">Honowa Technologies</a>
-                <span class="d-none d-sm-inline-block">, Tous les droits reservés</span>
+                {{ __('COPYRIGHT © 2024') }}
+                <a class="ml-25" href="https://honowa.com" target="_blank">{{ __('Honowa Technologies') }}</a>
+                <span class="d-none d-sm-inline-block">{{ __(', Tous les droits reservés') }}</span>
             </span>
             <span class="float-md-right d-none d-md-block">
             </span>
@@ -156,7 +157,7 @@
             for (var i = 0; i < destroy_form.length; i++) {
                 destroy_form[i].action = lien;
             }
-            destroy_title.innerHTML = 'Vous êtes sur de vouloir '+action+' ? <br> <br> '+noms+' ';
+            destroy_title.innerHTML = @json(__('Vous êtes sur de vouloir'))+' '+action+' ? <br> <br> '+noms+' ';
             document.querySelector('#confirm_footer').innerHTML = document.querySelector('#'+id_remplir).innerHTML
             $('#danger').modal();
         }

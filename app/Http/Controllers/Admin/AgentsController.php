@@ -144,7 +144,7 @@ class AgentsController extends Controller
       $agent->id_utilisateur = $utilisateur->id;
       $agent->save();
 
-      $message = "Agent et utilisateur lié créés avec <b class='text-success'>Succès.</b>";
+      $message = __('Agent et utilisateur lié créés avec <b class=\'text-success\'>Succès.</b>');
       session()->flash('message',$message);
     }else{
       $agent = new Agents;
@@ -153,7 +153,7 @@ class AgentsController extends Controller
       $agent->telephone = $telephone;
       $agent->statut = 1;
       $agent->save();
-      $message = "Agent créé avec <b class='text-success'>Succès.</b>";
+      $message = __('Agent créé avec <b class=\'text-success\'>Succès.</b>');
       session()->flash('message',$message);
     }
     return redirect()->route('agents.show',$agent->id);
@@ -262,7 +262,7 @@ class AgentsController extends Controller
           $utilisateur->telephone = $telephone;
           $utilisateur->save();
     }
-    $message = "Agent mis à jour avec <b class='text-success'>Succès.</b>";
+    $message = __('Agent mis à jour avec <b class=\'text-success\'>Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('agents.show',$agent->id);
   }
@@ -298,7 +298,7 @@ class AgentsController extends Controller
             $utilisateur->statut = 1;
             $utilisateur->save();
         }
-        $message = $agent->noms.' '.$agent->prenoms." <b class='text-success'> Activé avec Succès.</b>";
+        $message = __(':v1 :v2 <b class=\'text-success\'> Activé avec Succès.</b>', ['v1' => $agent->noms, 'v2' => $agent->prenoms]);
       }else{
         if($agent->id_utilisateur!=null){
             $utilisateur = Users::findOrFail($agent->id_utilisateur);
@@ -306,7 +306,7 @@ class AgentsController extends Controller
             $utilisateur->save();
         }
         $agent->statut = 0;
-        $message = $agent->noms.' '.$agent->prenoms." <b class='text-success'> Desactivé avec Succès.</b>";
+        $message = __(':v1 :v2 <b class=\'text-success\'> Desactivé avec Succès.</b>', ['v1' => $agent->noms, 'v2' => $agent->prenoms]);
       }
       $agent->save();
       session()->flash('message',$message);

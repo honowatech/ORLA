@@ -107,7 +107,7 @@ class Details_commandeController extends Controller
     // dd($date);
 //////////////////////////////////////////////////////////////////////////////////////////////////////
     if ($id_client == null || $date == null) 
-      return '<center> <b class="text-danger"> Attention ! </b> Veuillez remplir les informatios </center>';
+      return __('<center> <b class="text-danger"> Attention ! </b> Veuillez remplir les informatios </center>');
 //////////////////////////////////////////////////////////////////////////////////////////////////////
     $type_client = Clients::findOrFail($id_client)->type__client->libelle;
     if (strtoupper($type_client) == strtoupper('Simple')) {
@@ -121,7 +121,7 @@ class Details_commandeController extends Controller
                             ->get();
 //////////////////////////////////////////////////////////////////////////////////////////////////////
     if ($commandes->count()==0)
-      return '<center><b> Aucune information disponible </b></center>';
+      return __('<center><b> Aucune information disponible </b></center>');
 //////////////////////////////////////////////////////////////////////////////////////////////////////
     $montant_recuperer = 0;
     $montant_livraison = 0;
@@ -208,7 +208,7 @@ class Details_commandeController extends Controller
         } 
     }
     if (empty($donnees) || $error) {
-        $message = '<span class="text-danger text-center">Echec </span> du paiement';
+        $message = __('<span class="text-danger text-center">Echec </span> du paiement');
         $statut = false;
         $table = [
                     'message'   =>  $message,
@@ -216,7 +216,7 @@ class Details_commandeController extends Controller
                 ];
         return $table;
     }
-    $message = '<span class="text-success text-center">Succès </span> du paiement';
+    $message = __('<span class="text-success text-center">Succès </span> du paiement');
     $statut = true;
     $paiement = new Paiement;
     $paiement->montant = $donnees['montant'];

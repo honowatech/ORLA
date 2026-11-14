@@ -110,7 +110,7 @@ class BoutiquesController extends Controller
       $boutique->quartier = $localisation;
       $boutique->statut = 1;
       $boutique->save();
-    $message = "Boutique crée avec <b class='text-success'>Succès.</b>";
+    $message = __('Boutique crée avec <b class=\'text-success\'>Succès.</b>');
     session()->flash('message',$message);
     return redirect()->back();
   }
@@ -219,10 +219,10 @@ class BoutiquesController extends Controller
     $boutique = Boutiques::findOrFail($id);
     if ($boutique->statut == 0) {
       $boutique->statut = 1;
-      $message = 'Boutique "'.$boutique->libelle.'" Activée avec <b class="text-success"> Succès.</b>';
+      $message = __('Boutique ":v1" Activée avec <b class="text-success"> Succès.</b>', ['v1' => $boutique->libelle]);
     }else{
       $boutique->statut = 0;
-      $message = 'Boutique "'.$boutique->libelle.'" Desactivée avec <b class="text-success"> Succès.</b>';
+      $message = __('Boutique ":v1" Desactivée avec <b class="text-success"> Succès.</b>', ['v1' => $boutique->libelle]);
     }
     $boutique->save();
     session()->flash('message',$message);

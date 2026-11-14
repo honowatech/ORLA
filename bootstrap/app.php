@@ -28,6 +28,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\Admin_filter::class,
         ]);
 
+        $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
+        ]);
+
         $middleware->alias([
             'filter' => \App\Http\Middleware\Filter::class,
             'coursier_filter' => \App\Http\Middleware\Coursier_filter::class,

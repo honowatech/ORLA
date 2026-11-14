@@ -12,12 +12,12 @@
     	 <div class="content-header-left col-md-12 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Liste des Prix_livraison</h2>
+                        <h2 class="content-header-title float-left mb-0">{{ __('Liste des Prix_livraison') }}</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Liste des Prix_livraison
+                            <li class="breadcrumb-item active">{{ __('Liste des Prix_livraison') }}
                             </li>
                         </ol>
                     </div>
@@ -36,7 +36,7 @@
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
                                     </div>
-                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('recherche')}}" placeholder="Rechercher une zone ou un prix">
+                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('recherche')}}" placeholder="{{ __('Rechercher une zone ou un prix') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="page" id="page" value="">
@@ -49,9 +49,9 @@
                             <table class="table">
                                 <thead>
                                     <tr class="text-center">
-                                        <th>Zone depart</th>
-                                        <th>Zone Arrivée</th>
-                                        <th class=" col-4">Montant</th>
+                                        <th>{{ __('Zone depart') }}</th>
+                                        <th>{{ __('Zone Arrivée') }}</th>
+                                        <th class=" col-4">{{ __('Montant') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,7 +65,7 @@
 	                                        </td>
 	                                        <td>
                                                 <div class="d-flex justify-content-center col-lg-10 col-xl-8 col-xxl-4 mx-auto ">
-                                                    <span class="cursor-pointer my-auto" title="Double-cliquer pour modifier" ondblclick="edit('{{$montant_livraison->id}}')" id="montant_{{$montant_livraison->id}}">{{$montant_livraison->montant}}</span>
+                                                    <span class="cursor-pointer my-auto" title="{{ __('Double-cliquer pour modifier') }}" ondblclick="edit('{{$montant_livraison->id}}')" id="montant_{{$montant_livraison->id}}">{{$montant_livraison->montant}}</span>
                                                     <input onblur="change('{{$montant_livraison->id}}')" onkeyup="touche_clavier('{{$montant_livraison->id}}')" id="input_{{$montant_livraison->id}}" value="{{$montant_livraison->montant}}" hidden type="number" style="max-width: 90px; min-width: 90px; height:30px;" class="form-control text-center" name="montant"> 
                                                     <div class="spinner-border text-dark" hidden role="status" id="spinner{{$montant_livraison->id}}" style="max-width: 30px; min-width: 30px; height:30px;"></div>
                                                     <span class="my-auto" style="margin-left: 0.5rem;">FCFA</span>
@@ -83,11 +83,11 @@
                             {{-- Previous Page Link --}}
                                 @if ($montant_livraisons->onFirstPage())
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Précédent</span>
+                                        <span disabled class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $montant_livraisons->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $montant_livraisons->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
                                 @for($i=1;$i<=$montant_livraisons->lastPage();$i++)
@@ -98,11 +98,11 @@
                                 {{-- Next Page Link --}}
                                 @if ($montant_livraisons->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $montant_livraisons->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $montant_livraisons->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Suivant</span>
+                                        <span disabled class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -119,9 +119,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 
 <div class="modal fade modal-danger text-left" id="message-success" tabindex="-1" role="dialog" aria-labelledby="message-success" aria-hidden="true">
@@ -129,8 +129,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div></div>
-                <h3 class="modal-title text-dark" id="myModalLabel120"> Information </h3>
-                <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close" autofocus>
+                <h3 class="modal-title text-dark" id="myModalLabel120"> {{ __('Information') }} </h3>
+                <button type="button" class="close m-0" data-dismiss="modal" aria-label="{{ __('Close') }}" autofocus>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -139,7 +139,7 @@
             </p>
         </div>
         <div class="modal-footer" style="justify-content: center;">
-            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">Terminer</button>
+            <button type="button" class="btn btn-gradient-info btn-info round waves-effect waves-float waves-light" data-dismiss="modal">{{ __('Terminer') }}</button>
         </div>
         </div>
     </div>
@@ -174,7 +174,7 @@
                 input = document.querySelector('#input_'+id_table),
                 spinner = document.querySelector('#spinner'+id_table),
                 montant = input.value < 0 ? 0 : input.value ;
-            success_message.innerHTML = 'Chargement du message...';
+            success_message.innerHTML = @json(__('Chargement du message...'));
             span.hidden = true;
             input.hidden = true;
             spinner.hidden = false;
@@ -191,7 +191,7 @@
                     },
                     error: function(){
                         input.value = span.innerHTML;
-                        success_message.innerHTML = '<h3 class="text-danger">Erreur</h3>! <br> Demande rejétée'; 
+                        success_message.innerHTML = '<h3 class="text-danger">{{ __('Erreur') }}</h3>! <br> {{ __('Demande rejétée') }}'; 
                     }
             }); 
                         success.click(); 

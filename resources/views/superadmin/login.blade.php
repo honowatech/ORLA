@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -9,7 +9,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Se Connecter</title>
+    <title>{{ __('Se Connecter') }}</title>
     <link rel="shortcut icon" href="{{Sa_logo()}}">
     <link rel="apple-touch-icon" href="{{Sa_logo()}}">
     
@@ -53,12 +53,12 @@
                             <div class="card-body">
                                 <div class="col-12 mt-1 mb-2 text-center">
                                     <a class="navbar-brand" href="{{route('SuperAdmin.home')}}">
-                                        <img class="d-none d-lg-block" src="{{Sa_logo()}}" alt="avatar" height="100" width="150">
-                                        <img  class="d-block d-lg-none" src="{{Sa_logo()}}" alt="avatar" height="70" width="100">
+                                        <img class="d-none d-lg-block" src="{{Sa_logo()}}" alt="{{ __('avatar') }}" height="100" width="150">
+                                        <img  class="d-block d-lg-none" src="{{Sa_logo()}}" alt="{{ __('avatar') }}" height="70" width="100">
                                     </a>
                                 </div>
-                                <h4 class="text-center card-title mb-1">Votre Espace <b>Super Admin</b></h4>
-                                <p class="text-center card-text mb-2">Connectez vous pour accèder à l'application</p>
+                                <h4 class="text-center card-title mb-1">{{ __('Votre Espace') }} <b>{{ __('Super Admin') }}</b></h4>
+                                <p class="text-center card-text mb-2">{{ __('Connectez vous pour accèder à l\'application') }}</p>
 
                                 <form class="auth-login-form" method="POST" action="{{ route('SuperAdmin.connect') }}">
                                     @csrf
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="d-flex justify-content-between align-items-end">
-                                            <label for="login-password">Mot de Passe</label>
+                                            <label for="login-password">{{ __('Mot de Passe') }}</label>
                                             {{-- @if (Route::has('password.request'))
                                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                                     <small>{{ __('Mot de passe Oublié?') }}</small>
@@ -90,6 +90,7 @@
                                     </div>
                                     <button class="btn col-8 btn-primary btn-gradient-primary mt-5 mx-auto btn-block" tabindex="4">{{ __('Se Connecter') }}</button>
                                 </form>
+                                @include('partials.lang-links')
 
                                 <div class="divider">
                                 </div>

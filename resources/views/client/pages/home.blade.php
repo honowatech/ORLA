@@ -20,7 +20,7 @@
         <div class="content-wrapper">
             <div class="content-body">
                 <div class="bs-stepper checkout-tab-steps">
-                    <h2 class="text-center">Livraisons En attente</h2>
+                    <h2 class="text-center">{{ __('Livraisons En attente') }}</h2>
                     <div class="bs-stepper-content">
                         <!-- Checkout Place order starts -->
                             <div id="place-order" class="list-view col-12 col-md-8 mx-auto p-0">
@@ -29,7 +29,7 @@
                                     @if($commandes->count() == 0)
                                         <div class="card p-2">
                                             <div class="item-img">
-                                                <h2 class="text-center">AUCUNE COMMANDE !</h2>
+                                                <h2 class="text-center">{{ __('AUCUNE COMMANDE !') }}</h2>
                                             </div>
                                         </div>
                                     @endif
@@ -45,16 +45,16 @@
                                                         @if(isset($commande->coursier))
                                                             <h6 class="mb-0">
                                                                 {{$commande->coursier->noms}} {{$commande->coursier->Prenoms}}
-                                                            <span class="item-company">( Coursier )</span>
+                                                            <span class="item-company">{{ __('( Coursier )') }}</span>
                                                             </h6>
                                                             <button class="text-center font-weight-bolder cursor-pointer btn btn-sm btn-dark mx-auto" style="width: fit-content;" onclick="copy('{{phone2(explode('*/*',$commande->adresse_colis)[0])}}')">
                                                                 {{phone(explode('*/*',$commande->adresse_colis)[0])}}<i data-feather='copy' class="ml-50"></i>
                                                             </button>
                                                         @else
-                                                            <span class="item-company">Cette Commande n'est pas encore attribuée</span>
+                                                            <span class="item-company">{{ __('Cette Commande n\'est pas encore attribuée') }}</span>
                                                         @endif
                                                         <div class=" mx-auto">
-                                                            Frais :  <span class="font-weight-bolder">{{formatMontant($commande->montant_livraison)}} XAF</span>
+                                                            {{ __('Frais :') }}  <span class="font-weight-bolder">{{formatMontant($commande->montant_livraison)}} XAF</span>
                                                         </div>
                                                     </div>
                                                     <span class="text-dark font-weight-bolder mb-1">
@@ -73,17 +73,17 @@
                                                         {{phone(explode('*/*',$commande->adresse_colis)[0])}}<i data-feather='copy' class="ml-50"></i>
                                                     </button>
                                                     <div class=" mx-auto">
-                                                        <span class="quantity-title text-underline font-weight-bolder">Description :</span>
+                                                        <span class="quantity-title text-underline font-weight-bolder">{{ __('Description :') }}</span>
                                                         <br>
                                                         <span class="text-left input-group quantity-counter-wrapper" title="{!!$commande->description!!}">
                                                             {!!$commande->description!!}
                                                         </span>
                                                     </div>
                                                     <span class="delivery-date">
-                                                        Prévu pour le 
+                                                        {{ __('Prévu pour le') }} 
                                                         <span class="font-weight-bold text-dark">
                                                             {{Ladate($commande->date_livraison)}}
-                                                        </span> à 
+                                                        </span> {{ __('à') }} 
                                                         <span class="font-weight-bold text-dark">
                                                             {{Heure($commande->date_livraison) == '00h00min' ? 'Tout moment' : Heure($commande->date_livraison)}}
                                                         </span>
@@ -97,26 +97,26 @@
                                                             @endphp
                                                         @endif
                                                             @if($commande->statut != 'livre' && strtotime($commande->date_livraison) >= $new_date)
-                                                            <span title="Le date n'est pas encore arrivée">
+                                                            <span title="{{ __('Le date n\'est pas encore arrivée') }}">
                                                                 <i data-feather='clock' class="text-success font-weight-bold"></i>
                                                             </span>
                                                             @elseif($commande->statut != 'livre' && strtotime($commande->date_livraison) < $new_date)
-                                                            <span title="Délai dépassé">
+                                                            <span title="{{ __('Délai dépassé') }}">
                                                                 <i data-feather='clock' class="text-danger font-weight-bold"></i> 
                                                             </span>
                                                             @endif
                                                     </span>
-                                                    <small class="text-muted">Enregistrée par {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? 'Speedex' : 'Client'}}</small>
+                                                    <small class="text-muted">{{ __('Enregistrée par') }} {{in_array($commande->enregistreur->type_utilisateur->libelle,['Agent','Super Admin']) ? 'Speedex' : 'Client'}}</small>
                                                 </div>
                                                 <div class="item-options text-center">
                                                     @if($commande->disponibility != 1)
-                                                    <div class="badge badge-pill badge-glow badge-danger">Client Indisponible</div>
+                                                    <div class="badge badge-pill badge-glow badge-danger">{{ __('Client Indisponible') }}</div>
                                                     @else
-                                                    <div class="badge badge-pill badge-glow badge-success">Client disponible</div>
+                                                    <div class="badge badge-pill badge-glow badge-success">{{ __('Client disponible') }}</div>
                                                     @endif
                                                     <div class="item-wrapper">
                                                         <div class="item-cost mb-1">
-                                                            <small class="pb-1 text-muted">Montant à récupérer</small>
+                                                            <small class="pb-1 text-muted">{{ __('Montant à récupérer') }}</small>
                                                             <h5 class="font-weight-bolder">{{formatMontant($commande->montant_recuperer)}} XAF</h5>
                                                             <p class="card-text shipping">
                                                                 @if($commande->statut == 'attribue')
@@ -144,20 +144,20 @@
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <button type="button" data-toggle="modal" data-target="#danger" class="btn btn-danger btn-gradient-danger btn-sm mt-1 text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Clientcommandes.destroy',$commande->id)}}','', 'Changer le statut de la commande ','button_remove')">
+                                                    <button type="button" data-toggle="modal" data-target="#danger" class="btn btn-danger btn-gradient-danger btn-sm mt-1 text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Clientcommandes.destroy',$commande->id)}}','', '{{ __('Changer le statut de la commande') }} ','button_remove')">
                                                         <i data-feather="x" class="mr-50"></i>
-                                                        Annuler la livraison
+                                                        {{ __('Annuler la livraison') }}
                                                     </button>
                                                     <hr class="w-100">
                                                     @if ($commande->disponibility == 1)
-                                                        <a type="button" data-toggle="modal" data-target="#danger" class="btn round btn-danger btn-gradient-danger btn-sm text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Clientusers.destroy',$commande->id)}}','', 'Rendre cette Commande Indisponible ','button_remove')">
+                                                        <a type="button" data-toggle="modal" data-target="#danger" class="btn round btn-danger btn-gradient-danger btn-sm text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Clientusers.destroy',$commande->id)}}','', '{{ __('Rendre cette Commande Indisponible') }} ','button_remove')">
                                                             <i data-feather="phone-off" class="mr-50"></i>
-                                                            <span>Se rendre Indisponible</span>
+                                                            <span>{{ __('Se rendre Indisponible') }}</span>
                                                         </a> 
                                                     @else
-                                                        <a type="button" data-toggle="modal" data-target="#danger" class="btn round btn-success btn-gradient-success btn-sm text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Clientusers.destroy',$commande->id)}}','', 'Rendre cette Commande Disponible ','button_remove')">
+                                                        <a type="button" data-toggle="modal" data-target="#danger" class="btn round btn-success btn-gradient-success btn-sm text-truncate" style="margin:0.5rem 0rem !important;" onclick="put_statut('annulee'); remplir('{{route('Clientusers.destroy',$commande->id)}}','', '{{ __('Rendre cette Commande Disponible') }} ','button_remove')">
                                                             <i data-feather="phone" class="mr-50"></i>
-                                                            <span>Rendre Disponible</span>
+                                                            <span>{{ __('Rendre Disponible') }}</span>
                                                         </a>
                                                     @endif
                                                     <span id="tospin_{{$commande->id}}"></span>

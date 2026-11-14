@@ -136,7 +136,7 @@ class Informations_personnelsController extends Controller
       $informations_personnel->id_quartier = $quartier;
       $informations_personnel->localisation = $localisation;
       $informations_personnel->save();
-    $message = "Informations personnels mis à jour avec <b class='text-success'> Succès.</b>";
+    $message = __('Informations personnels mis à jour avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route($type.'s.index');
   }

@@ -12,12 +12,12 @@
     	 <div class="content-header-left col-md-12 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Liste des Utilisateurs</h2>
+                        <h2 class="content-header-title float-left mb-0">{{ __('Liste des Utilisateurs') }}</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">Liste des Utilisateurs
+                            <li class="breadcrumb-item active">{{ __('Liste des Utilisateurs') }}
                             </li>
                         </ol>
                     </div>
@@ -29,7 +29,7 @@
 
             <div class="content-body"> 
                 <div class="row justify-content-between bg-light-secondary" >
-                    <a class="btn btn-dark col-lg-2 m-1" href="{{route('users.create')}}">Nouvel Utilisateur</a>
+                    <a class="btn btn-dark col-lg-2 m-1" href="{{route('users.create')}}">{{ __('Nouvel Utilisateur') }}</a>
                         <form action="{{ route('users.index') }}" class="col-lg-3 mt-1" id="search" method="POST">
                             @csrf
                             @method('GET')
@@ -38,7 +38,7 @@
                                     <div class="input-group-prepend ">
                                         <span class="input-group-text"><i data-feather='search'></i></span>
                                     </div>
-                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="Rechercher un coursier">
+                                    <input type="search" class="form-control" name="recherche" value="{{ session()->get('search')}}" placeholder="{{ __('Rechercher un coursier') }}">
                                 </div>
                             </div>
                             <input type="hidden" name="page" id="page" value="">
@@ -52,13 +52,13 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>N°</th>
-                                        <th>Noms Et Prénoms</th>
+                                        <th>{{ __('Noms Et Prénoms') }}</th>
                                         <th>E-mail</th>
-                                        <th>Avatar</th>
-                                        <th>Téléphone</th>
-                                        <th>Rôle</th>
-                                        <th>Statut</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('Avatar') }}</th>
+                                        <th>{{ __('Téléphone') }}</th>
+                                        <th>{{ __('Rôle') }}</th>
+                                        <th>{{ __('Statut') }}</th>
+                                        <th>{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -113,9 +113,9 @@
                                             <td>
                                                 <span class="badge badge-pill @if($user->statut == 0)badge-light-danger @else badge-light-success @endif">
                                             		@if($user->statut == 0)
-		                                             	Désactivé
+		                                             	{{ __('Désactivé') }}
 		                                            @else 
-		                                            	Actif
+		                                            	{{ __('Actif') }}
 		                                            @endif
                                                 </span>
                                             </td>
@@ -127,28 +127,28 @@
 	                                                <div class="dropdown-menu">
 	                                                    <a class="dropdown-item" href="{{route('users.show',$user->email)}}">
 	                                                        <i data-feather='eye'></i>
-	                                                        <span class="ml-1">Détails</span>
+	                                                        <span class="ml-1">{{ __('Détails') }}</span>
 	                                                    </a>
                                                         <a class="dropdown-item" href="{{route('users.edit',$user->email)}}">
                                                             <i data-feather="edit-2" class="mr-50"></i>
-                                                            <span class="ml-1">Editer</span>
+                                                            <span class="ml-1">{{ __('Editer') }}</span>
                                                         </a>
-                                                        <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}','{{$user->noms}}', ' Réinitialiser le mot de passe de ' ,'button_footer')" data-target="#danger">
+                                                        <span class="text-danger dropdown-item" data-toggle="modal" onclick="remplir('{{route('password.destroy',$user->id)}}','{{$user->noms}}', ' {{ __('Réinitialiser le mot de passe de') }} ' ,'button_footer')" data-target="#danger">
                                                                 <i data-feather='refresh-ccw'></i>
                                                                 <span class="ml-1 text-danger" type="button">
-                                                                    Réinitialiser
+                                                                    {{ __('Réinitialiser') }}
                                                                 </span> 
                                                         </span>
-                                                        <span class=" @if($user->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('users.destroy',$user->id)}}','{{$user->noms}}',@if($user->statut == 1) 'Désactiver' @else 'Activer' @endif ,'button_footer')" data-target="#danger">
+                                                        <span class=" @if($user->statut == 1) text-danger @else text-success @endif dropdown-item" data-toggle="modal" onclick="remplir('{{route('users.destroy',$user->id)}}','{{$user->noms}}',@if($user->statut == 1) '{{ __('Désactiver') }}' @else '{{ __('Activer') }}' @endif ,'button_footer')" data-target="#danger">
                                                             @if($user->statut == 1)
                                                                 <i data-feather='user-x'></i>
                                                                 <span class="ml-1 text-danger" type="button">
-                                                                    Désactiver
+                                                                    {{ __('Désactiver') }}
                                                                 </span>
                                                             @else
                                                                 <i data-feather='user-check'></i>
                                                                 <span class="ml-1 text-success" type="button">
-                                                                    Activer
+                                                                    {{ __('Activer') }}
                                                                 </span> 
                                                             @endif
                                                         </span>
@@ -167,11 +167,11 @@
                             {{-- Previous Page Link --}}
                                 @if ($users->onFirstPage())
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Précédent</span>
+                                        <span disabled class="page-link">{{ __('Précédent') }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $users->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">Précédent</a>
+                                        <a class="page-link" onclick="mettre({{ $users->currentPage()-1 }})" rel="prev" aria-label="@lang('pagination.previous')">{{ __('Précédent') }}</a>
                                     </li>
                                 @endif
                                 @for($i=1;$i<=$users->lastPage();$i++)
@@ -182,11 +182,11 @@
                                 {{-- Next Page Link --}}
                                 @if ($users->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" onclick="mettre({{ $users->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">Suivant</a>
+                                        <a class="page-link" onclick="mettre({{ $users->currentPage()+1 }})" rel="next" aria-label="@lang('pagination.next')">{{ __('Suivant') }}</a>
                                     </li>
                                 @else
                                     <li class="page-item" style="opacity: 0.6; cursor: no-drop;">
-                                        <span disabled class="page-link">Suivant</span>
+                                        <span disabled class="page-link">{{ __('Suivant') }}</span>
                                     </li>
                                 @endif
                             </ul>
@@ -203,9 +203,9 @@
     <form method="POST" class="destroy_form">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">Confirmer</button>
+        <button type="submit" class="btn btn-gradient-success btn-success round btn-lg">{{ __('Confirmer') }}</button>
     </form>
-<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">Annuler</button>
+<button type="button" class="btn btn-gradient-danger btn-danger round btn-lg" data-dismiss="modal">{{ __('Annuler') }}</button>
 </div>
 
 @endsection

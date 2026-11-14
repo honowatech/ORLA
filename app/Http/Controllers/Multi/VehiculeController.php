@@ -118,7 +118,7 @@ class VehiculeController extends Controller
     $vehicule->description = $description;
     $vehicule->id_ville = $id_ville;
     $vehicule->save(); 
-    $message = "Véhicule enregistré avec <b class='text-success'> Succès.</b>";
+    $message = __('Véhicule enregistré avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('vehicule.index');
   }
@@ -203,7 +203,7 @@ class VehiculeController extends Controller
     // dd($immatriculation,$couleur,$id_type,$marque,$modele,$description,$id_ville);
     $vehicule = Vehicule::findOrFail($id);
     if (filter(['routeur','superviseur_ville'],$user) == 'true' && $vehicule->id_ville != $user->id_ville) {
-      $message = "<b class='text-danger'> Erreur.</b> <br> Ce véhicule n'appartient pas à votre ville";
+      $message = __('<b class=\'text-danger\'> Erreur.</b> <br> Ce véhicule n\'appartient pas à votre ville');
       session()->flash('message',$message);
       return redirect()->route('vehicule.index');
     }
@@ -215,7 +215,7 @@ class VehiculeController extends Controller
     $vehicule->description = $description;
     $vehicule->id_ville = $id_ville;
     $vehicule->save();
-    $message = "Véhicule mis à jour avec <b class='text-success'> Succès.</b>";
+    $message = __('Véhicule mis à jour avec <b class=\'text-success\'> Succès.</b>');
     session()->flash('message',$message);
     return redirect()->route('vehicule.index');
   }
@@ -239,7 +239,7 @@ class VehiculeController extends Controller
     if ($attribuate != null) {
         $vehicule->id_coursier = null;
         $vehicule->save();
-        $message = "Véhicule  ".$nom_vehicule." desattribué  avec <b class='text-success'> Succès.</b>";
+        $message = __('Véhicule  :v1 desattribué  avec <b class=\'text-success\'> Succès.</b>', ['v1' => $nom_vehicule]);
         session()->flash('message',$message);
         return redirect()->back();
     }
@@ -247,21 +247,21 @@ class VehiculeController extends Controller
     $type = $request->input('type');
     if ($type == 'delete') {
       $vehicule->delete();
-      $message = "Véhicule  ".$nom_vehicule." supprimée <b class='text-success'> Succès.</b>";
+      $message = __('Véhicule  :v1 supprimée <b class=\'text-success\'> Succès.</b>', ['v1' => $nom_vehicule]);
       session()->flash('message',$message);
       return redirect()->back();
     }else{
       if ($vehicule->statut == 0) {
         $vehicule->statut = 1;
         $vehicule->save();
-        $message = "vehicule ".$nom_vehicule." Activé avec Succès.</b>";
+        $message = __('vehicule :v1 Activé avec Succès.</b>', ['v1' => $nom_vehicule]);
         session()->flash('message',$message);
         return redirect()->back();
         // code...
       }else{
         $vehicule->statut = 0;
         $vehicule->save();
-        $message = "Véhicule  ".$nom_vehicule." desactivé avec <b class='text-success'> Succès.</b>";
+        $message = __('Véhicule  :v1 desactivé avec <b class=\'text-success\'> Succès.</b>', ['v1' => $nom_vehicule]);
         session()->flash('message',$message);
         return redirect()->back();
       }

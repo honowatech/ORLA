@@ -20,12 +20,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Liste des commandes</h2>
+                            <h2 class="content-header-title float-left mb-0">{{ __('Liste des commandes') }}</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('home')}}">Acceuil</a>
+                                    <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('Acceuil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active"> Liste des commandes
+                                    <li class="breadcrumb-item active"> {{ __('Liste des commandes') }}
                                     </li>
                                 </ol>
                             </div>
@@ -128,7 +128,7 @@
             var result = document.querySelector('#'+id),
                 close_modal = document.querySelector('#close_modal'),
                 boutton_paiement = document.querySelector('#boutton_paiement');
-                document.querySelector('#tospin').innerHTML = 'Paiement ncours...';
+                document.querySelector('#tospin').innerHTML = @json(__('Paiement ncours...'));
                 boutton_paiement.hidden=true;
             jQuery.ajax({
                 url: lien,
@@ -156,7 +156,7 @@
                 },
                 error: function(){
                             document.querySelector('#tospin').innerHTML = "<span class='text-danger text-center'> Erreur !</span>";
-                            document.querySelector('#error_paie').innerHTML = "<div class='w-100 text-center'>Un problème est survenu veuillez atualiser la page !!! </div>";
+                            document.querySelector('#error_paie').innerHTML = "<div class='w-100 text-center'>{{ __('Un problème est survenu veuillez atualiser la page !!!') }} </div>";
                         setTimeout(function(){
                             document.querySelector('#tospin').innerHTML = '';
                             document.querySelector('#error_paie').innerHTML ='';
