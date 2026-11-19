@@ -105,6 +105,12 @@
                                     </div>
                                     <button class="btn btn-info btn-block" tabindex="4">{{ __('Se Connecter') }}</button>
                                 </form>
+                                @if (Route::has('register'))
+                                    <p class="text-center mt-2 mb-0">
+                                        <span>Nouveau sur Speedex ?</span>
+                                        <a href="{{ route('register') }}"><span>Créer un compte</span></a>
+                                    </p>
+                                @endif
                                 @if (config('demo.enabled'))
                                     <a class="btn btn-outline-primary btn-block mt-1" href="{{ route('demo.index') }}">Essayer la démo, sans compte</a>
                                 @endif

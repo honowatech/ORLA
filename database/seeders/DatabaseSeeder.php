@@ -27,6 +27,13 @@ class DatabaseSeeder extends Seeder {
     \App\Models\typeUtilisateur\TypeUtilisateur::create(array(
                 'libelle' => 'Client'
             ));
+        // type_client : 1 = entreprise, 2 = particulier (HomeController, commandes, inscription).
+    \App\Models\typeClient\TypeClient::create(array(
+                'libelle' => 'Entreprise'
+            ));
+    \App\Models\typeClient\TypeClient::create(array(
+                'libelle' => 'Particulier'
+            ));
     \App\Models\ville\Ville::create(array(
                 'libelle' => 'Douala',
                 'code' => 'Dla',
